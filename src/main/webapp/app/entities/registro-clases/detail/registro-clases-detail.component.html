@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="registroClases">
+      <h2 data-cy="registroClasesDetailsHeading"><span jhiTranslate="abfApp.registroClases.detail.title">Registro Clases</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ registroClases.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ registroClases.fecha | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.cantidadHoras">Cantidad Horas</span></dt>
+        <dd>
+          <span>{{ registroClases.cantidadHoras }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.asistenciaAlumno">Asistencia Alumno</span></dt>
+        <dd>
+          <span>{{ registroClases.asistenciaAlumno }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.mallaCurricular">Malla Curricular</span></dt>
+        <dd>
+          <div *ngIf="registroClases.mallaCurricular">
+            <a [routerLink]="['/malla-curricular', registroClases.mallaCurricular.id, 'view']">{{
+              registroClases.mallaCurricular.titulo
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.temas">Temas</span></dt>
+        <dd>
+          <div *ngIf="registroClases.temas">
+            <a [routerLink]="['/temas', registroClases.temas.id, 'view']">{{ registroClases.temas.titulo }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.funcionarios">Funcionarios</span></dt>
+        <dd>
+          <div *ngIf="registroClases.funcionarios">
+            <a [routerLink]="['/funcionarios', registroClases.funcionarios.id, 'view']">{{ registroClases.funcionarios.nombreCompleto }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.alumnos">Alumnos</span></dt>
+        <dd>
+          <div *ngIf="registroClases.alumnos">
+            <a [routerLink]="['/alumnos', registroClases.alumnos.id, 'view']">{{ registroClases.alumnos.nombreCompleto }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/registro-clases', registroClases.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

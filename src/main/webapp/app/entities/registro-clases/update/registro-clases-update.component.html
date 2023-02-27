@@ -1,0 +1,208 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-registro-clases-heading"
+        data-cy="RegistroClasesCreateUpdateHeading"
+        jhiTranslate="abfApp.registroClases.home.createOrEditLabel"
+      >
+        Crear o editar Registro Clases
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.fecha" for="field_fecha">Fecha</label>
+          <div class="input-group">
+            <input
+              id="field_fecha"
+              data-cy="fecha"
+              type="text"
+              class="form-control"
+              name="fecha"
+              ngbDatepicker
+              #fechaDp="ngbDatepicker"
+              formControlName="fecha"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('fecha')!.invalid && (editForm.get('fecha')!.dirty || editForm.get('fecha')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('fecha')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.cantidadHoras" for="field_cantidadHoras">Cantidad Horas</label>
+          <input
+            type="number"
+            class="form-control"
+            name="cantidadHoras"
+            id="field_cantidadHoras"
+            data-cy="cantidadHoras"
+            formControlName="cantidadHoras"
+          />
+          <div
+            *ngIf="
+              editForm.get('cantidadHoras')!.invalid && (editForm.get('cantidadHoras')!.dirty || editForm.get('cantidadHoras')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('cantidadHoras')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('cantidadHoras')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.asistenciaAlumno" for="field_asistenciaAlumno"
+            >Asistencia Alumno</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="asistenciaAlumno"
+            id="field_asistenciaAlumno"
+            data-cy="asistenciaAlumno"
+            formControlName="asistenciaAlumno"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.mallaCurricular" for="field_mallaCurricular"
+            >Malla Curricular</label
+          >
+          <select
+            class="form-control"
+            id="field_mallaCurricular"
+            data-cy="mallaCurricular"
+            name="mallaCurricular"
+            formControlName="mallaCurricular"
+            [compareWith]="compareMallaCurricular"
+          >
+            <option *ngIf="editForm.get(['mallaCurricular'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="mallaCurricularOption" *ngFor="let mallaCurricularOption of mallaCurricularsSharedCollection">
+              {{ mallaCurricularOption.titulo }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['mallaCurricular'])!.invalid &&
+            (editForm.get(['mallaCurricular'])!.dirty || editForm.get(['mallaCurricular'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['mallaCurricular'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            Este campo es obligatorio.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.temas" for="field_temas">Temas</label>
+          <select class="form-control" id="field_temas" data-cy="temas" name="temas" formControlName="temas" [compareWith]="compareTemas">
+            <option *ngIf="editForm.get(['temas'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="temasOption" *ngFor="let temasOption of temasSharedCollection">{{ temasOption.titulo }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['temas'])!.invalid && (editForm.get(['temas'])!.dirty || editForm.get(['temas'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['temas'])?.errors?.required" jhiTranslate="entity.validation.required">
+            Este campo es obligatorio.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.funcionarios" for="field_funcionarios">Funcionarios</label>
+          <select
+            class="form-control"
+            id="field_funcionarios"
+            data-cy="funcionarios"
+            name="funcionarios"
+            formControlName="funcionarios"
+            [compareWith]="compareFuncionarios"
+          >
+            <option *ngIf="editForm.get(['funcionarios'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="funcionariosOption" *ngFor="let funcionariosOption of funcionariosSharedCollection">
+              {{ funcionariosOption.nombreCompleto }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['funcionarios'])!.invalid && (editForm.get(['funcionarios'])!.dirty || editForm.get(['funcionarios'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['funcionarios'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            Este campo es obligatorio.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.alumnos" for="field_alumnos">Alumnos</label>
+          <select
+            class="form-control"
+            id="field_alumnos"
+            data-cy="alumnos"
+            name="alumnos"
+            formControlName="alumnos"
+            [compareWith]="compareAlumnos"
+          >
+            <option *ngIf="editForm.get(['alumnos'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="alumnosOption" *ngFor="let alumnosOption of alumnosSharedCollection">
+              {{ alumnosOption.nombreCompleto }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['alumnos'])!.invalid && (editForm.get(['alumnos'])!.dirty || editForm.get(['alumnos'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['alumnos'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            Este campo es obligatorio.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

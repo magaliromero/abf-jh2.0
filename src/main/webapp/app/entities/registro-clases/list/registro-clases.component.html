@@ -1,0 +1,170 @@
+<div>
+  <h2 id="page-heading" data-cy="RegistroClasesHeading">
+    <span jhiTranslate="abfApp.registroClases.home.title">Registro Clases</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="abfApp.registroClases.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-registro-clases"
+        [routerLink]="['/registro-clases/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="abfApp.registroClases.home.createLabel"> Crear nuevo Registro Clases </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="registroClases?.length === 0">
+    <span jhiTranslate="abfApp.registroClases.home.notFound">Ningún Registro Clases encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="registroClases && registroClases.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fecha">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.fecha">Fecha</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cantidadHoras">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.cantidadHoras">Cantidad Horas</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="asistenciaAlumno">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.asistenciaAlumno">Asistencia Alumno</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="mallaCurricular.titulo">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.mallaCurricular">Malla Curricular</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="temas.titulo">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.temas">Temas</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="funcionarios.nombreCompleto">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.funcionarios">Funcionarios</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="alumnos.nombreCompleto">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.alumnos">Alumnos</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registroClases of registroClases; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/registro-clases', registroClases.id, 'view']">{{ registroClases.id }}</a>
+          </td>
+          <td>{{ registroClases.fecha | formatMediumDate }}</td>
+          <td>{{ registroClases.cantidadHoras }}</td>
+          <td>{{ registroClases.asistenciaAlumno }}</td>
+          <td>
+            <div *ngIf="registroClases.mallaCurricular">
+              <a [routerLink]="['/malla-curricular', registroClases.mallaCurricular.id, 'view']">{{
+                registroClases.mallaCurricular.titulo
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="registroClases.temas">
+              <a [routerLink]="['/temas', registroClases.temas.id, 'view']">{{ registroClases.temas.titulo }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="registroClases.funcionarios">
+              <a [routerLink]="['/funcionarios', registroClases.funcionarios.id, 'view']">{{
+                registroClases.funcionarios.nombreCompleto
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="registroClases.alumnos">
+              <a [routerLink]="['/alumnos', registroClases.alumnos.id, 'view']">{{ registroClases.alumnos.nombreCompleto }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/registro-clases', registroClases.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/registro-clases', registroClases.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(registroClases)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="registroClases && registroClases.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

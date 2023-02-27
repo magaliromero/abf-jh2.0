@@ -1,0 +1,47 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20230227212246",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "temas",
+  "fields": [
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "titulo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Temas",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "registroClases",
+      "otherEntityRelationshipName": "temas",
+      "relationshipName": "registroClases",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "titulo",
+      "otherEntityName": "mallaCurricular",
+      "otherEntityRelationshipName": "temas",
+      "ownerSide": false,
+      "relationshipName": "mallaCurricular",
+      "relationshipType": "many-to-many",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,85 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20230227212046",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "alummos",
+  "fields": [
+    {
+      "fieldName": "elo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fideId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nombres",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "apellidos",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nombreCompleto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "documento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadosPersona",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ACTIVO (Activo),INACTIVO (Inactivo)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Alumnos",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "matricula",
+      "otherEntityRelationshipName": "alumnos",
+      "relationshipName": "matricula",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "registroClases",
+      "otherEntityRelationshipName": "alumnos",
+      "relationshipName": "registroClases",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "tiposDocumentos",
+      "otherEntityRelationshipName": "alumnos",
+      "relationshipName": "tipoDocumentos",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}
