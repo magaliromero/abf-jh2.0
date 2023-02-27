@@ -1,20 +1,3 @@
-application {
-  config {
-  	applicationType monolith
-    baseName abf
-    packageName py.com.abf
-    authenticationType jwt
-    prodDatabaseType postgresql
-    devDatabaseType postgresql
-    buildTool maven
-    clientFramework angular
-    enableTranslation true
-    nativeLanguage es
-    languages [en, es]
-  }
-  entities *
-}
-
 enum EstadosPagos{
  	PAGADO(Pagado)
     ANULADO(Anulado)
