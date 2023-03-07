@@ -77,6 +77,17 @@ entity RegistroClases(registro_clases){
     //malla
 }
 
+entity Torneos(torneos){
+	nombreTorneo  String required
+    fechaInicio  LocalDate  required
+    fechaFin  LocalDate  required
+    lugar String
+    duración integer //en minutos
+    tipoTorneo String
+    torneoEvaluado Boolean
+    federado Boolean
+    }
+
 relationship OneToMany {
 	TiposDocumentos to Alumnos { tipoDocumentos(descripcion) required },
     TiposDocumentos to Funcionarios { tipoDocumentos(descripcion) required },
@@ -85,10 +96,12 @@ relationship OneToMany {
     Temas to RegistroClases{temas(titulo) required}
     Funcionarios to RegistroClases{funcionarios(nombreCompleto) required}
     Alumnos to RegistroClases{alumnos(nombreCompleto) required}
+    
 }
 
 relationship ManyToMany{
 	MallaCurricular {temas(titulo) required} to Temas{mallaCurricular(titulo) required} 
+   
 }
 
 service all with serviceClass
