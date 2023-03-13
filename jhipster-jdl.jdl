@@ -1,5 +1,3 @@
-
-
 enum EstadosPagos{
  	PAGADO(Pagado)
     ANULADO(Anulado)
@@ -26,6 +24,18 @@ entity TiposDocumentos(tipos_documentos){
 	codigo String required,
     descripcion String required
 }
+
+entity Personas(registro_clases){
+    documento Integer required,
+    nombreCompleto String required,
+    direccion String required,
+    fecha_nac LocalDate required,
+    barrio String required,
+    ciudad String required,
+    telefono String required
+}
+
+
 entity Alumnos(alummos){
 	elo Integer,
     fideId Integer,
@@ -38,6 +48,7 @@ entity Alumnos(alummos){
 	documento String required,
     estado EstadosPersona required
 }
+
 entity Funcionarios(funcionarios){
 	elo Integer,
     fideId Integer,
@@ -51,9 +62,10 @@ entity Funcionarios(funcionarios){
     estado EstadosPersona required,
     tipoFuncionario TipoFuncionarios
 }
+
 entity Temas(temas){
 	codigo String required,
-    titulo String required,
+    nombre_tema String required,
     descripcion String required
 }
 
@@ -79,14 +91,73 @@ entity RegistroClases(registro_clases){
     //malla
 }
 
+entity Pagos(pagos){
+    monto_pago float required,
+    monto_inicial float required,
+    saldo float required,
+	fecha_registro LocalDate  required,
+    fecha_pago LocalDate required,
+    tipo_pago String required,
+    descripcion String required,
+    id_usuario_registro Integer required
+}
+
+entity Niveles(niveles){
+    descripcion_nivel String required,
+    estado Boolean required,
+    id_examen Integer required,
+    fecha_creacion LocalDate required,
+    fecha_modificacion LocalDate required
+}
+
+entity Roles(roles){
+    descripcion_rol String required,
+    estado Boolean required,
+    fecha_creacion LocalDate required,
+    fecha_modificacion LocalDate required
+}
+
+entity Usuarios(usuarios){
+    documento Integer required,
+    id_rol Integer required
+}
+
+entity Prestamos(prestamos){
+    fecha_prestamo LocalDate required,
+    vigencia_prestamo Integer required,
+    fecha_devolucion LocalDate required
+}
+
+entity Torneos(torneos){
+    nombre_torneo String required,
+    fecha_inicio LocalDate required,
+    fecha_fin  LocalDate required,
+    lugar String required,
+    tiempo String,
+    tipo_torneo String,
+    torneo_evaluado Boolean required,
+    federado Boolean required,
+}
+
+
 relationship OneToMany {
 	TiposDocumentos to Alumnos { tipoDocumentos(descripcion) required },
     TiposDocumentos to Funcionarios { tipoDocumentos(descripcion) required },
-    Alumnos to Matricula  { alumnos(nombreCompleto) required }
-    MallaCurricular to RegistroClases{mallaCurricular(titulo) required}
-    Temas to RegistroClases{temas(titulo) required}
-    Funcionarios to RegistroClases{funcionarios(nombreCompleto) required}
-    Alumnos to RegistroClases{alumnos(nombreCompleto) required}
+    Alumnos to Matricula  { alumnos(nombreCompleto) required },
+    MallaCurricular to RegistroClases{mallaCurricular(titulo) required},
+    Temas to RegistroClases{temas(titulo) required},
+    Funcionarios to RegistroClases{funcionarios(nombreCompleto) required},
+    Alumnos to RegistroClases {alumnos(nombreCompleto) required},
+    Alumnos to Pagos {alumnos(nombreCompleto) required},
+    Pagos to Niveles {pagos(id_nivel) required} ,
+    Pagos to Personas {pagos(id_persona) required},
+    Pagos to Alumnos {pagos(id_nivel) required},
+    Niveles to Alumnos {niveles(id_nivel) required},
+    Niveles to Cursos {niveles(id_nivel) required},
+    Personas to Alumnos {personas(documento) required}, 
+    Personas to Pagos {personas(id_pago) required},
+    Roles to Usuarios {roles(id_rol) required},
+    Torneos to Fichas_partidas_torneos {torneos(id_torneo) required}
 }
 
 relationship ManyToMany{
