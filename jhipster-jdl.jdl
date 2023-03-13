@@ -78,6 +78,17 @@ entity RegistroClases(registro_clases){
     //malla
 }
 
+entity Torneos(torneos){
+	nombreTorneo  String required
+    fechaInicio  LocalDate  required
+    fechaFin  LocalDate  required
+    lugar String
+    duración integer //en minutos
+    tipoTorneo String
+    torneoEvaluado Boolean
+    federado Boolean
+    }
+
 entity Materiales(materiales){
 	descripcion String required,
     estado String required, // En stock, en prestamo, Pendiente de devolución
@@ -103,9 +114,14 @@ entity Evaluaciones (evaluaciones){
     idExamen Integer,
     idActa Integer, 
     fecha LocalDate required,
-    puntosLogrados Integer required,
+    puntosLogrados Integer,
     porcentaje Integer,
     comentarios String,
+
+}
+
+entity Inscripciones (inscripciones){
+    fecha LocalDate,
 }
 
 
@@ -119,6 +135,7 @@ relationship OneToMany {
     Alumnos to RegistroClases{alumnos(nombreCompleto) required},
     Niveles to Cursos {Cursos(nombreCurso) required},
     Alumnos to Evaluaciones{alumnos(nombreCompleto) required}
+    Alumnos to Inscripciones  { alumnos(nombreCompleto) required },
 }
 
 relationship ManyToMany{
