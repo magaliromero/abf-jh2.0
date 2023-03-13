@@ -85,10 +85,6 @@ entity RegistroClases(registro_clases){
 	fecha LocalDate  required
     cantidadHoras Integer required
     asistenciaAlumno Boolean
-    //profesor 
-    //alumno
-    //tema
-    //malla
 }
 
 entity Pagos(pagos){
