@@ -85,9 +85,6 @@ public class TemasQueryService extends QueryService<Temas> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Temas_.id));
             }
-            if (criteria.getCodigo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCodigo(), Temas_.codigo));
-            }
             if (criteria.getTitulo() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTitulo(), Temas_.titulo));
             }

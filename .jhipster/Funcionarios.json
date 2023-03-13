@@ -1,5 +1,5 @@
 {
-  "applications": ["abf"],
+  "applications": "*",
   "changelogDate": "20230227212146",
   "dto": "no",
   "embedded": false,
@@ -70,6 +70,12 @@
       "otherEntityName": "registroClases",
       "otherEntityRelationshipName": "funcionarios",
       "relationshipName": "registroClases",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "pagos",
+      "otherEntityRelationshipName": "funcionarios",
+      "relationshipName": "pagos",
       "relationshipType": "one-to-many"
     },
     {

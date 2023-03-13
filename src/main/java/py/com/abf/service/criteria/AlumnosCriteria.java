@@ -65,6 +65,12 @@ public class AlumnosCriteria implements Serializable, Criteria {
 
     private LongFilter registroClasesId;
 
+    private LongFilter pagosId;
+
+    private LongFilter evaluacionesId;
+
+    private LongFilter inscripcionesId;
+
     private LongFilter tipoDocumentosId;
 
     private Boolean distinct;
@@ -85,6 +91,9 @@ public class AlumnosCriteria implements Serializable, Criteria {
         this.estado = other.estado == null ? null : other.estado.copy();
         this.matriculaId = other.matriculaId == null ? null : other.matriculaId.copy();
         this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
+        this.pagosId = other.pagosId == null ? null : other.pagosId.copy();
+        this.evaluacionesId = other.evaluacionesId == null ? null : other.evaluacionesId.copy();
+        this.inscripcionesId = other.inscripcionesId == null ? null : other.inscripcionesId.copy();
         this.tipoDocumentosId = other.tipoDocumentosId == null ? null : other.tipoDocumentosId.copy();
         this.distinct = other.distinct;
     }
@@ -289,6 +298,51 @@ public class AlumnosCriteria implements Serializable, Criteria {
         this.registroClasesId = registroClasesId;
     }
 
+    public LongFilter getPagosId() {
+        return pagosId;
+    }
+
+    public LongFilter pagosId() {
+        if (pagosId == null) {
+            pagosId = new LongFilter();
+        }
+        return pagosId;
+    }
+
+    public void setPagosId(LongFilter pagosId) {
+        this.pagosId = pagosId;
+    }
+
+    public LongFilter getEvaluacionesId() {
+        return evaluacionesId;
+    }
+
+    public LongFilter evaluacionesId() {
+        if (evaluacionesId == null) {
+            evaluacionesId = new LongFilter();
+        }
+        return evaluacionesId;
+    }
+
+    public void setEvaluacionesId(LongFilter evaluacionesId) {
+        this.evaluacionesId = evaluacionesId;
+    }
+
+    public LongFilter getInscripcionesId() {
+        return inscripcionesId;
+    }
+
+    public LongFilter inscripcionesId() {
+        if (inscripcionesId == null) {
+            inscripcionesId = new LongFilter();
+        }
+        return inscripcionesId;
+    }
+
+    public void setInscripcionesId(LongFilter inscripcionesId) {
+        this.inscripcionesId = inscripcionesId;
+    }
+
     public LongFilter getTipoDocumentosId() {
         return tipoDocumentosId;
     }
@@ -335,6 +389,9 @@ public class AlumnosCriteria implements Serializable, Criteria {
             Objects.equals(estado, that.estado) &&
             Objects.equals(matriculaId, that.matriculaId) &&
             Objects.equals(registroClasesId, that.registroClasesId) &&
+            Objects.equals(pagosId, that.pagosId) &&
+            Objects.equals(evaluacionesId, that.evaluacionesId) &&
+            Objects.equals(inscripcionesId, that.inscripcionesId) &&
             Objects.equals(tipoDocumentosId, that.tipoDocumentosId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -356,6 +413,9 @@ public class AlumnosCriteria implements Serializable, Criteria {
             estado,
             matriculaId,
             registroClasesId,
+            pagosId,
+            evaluacionesId,
+            inscripcionesId,
             tipoDocumentosId,
             distinct
         );
@@ -378,6 +438,9 @@ public class AlumnosCriteria implements Serializable, Criteria {
             (estado != null ? "estado=" + estado + ", " : "") +
             (matriculaId != null ? "matriculaId=" + matriculaId + ", " : "") +
             (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +
+            (pagosId != null ? "pagosId=" + pagosId + ", " : "") +
+            (evaluacionesId != null ? "evaluacionesId=" + evaluacionesId + ", " : "") +
+            (inscripcionesId != null ? "inscripcionesId=" + inscripcionesId + ", " : "") +
             (tipoDocumentosId != null ? "tipoDocumentosId=" + tipoDocumentosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

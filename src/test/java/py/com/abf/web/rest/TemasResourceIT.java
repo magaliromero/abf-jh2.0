@@ -32,9 +32,6 @@ import py.com.abf.service.criteria.TemasCriteria;
 @WithMockUser
 class TemasResourceIT {
 
-    private static final String DEFAULT_CODIGO = "AAAAAAAAAA";
-    private static final String UPDATED_CODIGO = "BBBBBBBBBB";
-
     private static final String DEFAULT_TITULO = "AAAAAAAAAA";
     private static final String UPDATED_TITULO = "BBBBBBBBBB";
 
@@ -65,7 +62,7 @@ class TemasResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Temas createEntity(EntityManager em) {
-        Temas temas = new Temas().codigo(DEFAULT_CODIGO).titulo(DEFAULT_TITULO).descripcion(DEFAULT_DESCRIPCION);
+        Temas temas = new Temas().titulo(DEFAULT_TITULO).descripcion(DEFAULT_DESCRIPCION);
         // Add required entity
         MallaCurricular mallaCurricular;
         if (TestUtil.findAll(em, MallaCurricular.class).isEmpty()) {
@@ -86,7 +83,7 @@ class TemasResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Temas createUpdatedEntity(EntityManager em) {
-        Temas temas = new Temas().codigo(UPDATED_CODIGO).titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
+        Temas temas = new Temas().titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
         // Add required entity
         MallaCurricular mallaCurricular;
         if (TestUtil.findAll(em, MallaCurricular.class).isEmpty()) {
@@ -118,7 +115,6 @@ class TemasResourceIT {
         List<Temas> temasList = temasRepository.findAll();
         assertThat(temasList).hasSize(databaseSizeBeforeCreate + 1);
         Temas testTemas = temasList.get(temasList.size() - 1);
-        assertThat(testTemas.getCodigo()).isEqualTo(DEFAULT_CODIGO);
         assertThat(testTemas.getTitulo()).isEqualTo(DEFAULT_TITULO);
         assertThat(testTemas.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
     }
@@ -139,23 +135,6 @@ class TemasResourceIT {
         // Validate the Temas in the database
         List<Temas> temasList = temasRepository.findAll();
         assertThat(temasList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void checkCodigoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = temasRepository.findAll().size();
-        // set the field null
-        temas.setCodigo(null);
-
-        // Create the Temas, which fails.
-
-        restTemasMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(temas)))
-            .andExpect(status().isBadRequest());
-
-        List<Temas> temasList = temasRepository.findAll();
-        assertThat(temasList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -204,7 +183,6 @@ class TemasResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(temas.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
     }
@@ -221,7 +199,6 @@ class TemasResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(temas.getId().intValue()))
-            .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO))
             .andExpect(jsonPath("$.titulo").value(DEFAULT_TITULO))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION));
     }
@@ -242,71 +219,6 @@ class TemasResourceIT {
 
         defaultTemasShouldBeFound("id.lessThanOrEqual=" + id);
         defaultTemasShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllTemasByCodigoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        temasRepository.saveAndFlush(temas);
-
-        // Get all the temasList where codigo equals to DEFAULT_CODIGO
-        defaultTemasShouldBeFound("codigo.equals=" + DEFAULT_CODIGO);
-
-        // Get all the temasList where codigo equals to UPDATED_CODIGO
-        defaultTemasShouldNotBeFound("codigo.equals=" + UPDATED_CODIGO);
-    }
-
-    @Test
-    @Transactional
-    void getAllTemasByCodigoIsInShouldWork() throws Exception {
-        // Initialize the database
-        temasRepository.saveAndFlush(temas);
-
-        // Get all the temasList where codigo in DEFAULT_CODIGO or UPDATED_CODIGO
-        defaultTemasShouldBeFound("codigo.in=" + DEFAULT_CODIGO + "," + UPDATED_CODIGO);
-
-        // Get all the temasList where codigo equals to UPDATED_CODIGO
-        defaultTemasShouldNotBeFound("codigo.in=" + UPDATED_CODIGO);
-    }
-
-    @Test
-    @Transactional
-    void getAllTemasByCodigoIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        temasRepository.saveAndFlush(temas);
-
-        // Get all the temasList where codigo is not null
-        defaultTemasShouldBeFound("codigo.specified=true");
-
-        // Get all the temasList where codigo is null
-        defaultTemasShouldNotBeFound("codigo.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllTemasByCodigoContainsSomething() throws Exception {
-        // Initialize the database
-        temasRepository.saveAndFlush(temas);
-
-        // Get all the temasList where codigo contains DEFAULT_CODIGO
-        defaultTemasShouldBeFound("codigo.contains=" + DEFAULT_CODIGO);
-
-        // Get all the temasList where codigo contains UPDATED_CODIGO
-        defaultTemasShouldNotBeFound("codigo.contains=" + UPDATED_CODIGO);
-    }
-
-    @Test
-    @Transactional
-    void getAllTemasByCodigoNotContainsSomething() throws Exception {
-        // Initialize the database
-        temasRepository.saveAndFlush(temas);
-
-        // Get all the temasList where codigo does not contain DEFAULT_CODIGO
-        defaultTemasShouldNotBeFound("codigo.doesNotContain=" + DEFAULT_CODIGO);
-
-        // Get all the temasList where codigo does not contain UPDATED_CODIGO
-        defaultTemasShouldBeFound("codigo.doesNotContain=" + UPDATED_CODIGO);
     }
 
     @Test
@@ -494,7 +406,6 @@ class TemasResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(temas.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
 
@@ -544,7 +455,7 @@ class TemasResourceIT {
         Temas updatedTemas = temasRepository.findById(temas.getId()).get();
         // Disconnect from session so that the updates on updatedTemas are not directly saved in db
         em.detach(updatedTemas);
-        updatedTemas.codigo(UPDATED_CODIGO).titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
+        updatedTemas.titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
 
         restTemasMockMvc
             .perform(
@@ -558,7 +469,6 @@ class TemasResourceIT {
         List<Temas> temasList = temasRepository.findAll();
         assertThat(temasList).hasSize(databaseSizeBeforeUpdate);
         Temas testTemas = temasList.get(temasList.size() - 1);
-        assertThat(testTemas.getCodigo()).isEqualTo(UPDATED_CODIGO);
         assertThat(testTemas.getTitulo()).isEqualTo(UPDATED_TITULO);
         assertThat(testTemas.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
@@ -631,8 +541,6 @@ class TemasResourceIT {
         Temas partialUpdatedTemas = new Temas();
         partialUpdatedTemas.setId(temas.getId());
 
-        partialUpdatedTemas.descripcion(UPDATED_DESCRIPCION);
-
         restTemasMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedTemas.getId())
@@ -645,9 +553,8 @@ class TemasResourceIT {
         List<Temas> temasList = temasRepository.findAll();
         assertThat(temasList).hasSize(databaseSizeBeforeUpdate);
         Temas testTemas = temasList.get(temasList.size() - 1);
-        assertThat(testTemas.getCodigo()).isEqualTo(DEFAULT_CODIGO);
         assertThat(testTemas.getTitulo()).isEqualTo(DEFAULT_TITULO);
-        assertThat(testTemas.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
+        assertThat(testTemas.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
     }
 
     @Test
@@ -662,7 +569,7 @@ class TemasResourceIT {
         Temas partialUpdatedTemas = new Temas();
         partialUpdatedTemas.setId(temas.getId());
 
-        partialUpdatedTemas.codigo(UPDATED_CODIGO).titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
+        partialUpdatedTemas.titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
 
         restTemasMockMvc
             .perform(
@@ -676,7 +583,6 @@ class TemasResourceIT {
         List<Temas> temasList = temasRepository.findAll();
         assertThat(temasList).hasSize(databaseSizeBeforeUpdate);
         Temas testTemas = temasList.get(temasList.size() - 1);
-        assertThat(testTemas.getCodigo()).isEqualTo(UPDATED_CODIGO);
         assertThat(testTemas.getTitulo()).isEqualTo(UPDATED_TITULO);
         assertThat(testTemas.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }

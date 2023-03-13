@@ -30,6 +30,9 @@
       "estado": "Estado",
       "matricula": "Matricula",
       "registroClases": "Registro Clases",
+      "pagos": "Pagos",
+      "evaluaciones": "Evaluaciones",
+      "inscripciones": "Inscripciones",
       "tipoDocumentos": "Tipo Documentos"
     }
   }

@@ -23,8 +23,6 @@ public class TemasCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter codigo;
-
     private StringFilter titulo;
 
     private StringFilter descripcion;
@@ -39,7 +37,6 @@ public class TemasCriteria implements Serializable, Criteria {
 
     public TemasCriteria(TemasCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.codigo = other.codigo == null ? null : other.codigo.copy();
         this.titulo = other.titulo == null ? null : other.titulo.copy();
         this.descripcion = other.descripcion == null ? null : other.descripcion.copy();
         this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
@@ -65,21 +62,6 @@ public class TemasCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public StringFilter getCodigo() {
-        return codigo;
-    }
-
-    public StringFilter codigo() {
-        if (codigo == null) {
-            codigo = new StringFilter();
-        }
-        return codigo;
-    }
-
-    public void setCodigo(StringFilter codigo) {
-        this.codigo = codigo;
     }
 
     public StringFilter getTitulo() {
@@ -161,7 +143,6 @@ public class TemasCriteria implements Serializable, Criteria {
         final TemasCriteria that = (TemasCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(codigo, that.codigo) &&
             Objects.equals(titulo, that.titulo) &&
             Objects.equals(descripcion, that.descripcion) &&
             Objects.equals(registroClasesId, that.registroClasesId) &&
@@ -172,7 +153,7 @@ public class TemasCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, codigo, titulo, descripcion, registroClasesId, mallaCurricularId, distinct);
+        return Objects.hash(id, titulo, descripcion, registroClasesId, mallaCurricularId, distinct);
     }
 
     // prettier-ignore
@@ -180,7 +161,6 @@ public class TemasCriteria implements Serializable, Criteria {
     public String toString() {
         return "TemasCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (codigo != null ? "codigo=" + codigo + ", " : "") +
             (titulo != null ? "titulo=" + titulo + ", " : "") +
             (descripcion != null ? "descripcion=" + descripcion + ", " : "") +
             (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +

@@ -1,15 +1,10 @@
 {
-  "applications": ["abf"],
+  "applications": "*",
   "changelogDate": "20230227212246",
   "dto": "no",
   "embedded": false,
   "entityTableName": "temas",
   "fields": [
-    {
-      "fieldName": "codigo",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
     {
       "fieldName": "titulo",
       "fieldType": "String",

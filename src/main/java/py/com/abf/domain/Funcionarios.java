@@ -77,6 +77,11 @@ public class Funcionarios implements Serializable {
     @JsonIgnoreProperties(value = { "mallaCurricular", "temas", "funcionarios", "alumnos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
 
+    @OneToMany(mappedBy = "funcionarios")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "alumnos", "funcionarios" }, allowSetters = true)
+    private Set<Pagos> pagos = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "alumnos", "funcionarios" }, allowSetters = true)
@@ -268,6 +273,37 @@ public class Funcionarios implements Serializable {
     public Funcionarios removeRegistroClases(RegistroClases registroClases) {
         this.registroClases.remove(registroClases);
         registroClases.setFuncionarios(null);
+        return this;
+    }
+
+    public Set<Pagos> getPagos() {
+        return this.pagos;
+    }
+
+    public void setPagos(Set<Pagos> pagos) {
+        if (this.pagos != null) {
+            this.pagos.forEach(i -> i.setFuncionarios(null));
+        }
+        if (pagos != null) {
+            pagos.forEach(i -> i.setFuncionarios(this));
+        }
+        this.pagos = pagos;
+    }
+
+    public Funcionarios pagos(Set<Pagos> pagos) {
+        this.setPagos(pagos);
+        return this;
+    }
+
+    public Funcionarios addPagos(Pagos pagos) {
+        this.pagos.add(pagos);
+        pagos.setFuncionarios(this);
+        return this;
+    }
+
+    public Funcionarios removePagos(Pagos pagos) {
+        this.pagos.remove(pagos);
+        pagos.setFuncionarios(null);
         return this;
     }
 

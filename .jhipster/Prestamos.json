@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20230313233742",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "prestamos",
+  "fields": [
+    {
+      "fieldName": "fechaPrestamo",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "vigenciaPrestamo",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaDevolucion",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Prestamos",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

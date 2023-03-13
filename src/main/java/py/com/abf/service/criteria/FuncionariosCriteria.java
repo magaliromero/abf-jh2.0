@@ -83,6 +83,8 @@ public class FuncionariosCriteria implements Serializable, Criteria {
 
     private LongFilter registroClasesId;
 
+    private LongFilter pagosId;
+
     private LongFilter tipoDocumentosId;
 
     private Boolean distinct;
@@ -103,6 +105,7 @@ public class FuncionariosCriteria implements Serializable, Criteria {
         this.estado = other.estado == null ? null : other.estado.copy();
         this.tipoFuncionario = other.tipoFuncionario == null ? null : other.tipoFuncionario.copy();
         this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
+        this.pagosId = other.pagosId == null ? null : other.pagosId.copy();
         this.tipoDocumentosId = other.tipoDocumentosId == null ? null : other.tipoDocumentosId.copy();
         this.distinct = other.distinct;
     }
@@ -307,6 +310,21 @@ public class FuncionariosCriteria implements Serializable, Criteria {
         this.registroClasesId = registroClasesId;
     }
 
+    public LongFilter getPagosId() {
+        return pagosId;
+    }
+
+    public LongFilter pagosId() {
+        if (pagosId == null) {
+            pagosId = new LongFilter();
+        }
+        return pagosId;
+    }
+
+    public void setPagosId(LongFilter pagosId) {
+        this.pagosId = pagosId;
+    }
+
     public LongFilter getTipoDocumentosId() {
         return tipoDocumentosId;
     }
@@ -353,6 +371,7 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             Objects.equals(estado, that.estado) &&
             Objects.equals(tipoFuncionario, that.tipoFuncionario) &&
             Objects.equals(registroClasesId, that.registroClasesId) &&
+            Objects.equals(pagosId, that.pagosId) &&
             Objects.equals(tipoDocumentosId, that.tipoDocumentosId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -374,6 +393,7 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             estado,
             tipoFuncionario,
             registroClasesId,
+            pagosId,
             tipoDocumentosId,
             distinct
         );
@@ -396,6 +416,7 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             (estado != null ? "estado=" + estado + ", " : "") +
             (tipoFuncionario != null ? "tipoFuncionario=" + tipoFuncionario + ", " : "") +
             (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +
+            (pagosId != null ? "pagosId=" + pagosId + ", " : "") +
             (tipoDocumentosId != null ? "tipoDocumentosId=" + tipoDocumentosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

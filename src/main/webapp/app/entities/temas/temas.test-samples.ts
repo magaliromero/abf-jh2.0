@@ -2,29 +2,25 @@ import { ITemas, NewTemas } from './temas.model';
 
 export const sampleWithRequiredData: ITemas = {
   id: 89167,
-  codigo: 'connecting Madera',
-  titulo: 'functionalities SSL virtual',
-  descripcion: 'Hormigon',
+  titulo: 'connecting Madera',
+  descripcion: 'functionalities SSL virtual',
 };
 
 export const sampleWithPartialData: ITemas = {
-  id: 31428,
-  codigo: 'enterprise',
-  titulo: 'acompasada Riera',
-  descripcion: 'Desarrollador Cliente online',
+  id: 18783,
+  titulo: 'GB',
+  descripcion: 'enterprise',
 };
 
 export const sampleWithFullData: ITemas = {
-  id: 39875,
-  codigo: 'enable Islandia',
-  titulo: 'Juguetería Realineado',
-  descripcion: 'compuesto Borders',
+  id: 56707,
+  titulo: 'mission-critical',
+  descripcion: 'Heredado Pataca Account',
 };
 
 export const sampleWithNewData: NewTemas = {
-  codigo: 'Cataluña',
-  titulo: 'Parafarmacia Subida Director',
-  descripcion: 'technologies generating Uganda',
+  titulo: 'Coordinador enable',
+  descripcion: 'architectures Juguetería',
   id: null,
 };
 
