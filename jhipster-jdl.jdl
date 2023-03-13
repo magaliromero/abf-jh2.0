@@ -29,7 +29,7 @@ entity Personas(registro_clases){
     documento Integer required,
     nombreCompleto String required,
     direccion String required,
-    fecha_nac LocalDate required,
+    fechaNac LocalDate required,
     barrio String required,
     ciudad String required,
     telefono String required
@@ -65,7 +65,7 @@ entity Funcionarios(funcionarios){
 
 entity Temas(temas){
 	codigo String required,
-    nombre_tema String required,
+    nombreTema String required,
     descripcion String required
 }
 
@@ -92,50 +92,50 @@ entity RegistroClases(registro_clases){
 }
 
 entity Pagos(pagos){
-    monto_pago float required,
-    monto_inicial float required,
+    montoPago float required,
+    montoInicial float required,
     saldo float required,
-	fecha_registro LocalDate  required,
-    fecha_pago LocalDate required,
-    tipo_pago String required,
+	fechaRegistro LocalDate  required,
+    fechaPago LocalDate required,
+    tipoPago String required,
     descripcion String required,
-    id_usuario_registro Integer required
+    idUsuarioRegistro Integer required
 }
 
 entity Niveles(niveles){
     descripcion_nivel String required,
     estado Boolean required,
     id_examen Integer required,
-    fecha_creacion LocalDate required,
-    fecha_modificacion LocalDate required
+    fechaCreacion LocalDate required,
+    fechaModificacion LocalDate required
 }
 
 entity Roles(roles){
     descripcion_rol String required,
     estado Boolean required,
-    fecha_creacion LocalDate required,
-    fecha_modificacion LocalDate required
+    fechaCreacion LocalDate required,
+    fechaCodificacion LocalDate required
 }
 
 entity Usuarios(usuarios){
     documento Integer required,
-    id_rol Integer required
+    idRol Integer required
 }
 
 entity Prestamos(prestamos){
-    fecha_prestamo LocalDate required,
-    vigencia_prestamo Integer required,
-    fecha_devolucion LocalDate required
+    fechaPrestamo LocalDate required,
+    vigenciaPrestamo Integer required,
+    fechaDevolucion LocalDate required
 }
 
 entity Torneos(torneos){
-    nombre_torneo String required,
-    fecha_inicio LocalDate required,
-    fecha_fin  LocalDate required,
+    nombreTorneo String required,
+    fechaInicio LocalDate required,
+    fechaFin  LocalDate required,
     lugar String required,
     tiempo String,
-    tipo_torneo String,
-    torneo_evaluado Boolean required,
+    tipoTorneo String,
+    torneoEvaluado Boolean required,
     federado Boolean required,
 }
 
@@ -149,15 +149,15 @@ relationship OneToMany {
     Funcionarios to RegistroClases{funcionarios(nombreCompleto) required},
     Alumnos to RegistroClases {alumnos(nombreCompleto) required},
     Alumnos to Pagos {alumnos(nombreCompleto) required},
-    Pagos to Niveles {pagos(id_nivel) required} ,
-    Pagos to Personas {pagos(id_persona) required},
-    Pagos to Alumnos {pagos(id_nivel) required},
-    Niveles to Alumnos {niveles(id_nivel) required},
-    Niveles to Cursos {niveles(id_nivel) required},
+    Pagos to Niveles {pagos(idNivel) required} ,
+    Pagos to Personas {pagos(idPersona) required},
+    Pagos to Alumnos {pagos(idNivel) required},
+    Niveles to Alumnos {niveles(idNivel) required},
+    Niveles to Cursos {niveles(idNivel) required},
     Personas to Alumnos {personas(documento) required}, 
-    Personas to Pagos {personas(id_pago) required},
-    Roles to Usuarios {roles(id_rol) required},
-    Torneos to Fichas_partidas_torneos {torneos(id_torneo) required}
+    Personas to Pagos {personas(id¨Pago) required},
+    Roles to Usuarios {roles(idRol) required},
+    Torneos to Fichas_partidas_torneos {torneos(idTorneo) required}
 }
 
 relationship ManyToMany{
