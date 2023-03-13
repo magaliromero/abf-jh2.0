@@ -85,10 +85,7 @@ entity RegistroClases(registro_clases){
 	fecha LocalDate  required
     cantidadHoras Integer required
     asistenciaAlumno Boolean
-    //profesor 
-    //alumno
-    //tema
-    //malla
+   
 }
 
 entity Pagos(pagos){
@@ -143,7 +140,7 @@ entity Torneos(torneos){
 
 entity Materiales(materiales){
 	descripcion String required,
-    estado String required, // En stock, en prestamo, Pendiente de devolución
+    estado String required, 
     cantidad Integer required
 }
 
@@ -151,8 +148,7 @@ entity FichaPartidasTorneos(fichas){
 	nombreContrincante String,
     duracion Integer,
     winner String,
-    resultadoc String,
-    resultadoBlob //poner tipo de dato blob,
+    resultado String,
     comentarios String,
     nombreArbitro String,
 }
