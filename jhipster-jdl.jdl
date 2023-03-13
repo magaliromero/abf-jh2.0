@@ -140,16 +140,6 @@ entity Torneos(torneos){
 }
 
 
-entity Torneos(torneos){
-	nombreTorneo  String required
-    fechaInicio  LocalDate  required
-    fechaFin  LocalDate  required
-    lugar String
-    duración integer //en minutos
-    tipoTorneo String
-    torneoEvaluado Boolean
-    federado Boolean
-    }
 
 entity Materiales(materiales){
 	descripcion String required,
@@ -204,7 +194,6 @@ relationship OneToMany {
     Personas to Alumnos {personas(documento) required}, 
     Personas to Pagos {personas(id¨Pago) required},
     Roles to Usuarios {roles(idRol) required},
-    Torneos to Fichas_partidas_torneos {torneos(idTorneo) required},
     Niveles to Cursos {Cursos(nombreCurso) required},
     Alumnos to Evaluaciones{alumnos(nombreCompleto) required}
     Alumnos to Inscripciones  { alumnos(nombreCompleto) required },
