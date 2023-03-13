@@ -100,18 +100,11 @@ entity Pagos(pagos){
 }
 
 entity Niveles(niveles){
-    descripcion_nivel String required,
+    descripcionNivel String required,
     estado Boolean required,
-    id_examen Integer required,
+    idExamen Integer required,
     fechaCreacion LocalDate required,
     fechaModificacion LocalDate required
-}
-
-entity Roles(roles){
-    descripcion_rol String required,
-    estado Boolean required,
-    fechaCreacion LocalDate required,
-    fechaCodificacion LocalDate required
 }
 
 entity Usuarios(usuarios){
@@ -176,19 +169,18 @@ entity Inscripciones (inscripciones){
 relationship OneToMany {
 	TiposDocumentos to Alumnos { tipoDocumentos(descripcion) required },
     TiposDocumentos to Funcionarios { tipoDocumentos(descripcion) required },
-    Alumnos to Matricula  { alumnos(nombreCompleto) required },,
-    MallaCurricular to RegistroClases{mallaCurricular(titulo) required},,
-    Temas to RegistroClases{temas(titulo) required},,
-    Funcionarios to RegistroClases{funcionarios(nombreCompleto) required},,
+    Alumnos to Matricula  { alumnos(nombreCompleto) required },
+    MallaCurricular to RegistroClases{mallaCurricular(titulo) required},
+    Temas to RegistroClases{temas(titulo) required},
+    Funcionarios to RegistroClases{funcionarios(nombreCompleto) required},
     Alumnos to RegistroClases {alumnos(nombreCompleto) required},
     Alumnos to Pagos {alumnos(nombreCompleto) required},
-    Pagos to Niveles {pagos(idNivel) required} ,
     Pagos to Personas {pagos(idPersona) required},
     Pagos to Alumnos {pagos(idNivel) required},
     Niveles to Alumnos {niveles(idNivel) required},
     Niveles to Cursos {niveles(idNivel) required},
     Personas to Alumnos {personas(documento) required}, 
-    Personas to Pagos {personas(id¨Pago) required},
+    Personas to Pagos {personas(idPago) required},
     Roles to Usuarios {roles(idRol) required},
     Niveles to Cursos {Cursos(nombreCurso) required},
     Alumnos to Evaluaciones{alumnos(nombreCompleto) required}
