@@ -136,6 +136,7 @@ relationship OneToMany {
     Niveles to Cursos {Cursos(nombreCurso) required},
     Alumnos to Evaluaciones{alumnos(nombreCompleto) required}
     Alumnos to Inscripciones  { alumnos(nombreCompleto) required },
+    Torneos to FichaPartidasTorneos {torneos (nombreTorneo) required}
 }
 
 relationship ManyToMany{
