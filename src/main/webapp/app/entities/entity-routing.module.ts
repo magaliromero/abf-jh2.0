@@ -39,6 +39,51 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'abfApp.registroClases.home.title' },
         loadChildren: () => import('./registro-clases/registro-clases.module').then(m => m.RegistroClasesModule),
       },
+      {
+        path: 'pagos',
+        data: { pageTitle: 'abfApp.pagos.home.title' },
+        loadChildren: () => import('./pagos/pagos.module').then(m => m.PagosModule),
+      },
+      {
+        path: 'usuarios',
+        data: { pageTitle: 'abfApp.usuarios.home.title' },
+        loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule),
+      },
+      {
+        path: 'prestamos',
+        data: { pageTitle: 'abfApp.prestamos.home.title' },
+        loadChildren: () => import('./prestamos/prestamos.module').then(m => m.PrestamosModule),
+      },
+      {
+        path: 'torneos',
+        data: { pageTitle: 'abfApp.torneos.home.title' },
+        loadChildren: () => import('./torneos/torneos.module').then(m => m.TorneosModule),
+      },
+      {
+        path: 'materiales',
+        data: { pageTitle: 'abfApp.materiales.home.title' },
+        loadChildren: () => import('./materiales/materiales.module').then(m => m.MaterialesModule),
+      },
+      {
+        path: 'ficha-partidas-torneos',
+        data: { pageTitle: 'abfApp.fichaPartidasTorneos.home.title' },
+        loadChildren: () => import('./ficha-partidas-torneos/ficha-partidas-torneos.module').then(m => m.FichaPartidasTorneosModule),
+      },
+      {
+        path: 'cursos',
+        data: { pageTitle: 'abfApp.cursos.home.title' },
+        loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule),
+      },
+      {
+        path: 'evaluaciones',
+        data: { pageTitle: 'abfApp.evaluaciones.home.title' },
+        loadChildren: () => import('./evaluaciones/evaluaciones.module').then(m => m.EvaluacionesModule),
+      },
+      {
+        path: 'inscripciones',
+        data: { pageTitle: 'abfApp.inscripciones.home.title' },
+        loadChildren: () => import('./inscripciones/inscripciones.module').then(m => m.InscripcionesModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

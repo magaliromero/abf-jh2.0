@@ -133,6 +133,30 @@ public class AlumnosQueryService extends QueryService<Alumnos> {
                         )
                     );
             }
+            if (criteria.getPagosId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getPagosId(), root -> root.join(Alumnos_.pagos, JoinType.LEFT).get(Pagos_.id))
+                    );
+            }
+            if (criteria.getEvaluacionesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getEvaluacionesId(),
+                            root -> root.join(Alumnos_.evaluaciones, JoinType.LEFT).get(Evaluaciones_.id)
+                        )
+                    );
+            }
+            if (criteria.getInscripcionesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getInscripcionesId(),
+                            root -> root.join(Alumnos_.inscripciones, JoinType.LEFT).get(Inscripciones_.id)
+                        )
+                    );
+            }
             if (criteria.getTipoDocumentosId() != null) {
                 specification =
                     specification.and(

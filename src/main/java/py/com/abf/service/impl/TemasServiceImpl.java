@@ -45,9 +45,6 @@ public class TemasServiceImpl implements TemasService {
         return temasRepository
             .findById(temas.getId())
             .map(existingTemas -> {
-                if (temas.getCodigo() != null) {
-                    existingTemas.setCodigo(temas.getCodigo());
-                }
                 if (temas.getTitulo() != null) {
                     existingTemas.setTitulo(temas.getTitulo());
                 }

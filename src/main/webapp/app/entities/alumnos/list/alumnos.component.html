@@ -163,6 +163,51 @@
               </button>
               <button
                 type="submit"
+                [routerLink]="['/pagos']"
+                [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.pagos' | translate) }"
+                  >Show Pagos</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/evaluaciones']"
+                [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.evaluaciones' | translate) }"
+                  >Show Evaluaciones</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/inscripciones']"
+                [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.inscripciones' | translate) }"
+                  >Show Inscripciones</span
+                >
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/alumnos', alumnos.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"

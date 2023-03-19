@@ -18,7 +18,6 @@ type TemasFormDefaults = Pick<NewTemas, 'id' | 'mallaCurriculars'>;
 
 type TemasFormGroupContent = {
   id: FormControl<ITemas['id'] | NewTemas['id']>;
-  codigo: FormControl<ITemas['codigo']>;
   titulo: FormControl<ITemas['titulo']>;
   descripcion: FormControl<ITemas['descripcion']>;
   mallaCurriculars: FormControl<ITemas['mallaCurriculars']>;
@@ -41,9 +40,6 @@ export class TemasFormService {
           validators: [Validators.required],
         }
       ),
-      codigo: new FormControl(temasRawValue.codigo, {
-        validators: [Validators.required],
-      }),
       titulo: new FormControl(temasRawValue.titulo, {
         validators: [Validators.required],
       }),

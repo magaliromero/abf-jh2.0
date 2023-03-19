@@ -1,0 +1,61 @@
+{
+  "applications": "*",
+  "changelogDate": "20230313233743",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "torneos",
+  "fields": [
+    {
+      "fieldName": "nombreTorneo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lugar",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tiempo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipoTorneo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "torneoEvaluado",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "federado",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Torneos",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "fichaPartidasTorneos",
+      "otherEntityRelationshipName": "torneos",
+      "relationshipName": "fichaPartidasTorneos",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

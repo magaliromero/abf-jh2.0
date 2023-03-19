@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Funcionarios;
+import py.com.abf.domain.Pagos;
 import py.com.abf.domain.RegistroClases;
 import py.com.abf.domain.TiposDocumentos;
 import py.com.abf.domain.enumeration.EstadosPersona;
@@ -1201,6 +1202,29 @@ class FuncionariosResourceIT {
 
         // Get all the funcionariosList where registroClases equals to (registroClasesId + 1)
         defaultFuncionariosShouldNotBeFound("registroClasesId.equals=" + (registroClasesId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByPagosIsEqualToSomething() throws Exception {
+        Pagos pagos;
+        if (TestUtil.findAll(em, Pagos.class).isEmpty()) {
+            funcionariosRepository.saveAndFlush(funcionarios);
+            pagos = PagosResourceIT.createEntity(em);
+        } else {
+            pagos = TestUtil.findAll(em, Pagos.class).get(0);
+        }
+        em.persist(pagos);
+        em.flush();
+        funcionarios.addPagos(pagos);
+        funcionariosRepository.saveAndFlush(funcionarios);
+        Long pagosId = pagos.getId();
+
+        // Get all the funcionariosList where pagos equals to pagosId
+        defaultFuncionariosShouldBeFound("pagosId.equals=" + pagosId);
+
+        // Get all the funcionariosList where pagos equals to (pagosId + 1)
+        defaultFuncionariosShouldNotBeFound("pagosId.equals=" + (pagosId + 1));
     }
 
     @Test

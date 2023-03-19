@@ -20,7 +20,6 @@ describe('Temas Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            codigo: expect.any(Object),
             titulo: expect.any(Object),
             descripcion: expect.any(Object),
             mallaCurriculars: expect.any(Object),
@@ -34,7 +33,6 @@ describe('Temas Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            codigo: expect.any(Object),
             titulo: expect.any(Object),
             descripcion: expect.any(Object),
             mallaCurriculars: expect.any(Object),

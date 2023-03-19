@@ -27,10 +27,6 @@ public class Temas implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "codigo", nullable = false)
-    private String codigo;
-
-    @NotNull
     @Column(name = "titulo", nullable = false)
     private String titulo;
 
@@ -61,19 +57,6 @@ public class Temas implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCodigo() {
-        return this.codigo;
-    }
-
-    public Temas codigo(String codigo) {
-        this.setCodigo(codigo);
-        return this;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getTitulo() {
@@ -188,7 +171,6 @@ public class Temas implements Serializable {
     public String toString() {
         return "Temas{" +
             "id=" + getId() +
-            ", codigo='" + getCodigo() + "'" +
             ", titulo='" + getTitulo() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
             "}";

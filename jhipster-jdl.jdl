@@ -25,17 +25,6 @@ entity TiposDocumentos(tipos_documentos){
     descripcion String required
 }
 
-entity Personas(registro_clases){
-    documento Integer required,
-    nombreCompleto String required,
-    direccion String required,
-    fechaNac LocalDate required,
-    barrio String required,
-    ciudad String required,
-    telefono String required
-}
-
-
 entity Alumnos(alummos){
 	elo Integer,
     fideId Integer,
@@ -64,8 +53,7 @@ entity Funcionarios(funcionarios){
 }
 
 entity Temas(temas){
-	codigo String required,
-    nombreTema String required,
+	titulo String required,
     descripcion String required
 }
 
@@ -85,32 +73,18 @@ entity RegistroClases(registro_clases){
 	fecha LocalDate  required
     cantidadHoras Integer required
     asistenciaAlumno Boolean
+   
 }
 
 entity Pagos(pagos){
-    montoPago float required,
-    montoInicial float required,
-    saldo float required,
+    montoPago Integer required,
+    montoInicial Integer required,
+    saldo Integer required,
 	fechaRegistro LocalDate  required,
     fechaPago LocalDate required,
     tipoPago String required,
     descripcion String required,
     idUsuarioRegistro Integer required
-}
-
-entity Niveles(niveles){
-    descripcion_nivel String required,
-    estado Boolean required,
-    id_examen Integer required,
-    fechaCreacion LocalDate required,
-    fechaModificacion LocalDate required
-}
-
-entity Roles(roles){
-    descripcion_rol String required,
-    estado Boolean required,
-    fechaCreacion LocalDate required,
-    fechaCodificacion LocalDate required
 }
 
 entity Usuarios(usuarios){
@@ -136,6 +110,42 @@ entity Torneos(torneos){
 }
 
 
+
+entity Materiales(materiales){
+	descripcion String required,
+    estado String required, 
+    cantidad Integer required
+}
+
+entity FichaPartidasTorneos(fichas){
+	nombreContrincante String,
+    duracion Integer,
+    winner String,
+    resultado String,
+    comentarios String,
+    nombreArbitro String,
+}
+
+entity Cursos(cursos){
+	nombreCurso String,
+}
+
+entity Evaluaciones (evaluaciones){
+    tipoEvaluacion String required,
+    idExamen Integer,
+    idActa Integer, 
+    fecha LocalDate required,
+    puntosLogrados Integer,
+    porcentaje Integer,
+    comentarios String,
+
+}
+
+entity Inscripciones (inscripciones){
+    fecha LocalDate,
+}
+
+
 relationship OneToMany {
 	TiposDocumentos to Alumnos { tipoDocumentos(descripcion) required },
     TiposDocumentos to Funcionarios { tipoDocumentos(descripcion) required },
@@ -145,20 +155,19 @@ relationship OneToMany {
     Funcionarios to RegistroClases{funcionarios(nombreCompleto) required},
     Alumnos to RegistroClases {alumnos(nombreCompleto) required},
     Alumnos to Pagos {alumnos(nombreCompleto) required},
-    Pagos to Niveles {pagos(idNivel) required} ,
-    Pagos to Personas {pagos(idPersona) required},
-    Pagos to Alumnos {pagos(idNivel) required},
-    Niveles to Alumnos {niveles(idNivel) required},
-    Niveles to Cursos {niveles(idNivel) required},
-    Personas to Alumnos {personas(documento) required}, 
-    Personas to Pagos {personas(id¨Pago) required},
-    Roles to Usuarios {roles(idRol) required},
-    Torneos to Fichas_partidas_torneos {torneos(idTorneo) required}
+    Funcionarios to Pagos {funcionarios(nombreCompleto) required},
+    Alumnos to Evaluaciones{alumnos(nombreCompleto) required}
+    Alumnos to Inscripciones  { alumnos(nombreCompleto) required },
+    Torneos to FichaPartidasTorneos {torneos (nombreTorneo) required}
 }
 
 relationship ManyToMany{
+
 	MallaCurricular {temas(titulo) required} to Temas{mallaCurricular(titulo) required} 
 }
+
+ 
+
 
 service all with serviceClass
 service all with serviceImpl

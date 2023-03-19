@@ -127,6 +127,12 @@ public class FuncionariosQueryService extends QueryService<Funcionarios> {
                         )
                     );
             }
+            if (criteria.getPagosId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getPagosId(), root -> root.join(Funcionarios_.pagos, JoinType.LEFT).get(Pagos_.id))
+                    );
+            }
             if (criteria.getTipoDocumentosId() != null) {
                 specification =
                     specification.and(

@@ -157,6 +157,21 @@
               </button>
               <button
                 type="submit"
+                [routerLink]="['/pagos']"
+                [queryParams]="{ 'filter[funcionariosId.in]': funcionarios.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.funcionarios.pagos' | translate) }"
+                  >Show Pagos</span
+                >
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/funcionarios', funcionarios.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
