@@ -32,7 +32,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: 188.166.149.126:5432
+    url: jdbc:postgresql://188.166.149.126:5433/abf
     username: postgres
     password: abf
     hikari:
