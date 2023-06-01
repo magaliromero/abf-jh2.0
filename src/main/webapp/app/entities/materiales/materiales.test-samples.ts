@@ -2,29 +2,24 @@ import { IMateriales, NewMateriales } from './materiales.model';
 
 export const sampleWithRequiredData: IMateriales = {
   id: 51682,
-  descripcion: 'Hecho Avanzado withdrawal',
-  estado: 'Refinado Técnico hack',
-  cantidad: 2067,
+  descripcion: 'Handcrafted Ameliorated withdrawal',
 };
 
 export const sampleWithPartialData: IMateriales = {
-  id: 57189,
-  descripcion: 'Amarillo Rojo transmitter',
-  estado: 'dynamic',
-  cantidad: 68574,
+  id: 90659,
+  descripcion: 'Orchestrator hack Toys',
+  cantidad: 20460,
 };
 
 export const sampleWithFullData: IMateriales = {
-  id: 76470,
-  descripcion: 'Rústico vortals',
-  estado: 'Amarillo',
-  cantidad: 67334,
+  id: 59429,
+  descripcion: 'red transmitter Fish',
+  cantidad: 76470,
+  cantidadEnPrestamo: 43346,
 };
 
 export const sampleWithNewData: NewMateriales = {
-  descripcion: 'Metal',
-  estado: 'Morado',
-  cantidad: 990,
+  descripcion: 'Chicken',
   id: null,
 };
 

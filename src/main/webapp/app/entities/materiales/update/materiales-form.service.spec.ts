@@ -21,8 +21,8 @@ describe('Materiales Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             descripcion: expect.any(Object),
-            estado: expect.any(Object),
             cantidad: expect.any(Object),
+            cantidadEnPrestamo: expect.any(Object),
           })
         );
       });
@@ -34,8 +34,8 @@ describe('Materiales Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             descripcion: expect.any(Object),
-            estado: expect.any(Object),
             cantidad: expect.any(Object),
+            cantidadEnPrestamo: expect.any(Object),
           })
         );
       });

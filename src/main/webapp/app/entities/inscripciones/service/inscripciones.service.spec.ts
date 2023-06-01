@@ -9,7 +9,7 @@ import { InscripcionesService, RestInscripciones } from './inscripciones.service
 
 const requireRestSample: RestInscripciones = {
   ...sampleWithRequiredData,
-  fecha: sampleWithRequiredData.fecha?.format(DATE_FORMAT),
+  fechaInscripcion: sampleWithRequiredData.fechaInscripcion?.format(DATE_FORMAT),
 };
 
 describe('Inscripciones Service', () => {

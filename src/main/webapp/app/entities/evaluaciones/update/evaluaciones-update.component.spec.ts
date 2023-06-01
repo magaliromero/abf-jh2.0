@@ -11,6 +11,8 @@ import { EvaluacionesService } from '../service/evaluaciones.service';
 import { IEvaluaciones } from '../evaluaciones.model';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
+import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
+import { FuncionariosService } from 'app/entities/funcionarios/service/funcionarios.service';
 
 import { EvaluacionesUpdateComponent } from './evaluaciones-update.component';
 
@@ -21,6 +23,7 @@ describe('Evaluaciones Management Update Component', () => {
   let evaluacionesFormService: EvaluacionesFormService;
   let evaluacionesService: EvaluacionesService;
   let alumnosService: AlumnosService;
+  let funcionariosService: FuncionariosService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,6 +47,7 @@ describe('Evaluaciones Management Update Component', () => {
     evaluacionesFormService = TestBed.inject(EvaluacionesFormService);
     evaluacionesService = TestBed.inject(EvaluacionesService);
     alumnosService = TestBed.inject(AlumnosService);
+    funcionariosService = TestBed.inject(FuncionariosService);
 
     comp = fixture.componentInstance;
   });
@@ -71,15 +75,40 @@ describe('Evaluaciones Management Update Component', () => {
       expect(comp.alumnosSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call Funcionarios query and add missing value', () => {
+      const evaluaciones: IEvaluaciones = { id: 456 };
+      const funcionarios: IFuncionarios = { id: 6804 };
+      evaluaciones.funcionarios = funcionarios;
+
+      const funcionariosCollection: IFuncionarios[] = [{ id: 94975 }];
+      jest.spyOn(funcionariosService, 'query').mockReturnValue(of(new HttpResponse({ body: funcionariosCollection })));
+      const additionalFuncionarios = [funcionarios];
+      const expectedCollection: IFuncionarios[] = [...additionalFuncionarios, ...funcionariosCollection];
+      jest.spyOn(funcionariosService, 'addFuncionariosToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ evaluaciones });
+      comp.ngOnInit();
+
+      expect(funcionariosService.query).toHaveBeenCalled();
+      expect(funcionariosService.addFuncionariosToCollectionIfMissing).toHaveBeenCalledWith(
+        funcionariosCollection,
+        ...additionalFuncionarios.map(expect.objectContaining)
+      );
+      expect(comp.funcionariosSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const evaluaciones: IEvaluaciones = { id: 456 };
       const alumnos: IAlumnos = { id: 88866 };
       evaluaciones.alumnos = alumnos;
+      const funcionarios: IFuncionarios = { id: 31409 };
+      evaluaciones.funcionarios = funcionarios;
 
       activatedRoute.data = of({ evaluaciones });
       comp.ngOnInit();
 
       expect(comp.alumnosSharedCollection).toContain(alumnos);
+      expect(comp.funcionariosSharedCollection).toContain(funcionarios);
       expect(comp.evaluaciones).toEqual(evaluaciones);
     });
   });
@@ -160,6 +189,16 @@ describe('Evaluaciones Management Update Component', () => {
         jest.spyOn(alumnosService, 'compareAlumnos');
         comp.compareAlumnos(entity, entity2);
         expect(alumnosService.compareAlumnos).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareFuncionarios', () => {
+      it('Should forward to funcionariosService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(funcionariosService, 'compareFuncionarios');
+        comp.compareFuncionarios(entity, entity2);
+        expect(funcionariosService.compareFuncionarios).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

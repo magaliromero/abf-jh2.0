@@ -85,42 +85,27 @@ public class PagosQueryService extends QueryService<Pagos> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Pagos_.id));
             }
-            if (criteria.getMontoPago() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getMontoPago(), Pagos_.montoPago));
+            if (criteria.getFecha() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFecha(), Pagos_.fecha));
             }
-            if (criteria.getMontoInicial() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getMontoInicial(), Pagos_.montoInicial));
+            if (criteria.getTotal() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getTotal(), Pagos_.total));
             }
-            if (criteria.getSaldo() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getSaldo(), Pagos_.saldo));
+            if (criteria.getCantidadHoras() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCantidadHoras(), Pagos_.cantidadHoras));
             }
-            if (criteria.getFechaRegistro() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaRegistro(), Pagos_.fechaRegistro));
-            }
-            if (criteria.getFechaPago() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaPago(), Pagos_.fechaPago));
-            }
-            if (criteria.getTipoPago() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTipoPago(), Pagos_.tipoPago));
-            }
-            if (criteria.getDescripcion() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDescripcion(), Pagos_.descripcion));
-            }
-            if (criteria.getIdUsuarioRegistro() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getIdUsuarioRegistro(), Pagos_.idUsuarioRegistro));
-            }
-            if (criteria.getAlumnosId() != null) {
+            if (criteria.getProductoId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getAlumnosId(), root -> root.join(Pagos_.alumnos, JoinType.LEFT).get(Alumnos_.id))
+                        buildSpecification(criteria.getProductoId(), root -> root.join(Pagos_.producto, JoinType.LEFT).get(Productos_.id))
                     );
             }
-            if (criteria.getFuncionariosId() != null) {
+            if (criteria.getFuncionarioId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
-                            criteria.getFuncionariosId(),
-                            root -> root.join(Pagos_.funcionarios, JoinType.LEFT).get(Funcionarios_.id)
+                            criteria.getFuncionarioId(),
+                            root -> root.join(Pagos_.funcionario, JoinType.LEFT).get(Funcionarios_.id)
                         )
                     );
             }

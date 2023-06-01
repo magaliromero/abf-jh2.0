@@ -20,14 +20,10 @@ describe('Evaluaciones Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            tipoEvaluacion: expect.any(Object),
-            idExamen: expect.any(Object),
-            idActa: expect.any(Object),
+            nroEvaluacion: expect.any(Object),
             fecha: expect.any(Object),
-            puntosLogrados: expect.any(Object),
-            porcentaje: expect.any(Object),
-            comentarios: expect.any(Object),
             alumnos: expect.any(Object),
+            funcionarios: expect.any(Object),
           })
         );
       });
@@ -38,14 +34,10 @@ describe('Evaluaciones Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            tipoEvaluacion: expect.any(Object),
-            idExamen: expect.any(Object),
-            idActa: expect.any(Object),
+            nroEvaluacion: expect.any(Object),
             fecha: expect.any(Object),
-            puntosLogrados: expect.any(Object),
-            porcentaje: expect.any(Object),
-            comentarios: expect.any(Object),
             alumnos: expect.any(Object),
+            funcionarios: expect.any(Object),
           })
         );
       });

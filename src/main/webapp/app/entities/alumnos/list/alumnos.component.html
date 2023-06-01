@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.alumnos.home.refreshListLabel">Refrescar lista</span>
+        <span jhiTranslate="abfApp.alumnos.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/alumnos/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.alumnos.home.createLabel"> Crear nuevo Alumnos </span>
+        <span jhiTranslate="abfApp.alumnos.home.createLabel"> Create a new Alumnos </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="alumnos?.length === 0">
-    <span jhiTranslate="abfApp.alumnos.home.notFound">Ningún Alumnos encontrado</span>
+    <span jhiTranslate="abfApp.alumnos.home.notFound">No Alumnos found</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="alumnos && alumnos.length > 0">
@@ -133,7 +133,7 @@
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/matricula']"
+                [routerLink]="['/inscripciones']"
                 [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
                 class="btn btn-info btn-sm"
                 data-cy="filterOtherEntityButton"
@@ -142,38 +142,8 @@
                 <span
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('abfApp.alumnos.matricula' | translate) }"
-                  >Show Matricula</span
-                >
-              </button>
-              <button
-                type="submit"
-                [routerLink]="['/registro-clases']"
-                [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
-                class="btn btn-info btn-sm"
-                data-cy="filterOtherEntityButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span
-                  class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('abfApp.alumnos.registroClases' | translate) }"
-                  >Show Registro Clases</span
-                >
-              </button>
-              <button
-                type="submit"
-                [routerLink]="['/pagos']"
-                [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
-                class="btn btn-info btn-sm"
-                data-cy="filterOtherEntityButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span
-                  class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('abfApp.alumnos.pagos' | translate) }"
-                  >Show Pagos</span
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.inscripciones' | translate) }"
+                  >Show Inscripciones</span
                 >
               </button>
               <button
@@ -193,7 +163,22 @@
               </button>
               <button
                 type="submit"
-                [routerLink]="['/inscripciones']"
+                [routerLink]="['/matricula']"
+                [queryParams]="{ 'filter[alumnoId.in]': alumnos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.matricula' | translate) }"
+                  >Show Matricula</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/prestamos']"
                 [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
                 class="btn btn-info btn-sm"
                 data-cy="filterOtherEntityButton"
@@ -202,8 +187,23 @@
                 <span
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('abfApp.alumnos.inscripciones' | translate) }"
-                  >Show Inscripciones</span
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.prestamos' | translate) }"
+                  >Show Prestamos</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/registro-clases']"
+                [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.registroClases' | translate) }"
+                  >Show Registro Clases</span
                 >
               </button>
               <button
@@ -213,7 +213,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -223,12 +223,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(alumnos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

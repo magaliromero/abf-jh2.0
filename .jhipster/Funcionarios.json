@@ -1,6 +1,6 @@
 {
-  "applications": "*",
-  "changelogDate": "20230227212146",
+  "applications": ["abf"],
+  "changelogDate": "20230601133313",
   "dto": "no",
   "embedded": false,
   "entityTableName": "funcionarios",
@@ -67,15 +67,21 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "registroClases",
+      "otherEntityName": "evaluaciones",
       "otherEntityRelationshipName": "funcionarios",
-      "relationshipName": "registroClases",
+      "relationshipName": "evaluaciones",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "pagos",
-      "otherEntityRelationshipName": "funcionarios",
+      "otherEntityRelationshipName": "funcionario",
       "relationshipName": "pagos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "registroClases",
+      "otherEntityRelationshipName": "funcionario",
+      "relationshipName": "registroClases",
       "relationshipType": "one-to-many"
     },
     {

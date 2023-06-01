@@ -91,6 +91,15 @@ public class TemasQueryService extends QueryService<Temas> {
             if (criteria.getDescripcion() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescripcion(), Temas_.descripcion));
             }
+            if (criteria.getEvaluacionesDetalleId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getEvaluacionesDetalleId(),
+                            root -> root.join(Temas_.evaluacionesDetalles, JoinType.LEFT).get(EvaluacionesDetalle_.id)
+                        )
+                    );
+            }
             if (criteria.getRegistroClasesId() != null) {
                 specification =
                     specification.and(
@@ -100,13 +109,10 @@ public class TemasQueryService extends QueryService<Temas> {
                         )
                     );
             }
-            if (criteria.getMallaCurricularId() != null) {
+            if (criteria.getCursosId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(
-                            criteria.getMallaCurricularId(),
-                            root -> root.join(Temas_.mallaCurriculars, JoinType.LEFT).get(MallaCurricular_.id)
-                        )
+                        buildSpecification(criteria.getCursosId(), root -> root.join(Temas_.cursos, JoinType.LEFT).get(Cursos_.id))
                     );
             }
         }

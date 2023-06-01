@@ -7,6 +7,7 @@ import { finalize } from 'rxjs/operators';
 import { CursosFormService, CursosFormGroup } from './cursos-form.service';
 import { ICursos } from '../cursos.model';
 import { CursosService } from '../service/cursos.service';
+import { Niveles } from 'app/entities/enumerations/niveles.model';
 
 @Component({
   selector: 'jhi-cursos-update',
@@ -15,6 +16,7 @@ import { CursosService } from '../service/cursos.service';
 export class CursosUpdateComponent implements OnInit {
   isSaving = false;
   cursos: ICursos | null = null;
+  nivelesValues = Object.keys(Niveles);
 
   editForm: CursosFormGroup = this.cursosFormService.createCursosFormGroup();
 

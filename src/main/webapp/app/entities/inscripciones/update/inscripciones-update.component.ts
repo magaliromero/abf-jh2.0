@@ -9,6 +9,8 @@ import { IInscripciones } from '../inscripciones.model';
 import { InscripcionesService } from '../service/inscripciones.service';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
+import { ICursos } from 'app/entities/cursos/cursos.model';
+import { CursosService } from 'app/entities/cursos/service/cursos.service';
 
 @Component({
   selector: 'jhi-inscripciones-update',
@@ -19,6 +21,7 @@ export class InscripcionesUpdateComponent implements OnInit {
   inscripciones: IInscripciones | null = null;
 
   alumnosSharedCollection: IAlumnos[] = [];
+  cursosSharedCollection: ICursos[] = [];
 
   editForm: InscripcionesFormGroup = this.inscripcionesFormService.createInscripcionesFormGroup();
 
@@ -26,10 +29,13 @@ export class InscripcionesUpdateComponent implements OnInit {
     protected inscripcionesService: InscripcionesService,
     protected inscripcionesFormService: InscripcionesFormService,
     protected alumnosService: AlumnosService,
+    protected cursosService: CursosService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareAlumnos = (o1: IAlumnos | null, o2: IAlumnos | null): boolean => this.alumnosService.compareAlumnos(o1, o2);
+
+  compareCursos = (o1: ICursos | null, o2: ICursos | null): boolean => this.cursosService.compareCursos(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ inscripciones }) => {
@@ -83,6 +89,10 @@ export class InscripcionesUpdateComponent implements OnInit {
       this.alumnosSharedCollection,
       inscripciones.alumnos
     );
+    this.cursosSharedCollection = this.cursosService.addCursosToCollectionIfMissing<ICursos>(
+      this.cursosSharedCollection,
+      inscripciones.cursos
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -93,5 +103,11 @@ export class InscripcionesUpdateComponent implements OnInit {
         map((alumnos: IAlumnos[]) => this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(alumnos, this.inscripciones?.alumnos))
       )
       .subscribe((alumnos: IAlumnos[]) => (this.alumnosSharedCollection = alumnos));
+
+    this.cursosService
+      .query()
+      .pipe(map((res: HttpResponse<ICursos[]>) => res.body ?? []))
+      .pipe(map((cursos: ICursos[]) => this.cursosService.addCursosToCollectionIfMissing<ICursos>(cursos, this.inscripciones?.cursos)))
+      .subscribe((cursos: ICursos[]) => (this.cursosSharedCollection = cursos));
   }
 }

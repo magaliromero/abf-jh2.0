@@ -1,10 +1,10 @@
-import { IMallaCurricular } from 'app/entities/malla-curricular/malla-curricular.model';
+import { ICursos } from 'app/entities/cursos/cursos.model';
 
 export interface ITemas {
   id: number;
   titulo?: string | null;
   descripcion?: string | null;
-  mallaCurriculars?: Pick<IMallaCurricular, 'id' | 'titulo'>[] | null;
+  cursos?: Pick<ICursos, 'id' | 'nombreCurso'> | null;
 }
 
 export type NewTemas = Omit<ITemas, 'id'> & { id: null };

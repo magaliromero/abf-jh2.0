@@ -88,6 +88,36 @@ public class CursosQueryService extends QueryService<Cursos> {
             if (criteria.getNombreCurso() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNombreCurso(), Cursos_.nombreCurso));
             }
+            if (criteria.getDescripcion() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescripcion(), Cursos_.descripcion));
+            }
+            if (criteria.getFechaInicio() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFechaInicio(), Cursos_.fechaInicio));
+            }
+            if (criteria.getFechaFin() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFechaFin(), Cursos_.fechaFin));
+            }
+            if (criteria.getCantidadClases() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCantidadClases(), Cursos_.cantidadClases));
+            }
+            if (criteria.getNivel() != null) {
+                specification = specification.and(buildSpecification(criteria.getNivel(), Cursos_.nivel));
+            }
+            if (criteria.getInscripcionesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getInscripcionesId(),
+                            root -> root.join(Cursos_.inscripciones, JoinType.LEFT).get(Inscripciones_.id)
+                        )
+                    );
+            }
+            if (criteria.getTemasId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getTemasId(), root -> root.join(Cursos_.temas, JoinType.LEFT).get(Temas_.id))
+                    );
+            }
         }
         return specification;
     }

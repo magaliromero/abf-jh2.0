@@ -85,26 +85,20 @@ public class EvaluacionesQueryService extends QueryService<Evaluaciones> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Evaluaciones_.id));
             }
-            if (criteria.getTipoEvaluacion() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTipoEvaluacion(), Evaluaciones_.tipoEvaluacion));
-            }
-            if (criteria.getIdExamen() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getIdExamen(), Evaluaciones_.idExamen));
-            }
-            if (criteria.getIdActa() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getIdActa(), Evaluaciones_.idActa));
+            if (criteria.getNroEvaluacion() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNroEvaluacion(), Evaluaciones_.nroEvaluacion));
             }
             if (criteria.getFecha() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getFecha(), Evaluaciones_.fecha));
             }
-            if (criteria.getPuntosLogrados() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getPuntosLogrados(), Evaluaciones_.puntosLogrados));
-            }
-            if (criteria.getPorcentaje() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getPorcentaje(), Evaluaciones_.porcentaje));
-            }
-            if (criteria.getComentarios() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getComentarios(), Evaluaciones_.comentarios));
+            if (criteria.getEvaluacionesDetalleId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getEvaluacionesDetalleId(),
+                            root -> root.join(Evaluaciones_.evaluacionesDetalles, JoinType.LEFT).get(EvaluacionesDetalle_.id)
+                        )
+                    );
             }
             if (criteria.getAlumnosId() != null) {
                 specification =
@@ -112,6 +106,15 @@ public class EvaluacionesQueryService extends QueryService<Evaluaciones> {
                         buildSpecification(
                             criteria.getAlumnosId(),
                             root -> root.join(Evaluaciones_.alumnos, JoinType.LEFT).get(Alumnos_.id)
+                        )
+                    );
+            }
+            if (criteria.getFuncionariosId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getFuncionariosId(),
+                            root -> root.join(Evaluaciones_.funcionarios, JoinType.LEFT).get(Funcionarios_.id)
                         )
                     );
             }

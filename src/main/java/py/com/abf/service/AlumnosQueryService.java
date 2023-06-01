@@ -115,28 +115,13 @@ public class AlumnosQueryService extends QueryService<Alumnos> {
             if (criteria.getEstado() != null) {
                 specification = specification.and(buildSpecification(criteria.getEstado(), Alumnos_.estado));
             }
-            if (criteria.getMatriculaId() != null) {
+            if (criteria.getInscripcionesId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
-                            criteria.getMatriculaId(),
-                            root -> root.join(Alumnos_.matriculas, JoinType.LEFT).get(Matricula_.id)
+                            criteria.getInscripcionesId(),
+                            root -> root.join(Alumnos_.inscripciones, JoinType.LEFT).get(Inscripciones_.id)
                         )
-                    );
-            }
-            if (criteria.getRegistroClasesId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getRegistroClasesId(),
-                            root -> root.join(Alumnos_.registroClases, JoinType.LEFT).get(RegistroClases_.id)
-                        )
-                    );
-            }
-            if (criteria.getPagosId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(criteria.getPagosId(), root -> root.join(Alumnos_.pagos, JoinType.LEFT).get(Pagos_.id))
                     );
             }
             if (criteria.getEvaluacionesId() != null) {
@@ -148,12 +133,30 @@ public class AlumnosQueryService extends QueryService<Alumnos> {
                         )
                     );
             }
-            if (criteria.getInscripcionesId() != null) {
+            if (criteria.getMatriculaId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
-                            criteria.getInscripcionesId(),
-                            root -> root.join(Alumnos_.inscripciones, JoinType.LEFT).get(Inscripciones_.id)
+                            criteria.getMatriculaId(),
+                            root -> root.join(Alumnos_.matriculas, JoinType.LEFT).get(Matricula_.id)
+                        )
+                    );
+            }
+            if (criteria.getPrestamosId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getPrestamosId(),
+                            root -> root.join(Alumnos_.prestamos, JoinType.LEFT).get(Prestamos_.id)
+                        )
+                    );
+            }
+            if (criteria.getRegistroClasesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getRegistroClasesId(),
+                            root -> root.join(Alumnos_.registroClases, JoinType.LEFT).get(RegistroClases_.id)
                         )
                     );
             }

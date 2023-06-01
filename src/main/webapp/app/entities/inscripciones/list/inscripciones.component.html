@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.inscripciones.home.refreshListLabel">Refrescar lista</span>
+        <span jhiTranslate="abfApp.inscripciones.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/inscripciones/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.inscripciones.home.createLabel"> Crear nuevo Inscripciones </span>
+        <span jhiTranslate="abfApp.inscripciones.home.createLabel"> Create a new Inscripciones </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="inscripciones?.length === 0">
-    <span jhiTranslate="abfApp.inscripciones.home.notFound">Ningún Inscripciones encontrado</span>
+    <span jhiTranslate="abfApp.inscripciones.home.notFound">No Inscripciones found</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="inscripciones && inscripciones.length > 0">
@@ -40,15 +40,21 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="fecha">
+          <th scope="col" jhiSortBy="fechaInscripcion">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.inscripciones.fecha">Fecha</span>
+              <span jhiTranslate="abfApp.inscripciones.fechaInscripcion">Fecha Inscripcion</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="alumnos.nombreCompleto">
             <div class="d-flex">
               <span jhiTranslate="abfApp.inscripciones.alumnos">Alumnos</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cursos.nombreCurso">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.inscripciones.cursos">Cursos</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -60,10 +66,15 @@
           <td>
             <a [routerLink]="['/inscripciones', inscripciones.id, 'view']">{{ inscripciones.id }}</a>
           </td>
-          <td>{{ inscripciones.fecha | formatMediumDate }}</td>
+          <td>{{ inscripciones.fechaInscripcion | formatMediumDate }}</td>
           <td>
             <div *ngIf="inscripciones.alumnos">
               <a [routerLink]="['/alumnos', inscripciones.alumnos.id, 'view']">{{ inscripciones.alumnos.nombreCompleto }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="inscripciones.cursos">
+              <a [routerLink]="['/cursos', inscripciones.cursos.id, 'view']">{{ inscripciones.cursos.nombreCurso }}</a>
             </div>
           </td>
           <td class="text-end">
@@ -75,7 +86,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -85,12 +96,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(inscripciones)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

@@ -26,49 +26,25 @@ public class Pagos implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "monto_pago", nullable = false)
-    private Integer montoPago;
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fecha;
 
     @NotNull
-    @Column(name = "monto_inicial", nullable = false)
-    private Integer montoInicial;
+    @Column(name = "total", nullable = false)
+    private Integer total;
 
     @NotNull
-    @Column(name = "saldo", nullable = false)
-    private Integer saldo;
-
-    @NotNull
-    @Column(name = "fecha_registro", nullable = false)
-    private LocalDate fechaRegistro;
-
-    @NotNull
-    @Column(name = "fecha_pago", nullable = false)
-    private LocalDate fechaPago;
-
-    @NotNull
-    @Column(name = "tipo_pago", nullable = false)
-    private String tipoPago;
-
-    @NotNull
-    @Column(name = "descripcion", nullable = false)
-    private String descripcion;
-
-    @NotNull
-    @Column(name = "id_usuario_registro", nullable = false)
-    private Integer idUsuarioRegistro;
+    @Column(name = "cantidad_horas", nullable = false)
+    private Integer cantidadHoras;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(
-        value = { "matriculas", "registroClases", "pagos", "evaluaciones", "inscripciones", "tipoDocumentos" },
-        allowSetters = true
-    )
-    private Alumnos alumnos;
+    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles" }, allowSetters = true)
+    private Productos producto;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = { "registroClases", "pagos", "tipoDocumentos" }, allowSetters = true)
-    private Funcionarios funcionarios;
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "evaluaciones", "pagos", "registroClases", "tipoDocumentos" }, allowSetters = true)
+    private Funcionarios funcionario;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -85,133 +61,68 @@ public class Pagos implements Serializable {
         this.id = id;
     }
 
-    public Integer getMontoPago() {
-        return this.montoPago;
+    public LocalDate getFecha() {
+        return this.fecha;
     }
 
-    public Pagos montoPago(Integer montoPago) {
-        this.setMontoPago(montoPago);
+    public Pagos fecha(LocalDate fecha) {
+        this.setFecha(fecha);
         return this;
     }
 
-    public void setMontoPago(Integer montoPago) {
-        this.montoPago = montoPago;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
-    public Integer getMontoInicial() {
-        return this.montoInicial;
+    public Integer getTotal() {
+        return this.total;
     }
 
-    public Pagos montoInicial(Integer montoInicial) {
-        this.setMontoInicial(montoInicial);
+    public Pagos total(Integer total) {
+        this.setTotal(total);
         return this;
     }
 
-    public void setMontoInicial(Integer montoInicial) {
-        this.montoInicial = montoInicial;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
-    public Integer getSaldo() {
-        return this.saldo;
+    public Integer getCantidadHoras() {
+        return this.cantidadHoras;
     }
 
-    public Pagos saldo(Integer saldo) {
-        this.setSaldo(saldo);
+    public Pagos cantidadHoras(Integer cantidadHoras) {
+        this.setCantidadHoras(cantidadHoras);
         return this;
     }
 
-    public void setSaldo(Integer saldo) {
-        this.saldo = saldo;
+    public void setCantidadHoras(Integer cantidadHoras) {
+        this.cantidadHoras = cantidadHoras;
     }
 
-    public LocalDate getFechaRegistro() {
-        return this.fechaRegistro;
+    public Productos getProducto() {
+        return this.producto;
     }
 
-    public Pagos fechaRegistro(LocalDate fechaRegistro) {
-        this.setFechaRegistro(fechaRegistro);
+    public void setProducto(Productos productos) {
+        this.producto = productos;
+    }
+
+    public Pagos producto(Productos productos) {
+        this.setProducto(productos);
         return this;
     }
 
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+    public Funcionarios getFuncionario() {
+        return this.funcionario;
     }
 
-    public LocalDate getFechaPago() {
-        return this.fechaPago;
+    public void setFuncionario(Funcionarios funcionarios) {
+        this.funcionario = funcionarios;
     }
 
-    public Pagos fechaPago(LocalDate fechaPago) {
-        this.setFechaPago(fechaPago);
-        return this;
-    }
-
-    public void setFechaPago(LocalDate fechaPago) {
-        this.fechaPago = fechaPago;
-    }
-
-    public String getTipoPago() {
-        return this.tipoPago;
-    }
-
-    public Pagos tipoPago(String tipoPago) {
-        this.setTipoPago(tipoPago);
-        return this;
-    }
-
-    public void setTipoPago(String tipoPago) {
-        this.tipoPago = tipoPago;
-    }
-
-    public String getDescripcion() {
-        return this.descripcion;
-    }
-
-    public Pagos descripcion(String descripcion) {
-        this.setDescripcion(descripcion);
-        return this;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Integer getIdUsuarioRegistro() {
-        return this.idUsuarioRegistro;
-    }
-
-    public Pagos idUsuarioRegistro(Integer idUsuarioRegistro) {
-        this.setIdUsuarioRegistro(idUsuarioRegistro);
-        return this;
-    }
-
-    public void setIdUsuarioRegistro(Integer idUsuarioRegistro) {
-        this.idUsuarioRegistro = idUsuarioRegistro;
-    }
-
-    public Alumnos getAlumnos() {
-        return this.alumnos;
-    }
-
-    public void setAlumnos(Alumnos alumnos) {
-        this.alumnos = alumnos;
-    }
-
-    public Pagos alumnos(Alumnos alumnos) {
-        this.setAlumnos(alumnos);
-        return this;
-    }
-
-    public Funcionarios getFuncionarios() {
-        return this.funcionarios;
-    }
-
-    public void setFuncionarios(Funcionarios funcionarios) {
-        this.funcionarios = funcionarios;
-    }
-
-    public Pagos funcionarios(Funcionarios funcionarios) {
-        this.setFuncionarios(funcionarios);
+    public Pagos funcionario(Funcionarios funcionarios) {
+        this.setFuncionario(funcionarios);
         return this;
     }
 
@@ -239,14 +150,9 @@ public class Pagos implements Serializable {
     public String toString() {
         return "Pagos{" +
             "id=" + getId() +
-            ", montoPago=" + getMontoPago() +
-            ", montoInicial=" + getMontoInicial() +
-            ", saldo=" + getSaldo() +
-            ", fechaRegistro='" + getFechaRegistro() + "'" +
-            ", fechaPago='" + getFechaPago() + "'" +
-            ", tipoPago='" + getTipoPago() + "'" +
-            ", descripcion='" + getDescripcion() + "'" +
-            ", idUsuarioRegistro=" + getIdUsuarioRegistro() +
+            ", fecha='" + getFecha() + "'" +
+            ", total=" + getTotal() +
+            ", cantidadHoras=" + getCantidadHoras() +
             "}";
     }
 }

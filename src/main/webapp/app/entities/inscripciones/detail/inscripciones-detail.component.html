@@ -14,9 +14,9 @@
         <dd>
           <span>{{ inscripciones.id }}</span>
         </dd>
-        <dt><span jhiTranslate="abfApp.inscripciones.fecha">Fecha</span></dt>
+        <dt><span jhiTranslate="abfApp.inscripciones.fechaInscripcion">Fecha Inscripcion</span></dt>
         <dd>
-          <span>{{ inscripciones.fecha | formatMediumDate }}</span>
+          <span>{{ inscripciones.fechaInscripcion | formatMediumDate }}</span>
         </dd>
         <dt><span jhiTranslate="abfApp.inscripciones.alumnos">Alumnos</span></dt>
         <dd>
@@ -24,14 +24,20 @@
             <a [routerLink]="['/alumnos', inscripciones.alumnos.id, 'view']">{{ inscripciones.alumnos.nombreCompleto }}</a>
           </div>
         </dd>
+        <dt><span jhiTranslate="abfApp.inscripciones.cursos">Cursos</span></dt>
+        <dd>
+          <div *ngIf="inscripciones.cursos">
+            <a [routerLink]="['/cursos', inscripciones.cursos.id, 'view']">{{ inscripciones.cursos.nombreCurso }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
       <button type="button" [routerLink]="['/inscripciones', inscripciones.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

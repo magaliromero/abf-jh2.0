@@ -23,21 +23,15 @@ public class EvaluacionesCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter tipoEvaluacion;
-
-    private IntegerFilter idExamen;
-
-    private IntegerFilter idActa;
+    private IntegerFilter nroEvaluacion;
 
     private LocalDateFilter fecha;
 
-    private IntegerFilter puntosLogrados;
-
-    private IntegerFilter porcentaje;
-
-    private StringFilter comentarios;
+    private LongFilter evaluacionesDetalleId;
 
     private LongFilter alumnosId;
+
+    private LongFilter funcionariosId;
 
     private Boolean distinct;
 
@@ -45,14 +39,11 @@ public class EvaluacionesCriteria implements Serializable, Criteria {
 
     public EvaluacionesCriteria(EvaluacionesCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.tipoEvaluacion = other.tipoEvaluacion == null ? null : other.tipoEvaluacion.copy();
-        this.idExamen = other.idExamen == null ? null : other.idExamen.copy();
-        this.idActa = other.idActa == null ? null : other.idActa.copy();
+        this.nroEvaluacion = other.nroEvaluacion == null ? null : other.nroEvaluacion.copy();
         this.fecha = other.fecha == null ? null : other.fecha.copy();
-        this.puntosLogrados = other.puntosLogrados == null ? null : other.puntosLogrados.copy();
-        this.porcentaje = other.porcentaje == null ? null : other.porcentaje.copy();
-        this.comentarios = other.comentarios == null ? null : other.comentarios.copy();
+        this.evaluacionesDetalleId = other.evaluacionesDetalleId == null ? null : other.evaluacionesDetalleId.copy();
         this.alumnosId = other.alumnosId == null ? null : other.alumnosId.copy();
+        this.funcionariosId = other.funcionariosId == null ? null : other.funcionariosId.copy();
         this.distinct = other.distinct;
     }
 
@@ -76,49 +67,19 @@ public class EvaluacionesCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getTipoEvaluacion() {
-        return tipoEvaluacion;
+    public IntegerFilter getNroEvaluacion() {
+        return nroEvaluacion;
     }
 
-    public StringFilter tipoEvaluacion() {
-        if (tipoEvaluacion == null) {
-            tipoEvaluacion = new StringFilter();
+    public IntegerFilter nroEvaluacion() {
+        if (nroEvaluacion == null) {
+            nroEvaluacion = new IntegerFilter();
         }
-        return tipoEvaluacion;
+        return nroEvaluacion;
     }
 
-    public void setTipoEvaluacion(StringFilter tipoEvaluacion) {
-        this.tipoEvaluacion = tipoEvaluacion;
-    }
-
-    public IntegerFilter getIdExamen() {
-        return idExamen;
-    }
-
-    public IntegerFilter idExamen() {
-        if (idExamen == null) {
-            idExamen = new IntegerFilter();
-        }
-        return idExamen;
-    }
-
-    public void setIdExamen(IntegerFilter idExamen) {
-        this.idExamen = idExamen;
-    }
-
-    public IntegerFilter getIdActa() {
-        return idActa;
-    }
-
-    public IntegerFilter idActa() {
-        if (idActa == null) {
-            idActa = new IntegerFilter();
-        }
-        return idActa;
-    }
-
-    public void setIdActa(IntegerFilter idActa) {
-        this.idActa = idActa;
+    public void setNroEvaluacion(IntegerFilter nroEvaluacion) {
+        this.nroEvaluacion = nroEvaluacion;
     }
 
     public LocalDateFilter getFecha() {
@@ -136,49 +97,19 @@ public class EvaluacionesCriteria implements Serializable, Criteria {
         this.fecha = fecha;
     }
 
-    public IntegerFilter getPuntosLogrados() {
-        return puntosLogrados;
+    public LongFilter getEvaluacionesDetalleId() {
+        return evaluacionesDetalleId;
     }
 
-    public IntegerFilter puntosLogrados() {
-        if (puntosLogrados == null) {
-            puntosLogrados = new IntegerFilter();
+    public LongFilter evaluacionesDetalleId() {
+        if (evaluacionesDetalleId == null) {
+            evaluacionesDetalleId = new LongFilter();
         }
-        return puntosLogrados;
+        return evaluacionesDetalleId;
     }
 
-    public void setPuntosLogrados(IntegerFilter puntosLogrados) {
-        this.puntosLogrados = puntosLogrados;
-    }
-
-    public IntegerFilter getPorcentaje() {
-        return porcentaje;
-    }
-
-    public IntegerFilter porcentaje() {
-        if (porcentaje == null) {
-            porcentaje = new IntegerFilter();
-        }
-        return porcentaje;
-    }
-
-    public void setPorcentaje(IntegerFilter porcentaje) {
-        this.porcentaje = porcentaje;
-    }
-
-    public StringFilter getComentarios() {
-        return comentarios;
-    }
-
-    public StringFilter comentarios() {
-        if (comentarios == null) {
-            comentarios = new StringFilter();
-        }
-        return comentarios;
-    }
-
-    public void setComentarios(StringFilter comentarios) {
-        this.comentarios = comentarios;
+    public void setEvaluacionesDetalleId(LongFilter evaluacionesDetalleId) {
+        this.evaluacionesDetalleId = evaluacionesDetalleId;
     }
 
     public LongFilter getAlumnosId() {
@@ -194,6 +125,21 @@ public class EvaluacionesCriteria implements Serializable, Criteria {
 
     public void setAlumnosId(LongFilter alumnosId) {
         this.alumnosId = alumnosId;
+    }
+
+    public LongFilter getFuncionariosId() {
+        return funcionariosId;
+    }
+
+    public LongFilter funcionariosId() {
+        if (funcionariosId == null) {
+            funcionariosId = new LongFilter();
+        }
+        return funcionariosId;
+    }
+
+    public void setFuncionariosId(LongFilter funcionariosId) {
+        this.funcionariosId = funcionariosId;
     }
 
     public Boolean getDistinct() {
@@ -215,21 +161,18 @@ public class EvaluacionesCriteria implements Serializable, Criteria {
         final EvaluacionesCriteria that = (EvaluacionesCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(tipoEvaluacion, that.tipoEvaluacion) &&
-            Objects.equals(idExamen, that.idExamen) &&
-            Objects.equals(idActa, that.idActa) &&
+            Objects.equals(nroEvaluacion, that.nroEvaluacion) &&
             Objects.equals(fecha, that.fecha) &&
-            Objects.equals(puntosLogrados, that.puntosLogrados) &&
-            Objects.equals(porcentaje, that.porcentaje) &&
-            Objects.equals(comentarios, that.comentarios) &&
+            Objects.equals(evaluacionesDetalleId, that.evaluacionesDetalleId) &&
             Objects.equals(alumnosId, that.alumnosId) &&
+            Objects.equals(funcionariosId, that.funcionariosId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tipoEvaluacion, idExamen, idActa, fecha, puntosLogrados, porcentaje, comentarios, alumnosId, distinct);
+        return Objects.hash(id, nroEvaluacion, fecha, evaluacionesDetalleId, alumnosId, funcionariosId, distinct);
     }
 
     // prettier-ignore
@@ -237,14 +180,11 @@ public class EvaluacionesCriteria implements Serializable, Criteria {
     public String toString() {
         return "EvaluacionesCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (tipoEvaluacion != null ? "tipoEvaluacion=" + tipoEvaluacion + ", " : "") +
-            (idExamen != null ? "idExamen=" + idExamen + ", " : "") +
-            (idActa != null ? "idActa=" + idActa + ", " : "") +
+            (nroEvaluacion != null ? "nroEvaluacion=" + nroEvaluacion + ", " : "") +
             (fecha != null ? "fecha=" + fecha + ", " : "") +
-            (puntosLogrados != null ? "puntosLogrados=" + puntosLogrados + ", " : "") +
-            (porcentaje != null ? "porcentaje=" + porcentaje + ", " : "") +
-            (comentarios != null ? "comentarios=" + comentarios + ", " : "") +
+            (evaluacionesDetalleId != null ? "evaluacionesDetalleId=" + evaluacionesDetalleId + ", " : "") +
             (alumnosId != null ? "alumnosId=" + alumnosId + ", " : "") +
+            (funcionariosId != null ? "funcionariosId=" + funcionariosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

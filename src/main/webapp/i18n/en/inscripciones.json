@@ -18,8 +18,9 @@
         "title": "Inscripciones"
       },
       "id": "ID",
-      "fecha": "Fecha",
-      "alumnos": "Alumnos"
+      "fechaInscripcion": "Fecha Inscripcion",
+      "alumnos": "Alumnos",
+      "cursos": "Cursos"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
-  "applications": "*",
-  "changelogDate": "20230227212246",
+  "applications": ["abf"],
+  "changelogDate": "20230601132713",
   "dto": "no",
   "embedded": false,
   "entityTableName": "temas",
@@ -23,18 +23,23 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "evaluacionesDetalle",
+      "otherEntityRelationshipName": "temas",
+      "relationshipName": "evaluacionesDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "registroClases",
       "otherEntityRelationshipName": "temas",
       "relationshipName": "registroClases",
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityField": "titulo",
-      "otherEntityName": "mallaCurricular",
+      "otherEntityField": "nombreCurso",
+      "otherEntityName": "cursos",
       "otherEntityRelationshipName": "temas",
-      "ownerSide": false,
-      "relationshipName": "mallaCurricular",
-      "relationshipType": "many-to-many",
+      "relationshipName": "cursos",
+      "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],

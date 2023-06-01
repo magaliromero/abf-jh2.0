@@ -28,6 +28,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
+import py.com.abf.domain.Evaluaciones;
 import py.com.abf.domain.Funcionarios;
 import py.com.abf.domain.Pagos;
 import py.com.abf.domain.RegistroClases;
@@ -1183,25 +1184,25 @@ class FuncionariosResourceIT {
 
     @Test
     @Transactional
-    void getAllFuncionariosByRegistroClasesIsEqualToSomething() throws Exception {
-        RegistroClases registroClases;
-        if (TestUtil.findAll(em, RegistroClases.class).isEmpty()) {
+    void getAllFuncionariosByEvaluacionesIsEqualToSomething() throws Exception {
+        Evaluaciones evaluaciones;
+        if (TestUtil.findAll(em, Evaluaciones.class).isEmpty()) {
             funcionariosRepository.saveAndFlush(funcionarios);
-            registroClases = RegistroClasesResourceIT.createEntity(em);
+            evaluaciones = EvaluacionesResourceIT.createEntity(em);
         } else {
-            registroClases = TestUtil.findAll(em, RegistroClases.class).get(0);
+            evaluaciones = TestUtil.findAll(em, Evaluaciones.class).get(0);
         }
-        em.persist(registroClases);
+        em.persist(evaluaciones);
         em.flush();
-        funcionarios.addRegistroClases(registroClases);
+        funcionarios.addEvaluaciones(evaluaciones);
         funcionariosRepository.saveAndFlush(funcionarios);
-        Long registroClasesId = registroClases.getId();
+        Long evaluacionesId = evaluaciones.getId();
 
-        // Get all the funcionariosList where registroClases equals to registroClasesId
-        defaultFuncionariosShouldBeFound("registroClasesId.equals=" + registroClasesId);
+        // Get all the funcionariosList where evaluaciones equals to evaluacionesId
+        defaultFuncionariosShouldBeFound("evaluacionesId.equals=" + evaluacionesId);
 
-        // Get all the funcionariosList where registroClases equals to (registroClasesId + 1)
-        defaultFuncionariosShouldNotBeFound("registroClasesId.equals=" + (registroClasesId + 1));
+        // Get all the funcionariosList where evaluaciones equals to (evaluacionesId + 1)
+        defaultFuncionariosShouldNotBeFound("evaluacionesId.equals=" + (evaluacionesId + 1));
     }
 
     @Test
@@ -1225,6 +1226,29 @@ class FuncionariosResourceIT {
 
         // Get all the funcionariosList where pagos equals to (pagosId + 1)
         defaultFuncionariosShouldNotBeFound("pagosId.equals=" + (pagosId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByRegistroClasesIsEqualToSomething() throws Exception {
+        RegistroClases registroClases;
+        if (TestUtil.findAll(em, RegistroClases.class).isEmpty()) {
+            funcionariosRepository.saveAndFlush(funcionarios);
+            registroClases = RegistroClasesResourceIT.createEntity(em);
+        } else {
+            registroClases = TestUtil.findAll(em, RegistroClases.class).get(0);
+        }
+        em.persist(registroClases);
+        em.flush();
+        funcionarios.addRegistroClases(registroClases);
+        funcionariosRepository.saveAndFlush(funcionarios);
+        Long registroClasesId = registroClases.getId();
+
+        // Get all the funcionariosList where registroClases equals to registroClasesId
+        defaultFuncionariosShouldBeFound("registroClasesId.equals=" + registroClasesId);
+
+        // Get all the funcionariosList where registroClases equals to (registroClasesId + 1)
+        defaultFuncionariosShouldNotBeFound("registroClasesId.equals=" + (registroClasesId + 1));
     }
 
     @Test

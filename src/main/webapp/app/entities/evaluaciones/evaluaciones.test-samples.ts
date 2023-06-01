@@ -4,32 +4,25 @@ import { IEvaluaciones, NewEvaluaciones } from './evaluaciones.model';
 
 export const sampleWithRequiredData: IEvaluaciones = {
   id: 68068,
-  tipoEvaluacion: 'Avon CSS Global',
-  fecha: dayjs('2023-03-13'),
+  nroEvaluacion: 79635,
+  fecha: dayjs('2023-06-01'),
 };
 
 export const sampleWithPartialData: IEvaluaciones = {
-  id: 66628,
-  tipoEvaluacion: 'connecting acceso channels',
-  idExamen: 23897,
-  fecha: dayjs('2023-03-13'),
-  puntosLogrados: 21753,
+  id: 13734,
+  nroEvaluacion: 76243,
+  fecha: dayjs('2023-05-31'),
 };
 
 export const sampleWithFullData: IEvaluaciones = {
-  id: 34615,
-  tipoEvaluacion: 'program',
-  idExamen: 57872,
-  idActa: 30764,
-  fecha: dayjs('2023-03-13'),
-  puntosLogrados: 63170,
-  porcentaje: 35386,
-  comentarios: 'Franc',
+  id: 17700,
+  nroEvaluacion: 69520,
+  fecha: dayjs('2023-05-31'),
 };
 
 export const sampleWithNewData: NewEvaluaciones = {
-  tipoEvaluacion: 'JBOD Fácil habilidad',
-  fecha: dayjs('2023-03-13'),
+  nroEvaluacion: 52691,
+  fecha: dayjs('2023-05-31'),
   id: null,
 };
 

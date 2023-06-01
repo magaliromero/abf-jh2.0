@@ -48,11 +48,11 @@ public class PrestamosServiceImpl implements PrestamosService {
                 if (prestamos.getFechaPrestamo() != null) {
                     existingPrestamos.setFechaPrestamo(prestamos.getFechaPrestamo());
                 }
-                if (prestamos.getVigenciaPrestamo() != null) {
-                    existingPrestamos.setVigenciaPrestamo(prestamos.getVigenciaPrestamo());
-                }
                 if (prestamos.getFechaDevolucion() != null) {
                     existingPrestamos.setFechaDevolucion(prestamos.getFechaDevolucion());
+                }
+                if (prestamos.getEstado() != null) {
+                    existingPrestamos.setEstado(prestamos.getEstado());
                 }
 
                 return existingPrestamos;
@@ -67,11 +67,15 @@ public class PrestamosServiceImpl implements PrestamosService {
         return prestamosRepository.findAll(pageable);
     }
 
+    public Page<Prestamos> findAllWithEagerRelationships(Pageable pageable) {
+        return prestamosRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<Prestamos> findOne(Long id) {
         log.debug("Request to get Prestamos : {}", id);
-        return prestamosRepository.findById(id);
+        return prestamosRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

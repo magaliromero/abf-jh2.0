@@ -3,6 +3,8 @@ package py.com.abf.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -26,35 +28,30 @@ public class Evaluaciones implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "tipo_evaluacion", nullable = false)
-    private String tipoEvaluacion;
-
-    @Column(name = "id_examen")
-    private Integer idExamen;
-
-    @Column(name = "id_acta")
-    private Integer idActa;
+    @Column(name = "nro_evaluacion", nullable = false)
+    private Integer nroEvaluacion;
 
     @NotNull
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    @Column(name = "puntos_logrados")
-    private Integer puntosLogrados;
-
-    @Column(name = "porcentaje")
-    private Integer porcentaje;
-
-    @Column(name = "comentarios")
-    private String comentarios;
+    @OneToMany(mappedBy = "evaluaciones")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "evaluaciones", "temas" }, allowSetters = true)
+    private Set<EvaluacionesDetalle> evaluacionesDetalles = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "matriculas", "registroClases", "pagos", "evaluaciones", "inscripciones", "tipoDocumentos" },
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
         allowSetters = true
     )
     private Alumnos alumnos;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "evaluaciones", "pagos", "registroClases", "tipoDocumentos" }, allowSetters = true)
+    private Funcionarios funcionarios;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -71,43 +68,17 @@ public class Evaluaciones implements Serializable {
         this.id = id;
     }
 
-    public String getTipoEvaluacion() {
-        return this.tipoEvaluacion;
+    public Integer getNroEvaluacion() {
+        return this.nroEvaluacion;
     }
 
-    public Evaluaciones tipoEvaluacion(String tipoEvaluacion) {
-        this.setTipoEvaluacion(tipoEvaluacion);
+    public Evaluaciones nroEvaluacion(Integer nroEvaluacion) {
+        this.setNroEvaluacion(nroEvaluacion);
         return this;
     }
 
-    public void setTipoEvaluacion(String tipoEvaluacion) {
-        this.tipoEvaluacion = tipoEvaluacion;
-    }
-
-    public Integer getIdExamen() {
-        return this.idExamen;
-    }
-
-    public Evaluaciones idExamen(Integer idExamen) {
-        this.setIdExamen(idExamen);
-        return this;
-    }
-
-    public void setIdExamen(Integer idExamen) {
-        this.idExamen = idExamen;
-    }
-
-    public Integer getIdActa() {
-        return this.idActa;
-    }
-
-    public Evaluaciones idActa(Integer idActa) {
-        this.setIdActa(idActa);
-        return this;
-    }
-
-    public void setIdActa(Integer idActa) {
-        this.idActa = idActa;
+    public void setNroEvaluacion(Integer nroEvaluacion) {
+        this.nroEvaluacion = nroEvaluacion;
     }
 
     public LocalDate getFecha() {
@@ -123,43 +94,35 @@ public class Evaluaciones implements Serializable {
         this.fecha = fecha;
     }
 
-    public Integer getPuntosLogrados() {
-        return this.puntosLogrados;
+    public Set<EvaluacionesDetalle> getEvaluacionesDetalles() {
+        return this.evaluacionesDetalles;
     }
 
-    public Evaluaciones puntosLogrados(Integer puntosLogrados) {
-        this.setPuntosLogrados(puntosLogrados);
+    public void setEvaluacionesDetalles(Set<EvaluacionesDetalle> evaluacionesDetalles) {
+        if (this.evaluacionesDetalles != null) {
+            this.evaluacionesDetalles.forEach(i -> i.setEvaluaciones(null));
+        }
+        if (evaluacionesDetalles != null) {
+            evaluacionesDetalles.forEach(i -> i.setEvaluaciones(this));
+        }
+        this.evaluacionesDetalles = evaluacionesDetalles;
+    }
+
+    public Evaluaciones evaluacionesDetalles(Set<EvaluacionesDetalle> evaluacionesDetalles) {
+        this.setEvaluacionesDetalles(evaluacionesDetalles);
         return this;
     }
 
-    public void setPuntosLogrados(Integer puntosLogrados) {
-        this.puntosLogrados = puntosLogrados;
-    }
-
-    public Integer getPorcentaje() {
-        return this.porcentaje;
-    }
-
-    public Evaluaciones porcentaje(Integer porcentaje) {
-        this.setPorcentaje(porcentaje);
+    public Evaluaciones addEvaluacionesDetalle(EvaluacionesDetalle evaluacionesDetalle) {
+        this.evaluacionesDetalles.add(evaluacionesDetalle);
+        evaluacionesDetalle.setEvaluaciones(this);
         return this;
     }
 
-    public void setPorcentaje(Integer porcentaje) {
-        this.porcentaje = porcentaje;
-    }
-
-    public String getComentarios() {
-        return this.comentarios;
-    }
-
-    public Evaluaciones comentarios(String comentarios) {
-        this.setComentarios(comentarios);
+    public Evaluaciones removeEvaluacionesDetalle(EvaluacionesDetalle evaluacionesDetalle) {
+        this.evaluacionesDetalles.remove(evaluacionesDetalle);
+        evaluacionesDetalle.setEvaluaciones(null);
         return this;
-    }
-
-    public void setComentarios(String comentarios) {
-        this.comentarios = comentarios;
     }
 
     public Alumnos getAlumnos() {
@@ -172,6 +135,19 @@ public class Evaluaciones implements Serializable {
 
     public Evaluaciones alumnos(Alumnos alumnos) {
         this.setAlumnos(alumnos);
+        return this;
+    }
+
+    public Funcionarios getFuncionarios() {
+        return this.funcionarios;
+    }
+
+    public void setFuncionarios(Funcionarios funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public Evaluaciones funcionarios(Funcionarios funcionarios) {
+        this.setFuncionarios(funcionarios);
         return this;
     }
 
@@ -199,13 +175,8 @@ public class Evaluaciones implements Serializable {
     public String toString() {
         return "Evaluaciones{" +
             "id=" + getId() +
-            ", tipoEvaluacion='" + getTipoEvaluacion() + "'" +
-            ", idExamen=" + getIdExamen() +
-            ", idActa=" + getIdActa() +
+            ", nroEvaluacion=" + getNroEvaluacion() +
             ", fecha='" + getFecha() + "'" +
-            ", puntosLogrados=" + getPuntosLogrados() +
-            ", porcentaje=" + getPorcentaje() +
-            ", comentarios='" + getComentarios() + "'" +
             "}";
     }
 }

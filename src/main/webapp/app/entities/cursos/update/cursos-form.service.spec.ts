@@ -21,6 +21,11 @@ describe('Cursos Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             nombreCurso: expect.any(Object),
+            descripcion: expect.any(Object),
+            fechaInicio: expect.any(Object),
+            fechaFin: expect.any(Object),
+            cantidadClases: expect.any(Object),
+            nivel: expect.any(Object),
           })
         );
       });
@@ -32,6 +37,11 @@ describe('Cursos Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             nombreCurso: expect.any(Object),
+            descripcion: expect.any(Object),
+            fechaInicio: expect.any(Object),
+            fechaFin: expect.any(Object),
+            cantidadClases: expect.any(Object),
+            nivel: expect.any(Object),
           })
         );
       });

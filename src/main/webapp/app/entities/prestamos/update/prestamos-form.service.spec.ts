@@ -21,8 +21,10 @@ describe('Prestamos Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             fechaPrestamo: expect.any(Object),
-            vigenciaPrestamo: expect.any(Object),
             fechaDevolucion: expect.any(Object),
+            estado: expect.any(Object),
+            materiales: expect.any(Object),
+            alumnos: expect.any(Object),
           })
         );
       });
@@ -34,8 +36,10 @@ describe('Prestamos Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             fechaPrestamo: expect.any(Object),
-            vigenciaPrestamo: expect.any(Object),
             fechaDevolucion: expect.any(Object),
+            estado: expect.any(Object),
+            materiales: expect.any(Object),
+            alumnos: expect.any(Object),
           })
         );
       });

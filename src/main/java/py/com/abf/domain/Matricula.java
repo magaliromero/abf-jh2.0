@@ -27,6 +27,14 @@ public class Matricula implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "concepto", nullable = false)
+    private String concepto;
+
+    @NotNull
+    @Column(name = "monto", nullable = false)
+    private Integer monto;
+
+    @NotNull
     @Column(name = "fecha_inscripcion", nullable = false)
     private LocalDate fechaInscripcion;
 
@@ -45,10 +53,10 @@ public class Matricula implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "matriculas", "registroClases", "pagos", "evaluaciones", "inscripciones", "tipoDocumentos" },
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
         allowSetters = true
     )
-    private Alumnos alumnos;
+    private Alumnos alumno;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -63,6 +71,32 @@ public class Matricula implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getConcepto() {
+        return this.concepto;
+    }
+
+    public Matricula concepto(String concepto) {
+        this.setConcepto(concepto);
+        return this;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
+
+    public Integer getMonto() {
+        return this.monto;
+    }
+
+    public Matricula monto(Integer monto) {
+        this.setMonto(monto);
+        return this;
+    }
+
+    public void setMonto(Integer monto) {
+        this.monto = monto;
     }
 
     public LocalDate getFechaInscripcion() {
@@ -117,16 +151,16 @@ public class Matricula implements Serializable {
         this.estado = estado;
     }
 
-    public Alumnos getAlumnos() {
-        return this.alumnos;
+    public Alumnos getAlumno() {
+        return this.alumno;
     }
 
-    public void setAlumnos(Alumnos alumnos) {
-        this.alumnos = alumnos;
+    public void setAlumno(Alumnos alumnos) {
+        this.alumno = alumnos;
     }
 
-    public Matricula alumnos(Alumnos alumnos) {
-        this.setAlumnos(alumnos);
+    public Matricula alumno(Alumnos alumnos) {
+        this.setAlumno(alumnos);
         return this;
     }
 
@@ -154,6 +188,8 @@ public class Matricula implements Serializable {
     public String toString() {
         return "Matricula{" +
             "id=" + getId() +
+            ", concepto='" + getConcepto() + "'" +
+            ", monto=" + getMonto() +
             ", fechaInscripcion='" + getFechaInscripcion() + "'" +
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaPago='" + getFechaPago() + "'" +

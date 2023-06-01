@@ -25,9 +25,11 @@ public class MaterialesCriteria implements Serializable, Criteria {
 
     private StringFilter descripcion;
 
-    private StringFilter estado;
-
     private IntegerFilter cantidad;
+
+    private IntegerFilter cantidadEnPrestamo;
+
+    private LongFilter prestamosId;
 
     private Boolean distinct;
 
@@ -36,8 +38,9 @@ public class MaterialesCriteria implements Serializable, Criteria {
     public MaterialesCriteria(MaterialesCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.descripcion = other.descripcion == null ? null : other.descripcion.copy();
-        this.estado = other.estado == null ? null : other.estado.copy();
         this.cantidad = other.cantidad == null ? null : other.cantidad.copy();
+        this.cantidadEnPrestamo = other.cantidadEnPrestamo == null ? null : other.cantidadEnPrestamo.copy();
+        this.prestamosId = other.prestamosId == null ? null : other.prestamosId.copy();
         this.distinct = other.distinct;
     }
 
@@ -76,21 +79,6 @@ public class MaterialesCriteria implements Serializable, Criteria {
         this.descripcion = descripcion;
     }
 
-    public StringFilter getEstado() {
-        return estado;
-    }
-
-    public StringFilter estado() {
-        if (estado == null) {
-            estado = new StringFilter();
-        }
-        return estado;
-    }
-
-    public void setEstado(StringFilter estado) {
-        this.estado = estado;
-    }
-
     public IntegerFilter getCantidad() {
         return cantidad;
     }
@@ -104,6 +92,36 @@ public class MaterialesCriteria implements Serializable, Criteria {
 
     public void setCantidad(IntegerFilter cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public IntegerFilter getCantidadEnPrestamo() {
+        return cantidadEnPrestamo;
+    }
+
+    public IntegerFilter cantidadEnPrestamo() {
+        if (cantidadEnPrestamo == null) {
+            cantidadEnPrestamo = new IntegerFilter();
+        }
+        return cantidadEnPrestamo;
+    }
+
+    public void setCantidadEnPrestamo(IntegerFilter cantidadEnPrestamo) {
+        this.cantidadEnPrestamo = cantidadEnPrestamo;
+    }
+
+    public LongFilter getPrestamosId() {
+        return prestamosId;
+    }
+
+    public LongFilter prestamosId() {
+        if (prestamosId == null) {
+            prestamosId = new LongFilter();
+        }
+        return prestamosId;
+    }
+
+    public void setPrestamosId(LongFilter prestamosId) {
+        this.prestamosId = prestamosId;
     }
 
     public Boolean getDistinct() {
@@ -126,15 +144,16 @@ public class MaterialesCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(descripcion, that.descripcion) &&
-            Objects.equals(estado, that.estado) &&
             Objects.equals(cantidad, that.cantidad) &&
+            Objects.equals(cantidadEnPrestamo, that.cantidadEnPrestamo) &&
+            Objects.equals(prestamosId, that.prestamosId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, descripcion, estado, cantidad, distinct);
+        return Objects.hash(id, descripcion, cantidad, cantidadEnPrestamo, prestamosId, distinct);
     }
 
     // prettier-ignore
@@ -143,8 +162,9 @@ public class MaterialesCriteria implements Serializable, Criteria {
         return "MaterialesCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (descripcion != null ? "descripcion=" + descripcion + ", " : "") +
-            (estado != null ? "estado=" + estado + ", " : "") +
             (cantidad != null ? "cantidad=" + cantidad + ", " : "") +
+            (cantidadEnPrestamo != null ? "cantidadEnPrestamo=" + cantidadEnPrestamo + ", " : "") +
+            (prestamosId != null ? "prestamosId=" + prestamosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

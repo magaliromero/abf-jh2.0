@@ -1,6 +1,9 @@
 package py.com.abf.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -27,13 +30,16 @@ public class Materiales implements Serializable {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @NotNull
-    @Column(name = "estado", nullable = false)
-    private String estado;
-
-    @NotNull
-    @Column(name = "cantidad", nullable = false)
+    @Column(name = "cantidad")
     private Integer cantidad;
+
+    @Column(name = "cantidad_en_prestamo")
+    private Integer cantidadEnPrestamo;
+
+    @OneToMany(mappedBy = "materiales")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "materiales", "alumnos" }, allowSetters = true)
+    private Set<Prestamos> prestamos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -63,19 +69,6 @@ public class Materiales implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getEstado() {
-        return this.estado;
-    }
-
-    public Materiales estado(String estado) {
-        this.setEstado(estado);
-        return this;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public Integer getCantidad() {
         return this.cantidad;
     }
@@ -87,6 +80,50 @@ public class Materiales implements Serializable {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Integer getCantidadEnPrestamo() {
+        return this.cantidadEnPrestamo;
+    }
+
+    public Materiales cantidadEnPrestamo(Integer cantidadEnPrestamo) {
+        this.setCantidadEnPrestamo(cantidadEnPrestamo);
+        return this;
+    }
+
+    public void setCantidadEnPrestamo(Integer cantidadEnPrestamo) {
+        this.cantidadEnPrestamo = cantidadEnPrestamo;
+    }
+
+    public Set<Prestamos> getPrestamos() {
+        return this.prestamos;
+    }
+
+    public void setPrestamos(Set<Prestamos> prestamos) {
+        if (this.prestamos != null) {
+            this.prestamos.forEach(i -> i.setMateriales(null));
+        }
+        if (prestamos != null) {
+            prestamos.forEach(i -> i.setMateriales(this));
+        }
+        this.prestamos = prestamos;
+    }
+
+    public Materiales prestamos(Set<Prestamos> prestamos) {
+        this.setPrestamos(prestamos);
+        return this;
+    }
+
+    public Materiales addPrestamos(Prestamos prestamos) {
+        this.prestamos.add(prestamos);
+        prestamos.setMateriales(this);
+        return this;
+    }
+
+    public Materiales removePrestamos(Prestamos prestamos) {
+        this.prestamos.remove(prestamos);
+        prestamos.setMateriales(null);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -114,8 +151,8 @@ public class Materiales implements Serializable {
         return "Materiales{" +
             "id=" + getId() +
             ", descripcion='" + getDescripcion() + "'" +
-            ", estado='" + getEstado() + "'" +
             ", cantidad=" + getCantidad() +
+            ", cantidadEnPrestamo=" + getCantidadEnPrestamo() +
             "}";
     }
 }

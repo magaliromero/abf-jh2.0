@@ -1,11 +1,13 @@
 package py.com.abf.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import py.com.abf.domain.enumeration.EstadosPrestamos;
 
 /**
  * A Prestamos.
@@ -28,13 +30,26 @@ public class Prestamos implements Serializable {
     @Column(name = "fecha_prestamo", nullable = false)
     private LocalDate fechaPrestamo;
 
-    @NotNull
-    @Column(name = "vigencia_prestamo", nullable = false)
-    private Integer vigenciaPrestamo;
+    @Column(name = "fecha_devolucion")
+    private LocalDate fechaDevolucion;
 
     @NotNull
-    @Column(name = "fecha_devolucion", nullable = false)
-    private LocalDate fechaDevolucion;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado", nullable = false)
+    private EstadosPrestamos estado;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "prestamos" }, allowSetters = true)
+    private Materiales materiales;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
+        allowSetters = true
+    )
+    private Alumnos alumnos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -64,19 +79,6 @@ public class Prestamos implements Serializable {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public Integer getVigenciaPrestamo() {
-        return this.vigenciaPrestamo;
-    }
-
-    public Prestamos vigenciaPrestamo(Integer vigenciaPrestamo) {
-        this.setVigenciaPrestamo(vigenciaPrestamo);
-        return this;
-    }
-
-    public void setVigenciaPrestamo(Integer vigenciaPrestamo) {
-        this.vigenciaPrestamo = vigenciaPrestamo;
-    }
-
     public LocalDate getFechaDevolucion() {
         return this.fechaDevolucion;
     }
@@ -88,6 +90,45 @@ public class Prestamos implements Serializable {
 
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public EstadosPrestamos getEstado() {
+        return this.estado;
+    }
+
+    public Prestamos estado(EstadosPrestamos estado) {
+        this.setEstado(estado);
+        return this;
+    }
+
+    public void setEstado(EstadosPrestamos estado) {
+        this.estado = estado;
+    }
+
+    public Materiales getMateriales() {
+        return this.materiales;
+    }
+
+    public void setMateriales(Materiales materiales) {
+        this.materiales = materiales;
+    }
+
+    public Prestamos materiales(Materiales materiales) {
+        this.setMateriales(materiales);
+        return this;
+    }
+
+    public Alumnos getAlumnos() {
+        return this.alumnos;
+    }
+
+    public void setAlumnos(Alumnos alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public Prestamos alumnos(Alumnos alumnos) {
+        this.setAlumnos(alumnos);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -115,8 +156,8 @@ public class Prestamos implements Serializable {
         return "Prestamos{" +
             "id=" + getId() +
             ", fechaPrestamo='" + getFechaPrestamo() + "'" +
-            ", vigenciaPrestamo=" + getVigenciaPrestamo() +
             ", fechaDevolucion='" + getFechaDevolucion() + "'" +
+            ", estado='" + getEstado() + "'" +
             "}";
     }
 }

@@ -45,26 +45,11 @@ public class EvaluacionesServiceImpl implements EvaluacionesService {
         return evaluacionesRepository
             .findById(evaluaciones.getId())
             .map(existingEvaluaciones -> {
-                if (evaluaciones.getTipoEvaluacion() != null) {
-                    existingEvaluaciones.setTipoEvaluacion(evaluaciones.getTipoEvaluacion());
-                }
-                if (evaluaciones.getIdExamen() != null) {
-                    existingEvaluaciones.setIdExamen(evaluaciones.getIdExamen());
-                }
-                if (evaluaciones.getIdActa() != null) {
-                    existingEvaluaciones.setIdActa(evaluaciones.getIdActa());
+                if (evaluaciones.getNroEvaluacion() != null) {
+                    existingEvaluaciones.setNroEvaluacion(evaluaciones.getNroEvaluacion());
                 }
                 if (evaluaciones.getFecha() != null) {
                     existingEvaluaciones.setFecha(evaluaciones.getFecha());
-                }
-                if (evaluaciones.getPuntosLogrados() != null) {
-                    existingEvaluaciones.setPuntosLogrados(evaluaciones.getPuntosLogrados());
-                }
-                if (evaluaciones.getPorcentaje() != null) {
-                    existingEvaluaciones.setPorcentaje(evaluaciones.getPorcentaje());
-                }
-                if (evaluaciones.getComentarios() != null) {
-                    existingEvaluaciones.setComentarios(evaluaciones.getComentarios());
                 }
 
                 return existingEvaluaciones;

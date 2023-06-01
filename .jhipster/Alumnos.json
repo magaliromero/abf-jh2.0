@@ -1,9 +1,9 @@
 {
-  "applications": "*",
-  "changelogDate": "20230227212046",
+  "applications": ["abf"],
+  "changelogDate": "20230601133213",
   "dto": "no",
   "embedded": false,
-  "entityTableName": "alummos",
+  "entityTableName": "alumnos",
   "fields": [
     {
       "fieldName": "elo",
@@ -61,21 +61,9 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "matricula",
+      "otherEntityName": "inscripciones",
       "otherEntityRelationshipName": "alumnos",
-      "relationshipName": "matricula",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "registroClases",
-      "otherEntityRelationshipName": "alumnos",
-      "relationshipName": "registroClases",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "pagos",
-      "otherEntityRelationshipName": "alumnos",
-      "relationshipName": "pagos",
+      "relationshipName": "inscripciones",
       "relationshipType": "one-to-many"
     },
     {
@@ -85,9 +73,21 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "inscripciones",
+      "otherEntityName": "matricula",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "matricula",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "prestamos",
       "otherEntityRelationshipName": "alumnos",
-      "relationshipName": "inscripciones",
+      "relationshipName": "prestamos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "registroClases",
+      "otherEntityRelationshipName": "alumnos",
+      "relationshipName": "registroClases",
       "relationshipType": "one-to-many"
     },
     {

@@ -19,6 +19,11 @@ type CursosFormDefaults = Pick<NewCursos, 'id'>;
 type CursosFormGroupContent = {
   id: FormControl<ICursos['id'] | NewCursos['id']>;
   nombreCurso: FormControl<ICursos['nombreCurso']>;
+  descripcion: FormControl<ICursos['descripcion']>;
+  fechaInicio: FormControl<ICursos['fechaInicio']>;
+  fechaFin: FormControl<ICursos['fechaFin']>;
+  cantidadClases: FormControl<ICursos['cantidadClases']>;
+  nivel: FormControl<ICursos['nivel']>;
 };
 
 export type CursosFormGroup = FormGroup<CursosFormGroupContent>;
@@ -38,7 +43,18 @@ export class CursosFormService {
           validators: [Validators.required],
         }
       ),
-      nombreCurso: new FormControl(cursosRawValue.nombreCurso),
+      nombreCurso: new FormControl(cursosRawValue.nombreCurso, {
+        validators: [Validators.required],
+      }),
+      descripcion: new FormControl(cursosRawValue.descripcion, {
+        validators: [Validators.required],
+      }),
+      fechaInicio: new FormControl(cursosRawValue.fechaInicio),
+      fechaFin: new FormControl(cursosRawValue.fechaFin),
+      cantidadClases: new FormControl(cursosRawValue.cantidadClases),
+      nivel: new FormControl(cursosRawValue.nivel, {
+        validators: [Validators.required],
+      }),
     });
   }
 

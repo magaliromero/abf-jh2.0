@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Materiales;
+import py.com.abf.domain.Prestamos;
 import py.com.abf.repository.MaterialesRepository;
 import py.com.abf.service.criteria.MaterialesCriteria;
 
@@ -33,12 +34,13 @@ class MaterialesResourceIT {
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ESTADO = "AAAAAAAAAA";
-    private static final String UPDATED_ESTADO = "BBBBBBBBBB";
-
     private static final Integer DEFAULT_CANTIDAD = 1;
     private static final Integer UPDATED_CANTIDAD = 2;
     private static final Integer SMALLER_CANTIDAD = 1 - 1;
+
+    private static final Integer DEFAULT_CANTIDAD_EN_PRESTAMO = 1;
+    private static final Integer UPDATED_CANTIDAD_EN_PRESTAMO = 2;
+    private static final Integer SMALLER_CANTIDAD_EN_PRESTAMO = 1 - 1;
 
     private static final String ENTITY_API_URL = "/api/materiales";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -64,7 +66,10 @@ class MaterialesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Materiales createEntity(EntityManager em) {
-        Materiales materiales = new Materiales().descripcion(DEFAULT_DESCRIPCION).estado(DEFAULT_ESTADO).cantidad(DEFAULT_CANTIDAD);
+        Materiales materiales = new Materiales()
+            .descripcion(DEFAULT_DESCRIPCION)
+            .cantidad(DEFAULT_CANTIDAD)
+            .cantidadEnPrestamo(DEFAULT_CANTIDAD_EN_PRESTAMO);
         return materiales;
     }
 
@@ -75,7 +80,10 @@ class MaterialesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Materiales createUpdatedEntity(EntityManager em) {
-        Materiales materiales = new Materiales().descripcion(UPDATED_DESCRIPCION).estado(UPDATED_ESTADO).cantidad(UPDATED_CANTIDAD);
+        Materiales materiales = new Materiales()
+            .descripcion(UPDATED_DESCRIPCION)
+            .cantidad(UPDATED_CANTIDAD)
+            .cantidadEnPrestamo(UPDATED_CANTIDAD_EN_PRESTAMO);
         return materiales;
     }
 
@@ -98,8 +106,8 @@ class MaterialesResourceIT {
         assertThat(materialesList).hasSize(databaseSizeBeforeCreate + 1);
         Materiales testMateriales = materialesList.get(materialesList.size() - 1);
         assertThat(testMateriales.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
-        assertThat(testMateriales.getEstado()).isEqualTo(DEFAULT_ESTADO);
         assertThat(testMateriales.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
+        assertThat(testMateriales.getCantidadEnPrestamo()).isEqualTo(DEFAULT_CANTIDAD_EN_PRESTAMO);
     }
 
     @Test
@@ -139,40 +147,6 @@ class MaterialesResourceIT {
 
     @Test
     @Transactional
-    void checkEstadoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = materialesRepository.findAll().size();
-        // set the field null
-        materiales.setEstado(null);
-
-        // Create the Materiales, which fails.
-
-        restMaterialesMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(materiales)))
-            .andExpect(status().isBadRequest());
-
-        List<Materiales> materialesList = materialesRepository.findAll();
-        assertThat(materialesList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCantidadIsRequired() throws Exception {
-        int databaseSizeBeforeTest = materialesRepository.findAll().size();
-        // set the field null
-        materiales.setCantidad(null);
-
-        // Create the Materiales, which fails.
-
-        restMaterialesMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(materiales)))
-            .andExpect(status().isBadRequest());
-
-        List<Materiales> materialesList = materialesRepository.findAll();
-        assertThat(materialesList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllMateriales() throws Exception {
         // Initialize the database
         materialesRepository.saveAndFlush(materiales);
@@ -184,8 +158,8 @@ class MaterialesResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(materiales.getId().intValue())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
-            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)));
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)))
+            .andExpect(jsonPath("$.[*].cantidadEnPrestamo").value(hasItem(DEFAULT_CANTIDAD_EN_PRESTAMO)));
     }
 
     @Test
@@ -201,8 +175,8 @@ class MaterialesResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(materiales.getId().intValue()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION))
-            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO))
-            .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD));
+            .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD))
+            .andExpect(jsonPath("$.cantidadEnPrestamo").value(DEFAULT_CANTIDAD_EN_PRESTAMO));
     }
 
     @Test
@@ -286,71 +260,6 @@ class MaterialesResourceIT {
 
         // Get all the materialesList where descripcion does not contain UPDATED_DESCRIPCION
         defaultMaterialesShouldBeFound("descripcion.doesNotContain=" + UPDATED_DESCRIPCION);
-    }
-
-    @Test
-    @Transactional
-    void getAllMaterialesByEstadoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        materialesRepository.saveAndFlush(materiales);
-
-        // Get all the materialesList where estado equals to DEFAULT_ESTADO
-        defaultMaterialesShouldBeFound("estado.equals=" + DEFAULT_ESTADO);
-
-        // Get all the materialesList where estado equals to UPDATED_ESTADO
-        defaultMaterialesShouldNotBeFound("estado.equals=" + UPDATED_ESTADO);
-    }
-
-    @Test
-    @Transactional
-    void getAllMaterialesByEstadoIsInShouldWork() throws Exception {
-        // Initialize the database
-        materialesRepository.saveAndFlush(materiales);
-
-        // Get all the materialesList where estado in DEFAULT_ESTADO or UPDATED_ESTADO
-        defaultMaterialesShouldBeFound("estado.in=" + DEFAULT_ESTADO + "," + UPDATED_ESTADO);
-
-        // Get all the materialesList where estado equals to UPDATED_ESTADO
-        defaultMaterialesShouldNotBeFound("estado.in=" + UPDATED_ESTADO);
-    }
-
-    @Test
-    @Transactional
-    void getAllMaterialesByEstadoIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        materialesRepository.saveAndFlush(materiales);
-
-        // Get all the materialesList where estado is not null
-        defaultMaterialesShouldBeFound("estado.specified=true");
-
-        // Get all the materialesList where estado is null
-        defaultMaterialesShouldNotBeFound("estado.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllMaterialesByEstadoContainsSomething() throws Exception {
-        // Initialize the database
-        materialesRepository.saveAndFlush(materiales);
-
-        // Get all the materialesList where estado contains DEFAULT_ESTADO
-        defaultMaterialesShouldBeFound("estado.contains=" + DEFAULT_ESTADO);
-
-        // Get all the materialesList where estado contains UPDATED_ESTADO
-        defaultMaterialesShouldNotBeFound("estado.contains=" + UPDATED_ESTADO);
-    }
-
-    @Test
-    @Transactional
-    void getAllMaterialesByEstadoNotContainsSomething() throws Exception {
-        // Initialize the database
-        materialesRepository.saveAndFlush(materiales);
-
-        // Get all the materialesList where estado does not contain DEFAULT_ESTADO
-        defaultMaterialesShouldNotBeFound("estado.doesNotContain=" + DEFAULT_ESTADO);
-
-        // Get all the materialesList where estado does not contain UPDATED_ESTADO
-        defaultMaterialesShouldBeFound("estado.doesNotContain=" + UPDATED_ESTADO);
     }
 
     @Test
@@ -444,6 +353,120 @@ class MaterialesResourceIT {
         defaultMaterialesShouldBeFound("cantidad.greaterThan=" + SMALLER_CANTIDAD);
     }
 
+    @Test
+    @Transactional
+    void getAllMaterialesByCantidadEnPrestamoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        materialesRepository.saveAndFlush(materiales);
+
+        // Get all the materialesList where cantidadEnPrestamo equals to DEFAULT_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldBeFound("cantidadEnPrestamo.equals=" + DEFAULT_CANTIDAD_EN_PRESTAMO);
+
+        // Get all the materialesList where cantidadEnPrestamo equals to UPDATED_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldNotBeFound("cantidadEnPrestamo.equals=" + UPDATED_CANTIDAD_EN_PRESTAMO);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByCantidadEnPrestamoIsInShouldWork() throws Exception {
+        // Initialize the database
+        materialesRepository.saveAndFlush(materiales);
+
+        // Get all the materialesList where cantidadEnPrestamo in DEFAULT_CANTIDAD_EN_PRESTAMO or UPDATED_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldBeFound("cantidadEnPrestamo.in=" + DEFAULT_CANTIDAD_EN_PRESTAMO + "," + UPDATED_CANTIDAD_EN_PRESTAMO);
+
+        // Get all the materialesList where cantidadEnPrestamo equals to UPDATED_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldNotBeFound("cantidadEnPrestamo.in=" + UPDATED_CANTIDAD_EN_PRESTAMO);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByCantidadEnPrestamoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        materialesRepository.saveAndFlush(materiales);
+
+        // Get all the materialesList where cantidadEnPrestamo is not null
+        defaultMaterialesShouldBeFound("cantidadEnPrestamo.specified=true");
+
+        // Get all the materialesList where cantidadEnPrestamo is null
+        defaultMaterialesShouldNotBeFound("cantidadEnPrestamo.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByCantidadEnPrestamoIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        materialesRepository.saveAndFlush(materiales);
+
+        // Get all the materialesList where cantidadEnPrestamo is greater than or equal to DEFAULT_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldBeFound("cantidadEnPrestamo.greaterThanOrEqual=" + DEFAULT_CANTIDAD_EN_PRESTAMO);
+
+        // Get all the materialesList where cantidadEnPrestamo is greater than or equal to UPDATED_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldNotBeFound("cantidadEnPrestamo.greaterThanOrEqual=" + UPDATED_CANTIDAD_EN_PRESTAMO);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByCantidadEnPrestamoIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        materialesRepository.saveAndFlush(materiales);
+
+        // Get all the materialesList where cantidadEnPrestamo is less than or equal to DEFAULT_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldBeFound("cantidadEnPrestamo.lessThanOrEqual=" + DEFAULT_CANTIDAD_EN_PRESTAMO);
+
+        // Get all the materialesList where cantidadEnPrestamo is less than or equal to SMALLER_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldNotBeFound("cantidadEnPrestamo.lessThanOrEqual=" + SMALLER_CANTIDAD_EN_PRESTAMO);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByCantidadEnPrestamoIsLessThanSomething() throws Exception {
+        // Initialize the database
+        materialesRepository.saveAndFlush(materiales);
+
+        // Get all the materialesList where cantidadEnPrestamo is less than DEFAULT_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldNotBeFound("cantidadEnPrestamo.lessThan=" + DEFAULT_CANTIDAD_EN_PRESTAMO);
+
+        // Get all the materialesList where cantidadEnPrestamo is less than UPDATED_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldBeFound("cantidadEnPrestamo.lessThan=" + UPDATED_CANTIDAD_EN_PRESTAMO);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByCantidadEnPrestamoIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        materialesRepository.saveAndFlush(materiales);
+
+        // Get all the materialesList where cantidadEnPrestamo is greater than DEFAULT_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldNotBeFound("cantidadEnPrestamo.greaterThan=" + DEFAULT_CANTIDAD_EN_PRESTAMO);
+
+        // Get all the materialesList where cantidadEnPrestamo is greater than SMALLER_CANTIDAD_EN_PRESTAMO
+        defaultMaterialesShouldBeFound("cantidadEnPrestamo.greaterThan=" + SMALLER_CANTIDAD_EN_PRESTAMO);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByPrestamosIsEqualToSomething() throws Exception {
+        Prestamos prestamos;
+        if (TestUtil.findAll(em, Prestamos.class).isEmpty()) {
+            materialesRepository.saveAndFlush(materiales);
+            prestamos = PrestamosResourceIT.createEntity(em);
+        } else {
+            prestamos = TestUtil.findAll(em, Prestamos.class).get(0);
+        }
+        em.persist(prestamos);
+        em.flush();
+        materiales.addPrestamos(prestamos);
+        materialesRepository.saveAndFlush(materiales);
+        Long prestamosId = prestamos.getId();
+
+        // Get all the materialesList where prestamos equals to prestamosId
+        defaultMaterialesShouldBeFound("prestamosId.equals=" + prestamosId);
+
+        // Get all the materialesList where prestamos equals to (prestamosId + 1)
+        defaultMaterialesShouldNotBeFound("prestamosId.equals=" + (prestamosId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -454,8 +477,8 @@ class MaterialesResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(materiales.getId().intValue())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
-            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)));
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)))
+            .andExpect(jsonPath("$.[*].cantidadEnPrestamo").value(hasItem(DEFAULT_CANTIDAD_EN_PRESTAMO)));
 
         // Check, that the count call also returns 1
         restMaterialesMockMvc
@@ -503,7 +526,7 @@ class MaterialesResourceIT {
         Materiales updatedMateriales = materialesRepository.findById(materiales.getId()).get();
         // Disconnect from session so that the updates on updatedMateriales are not directly saved in db
         em.detach(updatedMateriales);
-        updatedMateriales.descripcion(UPDATED_DESCRIPCION).estado(UPDATED_ESTADO).cantidad(UPDATED_CANTIDAD);
+        updatedMateriales.descripcion(UPDATED_DESCRIPCION).cantidad(UPDATED_CANTIDAD).cantidadEnPrestamo(UPDATED_CANTIDAD_EN_PRESTAMO);
 
         restMaterialesMockMvc
             .perform(
@@ -518,8 +541,8 @@ class MaterialesResourceIT {
         assertThat(materialesList).hasSize(databaseSizeBeforeUpdate);
         Materiales testMateriales = materialesList.get(materialesList.size() - 1);
         assertThat(testMateriales.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
-        assertThat(testMateriales.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testMateriales.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testMateriales.getCantidadEnPrestamo()).isEqualTo(UPDATED_CANTIDAD_EN_PRESTAMO);
     }
 
     @Test
@@ -590,7 +613,7 @@ class MaterialesResourceIT {
         Materiales partialUpdatedMateriales = new Materiales();
         partialUpdatedMateriales.setId(materiales.getId());
 
-        partialUpdatedMateriales.descripcion(UPDATED_DESCRIPCION).cantidad(UPDATED_CANTIDAD);
+        partialUpdatedMateriales.descripcion(UPDATED_DESCRIPCION).cantidadEnPrestamo(UPDATED_CANTIDAD_EN_PRESTAMO);
 
         restMaterialesMockMvc
             .perform(
@@ -605,8 +628,8 @@ class MaterialesResourceIT {
         assertThat(materialesList).hasSize(databaseSizeBeforeUpdate);
         Materiales testMateriales = materialesList.get(materialesList.size() - 1);
         assertThat(testMateriales.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
-        assertThat(testMateriales.getEstado()).isEqualTo(DEFAULT_ESTADO);
-        assertThat(testMateriales.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testMateriales.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
+        assertThat(testMateriales.getCantidadEnPrestamo()).isEqualTo(UPDATED_CANTIDAD_EN_PRESTAMO);
     }
 
     @Test
@@ -621,7 +644,10 @@ class MaterialesResourceIT {
         Materiales partialUpdatedMateriales = new Materiales();
         partialUpdatedMateriales.setId(materiales.getId());
 
-        partialUpdatedMateriales.descripcion(UPDATED_DESCRIPCION).estado(UPDATED_ESTADO).cantidad(UPDATED_CANTIDAD);
+        partialUpdatedMateriales
+            .descripcion(UPDATED_DESCRIPCION)
+            .cantidad(UPDATED_CANTIDAD)
+            .cantidadEnPrestamo(UPDATED_CANTIDAD_EN_PRESTAMO);
 
         restMaterialesMockMvc
             .perform(
@@ -636,8 +662,8 @@ class MaterialesResourceIT {
         assertThat(materialesList).hasSize(databaseSizeBeforeUpdate);
         Materiales testMateriales = materialesList.get(materialesList.size() - 1);
         assertThat(testMateriales.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
-        assertThat(testMateriales.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testMateriales.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testMateriales.getCantidadEnPrestamo()).isEqualTo(UPDATED_CANTIDAD_EN_PRESTAMO);
     }
 
     @Test

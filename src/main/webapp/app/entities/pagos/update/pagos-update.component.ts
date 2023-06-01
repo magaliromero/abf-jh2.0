@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import { PagosFormService, PagosFormGroup } from './pagos-form.service';
 import { IPagos } from '../pagos.model';
 import { PagosService } from '../service/pagos.service';
-import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
-import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
+import { IProductos } from 'app/entities/productos/productos.model';
+import { ProductosService } from 'app/entities/productos/service/productos.service';
 import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
 import { FuncionariosService } from 'app/entities/funcionarios/service/funcionarios.service';
 
@@ -20,7 +20,7 @@ export class PagosUpdateComponent implements OnInit {
   isSaving = false;
   pagos: IPagos | null = null;
 
-  alumnosSharedCollection: IAlumnos[] = [];
+  productosSharedCollection: IProductos[] = [];
   funcionariosSharedCollection: IFuncionarios[] = [];
 
   editForm: PagosFormGroup = this.pagosFormService.createPagosFormGroup();
@@ -28,12 +28,12 @@ export class PagosUpdateComponent implements OnInit {
   constructor(
     protected pagosService: PagosService,
     protected pagosFormService: PagosFormService,
-    protected alumnosService: AlumnosService,
+    protected productosService: ProductosService,
     protected funcionariosService: FuncionariosService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareAlumnos = (o1: IAlumnos | null, o2: IAlumnos | null): boolean => this.alumnosService.compareAlumnos(o1, o2);
+  compareProductos = (o1: IProductos | null, o2: IProductos | null): boolean => this.productosService.compareProductos(o1, o2);
 
   compareFuncionarios = (o1: IFuncionarios | null, o2: IFuncionarios | null): boolean =>
     this.funcionariosService.compareFuncionarios(o1, o2);
@@ -86,29 +86,33 @@ export class PagosUpdateComponent implements OnInit {
     this.pagos = pagos;
     this.pagosFormService.resetForm(this.editForm, pagos);
 
-    this.alumnosSharedCollection = this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(
-      this.alumnosSharedCollection,
-      pagos.alumnos
+    this.productosSharedCollection = this.productosService.addProductosToCollectionIfMissing<IProductos>(
+      this.productosSharedCollection,
+      pagos.producto
     );
     this.funcionariosSharedCollection = this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(
       this.funcionariosSharedCollection,
-      pagos.funcionarios
+      pagos.funcionario
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.alumnosService
+    this.productosService
       .query()
-      .pipe(map((res: HttpResponse<IAlumnos[]>) => res.body ?? []))
-      .pipe(map((alumnos: IAlumnos[]) => this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(alumnos, this.pagos?.alumnos)))
-      .subscribe((alumnos: IAlumnos[]) => (this.alumnosSharedCollection = alumnos));
+      .pipe(map((res: HttpResponse<IProductos[]>) => res.body ?? []))
+      .pipe(
+        map((productos: IProductos[]) =>
+          this.productosService.addProductosToCollectionIfMissing<IProductos>(productos, this.pagos?.producto)
+        )
+      )
+      .subscribe((productos: IProductos[]) => (this.productosSharedCollection = productos));
 
     this.funcionariosService
       .query()
       .pipe(map((res: HttpResponse<IFuncionarios[]>) => res.body ?? []))
       .pipe(
         map((funcionarios: IFuncionarios[]) =>
-          this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(funcionarios, this.pagos?.funcionarios)
+          this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(funcionarios, this.pagos?.funcionario)
         )
       )
       .subscribe((funcionarios: IFuncionarios[]) => (this.funcionariosSharedCollection = funcionarios));

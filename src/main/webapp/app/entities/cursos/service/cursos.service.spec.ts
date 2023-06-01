@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { ICursos } from '../cursos.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../cursos.test-samples';
 
-import { CursosService } from './cursos.service';
+import { CursosService, RestCursos } from './cursos.service';
 
-const requireRestSample: ICursos = {
+const requireRestSample: RestCursos = {
   ...sampleWithRequiredData,
+  fechaInicio: sampleWithRequiredData.fechaInicio?.format(DATE_FORMAT),
+  fechaFin: sampleWithRequiredData.fechaFin?.format(DATE_FORMAT),
 };
 
 describe('Cursos Service', () => {

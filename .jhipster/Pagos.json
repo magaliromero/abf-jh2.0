@@ -1,47 +1,22 @@
 {
-  "applications": "*",
-  "changelogDate": "20230313233740",
+  "applications": ["abf"],
+  "changelogDate": "20230601133713",
   "dto": "no",
   "embedded": false,
   "entityTableName": "pagos",
   "fields": [
     {
-      "fieldName": "montoPago",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "montoInicial",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "saldo",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "fechaRegistro",
+      "fieldName": "fecha",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "fechaPago",
-      "fieldType": "LocalDate",
+      "fieldName": "total",
+      "fieldType": "Integer",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "tipoPago",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "descripcion",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "idUsuarioRegistro",
+      "fieldName": "cantidadHoras",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"]
     }
@@ -53,10 +28,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "nombreCompleto",
-      "otherEntityName": "alumnos",
+      "otherEntityField": "descripcion",
+      "otherEntityName": "productos",
       "otherEntityRelationshipName": "pagos",
-      "relationshipName": "alumnos",
+      "relationshipName": "producto",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
@@ -64,9 +39,8 @@
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "funcionarios",
       "otherEntityRelationshipName": "pagos",
-      "relationshipName": "funcionarios",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
+      "relationshipName": "funcionario",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceImpl"

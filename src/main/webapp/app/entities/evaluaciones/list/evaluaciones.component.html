@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.evaluaciones.home.refreshListLabel">Refrescar lista</span>
+        <span jhiTranslate="abfApp.evaluaciones.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/evaluaciones/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.evaluaciones.home.createLabel"> Crear nuevo Evaluaciones </span>
+        <span jhiTranslate="abfApp.evaluaciones.home.createLabel"> Create a new Evaluaciones </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="evaluaciones?.length === 0">
-    <span jhiTranslate="abfApp.evaluaciones.home.notFound">Ningún Evaluaciones encontrado</span>
+    <span jhiTranslate="abfApp.evaluaciones.home.notFound">No Evaluaciones found</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="evaluaciones && evaluaciones.length > 0">
@@ -40,21 +40,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="tipoEvaluacion">
+          <th scope="col" jhiSortBy="nroEvaluacion">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.evaluaciones.tipoEvaluacion">Tipo Evaluacion</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="idExamen">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.evaluaciones.idExamen">Id Examen</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="idActa">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.evaluaciones.idActa">Id Acta</span>
+              <span jhiTranslate="abfApp.evaluaciones.nroEvaluacion">Nro Evaluacion</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -64,27 +52,15 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="puntosLogrados">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.evaluaciones.puntosLogrados">Puntos Logrados</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="porcentaje">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.evaluaciones.porcentaje">Porcentaje</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="comentarios">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.evaluaciones.comentarios">Comentarios</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="alumnos.nombreCompleto">
             <div class="d-flex">
               <span jhiTranslate="abfApp.evaluaciones.alumnos">Alumnos</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="funcionarios.nombreCompleto">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.evaluaciones.funcionarios">Funcionarios</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -96,20 +72,35 @@
           <td>
             <a [routerLink]="['/evaluaciones', evaluaciones.id, 'view']">{{ evaluaciones.id }}</a>
           </td>
-          <td>{{ evaluaciones.tipoEvaluacion }}</td>
-          <td>{{ evaluaciones.idExamen }}</td>
-          <td>{{ evaluaciones.idActa }}</td>
+          <td>{{ evaluaciones.nroEvaluacion }}</td>
           <td>{{ evaluaciones.fecha | formatMediumDate }}</td>
-          <td>{{ evaluaciones.puntosLogrados }}</td>
-          <td>{{ evaluaciones.porcentaje }}</td>
-          <td>{{ evaluaciones.comentarios }}</td>
           <td>
             <div *ngIf="evaluaciones.alumnos">
               <a [routerLink]="['/alumnos', evaluaciones.alumnos.id, 'view']">{{ evaluaciones.alumnos.nombreCompleto }}</a>
             </div>
           </td>
+          <td>
+            <div *ngIf="evaluaciones.funcionarios">
+              <a [routerLink]="['/funcionarios', evaluaciones.funcionarios.id, 'view']">{{ evaluaciones.funcionarios.nombreCompleto }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/evaluaciones-detalle']"
+                [queryParams]="{ 'filter[evaluacionesId.in]': evaluaciones.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.evaluaciones.evaluacionesDetalle' | translate) }"
+                  >Show Evaluaciones Detalle</span
+                >
+              </button>
               <button
                 type="submit"
                 [routerLink]="['/evaluaciones', evaluaciones.id, 'view']"
@@ -117,7 +108,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -127,12 +118,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(evaluaciones)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

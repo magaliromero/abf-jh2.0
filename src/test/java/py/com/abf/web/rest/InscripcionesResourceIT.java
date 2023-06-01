@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Alumnos;
+import py.com.abf.domain.Cursos;
 import py.com.abf.domain.Inscripciones;
 import py.com.abf.repository.InscripcionesRepository;
 import py.com.abf.service.InscripcionesService;
@@ -43,9 +44,9 @@ import py.com.abf.service.criteria.InscripcionesCriteria;
 @WithMockUser
 class InscripcionesResourceIT {
 
-    private static final LocalDate DEFAULT_FECHA = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_FECHA = LocalDate.now(ZoneId.systemDefault());
-    private static final LocalDate SMALLER_FECHA = LocalDate.ofEpochDay(-1L);
+    private static final LocalDate DEFAULT_FECHA_INSCRIPCION = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FECHA_INSCRIPCION = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate SMALLER_FECHA_INSCRIPCION = LocalDate.ofEpochDay(-1L);
 
     private static final String ENTITY_API_URL = "/api/inscripciones";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -77,7 +78,7 @@ class InscripcionesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Inscripciones createEntity(EntityManager em) {
-        Inscripciones inscripciones = new Inscripciones().fecha(DEFAULT_FECHA);
+        Inscripciones inscripciones = new Inscripciones().fechaInscripcion(DEFAULT_FECHA_INSCRIPCION);
         // Add required entity
         Alumnos alumnos;
         if (TestUtil.findAll(em, Alumnos.class).isEmpty()) {
@@ -88,6 +89,16 @@ class InscripcionesResourceIT {
             alumnos = TestUtil.findAll(em, Alumnos.class).get(0);
         }
         inscripciones.setAlumnos(alumnos);
+        // Add required entity
+        Cursos cursos;
+        if (TestUtil.findAll(em, Cursos.class).isEmpty()) {
+            cursos = CursosResourceIT.createEntity(em);
+            em.persist(cursos);
+            em.flush();
+        } else {
+            cursos = TestUtil.findAll(em, Cursos.class).get(0);
+        }
+        inscripciones.setCursos(cursos);
         return inscripciones;
     }
 
@@ -98,7 +109,7 @@ class InscripcionesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Inscripciones createUpdatedEntity(EntityManager em) {
-        Inscripciones inscripciones = new Inscripciones().fecha(UPDATED_FECHA);
+        Inscripciones inscripciones = new Inscripciones().fechaInscripcion(UPDATED_FECHA_INSCRIPCION);
         // Add required entity
         Alumnos alumnos;
         if (TestUtil.findAll(em, Alumnos.class).isEmpty()) {
@@ -109,6 +120,16 @@ class InscripcionesResourceIT {
             alumnos = TestUtil.findAll(em, Alumnos.class).get(0);
         }
         inscripciones.setAlumnos(alumnos);
+        // Add required entity
+        Cursos cursos;
+        if (TestUtil.findAll(em, Cursos.class).isEmpty()) {
+            cursos = CursosResourceIT.createUpdatedEntity(em);
+            em.persist(cursos);
+            em.flush();
+        } else {
+            cursos = TestUtil.findAll(em, Cursos.class).get(0);
+        }
+        inscripciones.setCursos(cursos);
         return inscripciones;
     }
 
@@ -130,7 +151,7 @@ class InscripcionesResourceIT {
         List<Inscripciones> inscripcionesList = inscripcionesRepository.findAll();
         assertThat(inscripcionesList).hasSize(databaseSizeBeforeCreate + 1);
         Inscripciones testInscripciones = inscripcionesList.get(inscripcionesList.size() - 1);
-        assertThat(testInscripciones.getFecha()).isEqualTo(DEFAULT_FECHA);
+        assertThat(testInscripciones.getFechaInscripcion()).isEqualTo(DEFAULT_FECHA_INSCRIPCION);
     }
 
     @Test
@@ -163,7 +184,7 @@ class InscripcionesResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(inscripciones.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
+            .andExpect(jsonPath("$.[*].fechaInscripcion").value(hasItem(DEFAULT_FECHA_INSCRIPCION.toString())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -195,7 +216,7 @@ class InscripcionesResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(inscripciones.getId().intValue()))
-            .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()));
+            .andExpect(jsonPath("$.fechaInscripcion").value(DEFAULT_FECHA_INSCRIPCION.toString()));
     }
 
     @Test
@@ -218,93 +239,93 @@ class InscripcionesResourceIT {
 
     @Test
     @Transactional
-    void getAllInscripcionesByFechaIsEqualToSomething() throws Exception {
+    void getAllInscripcionesByFechaInscripcionIsEqualToSomething() throws Exception {
         // Initialize the database
         inscripcionesRepository.saveAndFlush(inscripciones);
 
-        // Get all the inscripcionesList where fecha equals to DEFAULT_FECHA
-        defaultInscripcionesShouldBeFound("fecha.equals=" + DEFAULT_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion equals to DEFAULT_FECHA_INSCRIPCION
+        defaultInscripcionesShouldBeFound("fechaInscripcion.equals=" + DEFAULT_FECHA_INSCRIPCION);
 
-        // Get all the inscripcionesList where fecha equals to UPDATED_FECHA
-        defaultInscripcionesShouldNotBeFound("fecha.equals=" + UPDATED_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion equals to UPDATED_FECHA_INSCRIPCION
+        defaultInscripcionesShouldNotBeFound("fechaInscripcion.equals=" + UPDATED_FECHA_INSCRIPCION);
     }
 
     @Test
     @Transactional
-    void getAllInscripcionesByFechaIsInShouldWork() throws Exception {
+    void getAllInscripcionesByFechaInscripcionIsInShouldWork() throws Exception {
         // Initialize the database
         inscripcionesRepository.saveAndFlush(inscripciones);
 
-        // Get all the inscripcionesList where fecha in DEFAULT_FECHA or UPDATED_FECHA
-        defaultInscripcionesShouldBeFound("fecha.in=" + DEFAULT_FECHA + "," + UPDATED_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion in DEFAULT_FECHA_INSCRIPCION or UPDATED_FECHA_INSCRIPCION
+        defaultInscripcionesShouldBeFound("fechaInscripcion.in=" + DEFAULT_FECHA_INSCRIPCION + "," + UPDATED_FECHA_INSCRIPCION);
 
-        // Get all the inscripcionesList where fecha equals to UPDATED_FECHA
-        defaultInscripcionesShouldNotBeFound("fecha.in=" + UPDATED_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion equals to UPDATED_FECHA_INSCRIPCION
+        defaultInscripcionesShouldNotBeFound("fechaInscripcion.in=" + UPDATED_FECHA_INSCRIPCION);
     }
 
     @Test
     @Transactional
-    void getAllInscripcionesByFechaIsNullOrNotNull() throws Exception {
+    void getAllInscripcionesByFechaInscripcionIsNullOrNotNull() throws Exception {
         // Initialize the database
         inscripcionesRepository.saveAndFlush(inscripciones);
 
-        // Get all the inscripcionesList where fecha is not null
-        defaultInscripcionesShouldBeFound("fecha.specified=true");
+        // Get all the inscripcionesList where fechaInscripcion is not null
+        defaultInscripcionesShouldBeFound("fechaInscripcion.specified=true");
 
-        // Get all the inscripcionesList where fecha is null
-        defaultInscripcionesShouldNotBeFound("fecha.specified=false");
+        // Get all the inscripcionesList where fechaInscripcion is null
+        defaultInscripcionesShouldNotBeFound("fechaInscripcion.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllInscripcionesByFechaIsGreaterThanOrEqualToSomething() throws Exception {
+    void getAllInscripcionesByFechaInscripcionIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         inscripcionesRepository.saveAndFlush(inscripciones);
 
-        // Get all the inscripcionesList where fecha is greater than or equal to DEFAULT_FECHA
-        defaultInscripcionesShouldBeFound("fecha.greaterThanOrEqual=" + DEFAULT_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is greater than or equal to DEFAULT_FECHA_INSCRIPCION
+        defaultInscripcionesShouldBeFound("fechaInscripcion.greaterThanOrEqual=" + DEFAULT_FECHA_INSCRIPCION);
 
-        // Get all the inscripcionesList where fecha is greater than or equal to UPDATED_FECHA
-        defaultInscripcionesShouldNotBeFound("fecha.greaterThanOrEqual=" + UPDATED_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is greater than or equal to UPDATED_FECHA_INSCRIPCION
+        defaultInscripcionesShouldNotBeFound("fechaInscripcion.greaterThanOrEqual=" + UPDATED_FECHA_INSCRIPCION);
     }
 
     @Test
     @Transactional
-    void getAllInscripcionesByFechaIsLessThanOrEqualToSomething() throws Exception {
+    void getAllInscripcionesByFechaInscripcionIsLessThanOrEqualToSomething() throws Exception {
         // Initialize the database
         inscripcionesRepository.saveAndFlush(inscripciones);
 
-        // Get all the inscripcionesList where fecha is less than or equal to DEFAULT_FECHA
-        defaultInscripcionesShouldBeFound("fecha.lessThanOrEqual=" + DEFAULT_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is less than or equal to DEFAULT_FECHA_INSCRIPCION
+        defaultInscripcionesShouldBeFound("fechaInscripcion.lessThanOrEqual=" + DEFAULT_FECHA_INSCRIPCION);
 
-        // Get all the inscripcionesList where fecha is less than or equal to SMALLER_FECHA
-        defaultInscripcionesShouldNotBeFound("fecha.lessThanOrEqual=" + SMALLER_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is less than or equal to SMALLER_FECHA_INSCRIPCION
+        defaultInscripcionesShouldNotBeFound("fechaInscripcion.lessThanOrEqual=" + SMALLER_FECHA_INSCRIPCION);
     }
 
     @Test
     @Transactional
-    void getAllInscripcionesByFechaIsLessThanSomething() throws Exception {
+    void getAllInscripcionesByFechaInscripcionIsLessThanSomething() throws Exception {
         // Initialize the database
         inscripcionesRepository.saveAndFlush(inscripciones);
 
-        // Get all the inscripcionesList where fecha is less than DEFAULT_FECHA
-        defaultInscripcionesShouldNotBeFound("fecha.lessThan=" + DEFAULT_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is less than DEFAULT_FECHA_INSCRIPCION
+        defaultInscripcionesShouldNotBeFound("fechaInscripcion.lessThan=" + DEFAULT_FECHA_INSCRIPCION);
 
-        // Get all the inscripcionesList where fecha is less than UPDATED_FECHA
-        defaultInscripcionesShouldBeFound("fecha.lessThan=" + UPDATED_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is less than UPDATED_FECHA_INSCRIPCION
+        defaultInscripcionesShouldBeFound("fechaInscripcion.lessThan=" + UPDATED_FECHA_INSCRIPCION);
     }
 
     @Test
     @Transactional
-    void getAllInscripcionesByFechaIsGreaterThanSomething() throws Exception {
+    void getAllInscripcionesByFechaInscripcionIsGreaterThanSomething() throws Exception {
         // Initialize the database
         inscripcionesRepository.saveAndFlush(inscripciones);
 
-        // Get all the inscripcionesList where fecha is greater than DEFAULT_FECHA
-        defaultInscripcionesShouldNotBeFound("fecha.greaterThan=" + DEFAULT_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is greater than DEFAULT_FECHA_INSCRIPCION
+        defaultInscripcionesShouldNotBeFound("fechaInscripcion.greaterThan=" + DEFAULT_FECHA_INSCRIPCION);
 
-        // Get all the inscripcionesList where fecha is greater than SMALLER_FECHA
-        defaultInscripcionesShouldBeFound("fecha.greaterThan=" + SMALLER_FECHA);
+        // Get all the inscripcionesList where fechaInscripcion is greater than SMALLER_FECHA_INSCRIPCION
+        defaultInscripcionesShouldBeFound("fechaInscripcion.greaterThan=" + SMALLER_FECHA_INSCRIPCION);
     }
 
     @Test
@@ -330,6 +351,29 @@ class InscripcionesResourceIT {
         defaultInscripcionesShouldNotBeFound("alumnosId.equals=" + (alumnosId + 1));
     }
 
+    @Test
+    @Transactional
+    void getAllInscripcionesByCursosIsEqualToSomething() throws Exception {
+        Cursos cursos;
+        if (TestUtil.findAll(em, Cursos.class).isEmpty()) {
+            inscripcionesRepository.saveAndFlush(inscripciones);
+            cursos = CursosResourceIT.createEntity(em);
+        } else {
+            cursos = TestUtil.findAll(em, Cursos.class).get(0);
+        }
+        em.persist(cursos);
+        em.flush();
+        inscripciones.setCursos(cursos);
+        inscripcionesRepository.saveAndFlush(inscripciones);
+        Long cursosId = cursos.getId();
+
+        // Get all the inscripcionesList where cursos equals to cursosId
+        defaultInscripcionesShouldBeFound("cursosId.equals=" + cursosId);
+
+        // Get all the inscripcionesList where cursos equals to (cursosId + 1)
+        defaultInscripcionesShouldNotBeFound("cursosId.equals=" + (cursosId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -339,7 +383,7 @@ class InscripcionesResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(inscripciones.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
+            .andExpect(jsonPath("$.[*].fechaInscripcion").value(hasItem(DEFAULT_FECHA_INSCRIPCION.toString())));
 
         // Check, that the count call also returns 1
         restInscripcionesMockMvc
@@ -387,7 +431,7 @@ class InscripcionesResourceIT {
         Inscripciones updatedInscripciones = inscripcionesRepository.findById(inscripciones.getId()).get();
         // Disconnect from session so that the updates on updatedInscripciones are not directly saved in db
         em.detach(updatedInscripciones);
-        updatedInscripciones.fecha(UPDATED_FECHA);
+        updatedInscripciones.fechaInscripcion(UPDATED_FECHA_INSCRIPCION);
 
         restInscripcionesMockMvc
             .perform(
@@ -401,7 +445,7 @@ class InscripcionesResourceIT {
         List<Inscripciones> inscripcionesList = inscripcionesRepository.findAll();
         assertThat(inscripcionesList).hasSize(databaseSizeBeforeUpdate);
         Inscripciones testInscripciones = inscripcionesList.get(inscripcionesList.size() - 1);
-        assertThat(testInscripciones.getFecha()).isEqualTo(UPDATED_FECHA);
+        assertThat(testInscripciones.getFechaInscripcion()).isEqualTo(UPDATED_FECHA_INSCRIPCION);
     }
 
     @Test
@@ -484,7 +528,7 @@ class InscripcionesResourceIT {
         List<Inscripciones> inscripcionesList = inscripcionesRepository.findAll();
         assertThat(inscripcionesList).hasSize(databaseSizeBeforeUpdate);
         Inscripciones testInscripciones = inscripcionesList.get(inscripcionesList.size() - 1);
-        assertThat(testInscripciones.getFecha()).isEqualTo(DEFAULT_FECHA);
+        assertThat(testInscripciones.getFechaInscripcion()).isEqualTo(DEFAULT_FECHA_INSCRIPCION);
     }
 
     @Test
@@ -499,7 +543,7 @@ class InscripcionesResourceIT {
         Inscripciones partialUpdatedInscripciones = new Inscripciones();
         partialUpdatedInscripciones.setId(inscripciones.getId());
 
-        partialUpdatedInscripciones.fecha(UPDATED_FECHA);
+        partialUpdatedInscripciones.fechaInscripcion(UPDATED_FECHA_INSCRIPCION);
 
         restInscripcionesMockMvc
             .perform(
@@ -513,7 +557,7 @@ class InscripcionesResourceIT {
         List<Inscripciones> inscripcionesList = inscripcionesRepository.findAll();
         assertThat(inscripcionesList).hasSize(databaseSizeBeforeUpdate);
         Inscripciones testInscripciones = inscripcionesList.get(inscripcionesList.size() - 1);
-        assertThat(testInscripciones.getFecha()).isEqualTo(UPDATED_FECHA);
+        assertThat(testInscripciones.getFechaInscripcion()).isEqualTo(UPDATED_FECHA_INSCRIPCION);
     }
 
     @Test

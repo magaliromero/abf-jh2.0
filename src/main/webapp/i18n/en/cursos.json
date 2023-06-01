@@ -18,7 +18,14 @@
         "title": "Cursos"
       },
       "id": "ID",
-      "nombreCurso": "Nombre Curso"
+      "nombreCurso": "Nombre Curso",
+      "descripcion": "Descripcion",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Fin",
+      "cantidadClases": "Cantidad Clases",
+      "nivel": "Nivel",
+      "inscripciones": "Inscripciones",
+      "temas": "Temas"
     }
   }
 }

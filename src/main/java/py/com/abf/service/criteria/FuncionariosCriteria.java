@@ -81,9 +81,11 @@ public class FuncionariosCriteria implements Serializable, Criteria {
 
     private TipoFuncionariosFilter tipoFuncionario;
 
-    private LongFilter registroClasesId;
+    private LongFilter evaluacionesId;
 
     private LongFilter pagosId;
+
+    private LongFilter registroClasesId;
 
     private LongFilter tipoDocumentosId;
 
@@ -104,8 +106,9 @@ public class FuncionariosCriteria implements Serializable, Criteria {
         this.documento = other.documento == null ? null : other.documento.copy();
         this.estado = other.estado == null ? null : other.estado.copy();
         this.tipoFuncionario = other.tipoFuncionario == null ? null : other.tipoFuncionario.copy();
-        this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
+        this.evaluacionesId = other.evaluacionesId == null ? null : other.evaluacionesId.copy();
         this.pagosId = other.pagosId == null ? null : other.pagosId.copy();
+        this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
         this.tipoDocumentosId = other.tipoDocumentosId == null ? null : other.tipoDocumentosId.copy();
         this.distinct = other.distinct;
     }
@@ -295,19 +298,19 @@ public class FuncionariosCriteria implements Serializable, Criteria {
         this.tipoFuncionario = tipoFuncionario;
     }
 
-    public LongFilter getRegistroClasesId() {
-        return registroClasesId;
+    public LongFilter getEvaluacionesId() {
+        return evaluacionesId;
     }
 
-    public LongFilter registroClasesId() {
-        if (registroClasesId == null) {
-            registroClasesId = new LongFilter();
+    public LongFilter evaluacionesId() {
+        if (evaluacionesId == null) {
+            evaluacionesId = new LongFilter();
         }
-        return registroClasesId;
+        return evaluacionesId;
     }
 
-    public void setRegistroClasesId(LongFilter registroClasesId) {
-        this.registroClasesId = registroClasesId;
+    public void setEvaluacionesId(LongFilter evaluacionesId) {
+        this.evaluacionesId = evaluacionesId;
     }
 
     public LongFilter getPagosId() {
@@ -323,6 +326,21 @@ public class FuncionariosCriteria implements Serializable, Criteria {
 
     public void setPagosId(LongFilter pagosId) {
         this.pagosId = pagosId;
+    }
+
+    public LongFilter getRegistroClasesId() {
+        return registroClasesId;
+    }
+
+    public LongFilter registroClasesId() {
+        if (registroClasesId == null) {
+            registroClasesId = new LongFilter();
+        }
+        return registroClasesId;
+    }
+
+    public void setRegistroClasesId(LongFilter registroClasesId) {
+        this.registroClasesId = registroClasesId;
     }
 
     public LongFilter getTipoDocumentosId() {
@@ -370,8 +388,9 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             Objects.equals(documento, that.documento) &&
             Objects.equals(estado, that.estado) &&
             Objects.equals(tipoFuncionario, that.tipoFuncionario) &&
-            Objects.equals(registroClasesId, that.registroClasesId) &&
+            Objects.equals(evaluacionesId, that.evaluacionesId) &&
             Objects.equals(pagosId, that.pagosId) &&
+            Objects.equals(registroClasesId, that.registroClasesId) &&
             Objects.equals(tipoDocumentosId, that.tipoDocumentosId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -392,8 +411,9 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             documento,
             estado,
             tipoFuncionario,
-            registroClasesId,
+            evaluacionesId,
             pagosId,
+            registroClasesId,
             tipoDocumentosId,
             distinct
         );
@@ -415,8 +435,9 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             (documento != null ? "documento=" + documento + ", " : "") +
             (estado != null ? "estado=" + estado + ", " : "") +
             (tipoFuncionario != null ? "tipoFuncionario=" + tipoFuncionario + ", " : "") +
-            (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +
+            (evaluacionesId != null ? "evaluacionesId=" + evaluacionesId + ", " : "") +
             (pagosId != null ? "pagosId=" + pagosId + ", " : "") +
+            (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +
             (tipoDocumentosId != null ? "tipoDocumentosId=" + tipoDocumentosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

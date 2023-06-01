@@ -1,12 +1,12 @@
 {
-  "applications": "*",
-  "changelogDate": "20230313233748",
+  "applications": ["abf"],
+  "changelogDate": "20230601133013",
   "dto": "no",
   "embedded": false,
-  "entityTableName": "inscripciones",
+  "entityTableName": "inscripcion",
   "fields": [
     {
-      "fieldName": "fecha",
+      "fieldName": "fechaInscripcion",
       "fieldType": "LocalDate"
     }
   ],
@@ -21,6 +21,14 @@
       "otherEntityName": "alumnos",
       "otherEntityRelationshipName": "inscripciones",
       "relationshipName": "alumnos",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombreCurso",
+      "otherEntityName": "cursos",
+      "otherEntityRelationshipName": "inscripciones",
+      "relationshipName": "cursos",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }

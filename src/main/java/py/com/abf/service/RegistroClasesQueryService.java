@@ -94,27 +94,18 @@ public class RegistroClasesQueryService extends QueryService<RegistroClases> {
             if (criteria.getAsistenciaAlumno() != null) {
                 specification = specification.and(buildSpecification(criteria.getAsistenciaAlumno(), RegistroClases_.asistenciaAlumno));
             }
-            if (criteria.getMallaCurricularId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getMallaCurricularId(),
-                            root -> root.join(RegistroClases_.mallaCurricular, JoinType.LEFT).get(MallaCurricular_.id)
-                        )
-                    );
-            }
             if (criteria.getTemasId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(criteria.getTemasId(), root -> root.join(RegistroClases_.temas, JoinType.LEFT).get(Temas_.id))
                     );
             }
-            if (criteria.getFuncionariosId() != null) {
+            if (criteria.getFuncionarioId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
-                            criteria.getFuncionariosId(),
-                            root -> root.join(RegistroClases_.funcionarios, JoinType.LEFT).get(Funcionarios_.id)
+                            criteria.getFuncionarioId(),
+                            root -> root.join(RegistroClases_.funcionario, JoinType.LEFT).get(Funcionarios_.id)
                         )
                     );
             }

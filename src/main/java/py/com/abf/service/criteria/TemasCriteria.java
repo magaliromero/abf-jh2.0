@@ -27,9 +27,11 @@ public class TemasCriteria implements Serializable, Criteria {
 
     private StringFilter descripcion;
 
+    private LongFilter evaluacionesDetalleId;
+
     private LongFilter registroClasesId;
 
-    private LongFilter mallaCurricularId;
+    private LongFilter cursosId;
 
     private Boolean distinct;
 
@@ -39,8 +41,9 @@ public class TemasCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.titulo = other.titulo == null ? null : other.titulo.copy();
         this.descripcion = other.descripcion == null ? null : other.descripcion.copy();
+        this.evaluacionesDetalleId = other.evaluacionesDetalleId == null ? null : other.evaluacionesDetalleId.copy();
         this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
-        this.mallaCurricularId = other.mallaCurricularId == null ? null : other.mallaCurricularId.copy();
+        this.cursosId = other.cursosId == null ? null : other.cursosId.copy();
         this.distinct = other.distinct;
     }
 
@@ -94,6 +97,21 @@ public class TemasCriteria implements Serializable, Criteria {
         this.descripcion = descripcion;
     }
 
+    public LongFilter getEvaluacionesDetalleId() {
+        return evaluacionesDetalleId;
+    }
+
+    public LongFilter evaluacionesDetalleId() {
+        if (evaluacionesDetalleId == null) {
+            evaluacionesDetalleId = new LongFilter();
+        }
+        return evaluacionesDetalleId;
+    }
+
+    public void setEvaluacionesDetalleId(LongFilter evaluacionesDetalleId) {
+        this.evaluacionesDetalleId = evaluacionesDetalleId;
+    }
+
     public LongFilter getRegistroClasesId() {
         return registroClasesId;
     }
@@ -109,19 +127,19 @@ public class TemasCriteria implements Serializable, Criteria {
         this.registroClasesId = registroClasesId;
     }
 
-    public LongFilter getMallaCurricularId() {
-        return mallaCurricularId;
+    public LongFilter getCursosId() {
+        return cursosId;
     }
 
-    public LongFilter mallaCurricularId() {
-        if (mallaCurricularId == null) {
-            mallaCurricularId = new LongFilter();
+    public LongFilter cursosId() {
+        if (cursosId == null) {
+            cursosId = new LongFilter();
         }
-        return mallaCurricularId;
+        return cursosId;
     }
 
-    public void setMallaCurricularId(LongFilter mallaCurricularId) {
-        this.mallaCurricularId = mallaCurricularId;
+    public void setCursosId(LongFilter cursosId) {
+        this.cursosId = cursosId;
     }
 
     public Boolean getDistinct() {
@@ -145,15 +163,16 @@ public class TemasCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(titulo, that.titulo) &&
             Objects.equals(descripcion, that.descripcion) &&
+            Objects.equals(evaluacionesDetalleId, that.evaluacionesDetalleId) &&
             Objects.equals(registroClasesId, that.registroClasesId) &&
-            Objects.equals(mallaCurricularId, that.mallaCurricularId) &&
+            Objects.equals(cursosId, that.cursosId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titulo, descripcion, registroClasesId, mallaCurricularId, distinct);
+        return Objects.hash(id, titulo, descripcion, evaluacionesDetalleId, registroClasesId, cursosId, distinct);
     }
 
     // prettier-ignore
@@ -163,8 +182,9 @@ public class TemasCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (titulo != null ? "titulo=" + titulo + ", " : "") +
             (descripcion != null ? "descripcion=" + descripcion + ", " : "") +
+            (evaluacionesDetalleId != null ? "evaluacionesDetalleId=" + evaluacionesDetalleId + ", " : "") +
             (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +
-            (mallaCurricularId != null ? "mallaCurricularId=" + mallaCurricularId + ", " : "") +
+            (cursosId != null ? "cursosId=" + cursosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

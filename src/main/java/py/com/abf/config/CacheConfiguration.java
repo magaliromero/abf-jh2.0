@@ -48,36 +48,6 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.User.class.getName());
             createCache(cm, py.com.abf.domain.Authority.class.getName());
             createCache(cm, py.com.abf.domain.User.class.getName() + ".authorities");
-            createCache(cm, py.com.abf.domain.TiposDocumentos.class.getName());
-            createCache(cm, py.com.abf.domain.TiposDocumentos.class.getName() + ".alumnos");
-            createCache(cm, py.com.abf.domain.TiposDocumentos.class.getName() + ".funcionarios");
-            createCache(cm, py.com.abf.domain.Alumnos.class.getName());
-            createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".matriculas");
-            createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".registroClases");
-            createCache(cm, py.com.abf.domain.Funcionarios.class.getName());
-            createCache(cm, py.com.abf.domain.Funcionarios.class.getName() + ".registroClases");
-            createCache(cm, py.com.abf.domain.Temas.class.getName());
-            createCache(cm, py.com.abf.domain.Temas.class.getName() + ".registroClases");
-            createCache(cm, py.com.abf.domain.Temas.class.getName() + ".mallaCurriculars");
-            createCache(cm, py.com.abf.domain.MallaCurricular.class.getName());
-            createCache(cm, py.com.abf.domain.MallaCurricular.class.getName() + ".registroClases");
-            createCache(cm, py.com.abf.domain.MallaCurricular.class.getName() + ".temas");
-            createCache(cm, py.com.abf.domain.Matricula.class.getName());
-            createCache(cm, py.com.abf.domain.RegistroClases.class.getName());
-            createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".pagos");
-            createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".evaluaciones");
-            createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".inscripciones");
-            createCache(cm, py.com.abf.domain.Funcionarios.class.getName() + ".pagos");
-            createCache(cm, py.com.abf.domain.Pagos.class.getName());
-            createCache(cm, py.com.abf.domain.Usuarios.class.getName());
-            createCache(cm, py.com.abf.domain.Prestamos.class.getName());
-            createCache(cm, py.com.abf.domain.Torneos.class.getName());
-            createCache(cm, py.com.abf.domain.Torneos.class.getName() + ".fichaPartidasTorneos");
-            createCache(cm, py.com.abf.domain.Materiales.class.getName());
-            createCache(cm, py.com.abf.domain.FichaPartidasTorneos.class.getName());
-            createCache(cm, py.com.abf.domain.Cursos.class.getName());
-            createCache(cm, py.com.abf.domain.Evaluaciones.class.getName());
-            createCache(cm, py.com.abf.domain.Inscripciones.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

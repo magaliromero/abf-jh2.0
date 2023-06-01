@@ -30,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Alumnos;
 import py.com.abf.domain.Funcionarios;
-import py.com.abf.domain.MallaCurricular;
 import py.com.abf.domain.RegistroClases;
 import py.com.abf.domain.Temas;
 import py.com.abf.repository.RegistroClasesRepository;
@@ -92,16 +91,6 @@ class RegistroClasesResourceIT {
             .cantidadHoras(DEFAULT_CANTIDAD_HORAS)
             .asistenciaAlumno(DEFAULT_ASISTENCIA_ALUMNO);
         // Add required entity
-        MallaCurricular mallaCurricular;
-        if (TestUtil.findAll(em, MallaCurricular.class).isEmpty()) {
-            mallaCurricular = MallaCurricularResourceIT.createEntity(em);
-            em.persist(mallaCurricular);
-            em.flush();
-        } else {
-            mallaCurricular = TestUtil.findAll(em, MallaCurricular.class).get(0);
-        }
-        registroClases.setMallaCurricular(mallaCurricular);
-        // Add required entity
         Temas temas;
         if (TestUtil.findAll(em, Temas.class).isEmpty()) {
             temas = TemasResourceIT.createEntity(em);
@@ -120,7 +109,7 @@ class RegistroClasesResourceIT {
         } else {
             funcionarios = TestUtil.findAll(em, Funcionarios.class).get(0);
         }
-        registroClases.setFuncionarios(funcionarios);
+        registroClases.setFuncionario(funcionarios);
         // Add required entity
         Alumnos alumnos;
         if (TestUtil.findAll(em, Alumnos.class).isEmpty()) {
@@ -146,16 +135,6 @@ class RegistroClasesResourceIT {
             .cantidadHoras(UPDATED_CANTIDAD_HORAS)
             .asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO);
         // Add required entity
-        MallaCurricular mallaCurricular;
-        if (TestUtil.findAll(em, MallaCurricular.class).isEmpty()) {
-            mallaCurricular = MallaCurricularResourceIT.createUpdatedEntity(em);
-            em.persist(mallaCurricular);
-            em.flush();
-        } else {
-            mallaCurricular = TestUtil.findAll(em, MallaCurricular.class).get(0);
-        }
-        registroClases.setMallaCurricular(mallaCurricular);
-        // Add required entity
         Temas temas;
         if (TestUtil.findAll(em, Temas.class).isEmpty()) {
             temas = TemasResourceIT.createUpdatedEntity(em);
@@ -174,7 +153,7 @@ class RegistroClasesResourceIT {
         } else {
             funcionarios = TestUtil.findAll(em, Funcionarios.class).get(0);
         }
-        registroClases.setFuncionarios(funcionarios);
+        registroClases.setFuncionario(funcionarios);
         // Add required entity
         Alumnos alumnos;
         if (TestUtil.findAll(em, Alumnos.class).isEmpty()) {
@@ -563,29 +542,6 @@ class RegistroClasesResourceIT {
 
     @Test
     @Transactional
-    void getAllRegistroClasesByMallaCurricularIsEqualToSomething() throws Exception {
-        MallaCurricular mallaCurricular;
-        if (TestUtil.findAll(em, MallaCurricular.class).isEmpty()) {
-            registroClasesRepository.saveAndFlush(registroClases);
-            mallaCurricular = MallaCurricularResourceIT.createEntity(em);
-        } else {
-            mallaCurricular = TestUtil.findAll(em, MallaCurricular.class).get(0);
-        }
-        em.persist(mallaCurricular);
-        em.flush();
-        registroClases.setMallaCurricular(mallaCurricular);
-        registroClasesRepository.saveAndFlush(registroClases);
-        Long mallaCurricularId = mallaCurricular.getId();
-
-        // Get all the registroClasesList where mallaCurricular equals to mallaCurricularId
-        defaultRegistroClasesShouldBeFound("mallaCurricularId.equals=" + mallaCurricularId);
-
-        // Get all the registroClasesList where mallaCurricular equals to (mallaCurricularId + 1)
-        defaultRegistroClasesShouldNotBeFound("mallaCurricularId.equals=" + (mallaCurricularId + 1));
-    }
-
-    @Test
-    @Transactional
     void getAllRegistroClasesByTemasIsEqualToSomething() throws Exception {
         Temas temas;
         if (TestUtil.findAll(em, Temas.class).isEmpty()) {
@@ -609,25 +565,25 @@ class RegistroClasesResourceIT {
 
     @Test
     @Transactional
-    void getAllRegistroClasesByFuncionariosIsEqualToSomething() throws Exception {
-        Funcionarios funcionarios;
+    void getAllRegistroClasesByFuncionarioIsEqualToSomething() throws Exception {
+        Funcionarios funcionario;
         if (TestUtil.findAll(em, Funcionarios.class).isEmpty()) {
             registroClasesRepository.saveAndFlush(registroClases);
-            funcionarios = FuncionariosResourceIT.createEntity(em);
+            funcionario = FuncionariosResourceIT.createEntity(em);
         } else {
-            funcionarios = TestUtil.findAll(em, Funcionarios.class).get(0);
+            funcionario = TestUtil.findAll(em, Funcionarios.class).get(0);
         }
-        em.persist(funcionarios);
+        em.persist(funcionario);
         em.flush();
-        registroClases.setFuncionarios(funcionarios);
+        registroClases.setFuncionario(funcionario);
         registroClasesRepository.saveAndFlush(registroClases);
-        Long funcionariosId = funcionarios.getId();
+        Long funcionarioId = funcionario.getId();
 
-        // Get all the registroClasesList where funcionarios equals to funcionariosId
-        defaultRegistroClasesShouldBeFound("funcionariosId.equals=" + funcionariosId);
+        // Get all the registroClasesList where funcionario equals to funcionarioId
+        defaultRegistroClasesShouldBeFound("funcionarioId.equals=" + funcionarioId);
 
-        // Get all the registroClasesList where funcionarios equals to (funcionariosId + 1)
-        defaultRegistroClasesShouldNotBeFound("funcionariosId.equals=" + (funcionariosId + 1));
+        // Get all the registroClasesList where funcionario equals to (funcionarioId + 1)
+        defaultRegistroClasesShouldNotBeFound("funcionarioId.equals=" + (funcionarioId + 1));
     }
 
     @Test

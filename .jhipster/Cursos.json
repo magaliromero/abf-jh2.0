@@ -1,13 +1,37 @@
 {
-  "applications": "*",
-  "changelogDate": "20230313233746",
+  "applications": ["abf"],
+  "changelogDate": "20230601132913",
   "dto": "no",
   "embedded": false,
   "entityTableName": "cursos",
   "fields": [
     {
       "fieldName": "nombreCurso",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cantidadClases",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nivel",
+      "fieldType": "Niveles",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PREAJEDREZ (Pre-Ajedrez),INICIAL (Inicial),PRINCIPIANTE (Principiante),INTERMEDIO (Intermedio),AVANZADO (Avanzado),TODOS (Todos los niveles)"
     }
   ],
   "fluentMethods": true,
@@ -15,6 +39,19 @@
   "name": "Cursos",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "inscripciones",
+      "otherEntityRelationshipName": "cursos",
+      "relationshipName": "inscripciones",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "temas",
+      "otherEntityRelationshipName": "cursos",
+      "relationshipName": "temas",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "service": "serviceImpl"
 }

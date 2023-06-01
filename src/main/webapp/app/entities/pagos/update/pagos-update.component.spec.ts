@@ -9,8 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { PagosFormService } from './pagos-form.service';
 import { PagosService } from '../service/pagos.service';
 import { IPagos } from '../pagos.model';
-import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
-import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
+import { IProductos } from 'app/entities/productos/productos.model';
+import { ProductosService } from 'app/entities/productos/service/productos.service';
 import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
 import { FuncionariosService } from 'app/entities/funcionarios/service/funcionarios.service';
 
@@ -22,7 +22,7 @@ describe('Pagos Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let pagosFormService: PagosFormService;
   let pagosService: PagosService;
-  let alumnosService: AlumnosService;
+  let productosService: ProductosService;
   let funcionariosService: FuncionariosService;
 
   beforeEach(() => {
@@ -46,43 +46,43 @@ describe('Pagos Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     pagosFormService = TestBed.inject(PagosFormService);
     pagosService = TestBed.inject(PagosService);
-    alumnosService = TestBed.inject(AlumnosService);
+    productosService = TestBed.inject(ProductosService);
     funcionariosService = TestBed.inject(FuncionariosService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Alumnos query and add missing value', () => {
+    it('Should call Productos query and add missing value', () => {
       const pagos: IPagos = { id: 456 };
-      const alumnos: IAlumnos = { id: 82590 };
-      pagos.alumnos = alumnos;
+      const producto: IProductos = { id: 260 };
+      pagos.producto = producto;
 
-      const alumnosCollection: IAlumnos[] = [{ id: 74661 }];
-      jest.spyOn(alumnosService, 'query').mockReturnValue(of(new HttpResponse({ body: alumnosCollection })));
-      const additionalAlumnos = [alumnos];
-      const expectedCollection: IAlumnos[] = [...additionalAlumnos, ...alumnosCollection];
-      jest.spyOn(alumnosService, 'addAlumnosToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const productosCollection: IProductos[] = [{ id: 14087 }];
+      jest.spyOn(productosService, 'query').mockReturnValue(of(new HttpResponse({ body: productosCollection })));
+      const additionalProductos = [producto];
+      const expectedCollection: IProductos[] = [...additionalProductos, ...productosCollection];
+      jest.spyOn(productosService, 'addProductosToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ pagos });
       comp.ngOnInit();
 
-      expect(alumnosService.query).toHaveBeenCalled();
-      expect(alumnosService.addAlumnosToCollectionIfMissing).toHaveBeenCalledWith(
-        alumnosCollection,
-        ...additionalAlumnos.map(expect.objectContaining)
+      expect(productosService.query).toHaveBeenCalled();
+      expect(productosService.addProductosToCollectionIfMissing).toHaveBeenCalledWith(
+        productosCollection,
+        ...additionalProductos.map(expect.objectContaining)
       );
-      expect(comp.alumnosSharedCollection).toEqual(expectedCollection);
+      expect(comp.productosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Funcionarios query and add missing value', () => {
       const pagos: IPagos = { id: 456 };
-      const funcionarios: IFuncionarios = { id: 62792 };
-      pagos.funcionarios = funcionarios;
+      const funcionario: IFuncionarios = { id: 62792 };
+      pagos.funcionario = funcionario;
 
       const funcionariosCollection: IFuncionarios[] = [{ id: 51622 }];
       jest.spyOn(funcionariosService, 'query').mockReturnValue(of(new HttpResponse({ body: funcionariosCollection })));
-      const additionalFuncionarios = [funcionarios];
+      const additionalFuncionarios = [funcionario];
       const expectedCollection: IFuncionarios[] = [...additionalFuncionarios, ...funcionariosCollection];
       jest.spyOn(funcionariosService, 'addFuncionariosToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -99,16 +99,16 @@ describe('Pagos Management Update Component', () => {
 
     it('Should update editForm', () => {
       const pagos: IPagos = { id: 456 };
-      const alumnos: IAlumnos = { id: 50561 };
-      pagos.alumnos = alumnos;
-      const funcionarios: IFuncionarios = { id: 34733 };
-      pagos.funcionarios = funcionarios;
+      const producto: IProductos = { id: 45226 };
+      pagos.producto = producto;
+      const funcionario: IFuncionarios = { id: 34733 };
+      pagos.funcionario = funcionario;
 
       activatedRoute.data = of({ pagos });
       comp.ngOnInit();
 
-      expect(comp.alumnosSharedCollection).toContain(alumnos);
-      expect(comp.funcionariosSharedCollection).toContain(funcionarios);
+      expect(comp.productosSharedCollection).toContain(producto);
+      expect(comp.funcionariosSharedCollection).toContain(funcionario);
       expect(comp.pagos).toEqual(pagos);
     });
   });
@@ -182,13 +182,13 @@ describe('Pagos Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareAlumnos', () => {
-      it('Should forward to alumnosService', () => {
+    describe('compareProductos', () => {
+      it('Should forward to productosService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(alumnosService, 'compareAlumnos');
-        comp.compareAlumnos(entity, entity2);
-        expect(alumnosService.compareAlumnos).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(productosService, 'compareProductos');
+        comp.compareProductos(entity, entity2);
+        expect(productosService.compareProductos).toHaveBeenCalledWith(entity, entity2);
       });
     });
 

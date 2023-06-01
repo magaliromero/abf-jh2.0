@@ -45,8 +45,8 @@ public class InscripcionesServiceImpl implements InscripcionesService {
         return inscripcionesRepository
             .findById(inscripciones.getId())
             .map(existingInscripciones -> {
-                if (inscripciones.getFecha() != null) {
-                    existingInscripciones.setFecha(inscripciones.getFecha());
+                if (inscripciones.getFechaInscripcion() != null) {
+                    existingInscripciones.setFechaInscripcion(inscripciones.getFechaInscripcion());
                 }
 
                 return existingInscripciones;

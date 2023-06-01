@@ -38,23 +38,18 @@ public class RegistroClases implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "registroClases", "temas" }, allowSetters = true)
-    private MallaCurricular mallaCurricular;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = { "registroClases", "mallaCurriculars" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "evaluacionesDetalles", "registroClases", "cursos" }, allowSetters = true)
     private Temas temas;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "registroClases", "pagos", "tipoDocumentos" }, allowSetters = true)
-    private Funcionarios funcionarios;
+    @JsonIgnoreProperties(value = { "evaluaciones", "pagos", "registroClases", "tipoDocumentos" }, allowSetters = true)
+    private Funcionarios funcionario;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "matriculas", "registroClases", "pagos", "evaluaciones", "inscripciones", "tipoDocumentos" },
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
         allowSetters = true
     )
     private Alumnos alumnos;
@@ -113,19 +108,6 @@ public class RegistroClases implements Serializable {
         this.asistenciaAlumno = asistenciaAlumno;
     }
 
-    public MallaCurricular getMallaCurricular() {
-        return this.mallaCurricular;
-    }
-
-    public void setMallaCurricular(MallaCurricular mallaCurricular) {
-        this.mallaCurricular = mallaCurricular;
-    }
-
-    public RegistroClases mallaCurricular(MallaCurricular mallaCurricular) {
-        this.setMallaCurricular(mallaCurricular);
-        return this;
-    }
-
     public Temas getTemas() {
         return this.temas;
     }
@@ -139,16 +121,16 @@ public class RegistroClases implements Serializable {
         return this;
     }
 
-    public Funcionarios getFuncionarios() {
-        return this.funcionarios;
+    public Funcionarios getFuncionario() {
+        return this.funcionario;
     }
 
-    public void setFuncionarios(Funcionarios funcionarios) {
-        this.funcionarios = funcionarios;
+    public void setFuncionario(Funcionarios funcionarios) {
+        this.funcionario = funcionarios;
     }
 
-    public RegistroClases funcionarios(Funcionarios funcionarios) {
-        this.setFuncionarios(funcionarios);
+    public RegistroClases funcionario(Funcionarios funcionarios) {
+        this.setFuncionario(funcionarios);
         return this;
     }
 

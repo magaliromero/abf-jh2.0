@@ -1,6 +1,6 @@
 {
-  "applications": "*",
-  "changelogDate": "20230313233744",
+  "applications": ["abf"],
+  "changelogDate": "20230601133913",
   "dto": "no",
   "embedded": false,
   "entityTableName": "materiales",
@@ -11,14 +11,12 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "estado",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldName": "cantidad",
+      "fieldType": "Integer"
     },
     {
-      "fieldName": "cantidad",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
+      "fieldName": "cantidadEnPrestamo",
+      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,
@@ -26,6 +24,13 @@
   "name": "Materiales",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "prestamos",
+      "otherEntityRelationshipName": "materiales",
+      "relationshipName": "prestamos",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "service": "serviceImpl"
 }

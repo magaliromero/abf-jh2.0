@@ -12,7 +12,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A Inscripciones.
  */
 @Entity
-@Table(name = "inscripciones")
+@Table(name = "inscripcion")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Inscripciones implements Serializable {
@@ -25,16 +25,21 @@ public class Inscripciones implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "fecha")
-    private LocalDate fecha;
+    @Column(name = "fecha_inscripcion")
+    private LocalDate fechaInscripcion;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "matriculas", "registroClases", "pagos", "evaluaciones", "inscripciones", "tipoDocumentos" },
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
         allowSetters = true
     )
     private Alumnos alumnos;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "inscripciones", "temas" }, allowSetters = true)
+    private Cursos cursos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -51,17 +56,17 @@ public class Inscripciones implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getFecha() {
-        return this.fecha;
+    public LocalDate getFechaInscripcion() {
+        return this.fechaInscripcion;
     }
 
-    public Inscripciones fecha(LocalDate fecha) {
-        this.setFecha(fecha);
+    public Inscripciones fechaInscripcion(LocalDate fechaInscripcion) {
+        this.setFechaInscripcion(fechaInscripcion);
         return this;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setFechaInscripcion(LocalDate fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
     }
 
     public Alumnos getAlumnos() {
@@ -74,6 +79,19 @@ public class Inscripciones implements Serializable {
 
     public Inscripciones alumnos(Alumnos alumnos) {
         this.setAlumnos(alumnos);
+        return this;
+    }
+
+    public Cursos getCursos() {
+        return this.cursos;
+    }
+
+    public void setCursos(Cursos cursos) {
+        this.cursos = cursos;
+    }
+
+    public Inscripciones cursos(Cursos cursos) {
+        this.setCursos(cursos);
         return this;
     }
 
@@ -101,7 +119,7 @@ public class Inscripciones implements Serializable {
     public String toString() {
         return "Inscripciones{" +
             "id=" + getId() +
-            ", fecha='" + getFecha() + "'" +
+            ", fechaInscripcion='" + getFechaInscripcion() + "'" +
             "}";
     }
 }

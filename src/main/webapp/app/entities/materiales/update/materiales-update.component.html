@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-materiales-heading" data-cy="MaterialesCreateUpdateHeading" jhiTranslate="abfApp.materiales.home.createOrEditLabel">
-        Crear o editar Materiales
+        Create or edit a Materiales
       </h2>
 
       <div>
@@ -29,17 +29,7 @@
               *ngIf="editForm.get('descripcion')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              Este campo es obligatorio.
-            </small>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.materiales.estado" for="field_estado">Estado</label>
-          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
-          <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
-              Este campo es obligatorio.
+              This field is required.
             </small>
           </div>
         </div>
@@ -47,28 +37,26 @@
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.materiales.cantidad" for="field_cantidad">Cantidad</label>
           <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
-          <div *ngIf="editForm.get('cantidad')!.invalid && (editForm.get('cantidad')!.dirty || editForm.get('cantidad')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('cantidad')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              Este campo es obligatorio.
-            </small>
-            <small
-              class="form-text text-danger"
-              [hidden]="!editForm.get('cantidad')?.errors?.number"
-              jhiTranslate="entity.validation.number"
-            >
-              Este campo debe ser un número.
-            </small>
-          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.materiales.cantidadEnPrestamo" for="field_cantidadEnPrestamo"
+            >Cantidad En Prestamo</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="cantidadEnPrestamo"
+            id="field_cantidadEnPrestamo"
+            data-cy="cantidadEnPrestamo"
+            formControlName="cantidadEnPrestamo"
+          />
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -78,7 +66,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

@@ -18,8 +18,9 @@ type InscripcionesFormDefaults = Pick<NewInscripciones, 'id'>;
 
 type InscripcionesFormGroupContent = {
   id: FormControl<IInscripciones['id'] | NewInscripciones['id']>;
-  fecha: FormControl<IInscripciones['fecha']>;
+  fechaInscripcion: FormControl<IInscripciones['fechaInscripcion']>;
   alumnos: FormControl<IInscripciones['alumnos']>;
+  cursos: FormControl<IInscripciones['cursos']>;
 };
 
 export type InscripcionesFormGroup = FormGroup<InscripcionesFormGroupContent>;
@@ -39,8 +40,11 @@ export class InscripcionesFormService {
           validators: [Validators.required],
         }
       ),
-      fecha: new FormControl(inscripcionesRawValue.fecha),
+      fechaInscripcion: new FormControl(inscripcionesRawValue.fechaInscripcion),
       alumnos: new FormControl(inscripcionesRawValue.alumnos, {
+        validators: [Validators.required],
+      }),
+      cursos: new FormControl(inscripcionesRawValue.cursos, {
         validators: [Validators.required],
       }),
     });

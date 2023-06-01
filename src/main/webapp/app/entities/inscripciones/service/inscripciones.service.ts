@@ -12,8 +12,8 @@ import { IInscripciones, NewInscripciones } from '../inscripciones.model';
 
 export type PartialUpdateInscripciones = Partial<IInscripciones> & Pick<IInscripciones, 'id'>;
 
-type RestOf<T extends IInscripciones | NewInscripciones> = Omit<T, 'fecha'> & {
-  fecha?: string | null;
+type RestOf<T extends IInscripciones | NewInscripciones> = Omit<T, 'fechaInscripcion'> & {
+  fechaInscripcion?: string | null;
 };
 
 export type RestInscripciones = RestOf<IInscripciones>;
@@ -102,14 +102,14 @@ export class InscripcionesService {
   protected convertDateFromClient<T extends IInscripciones | NewInscripciones | PartialUpdateInscripciones>(inscripciones: T): RestOf<T> {
     return {
       ...inscripciones,
-      fecha: inscripciones.fecha?.format(DATE_FORMAT) ?? null,
+      fechaInscripcion: inscripciones.fechaInscripcion?.format(DATE_FORMAT) ?? null,
     };
   }
 
   protected convertDateFromServer(restInscripciones: RestInscripciones): IInscripciones {
     return {
       ...restInscripciones,
-      fecha: restInscripciones.fecha ? dayjs(restInscripciones.fecha) : undefined,
+      fechaInscripcion: restInscripciones.fechaInscripcion ? dayjs(restInscripciones.fechaInscripcion) : undefined,
     };
   }
 

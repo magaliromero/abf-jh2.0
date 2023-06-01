@@ -1,39 +1,19 @@
 {
-  "applications": "*",
-  "changelogDate": "20230313233747",
+  "applications": ["abf"],
+  "changelogDate": "20230601134213",
   "dto": "no",
   "embedded": false,
   "entityTableName": "evaluaciones",
   "fields": [
     {
-      "fieldName": "tipoEvaluacion",
-      "fieldType": "String",
+      "fieldName": "nroEvaluacion",
+      "fieldType": "Integer",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "idExamen",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "idActa",
-      "fieldType": "Integer"
     },
     {
       "fieldName": "fecha",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "puntosLogrados",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "porcentaje",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "comentarios",
-      "fieldType": "String"
     }
   ],
   "fluentMethods": true,
@@ -43,10 +23,24 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "evaluacionesDetalle",
+      "otherEntityRelationshipName": "evaluaciones",
+      "relationshipName": "evaluacionesDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "alumnos",
       "otherEntityRelationshipName": "evaluaciones",
       "relationshipName": "alumnos",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombreCompleto",
+      "otherEntityName": "funcionarios",
+      "otherEntityRelationshipName": "evaluaciones",
+      "relationshipName": "funcionarios",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }

@@ -7,8 +7,6 @@ import { finalize, map } from 'rxjs/operators';
 import { RegistroClasesFormService, RegistroClasesFormGroup } from './registro-clases-form.service';
 import { IRegistroClases } from '../registro-clases.model';
 import { RegistroClasesService } from '../service/registro-clases.service';
-import { IMallaCurricular } from 'app/entities/malla-curricular/malla-curricular.model';
-import { MallaCurricularService } from 'app/entities/malla-curricular/service/malla-curricular.service';
 import { ITemas } from 'app/entities/temas/temas.model';
 import { TemasService } from 'app/entities/temas/service/temas.service';
 import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
@@ -24,7 +22,6 @@ export class RegistroClasesUpdateComponent implements OnInit {
   isSaving = false;
   registroClases: IRegistroClases | null = null;
 
-  mallaCurricularsSharedCollection: IMallaCurricular[] = [];
   temasSharedCollection: ITemas[] = [];
   funcionariosSharedCollection: IFuncionarios[] = [];
   alumnosSharedCollection: IAlumnos[] = [];
@@ -34,15 +31,11 @@ export class RegistroClasesUpdateComponent implements OnInit {
   constructor(
     protected registroClasesService: RegistroClasesService,
     protected registroClasesFormService: RegistroClasesFormService,
-    protected mallaCurricularService: MallaCurricularService,
     protected temasService: TemasService,
     protected funcionariosService: FuncionariosService,
     protected alumnosService: AlumnosService,
     protected activatedRoute: ActivatedRoute
   ) {}
-
-  compareMallaCurricular = (o1: IMallaCurricular | null, o2: IMallaCurricular | null): boolean =>
-    this.mallaCurricularService.compareMallaCurricular(o1, o2);
 
   compareTemas = (o1: ITemas | null, o2: ITemas | null): boolean => this.temasService.compareTemas(o1, o2);
 
@@ -99,14 +92,10 @@ export class RegistroClasesUpdateComponent implements OnInit {
     this.registroClases = registroClases;
     this.registroClasesFormService.resetForm(this.editForm, registroClases);
 
-    this.mallaCurricularsSharedCollection = this.mallaCurricularService.addMallaCurricularToCollectionIfMissing<IMallaCurricular>(
-      this.mallaCurricularsSharedCollection,
-      registroClases.mallaCurricular
-    );
     this.temasSharedCollection = this.temasService.addTemasToCollectionIfMissing<ITemas>(this.temasSharedCollection, registroClases.temas);
     this.funcionariosSharedCollection = this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(
       this.funcionariosSharedCollection,
-      registroClases.funcionarios
+      registroClases.funcionario
     );
     this.alumnosSharedCollection = this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(
       this.alumnosSharedCollection,
@@ -115,19 +104,6 @@ export class RegistroClasesUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
-    this.mallaCurricularService
-      .query()
-      .pipe(map((res: HttpResponse<IMallaCurricular[]>) => res.body ?? []))
-      .pipe(
-        map((mallaCurriculars: IMallaCurricular[]) =>
-          this.mallaCurricularService.addMallaCurricularToCollectionIfMissing<IMallaCurricular>(
-            mallaCurriculars,
-            this.registroClases?.mallaCurricular
-          )
-        )
-      )
-      .subscribe((mallaCurriculars: IMallaCurricular[]) => (this.mallaCurricularsSharedCollection = mallaCurriculars));
-
     this.temasService
       .query()
       .pipe(map((res: HttpResponse<ITemas[]>) => res.body ?? []))
@@ -139,7 +115,7 @@ export class RegistroClasesUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IFuncionarios[]>) => res.body ?? []))
       .pipe(
         map((funcionarios: IFuncionarios[]) =>
-          this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(funcionarios, this.registroClases?.funcionarios)
+          this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(funcionarios, this.registroClases?.funcionario)
         )
       )
       .subscribe((funcionarios: IFuncionarios[]) => (this.funcionariosSharedCollection = funcionarios));

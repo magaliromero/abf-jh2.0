@@ -18,14 +18,10 @@ type EvaluacionesFormDefaults = Pick<NewEvaluaciones, 'id'>;
 
 type EvaluacionesFormGroupContent = {
   id: FormControl<IEvaluaciones['id'] | NewEvaluaciones['id']>;
-  tipoEvaluacion: FormControl<IEvaluaciones['tipoEvaluacion']>;
-  idExamen: FormControl<IEvaluaciones['idExamen']>;
-  idActa: FormControl<IEvaluaciones['idActa']>;
+  nroEvaluacion: FormControl<IEvaluaciones['nroEvaluacion']>;
   fecha: FormControl<IEvaluaciones['fecha']>;
-  puntosLogrados: FormControl<IEvaluaciones['puntosLogrados']>;
-  porcentaje: FormControl<IEvaluaciones['porcentaje']>;
-  comentarios: FormControl<IEvaluaciones['comentarios']>;
   alumnos: FormControl<IEvaluaciones['alumnos']>;
+  funcionarios: FormControl<IEvaluaciones['funcionarios']>;
 };
 
 export type EvaluacionesFormGroup = FormGroup<EvaluacionesFormGroupContent>;
@@ -45,18 +41,16 @@ export class EvaluacionesFormService {
           validators: [Validators.required],
         }
       ),
-      tipoEvaluacion: new FormControl(evaluacionesRawValue.tipoEvaluacion, {
+      nroEvaluacion: new FormControl(evaluacionesRawValue.nroEvaluacion, {
         validators: [Validators.required],
       }),
-      idExamen: new FormControl(evaluacionesRawValue.idExamen),
-      idActa: new FormControl(evaluacionesRawValue.idActa),
       fecha: new FormControl(evaluacionesRawValue.fecha, {
         validators: [Validators.required],
       }),
-      puntosLogrados: new FormControl(evaluacionesRawValue.puntosLogrados),
-      porcentaje: new FormControl(evaluacionesRawValue.porcentaje),
-      comentarios: new FormControl(evaluacionesRawValue.comentarios),
       alumnos: new FormControl(evaluacionesRawValue.alumnos, {
+        validators: [Validators.required],
+      }),
+      funcionarios: new FormControl(evaluacionesRawValue.funcionarios, {
         validators: [Validators.required],
       }),
     });

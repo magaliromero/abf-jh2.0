@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-evaluaciones-heading" data-cy="EvaluacionesCreateUpdateHeading" jhiTranslate="abfApp.evaluaciones.home.createOrEditLabel">
-        Crear o editar Evaluaciones
+        Create or edit a Evaluaciones
       </h2>
 
       <div>
@@ -14,38 +14,35 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.tipoEvaluacion" for="field_tipoEvaluacion">Tipo Evaluacion</label>
+          <label class="form-label" jhiTranslate="abfApp.evaluaciones.nroEvaluacion" for="field_nroEvaluacion">Nro Evaluacion</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
-            name="tipoEvaluacion"
-            id="field_tipoEvaluacion"
-            data-cy="tipoEvaluacion"
-            formControlName="tipoEvaluacion"
+            name="nroEvaluacion"
+            id="field_nroEvaluacion"
+            data-cy="nroEvaluacion"
+            formControlName="nroEvaluacion"
           />
           <div
             *ngIf="
-              editForm.get('tipoEvaluacion')!.invalid && (editForm.get('tipoEvaluacion')!.dirty || editForm.get('tipoEvaluacion')!.touched)
+              editForm.get('nroEvaluacion')!.invalid && (editForm.get('nroEvaluacion')!.dirty || editForm.get('nroEvaluacion')!.touched)
             "
           >
             <small
               class="form-text text-danger"
-              *ngIf="editForm.get('tipoEvaluacion')?.errors?.required"
+              *ngIf="editForm.get('nroEvaluacion')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              Este campo es obligatorio.
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('nroEvaluacion')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
             </small>
           </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.idExamen" for="field_idExamen">Id Examen</label>
-          <input type="number" class="form-control" name="idExamen" id="field_idExamen" data-cy="idExamen" formControlName="idExamen" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.idActa" for="field_idActa">Id Acta</label>
-          <input type="number" class="form-control" name="idActa" id="field_idActa" data-cy="idActa" formControlName="idActa" />
         </div>
 
         <div class="row mb-3">
@@ -65,45 +62,9 @@
           </div>
           <div *ngIf="editForm.get('fecha')!.invalid && (editForm.get('fecha')!.dirty || editForm.get('fecha')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('fecha')?.errors?.required" jhiTranslate="entity.validation.required">
-              Este campo es obligatorio.
+              This field is required.
             </small>
           </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.puntosLogrados" for="field_puntosLogrados">Puntos Logrados</label>
-          <input
-            type="number"
-            class="form-control"
-            name="puntosLogrados"
-            id="field_puntosLogrados"
-            data-cy="puntosLogrados"
-            formControlName="puntosLogrados"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.porcentaje" for="field_porcentaje">Porcentaje</label>
-          <input
-            type="number"
-            class="form-control"
-            name="porcentaje"
-            id="field_porcentaje"
-            data-cy="porcentaje"
-            formControlName="porcentaje"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.comentarios" for="field_comentarios">Comentarios</label>
-          <input
-            type="text"
-            class="form-control"
-            name="comentarios"
-            id="field_comentarios"
-            data-cy="comentarios"
-            formControlName="comentarios"
-          />
         </div>
 
         <div class="row mb-3">
@@ -128,14 +89,44 @@
             *ngIf="editForm.get(['alumnos'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            Este campo es obligatorio.
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.evaluaciones.funcionarios" for="field_funcionarios">Funcionarios</label>
+          <select
+            class="form-control"
+            id="field_funcionarios"
+            data-cy="funcionarios"
+            name="funcionarios"
+            formControlName="funcionarios"
+            [compareWith]="compareFuncionarios"
+          >
+            <option *ngIf="editForm.get(['funcionarios'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="funcionariosOption" *ngFor="let funcionariosOption of funcionariosSharedCollection">
+              {{ funcionariosOption.nombreCompleto }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['funcionarios'])!.invalid && (editForm.get(['funcionarios'])!.dirty || editForm.get(['funcionarios'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['funcionarios'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
           </small>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -145,7 +136,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

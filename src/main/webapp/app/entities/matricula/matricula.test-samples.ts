@@ -6,30 +6,38 @@ import { IMatricula, NewMatricula } from './matricula.model';
 
 export const sampleWithRequiredData: IMatricula = {
   id: 55032,
-  fechaInscripcion: dayjs('2023-02-27'),
-  fechaInicio: dayjs('2023-02-27'),
-  estado: EstadosPagos['ANULADO'],
+  concepto: 'Ouguiya Keyboard AI',
+  monto: 45850,
+  fechaInscripcion: dayjs('2023-06-01'),
+  fechaInicio: dayjs('2023-06-01'),
+  estado: EstadosPagos['PENDIENTE'],
 };
 
 export const sampleWithPartialData: IMatricula = {
-  id: 17688,
-  fechaInscripcion: dayjs('2023-02-27'),
-  fechaInicio: dayjs('2023-02-27'),
-  fechaPago: dayjs('2023-02-27'),
+  id: 73560,
+  concepto: 'Sausages generating Village',
+  monto: 95292,
+  fechaInscripcion: dayjs('2023-06-01'),
+  fechaInicio: dayjs('2023-05-31'),
+  fechaPago: dayjs('2023-05-31'),
   estado: EstadosPagos['ANULADO'],
 };
 
 export const sampleWithFullData: IMatricula = {
-  id: 18485,
-  fechaInscripcion: dayjs('2023-02-27'),
-  fechaInicio: dayjs('2023-02-27'),
-  fechaPago: dayjs('2023-02-27'),
+  id: 99950,
+  concepto: 'CFP world-class',
+  monto: 65690,
+  fechaInscripcion: dayjs('2023-06-01'),
+  fechaInicio: dayjs('2023-05-31'),
+  fechaPago: dayjs('2023-06-01'),
   estado: EstadosPagos['ANULADO'],
 };
 
 export const sampleWithNewData: NewMatricula = {
-  fechaInscripcion: dayjs('2023-02-27'),
-  fechaInicio: dayjs('2023-02-27'),
+  concepto: 'Music',
+  monto: 85587,
+  fechaInscripcion: dayjs('2023-06-01'),
+  fechaInicio: dayjs('2023-06-01'),
   estado: EstadosPagos['PENDIENTE'],
   id: null,
 };

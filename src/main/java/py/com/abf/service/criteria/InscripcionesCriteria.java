@@ -23,9 +23,11 @@ public class InscripcionesCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private LocalDateFilter fecha;
+    private LocalDateFilter fechaInscripcion;
 
     private LongFilter alumnosId;
+
+    private LongFilter cursosId;
 
     private Boolean distinct;
 
@@ -33,8 +35,9 @@ public class InscripcionesCriteria implements Serializable, Criteria {
 
     public InscripcionesCriteria(InscripcionesCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.fecha = other.fecha == null ? null : other.fecha.copy();
+        this.fechaInscripcion = other.fechaInscripcion == null ? null : other.fechaInscripcion.copy();
         this.alumnosId = other.alumnosId == null ? null : other.alumnosId.copy();
+        this.cursosId = other.cursosId == null ? null : other.cursosId.copy();
         this.distinct = other.distinct;
     }
 
@@ -58,19 +61,19 @@ public class InscripcionesCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public LocalDateFilter getFecha() {
-        return fecha;
+    public LocalDateFilter getFechaInscripcion() {
+        return fechaInscripcion;
     }
 
-    public LocalDateFilter fecha() {
-        if (fecha == null) {
-            fecha = new LocalDateFilter();
+    public LocalDateFilter fechaInscripcion() {
+        if (fechaInscripcion == null) {
+            fechaInscripcion = new LocalDateFilter();
         }
-        return fecha;
+        return fechaInscripcion;
     }
 
-    public void setFecha(LocalDateFilter fecha) {
-        this.fecha = fecha;
+    public void setFechaInscripcion(LocalDateFilter fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
     }
 
     public LongFilter getAlumnosId() {
@@ -86,6 +89,21 @@ public class InscripcionesCriteria implements Serializable, Criteria {
 
     public void setAlumnosId(LongFilter alumnosId) {
         this.alumnosId = alumnosId;
+    }
+
+    public LongFilter getCursosId() {
+        return cursosId;
+    }
+
+    public LongFilter cursosId() {
+        if (cursosId == null) {
+            cursosId = new LongFilter();
+        }
+        return cursosId;
+    }
+
+    public void setCursosId(LongFilter cursosId) {
+        this.cursosId = cursosId;
     }
 
     public Boolean getDistinct() {
@@ -107,15 +125,16 @@ public class InscripcionesCriteria implements Serializable, Criteria {
         final InscripcionesCriteria that = (InscripcionesCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(fecha, that.fecha) &&
+            Objects.equals(fechaInscripcion, that.fechaInscripcion) &&
             Objects.equals(alumnosId, that.alumnosId) &&
+            Objects.equals(cursosId, that.cursosId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fecha, alumnosId, distinct);
+        return Objects.hash(id, fechaInscripcion, alumnosId, cursosId, distinct);
     }
 
     // prettier-ignore
@@ -123,8 +142,9 @@ public class InscripcionesCriteria implements Serializable, Criteria {
     public String toString() {
         return "InscripcionesCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (fecha != null ? "fecha=" + fecha + ", " : "") +
+            (fechaInscripcion != null ? "fechaInscripcion=" + fechaInscripcion + ", " : "") +
             (alumnosId != null ? "alumnosId=" + alumnosId + ", " : "") +
+            (cursosId != null ? "cursosId=" + cursosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

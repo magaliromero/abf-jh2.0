@@ -1,0 +1,9 @@
+{
+  "abfApp": {
+    "TipoProductos": {
+      "null": "",
+      "SERVICIO": "Servicio",
+      "PRODUCTO": "Producto"
+    }
+  }
+}

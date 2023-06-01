@@ -48,11 +48,11 @@ public class MaterialesServiceImpl implements MaterialesService {
                 if (materiales.getDescripcion() != null) {
                     existingMateriales.setDescripcion(materiales.getDescripcion());
                 }
-                if (materiales.getEstado() != null) {
-                    existingMateriales.setEstado(materiales.getEstado());
-                }
                 if (materiales.getCantidad() != null) {
                     existingMateriales.setCantidad(materiales.getCantidad());
+                }
+                if (materiales.getCantidadEnPrestamo() != null) {
+                    existingMateriales.setCantidadEnPrestamo(materiales.getCantidadEnPrestamo());
                 }
 
                 return existingMateriales;

@@ -85,8 +85,8 @@ public class InscripcionesQueryService extends QueryService<Inscripciones> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Inscripciones_.id));
             }
-            if (criteria.getFecha() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFecha(), Inscripciones_.fecha));
+            if (criteria.getFechaInscripcion() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFechaInscripcion(), Inscripciones_.fechaInscripcion));
             }
             if (criteria.getAlumnosId() != null) {
                 specification =
@@ -95,6 +95,12 @@ public class InscripcionesQueryService extends QueryService<Inscripciones> {
                             criteria.getAlumnosId(),
                             root -> root.join(Inscripciones_.alumnos, JoinType.LEFT).get(Alumnos_.id)
                         )
+                    );
+            }
+            if (criteria.getCursosId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getCursosId(), root -> root.join(Inscripciones_.cursos, JoinType.LEFT).get(Cursos_.id))
                     );
             }
         }

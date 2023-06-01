@@ -18,14 +18,11 @@
         "title": "Evaluaciones"
       },
       "id": "ID",
-      "tipoEvaluacion": "Tipo Evaluacion",
-      "idExamen": "Id Examen",
-      "idActa": "Id Acta",
+      "nroEvaluacion": "Nro Evaluacion",
       "fecha": "Fecha",
-      "puntosLogrados": "Puntos Logrados",
-      "porcentaje": "Porcentaje",
-      "comentarios": "Comentarios",
-      "alumnos": "Alumnos"
+      "evaluacionesDetalle": "Evaluaciones Detalle",
+      "alumnos": "Alumnos",
+      "funcionarios": "Funcionarios"
     }
   }
 }

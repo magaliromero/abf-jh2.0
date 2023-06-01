@@ -29,11 +29,9 @@ public class RegistroClasesCriteria implements Serializable, Criteria {
 
     private BooleanFilter asistenciaAlumno;
 
-    private LongFilter mallaCurricularId;
-
     private LongFilter temasId;
 
-    private LongFilter funcionariosId;
+    private LongFilter funcionarioId;
 
     private LongFilter alumnosId;
 
@@ -46,9 +44,8 @@ public class RegistroClasesCriteria implements Serializable, Criteria {
         this.fecha = other.fecha == null ? null : other.fecha.copy();
         this.cantidadHoras = other.cantidadHoras == null ? null : other.cantidadHoras.copy();
         this.asistenciaAlumno = other.asistenciaAlumno == null ? null : other.asistenciaAlumno.copy();
-        this.mallaCurricularId = other.mallaCurricularId == null ? null : other.mallaCurricularId.copy();
         this.temasId = other.temasId == null ? null : other.temasId.copy();
-        this.funcionariosId = other.funcionariosId == null ? null : other.funcionariosId.copy();
+        this.funcionarioId = other.funcionarioId == null ? null : other.funcionarioId.copy();
         this.alumnosId = other.alumnosId == null ? null : other.alumnosId.copy();
         this.distinct = other.distinct;
     }
@@ -118,21 +115,6 @@ public class RegistroClasesCriteria implements Serializable, Criteria {
         this.asistenciaAlumno = asistenciaAlumno;
     }
 
-    public LongFilter getMallaCurricularId() {
-        return mallaCurricularId;
-    }
-
-    public LongFilter mallaCurricularId() {
-        if (mallaCurricularId == null) {
-            mallaCurricularId = new LongFilter();
-        }
-        return mallaCurricularId;
-    }
-
-    public void setMallaCurricularId(LongFilter mallaCurricularId) {
-        this.mallaCurricularId = mallaCurricularId;
-    }
-
     public LongFilter getTemasId() {
         return temasId;
     }
@@ -148,19 +130,19 @@ public class RegistroClasesCriteria implements Serializable, Criteria {
         this.temasId = temasId;
     }
 
-    public LongFilter getFuncionariosId() {
-        return funcionariosId;
+    public LongFilter getFuncionarioId() {
+        return funcionarioId;
     }
 
-    public LongFilter funcionariosId() {
-        if (funcionariosId == null) {
-            funcionariosId = new LongFilter();
+    public LongFilter funcionarioId() {
+        if (funcionarioId == null) {
+            funcionarioId = new LongFilter();
         }
-        return funcionariosId;
+        return funcionarioId;
     }
 
-    public void setFuncionariosId(LongFilter funcionariosId) {
-        this.funcionariosId = funcionariosId;
+    public void setFuncionarioId(LongFilter funcionarioId) {
+        this.funcionarioId = funcionarioId;
     }
 
     public LongFilter getAlumnosId() {
@@ -200,9 +182,8 @@ public class RegistroClasesCriteria implements Serializable, Criteria {
             Objects.equals(fecha, that.fecha) &&
             Objects.equals(cantidadHoras, that.cantidadHoras) &&
             Objects.equals(asistenciaAlumno, that.asistenciaAlumno) &&
-            Objects.equals(mallaCurricularId, that.mallaCurricularId) &&
             Objects.equals(temasId, that.temasId) &&
-            Objects.equals(funcionariosId, that.funcionariosId) &&
+            Objects.equals(funcionarioId, that.funcionarioId) &&
             Objects.equals(alumnosId, that.alumnosId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -210,7 +191,7 @@ public class RegistroClasesCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fecha, cantidadHoras, asistenciaAlumno, mallaCurricularId, temasId, funcionariosId, alumnosId, distinct);
+        return Objects.hash(id, fecha, cantidadHoras, asistenciaAlumno, temasId, funcionarioId, alumnosId, distinct);
     }
 
     // prettier-ignore
@@ -221,9 +202,8 @@ public class RegistroClasesCriteria implements Serializable, Criteria {
             (fecha != null ? "fecha=" + fecha + ", " : "") +
             (cantidadHoras != null ? "cantidadHoras=" + cantidadHoras + ", " : "") +
             (asistenciaAlumno != null ? "asistenciaAlumno=" + asistenciaAlumno + ", " : "") +
-            (mallaCurricularId != null ? "mallaCurricularId=" + mallaCurricularId + ", " : "") +
             (temasId != null ? "temasId=" + temasId + ", " : "") +
-            (funcionariosId != null ? "funcionariosId=" + funcionariosId + ", " : "") +
+            (funcionarioId != null ? "funcionarioId=" + funcionarioId + ", " : "") +
             (alumnosId != null ? "alumnosId=" + alumnosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

@@ -20,8 +20,9 @@ describe('Inscripciones Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            fecha: expect.any(Object),
+            fechaInscripcion: expect.any(Object),
             alumnos: expect.any(Object),
+            cursos: expect.any(Object),
           })
         );
       });
@@ -32,8 +33,9 @@ describe('Inscripciones Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            fecha: expect.any(Object),
+            fechaInscripcion: expect.any(Object),
             alumnos: expect.any(Object),
+            cursos: expect.any(Object),
           })
         );
       });

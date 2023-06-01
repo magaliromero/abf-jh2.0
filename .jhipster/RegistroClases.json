@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230227212546",
+  "changelogDate": "20230601132813",
   "dto": "no",
   "embedded": false,
   "entityTableName": "registro_clases",
@@ -27,15 +27,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "titulo",
-      "otherEntityName": "mallaCurricular",
-      "otherEntityRelationshipName": "registroClases",
-      "relationshipName": "mallaCurricular",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
-    },
-    {
-      "otherEntityField": "titulo",
+      "otherEntityField": "descripcion",
       "otherEntityName": "temas",
       "otherEntityRelationshipName": "registroClases",
       "relationshipName": "temas",
@@ -46,7 +38,7 @@
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "funcionarios",
       "otherEntityRelationshipName": "registroClases",
-      "relationshipName": "funcionarios",
+      "relationshipName": "funcionario",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },

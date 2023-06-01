@@ -48,6 +48,21 @@ public class CursosServiceImpl implements CursosService {
                 if (cursos.getNombreCurso() != null) {
                     existingCursos.setNombreCurso(cursos.getNombreCurso());
                 }
+                if (cursos.getDescripcion() != null) {
+                    existingCursos.setDescripcion(cursos.getDescripcion());
+                }
+                if (cursos.getFechaInicio() != null) {
+                    existingCursos.setFechaInicio(cursos.getFechaInicio());
+                }
+                if (cursos.getFechaFin() != null) {
+                    existingCursos.setFechaFin(cursos.getFechaFin());
+                }
+                if (cursos.getCantidadClases() != null) {
+                    existingCursos.setCantidadClases(cursos.getCantidadClases());
+                }
+                if (cursos.getNivel() != null) {
+                    existingCursos.setNivel(cursos.getNivel());
+                }
 
                 return existingCursos;
             })

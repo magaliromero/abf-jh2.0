@@ -37,14 +37,14 @@ public class TiposDocumentos implements Serializable {
     @OneToMany(mappedBy = "tipoDocumentos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "matriculas", "registroClases", "pagos", "evaluaciones", "inscripciones", "tipoDocumentos" },
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
         allowSetters = true
     )
     private Set<Alumnos> alumnos = new HashSet<>();
 
     @OneToMany(mappedBy = "tipoDocumentos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "registroClases", "pagos", "tipoDocumentos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "evaluaciones", "pagos", "registroClases", "tipoDocumentos" }, allowSetters = true)
     private Set<Funcionarios> funcionarios = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

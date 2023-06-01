@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.cursos.home.refreshListLabel">Refrescar lista</span>
+        <span jhiTranslate="abfApp.cursos.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/cursos/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.cursos.home.createLabel"> Crear nuevo Cursos </span>
+        <span jhiTranslate="abfApp.cursos.home.createLabel"> Create a new Cursos </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="cursos?.length === 0">
-    <span jhiTranslate="abfApp.cursos.home.notFound">Ningún Cursos encontrado</span>
+    <span jhiTranslate="abfApp.cursos.home.notFound">No Cursos found</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="cursos && cursos.length > 0">
@@ -46,6 +46,36 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="descripcion">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.cursos.descripcion">Descripcion</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaInicio">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.cursos.fechaInicio">Fecha Inicio</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaFin">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.cursos.fechaFin">Fecha Fin</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cantidadClases">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.cursos.cantidadClases">Cantidad Clases</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nivel">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.cursos.nivel">Nivel</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -55,21 +85,56 @@
             <a [routerLink]="['/cursos', cursos.id, 'view']">{{ cursos.id }}</a>
           </td>
           <td>{{ cursos.nombreCurso }}</td>
+          <td>{{ cursos.descripcion }}</td>
+          <td>{{ cursos.fechaInicio | formatMediumDate }}</td>
+          <td>{{ cursos.fechaFin | formatMediumDate }}</td>
+          <td>{{ cursos.cantidadClases }}</td>
+          <td jhiTranslate="{{ 'abfApp.Niveles.' + cursos.nivel }}">{{ cursos.nivel }}</td>
           <td class="text-end">
             <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/inscripciones']"
+                [queryParams]="{ 'filter[cursosId.in]': cursos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.cursos.inscripciones' | translate) }"
+                  >Show Inscripciones</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/temas']"
+                [queryParams]="{ 'filter[cursosId.in]': cursos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.cursos.temas' | translate) }"
+                  >Show Temas</span
+                >
+              </button>
               <button type="submit" [routerLink]="['/cursos', cursos.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button type="submit" [routerLink]="['/cursos', cursos.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(cursos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

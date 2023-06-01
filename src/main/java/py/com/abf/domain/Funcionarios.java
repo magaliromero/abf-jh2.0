@@ -74,13 +74,18 @@ public class Funcionarios implements Serializable {
 
     @OneToMany(mappedBy = "funcionarios")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "mallaCurricular", "temas", "funcionarios", "alumnos" }, allowSetters = true)
-    private Set<RegistroClases> registroClases = new HashSet<>();
+    @JsonIgnoreProperties(value = { "evaluacionesDetalles", "alumnos", "funcionarios" }, allowSetters = true)
+    private Set<Evaluaciones> evaluaciones = new HashSet<>();
 
-    @OneToMany(mappedBy = "funcionarios")
+    @OneToMany(mappedBy = "funcionario")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "alumnos", "funcionarios" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "producto", "funcionario" }, allowSetters = true)
     private Set<Pagos> pagos = new HashSet<>();
+
+    @OneToMany(mappedBy = "funcionario")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
+    private Set<RegistroClases> registroClases = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -245,34 +250,34 @@ public class Funcionarios implements Serializable {
         this.tipoFuncionario = tipoFuncionario;
     }
 
-    public Set<RegistroClases> getRegistroClases() {
-        return this.registroClases;
+    public Set<Evaluaciones> getEvaluaciones() {
+        return this.evaluaciones;
     }
 
-    public void setRegistroClases(Set<RegistroClases> registroClases) {
-        if (this.registroClases != null) {
-            this.registroClases.forEach(i -> i.setFuncionarios(null));
+    public void setEvaluaciones(Set<Evaluaciones> evaluaciones) {
+        if (this.evaluaciones != null) {
+            this.evaluaciones.forEach(i -> i.setFuncionarios(null));
         }
-        if (registroClases != null) {
-            registroClases.forEach(i -> i.setFuncionarios(this));
+        if (evaluaciones != null) {
+            evaluaciones.forEach(i -> i.setFuncionarios(this));
         }
-        this.registroClases = registroClases;
+        this.evaluaciones = evaluaciones;
     }
 
-    public Funcionarios registroClases(Set<RegistroClases> registroClases) {
-        this.setRegistroClases(registroClases);
+    public Funcionarios evaluaciones(Set<Evaluaciones> evaluaciones) {
+        this.setEvaluaciones(evaluaciones);
         return this;
     }
 
-    public Funcionarios addRegistroClases(RegistroClases registroClases) {
-        this.registroClases.add(registroClases);
-        registroClases.setFuncionarios(this);
+    public Funcionarios addEvaluaciones(Evaluaciones evaluaciones) {
+        this.evaluaciones.add(evaluaciones);
+        evaluaciones.setFuncionarios(this);
         return this;
     }
 
-    public Funcionarios removeRegistroClases(RegistroClases registroClases) {
-        this.registroClases.remove(registroClases);
-        registroClases.setFuncionarios(null);
+    public Funcionarios removeEvaluaciones(Evaluaciones evaluaciones) {
+        this.evaluaciones.remove(evaluaciones);
+        evaluaciones.setFuncionarios(null);
         return this;
     }
 
@@ -282,10 +287,10 @@ public class Funcionarios implements Serializable {
 
     public void setPagos(Set<Pagos> pagos) {
         if (this.pagos != null) {
-            this.pagos.forEach(i -> i.setFuncionarios(null));
+            this.pagos.forEach(i -> i.setFuncionario(null));
         }
         if (pagos != null) {
-            pagos.forEach(i -> i.setFuncionarios(this));
+            pagos.forEach(i -> i.setFuncionario(this));
         }
         this.pagos = pagos;
     }
@@ -297,13 +302,44 @@ public class Funcionarios implements Serializable {
 
     public Funcionarios addPagos(Pagos pagos) {
         this.pagos.add(pagos);
-        pagos.setFuncionarios(this);
+        pagos.setFuncionario(this);
         return this;
     }
 
     public Funcionarios removePagos(Pagos pagos) {
         this.pagos.remove(pagos);
-        pagos.setFuncionarios(null);
+        pagos.setFuncionario(null);
+        return this;
+    }
+
+    public Set<RegistroClases> getRegistroClases() {
+        return this.registroClases;
+    }
+
+    public void setRegistroClases(Set<RegistroClases> registroClases) {
+        if (this.registroClases != null) {
+            this.registroClases.forEach(i -> i.setFuncionario(null));
+        }
+        if (registroClases != null) {
+            registroClases.forEach(i -> i.setFuncionario(this));
+        }
+        this.registroClases = registroClases;
+    }
+
+    public Funcionarios registroClases(Set<RegistroClases> registroClases) {
+        this.setRegistroClases(registroClases);
+        return this;
+    }
+
+    public Funcionarios addRegistroClases(RegistroClases registroClases) {
+        this.registroClases.add(registroClases);
+        registroClases.setFuncionario(this);
+        return this;
+    }
+
+    public Funcionarios removeRegistroClases(RegistroClases registroClases) {
+        this.registroClases.remove(registroClases);
+        registroClases.setFuncionario(null);
         return this;
     }
 

@@ -9,8 +9,6 @@ import { of, Subject, from } from 'rxjs';
 import { RegistroClasesFormService } from './registro-clases-form.service';
 import { RegistroClasesService } from '../service/registro-clases.service';
 import { IRegistroClases } from '../registro-clases.model';
-import { IMallaCurricular } from 'app/entities/malla-curricular/malla-curricular.model';
-import { MallaCurricularService } from 'app/entities/malla-curricular/service/malla-curricular.service';
 import { ITemas } from 'app/entities/temas/temas.model';
 import { TemasService } from 'app/entities/temas/service/temas.service';
 import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
@@ -26,7 +24,6 @@ describe('RegistroClases Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let registroClasesFormService: RegistroClasesFormService;
   let registroClasesService: RegistroClasesService;
-  let mallaCurricularService: MallaCurricularService;
   let temasService: TemasService;
   let funcionariosService: FuncionariosService;
   let alumnosService: AlumnosService;
@@ -52,7 +49,6 @@ describe('RegistroClases Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     registroClasesFormService = TestBed.inject(RegistroClasesFormService);
     registroClasesService = TestBed.inject(RegistroClasesService);
-    mallaCurricularService = TestBed.inject(MallaCurricularService);
     temasService = TestBed.inject(TemasService);
     funcionariosService = TestBed.inject(FuncionariosService);
     alumnosService = TestBed.inject(AlumnosService);
@@ -61,28 +57,6 @@ describe('RegistroClases Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call MallaCurricular query and add missing value', () => {
-      const registroClases: IRegistroClases = { id: 456 };
-      const mallaCurricular: IMallaCurricular = { id: 87524 };
-      registroClases.mallaCurricular = mallaCurricular;
-
-      const mallaCurricularCollection: IMallaCurricular[] = [{ id: 72972 }];
-      jest.spyOn(mallaCurricularService, 'query').mockReturnValue(of(new HttpResponse({ body: mallaCurricularCollection })));
-      const additionalMallaCurriculars = [mallaCurricular];
-      const expectedCollection: IMallaCurricular[] = [...additionalMallaCurriculars, ...mallaCurricularCollection];
-      jest.spyOn(mallaCurricularService, 'addMallaCurricularToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ registroClases });
-      comp.ngOnInit();
-
-      expect(mallaCurricularService.query).toHaveBeenCalled();
-      expect(mallaCurricularService.addMallaCurricularToCollectionIfMissing).toHaveBeenCalledWith(
-        mallaCurricularCollection,
-        ...additionalMallaCurriculars.map(expect.objectContaining)
-      );
-      expect(comp.mallaCurricularsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should call Temas query and add missing value', () => {
       const registroClases: IRegistroClases = { id: 456 };
       const temas: ITemas = { id: 74210 };
@@ -107,12 +81,12 @@ describe('RegistroClases Management Update Component', () => {
 
     it('Should call Funcionarios query and add missing value', () => {
       const registroClases: IRegistroClases = { id: 456 };
-      const funcionarios: IFuncionarios = { id: 42041 };
-      registroClases.funcionarios = funcionarios;
+      const funcionario: IFuncionarios = { id: 42041 };
+      registroClases.funcionario = funcionario;
 
       const funcionariosCollection: IFuncionarios[] = [{ id: 74664 }];
       jest.spyOn(funcionariosService, 'query').mockReturnValue(of(new HttpResponse({ body: funcionariosCollection })));
-      const additionalFuncionarios = [funcionarios];
+      const additionalFuncionarios = [funcionario];
       const expectedCollection: IFuncionarios[] = [...additionalFuncionarios, ...funcionariosCollection];
       jest.spyOn(funcionariosService, 'addFuncionariosToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -151,21 +125,18 @@ describe('RegistroClases Management Update Component', () => {
 
     it('Should update editForm', () => {
       const registroClases: IRegistroClases = { id: 456 };
-      const mallaCurricular: IMallaCurricular = { id: 25016 };
-      registroClases.mallaCurricular = mallaCurricular;
       const temas: ITemas = { id: 99655 };
       registroClases.temas = temas;
-      const funcionarios: IFuncionarios = { id: 14486 };
-      registroClases.funcionarios = funcionarios;
+      const funcionario: IFuncionarios = { id: 14486 };
+      registroClases.funcionario = funcionario;
       const alumnos: IAlumnos = { id: 82089 };
       registroClases.alumnos = alumnos;
 
       activatedRoute.data = of({ registroClases });
       comp.ngOnInit();
 
-      expect(comp.mallaCurricularsSharedCollection).toContain(mallaCurricular);
       expect(comp.temasSharedCollection).toContain(temas);
-      expect(comp.funcionariosSharedCollection).toContain(funcionarios);
+      expect(comp.funcionariosSharedCollection).toContain(funcionario);
       expect(comp.alumnosSharedCollection).toContain(alumnos);
       expect(comp.registroClases).toEqual(registroClases);
     });
@@ -240,16 +211,6 @@ describe('RegistroClases Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareMallaCurricular', () => {
-      it('Should forward to mallaCurricularService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(mallaCurricularService, 'compareMallaCurricular');
-        comp.compareMallaCurricular(entity, entity2);
-        expect(mallaCurricularService.compareMallaCurricular).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
     describe('compareTemas', () => {
       it('Should forward to temasService', () => {
         const entity = { id: 123 };
