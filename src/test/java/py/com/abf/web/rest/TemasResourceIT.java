@@ -2,25 +2,17 @@ package py.com.abf.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,14 +23,12 @@ import py.com.abf.domain.EvaluacionesDetalle;
 import py.com.abf.domain.RegistroClases;
 import py.com.abf.domain.Temas;
 import py.com.abf.repository.TemasRepository;
-import py.com.abf.service.TemasService;
 import py.com.abf.service.criteria.TemasCriteria;
 
 /**
  * Integration tests for the {@link TemasResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class TemasResourceIT {
@@ -58,12 +48,6 @@ class TemasResourceIT {
     @Autowired
     private TemasRepository temasRepository;
 
-    @Mock
-    private TemasRepository temasRepositoryMock;
-
-    @Mock
-    private TemasService temasServiceMock;
-
     @Autowired
     private EntityManager em;
 
@@ -80,16 +64,6 @@ class TemasResourceIT {
      */
     public static Temas createEntity(EntityManager em) {
         Temas temas = new Temas().titulo(DEFAULT_TITULO).descripcion(DEFAULT_DESCRIPCION);
-        // Add required entity
-        Cursos cursos;
-        if (TestUtil.findAll(em, Cursos.class).isEmpty()) {
-            cursos = CursosResourceIT.createEntity(em);
-            em.persist(cursos);
-            em.flush();
-        } else {
-            cursos = TestUtil.findAll(em, Cursos.class).get(0);
-        }
-        temas.setCursos(cursos);
         return temas;
     }
 
@@ -101,16 +75,6 @@ class TemasResourceIT {
      */
     public static Temas createUpdatedEntity(EntityManager em) {
         Temas temas = new Temas().titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
-        // Add required entity
-        Cursos cursos;
-        if (TestUtil.findAll(em, Cursos.class).isEmpty()) {
-            cursos = CursosResourceIT.createUpdatedEntity(em);
-            em.persist(cursos);
-            em.flush();
-        } else {
-            cursos = TestUtil.findAll(em, Cursos.class).get(0);
-        }
-        temas.setCursos(cursos);
         return temas;
     }
 
@@ -202,23 +166,6 @@ class TemasResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(temas.getId().intValue())))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllTemasWithEagerRelationshipsIsEnabled() throws Exception {
-        when(temasServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTemasMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(temasServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllTemasWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(temasServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTemasMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
-        verify(temasRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -443,7 +390,7 @@ class TemasResourceIT {
         }
         em.persist(cursos);
         em.flush();
-        temas.setCursos(cursos);
+        temas.addCursos(cursos);
         temasRepository.saveAndFlush(temas);
         Long cursosId = cursos.getId();
 

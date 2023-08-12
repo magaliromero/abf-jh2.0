@@ -24,6 +24,7 @@ type CursosFormGroupContent = {
   fechaFin: FormControl<ICursos['fechaFin']>;
   cantidadClases: FormControl<ICursos['cantidadClases']>;
   nivel: FormControl<ICursos['nivel']>;
+  temas: FormControl<ICursos['temas']>;
 };
 
 export type CursosFormGroup = FormGroup<CursosFormGroupContent>;
@@ -53,6 +54,9 @@ export class CursosFormService {
       fechaFin: new FormControl(cursosRawValue.fechaFin),
       cantidadClases: new FormControl(cursosRawValue.cantidadClases),
       nivel: new FormControl(cursosRawValue.nivel, {
+        validators: [Validators.required],
+      }),
+      temas: new FormControl(cursosRawValue.temas, {
         validators: [Validators.required],
       }),
     });

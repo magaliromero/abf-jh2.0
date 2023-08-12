@@ -42,6 +42,14 @@ public interface CursosService {
     Page<Cursos> findAll(Pageable pageable);
 
     /**
+     * Get all the cursos with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<Cursos> findAllWithEagerRelationships(Pageable pageable);
+
+    /**
      * Get the "id" cursos.
      *
      * @param id the id of the entity.

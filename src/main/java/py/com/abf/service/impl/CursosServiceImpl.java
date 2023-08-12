@@ -76,11 +76,15 @@ public class CursosServiceImpl implements CursosService {
         return cursosRepository.findAll(pageable);
     }
 
+    public Page<Cursos> findAllWithEagerRelationships(Pageable pageable) {
+        return cursosRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<Cursos> findOne(Long id) {
         log.debug("Request to get Cursos : {}", id);
-        return cursosRepository.findById(id);
+        return cursosRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

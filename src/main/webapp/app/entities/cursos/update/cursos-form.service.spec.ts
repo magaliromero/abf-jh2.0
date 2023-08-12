@@ -26,6 +26,7 @@ describe('Cursos Form Service', () => {
             fechaFin: expect.any(Object),
             cantidadClases: expect.any(Object),
             nivel: expect.any(Object),
+            temas: expect.any(Object),
           })
         );
       });
@@ -42,6 +43,7 @@ describe('Cursos Form Service', () => {
             fechaFin: expect.any(Object),
             cantidadClases: expect.any(Object),
             nivel: expect.any(Object),
+            temas: expect.any(Object),
           })
         );
       });

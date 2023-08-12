@@ -22,12 +22,6 @@
         <dd>
           <span>{{ temas.descripcion }}</span>
         </dd>
-        <dt><span jhiTranslate="abfApp.temas.cursos">Cursos</span></dt>
-        <dd>
-          <div *ngIf="temas.cursos">
-            <a [routerLink]="['/cursos', temas.cursos.id, 'view']">{{ temas.cursos.nombreCurso }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

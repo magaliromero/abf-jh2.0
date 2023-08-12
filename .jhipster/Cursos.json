@@ -47,10 +47,12 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityField": "titulo",
       "otherEntityName": "temas",
       "otherEntityRelationshipName": "cursos",
       "relationshipName": "temas",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
   "service": "serviceImpl"

@@ -43,26 +43,6 @@
             </small>
           </div>
         </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.temas.cursos" for="field_cursos">Cursos</label>
-          <select
-            class="form-control"
-            id="field_cursos"
-            data-cy="cursos"
-            name="cursos"
-            formControlName="cursos"
-            [compareWith]="compareCursos"
-          >
-            <option *ngIf="editForm.get(['cursos'])!.value == null" [ngValue]="null" selected></option>
-            <option [ngValue]="cursosOption" *ngFor="let cursosOption of cursosSharedCollection">{{ cursosOption.nombreCurso }}</option>
-          </select>
-        </div>
-        <div *ngIf="editForm.get(['cursos'])!.invalid && (editForm.get(['cursos'])!.dirty || editForm.get(['cursos'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['cursos'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
-        </div>
       </div>
 
       <div>

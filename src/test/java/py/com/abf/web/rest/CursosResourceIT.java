@@ -2,19 +2,27 @@ package py.com.abf.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,12 +33,14 @@ import py.com.abf.domain.Inscripciones;
 import py.com.abf.domain.Temas;
 import py.com.abf.domain.enumeration.Niveles;
 import py.com.abf.repository.CursosRepository;
+import py.com.abf.service.CursosService;
 import py.com.abf.service.criteria.CursosCriteria;
 
 /**
  * Integration tests for the {@link CursosResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class CursosResourceIT {
@@ -65,6 +75,12 @@ class CursosResourceIT {
     @Autowired
     private CursosRepository cursosRepository;
 
+    @Mock
+    private CursosRepository cursosRepositoryMock;
+
+    @Mock
+    private CursosService cursosServiceMock;
+
     @Autowired
     private EntityManager em;
 
@@ -87,6 +103,16 @@ class CursosResourceIT {
             .fechaFin(DEFAULT_FECHA_FIN)
             .cantidadClases(DEFAULT_CANTIDAD_CLASES)
             .nivel(DEFAULT_NIVEL);
+        // Add required entity
+        Temas temas;
+        if (TestUtil.findAll(em, Temas.class).isEmpty()) {
+            temas = TemasResourceIT.createEntity(em);
+            em.persist(temas);
+            em.flush();
+        } else {
+            temas = TestUtil.findAll(em, Temas.class).get(0);
+        }
+        cursos.setTemas(temas);
         return cursos;
     }
 
@@ -104,6 +130,16 @@ class CursosResourceIT {
             .fechaFin(UPDATED_FECHA_FIN)
             .cantidadClases(UPDATED_CANTIDAD_CLASES)
             .nivel(UPDATED_NIVEL);
+        // Add required entity
+        Temas temas;
+        if (TestUtil.findAll(em, Temas.class).isEmpty()) {
+            temas = TemasResourceIT.createUpdatedEntity(em);
+            em.persist(temas);
+            em.flush();
+        } else {
+            temas = TestUtil.findAll(em, Temas.class).get(0);
+        }
+        cursos.setTemas(temas);
         return cursos;
     }
 
@@ -220,6 +256,23 @@ class CursosResourceIT {
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
             .andExpect(jsonPath("$.[*].cantidadClases").value(hasItem(DEFAULT_CANTIDAD_CLASES)))
             .andExpect(jsonPath("$.[*].nivel").value(hasItem(DEFAULT_NIVEL.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCursosWithEagerRelationshipsIsEnabled() throws Exception {
+        when(cursosServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCursosMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(cursosServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCursosWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(cursosServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCursosMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(cursosRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -737,7 +790,7 @@ class CursosResourceIT {
         }
         em.persist(temas);
         em.flush();
-        cursos.addTemas(temas);
+        cursos.setTemas(temas);
         cursosRepository.saveAndFlush(cursos);
         Long temasId = temas.getId();
 

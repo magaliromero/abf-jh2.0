@@ -37,7 +37,10 @@
       "Prestamos",
       "Matricula",
       "Evaluaciones",
-      "EvaluacionesDetalle"
+      "EvaluacionesDetalle",
+      "Timbrados",
+      "Sucursales",
+      "PuntoDeExpedicion"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": "",
@@ -45,7 +48,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "OTFkZDA2M2E0NjlmMTY5YzU2OWIyZDhiYzNkOGViZmNiZGFmNGYyYjkwMGJjYjY2YjNiNmMyNjZjMjMxYTNhYjgzZDI0NzgzMTExNzI0N2ZmNmQ5M2EwYWRhM2M2ZDYyNzA5MGZhNmEwNGExNjk5ZDk4YTQ2ZWMzYTQ3OTE3Mjk=",
     "languages": ["en", "es"],
-    "lastLiquibaseTimestamp": 1685626993000,
+    "lastLiquibaseTimestamp": 1691848073000,
     "messageBroker": false,
     "nativeLanguage": "en",
     "otherModules": [],

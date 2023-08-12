@@ -38,6 +38,12 @@
         <dd>
           <span jhiTranslate="{{ 'abfApp.Niveles.' + cursos.nivel }}">{{ cursos.nivel }}</span>
         </dd>
+        <dt><span jhiTranslate="abfApp.cursos.temas">Temas</span></dt>
+        <dd>
+          <div *ngIf="cursos.temas">
+            <a [routerLink]="['/temas', cursos.temas.id, 'view']">{{ cursos.temas.titulo }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -184,16 +184,16 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-	Productos to Pagos { producto(descripcion) required }
+	Productos to Pagos { Productos(descripcion) required }
     Funcionarios to Pagos { funcionario(nombreCompleto) } 
 }
 
 relationship OneToMany {
-	Alumnos to Matricula { alumno(nombreCompleto) required }
+	Alumnos to Matricula { Alumnos(nombreCompleto) required }
 }
 
 relationship OneToMany {
-	Productos to FacturaDetalle { producto(descripcion) required }
+	Productos to FacturaDetalle { Productos(descripcion) required }
 }
 
 relationship OneToMany {

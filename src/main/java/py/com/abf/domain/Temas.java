@@ -44,10 +44,10 @@ public class Temas implements Serializable {
     @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToMany(mappedBy = "temas")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "inscripciones", "temas" }, allowSetters = true)
-    private Cursos cursos;
+    private Set<Cursos> cursos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -152,16 +152,34 @@ public class Temas implements Serializable {
         return this;
     }
 
-    public Cursos getCursos() {
+    public Set<Cursos> getCursos() {
         return this.cursos;
     }
 
-    public void setCursos(Cursos cursos) {
+    public void setCursos(Set<Cursos> cursos) {
+        if (this.cursos != null) {
+            this.cursos.forEach(i -> i.setTemas(null));
+        }
+        if (cursos != null) {
+            cursos.forEach(i -> i.setTemas(this));
+        }
         this.cursos = cursos;
     }
 
-    public Temas cursos(Cursos cursos) {
+    public Temas cursos(Set<Cursos> cursos) {
         this.setCursos(cursos);
+        return this;
+    }
+
+    public Temas addCursos(Cursos cursos) {
+        this.cursos.add(cursos);
+        cursos.setTemas(this);
+        return this;
+    }
+
+    public Temas removeCursos(Cursos cursos) {
+        this.cursos.remove(cursos);
+        cursos.setTemas(null);
         return this;
     }
 
