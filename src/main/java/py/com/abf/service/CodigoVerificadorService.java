@@ -31,8 +31,7 @@ public class CodigoVerificadorService {
 
         v_resto = v_total % 11;
         v_digit = v_resto > 1 ? 11 - v_resto : 0;
-
         //return v_digit;
-        return p_numero + '-' + v_digit;
+        return v_digit + "";
     }
 }
