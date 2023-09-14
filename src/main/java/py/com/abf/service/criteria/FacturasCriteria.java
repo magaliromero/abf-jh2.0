@@ -47,6 +47,10 @@ public class FacturasCriteria implements Serializable, Criteria {
 
     private IntegerFilter timbrado;
 
+    private IntegerFilter puntoExpedicion;
+
+    private IntegerFilter sucursal;
+
     private StringFilter razonSocial;
 
     private StringFilter ruc;
@@ -66,6 +70,8 @@ public class FacturasCriteria implements Serializable, Criteria {
         this.fecha = other.fecha == null ? null : other.fecha.copy();
         this.facturaNro = other.facturaNro == null ? null : other.facturaNro.copy();
         this.timbrado = other.timbrado == null ? null : other.timbrado.copy();
+        this.puntoExpedicion = other.puntoExpedicion == null ? null : other.puntoExpedicion.copy();
+        this.sucursal = other.sucursal == null ? null : other.sucursal.copy();
         this.razonSocial = other.razonSocial == null ? null : other.razonSocial.copy();
         this.ruc = other.ruc == null ? null : other.ruc.copy();
         this.condicionVenta = other.condicionVenta == null ? null : other.condicionVenta.copy();
@@ -137,6 +143,36 @@ public class FacturasCriteria implements Serializable, Criteria {
 
     public void setTimbrado(IntegerFilter timbrado) {
         this.timbrado = timbrado;
+    }
+
+    public IntegerFilter getPuntoExpedicion() {
+        return puntoExpedicion;
+    }
+
+    public IntegerFilter puntoExpedicion() {
+        if (puntoExpedicion == null) {
+            puntoExpedicion = new IntegerFilter();
+        }
+        return puntoExpedicion;
+    }
+
+    public void setPuntoExpedicion(IntegerFilter puntoExpedicion) {
+        this.puntoExpedicion = puntoExpedicion;
+    }
+
+    public IntegerFilter getSucursal() {
+        return sucursal;
+    }
+
+    public IntegerFilter sucursal() {
+        if (sucursal == null) {
+            sucursal = new IntegerFilter();
+        }
+        return sucursal;
+    }
+
+    public void setSucursal(IntegerFilter sucursal) {
+        this.sucursal = sucursal;
     }
 
     public StringFilter getRazonSocial() {
@@ -236,6 +272,8 @@ public class FacturasCriteria implements Serializable, Criteria {
             Objects.equals(fecha, that.fecha) &&
             Objects.equals(facturaNro, that.facturaNro) &&
             Objects.equals(timbrado, that.timbrado) &&
+            Objects.equals(puntoExpedicion, that.puntoExpedicion) &&
+            Objects.equals(sucursal, that.sucursal) &&
             Objects.equals(razonSocial, that.razonSocial) &&
             Objects.equals(ruc, that.ruc) &&
             Objects.equals(condicionVenta, that.condicionVenta) &&
@@ -247,7 +285,20 @@ public class FacturasCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fecha, facturaNro, timbrado, razonSocial, ruc, condicionVenta, total, facturaDetalleId, distinct);
+        return Objects.hash(
+            id,
+            fecha,
+            facturaNro,
+            timbrado,
+            puntoExpedicion,
+            sucursal,
+            razonSocial,
+            ruc,
+            condicionVenta,
+            total,
+            facturaDetalleId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -258,6 +309,8 @@ public class FacturasCriteria implements Serializable, Criteria {
             (fecha != null ? "fecha=" + fecha + ", " : "") +
             (facturaNro != null ? "facturaNro=" + facturaNro + ", " : "") +
             (timbrado != null ? "timbrado=" + timbrado + ", " : "") +
+            (puntoExpedicion != null ? "puntoExpedicion=" + puntoExpedicion + ", " : "") +
+            (sucursal != null ? "sucursal=" + sucursal + ", " : "") +
             (razonSocial != null ? "razonSocial=" + razonSocial + ", " : "") +
             (ruc != null ? "ruc=" + ruc + ", " : "") +
             (condicionVenta != null ? "condicionVenta=" + condicionVenta + ", " : "") +

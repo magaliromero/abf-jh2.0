@@ -3,26 +3,26 @@ import { ISucursales, NewSucursales } from './sucursales.model';
 export const sampleWithRequiredData: ISucursales = {
   id: 64468,
   nombreSucursal: 'Land 1080p relationships',
-  numeroEstablecimiento: 'THX Ball',
+  numeroEstablecimiento: 60955,
 };
 
 export const sampleWithPartialData: ISucursales = {
-  id: 79736,
-  nombreSucursal: 'interface black Pula',
-  direccion: 'full-range JSON',
-  numeroEstablecimiento: 'Port',
+  id: 64401,
+  nombreSucursal: 'Ball transmitter interface',
+  direccion: 'multi-tasking',
+  numeroEstablecimiento: 12473,
 };
 
 export const sampleWithFullData: ISucursales = {
-  id: 91578,
-  nombreSucursal: 'Unions',
-  direccion: '1080p copying',
-  numeroEstablecimiento: 'Unions Frozen',
+  id: 7777,
+  nombreSucursal: 'full-range JSON',
+  direccion: 'Port',
+  numeroEstablecimiento: 91578,
 };
 
 export const sampleWithNewData: NewSucursales = {
-  nombreSucursal: 'bandwidth-monitored',
-  numeroEstablecimiento: 'Netherlands',
+  nombreSucursal: 'Unions',
+  numeroEstablecimiento: 37356,
   id: null,
 };
 

@@ -93,7 +93,7 @@ public class SucursalesQueryService extends QueryService<Sucursales> {
             }
             if (criteria.getNumeroEstablecimiento() != null) {
                 specification =
-                    specification.and(buildStringSpecification(criteria.getNumeroEstablecimiento(), Sucursales_.numeroEstablecimiento));
+                    specification.and(buildRangeSpecification(criteria.getNumeroEstablecimiento(), Sucursales_.numeroEstablecimiento));
             }
             if (criteria.getPuntoDeExpedicionId() != null) {
                 specification =

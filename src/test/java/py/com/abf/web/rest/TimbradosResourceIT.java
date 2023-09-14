@@ -33,8 +33,9 @@ import py.com.abf.service.criteria.TimbradosCriteria;
 @WithMockUser
 class TimbradosResourceIT {
 
-    private static final String DEFAULT_NUMERO_TIMBRADO = "AAAAAAAAAA";
-    private static final String UPDATED_NUMERO_TIMBRADO = "BBBBBBBBBB";
+    private static final Integer DEFAULT_NUMERO_TIMBRADO = 1;
+    private static final Integer UPDATED_NUMERO_TIMBRADO = 2;
+    private static final Integer SMALLER_NUMERO_TIMBRADO = 1 - 1;
 
     private static final LocalDate DEFAULT_FECHA_INICIO = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_INICIO = LocalDate.now(ZoneId.systemDefault());
@@ -274,28 +275,54 @@ class TimbradosResourceIT {
 
     @Test
     @Transactional
-    void getAllTimbradosByNumeroTimbradoContainsSomething() throws Exception {
+    void getAllTimbradosByNumeroTimbradoIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         timbradosRepository.saveAndFlush(timbrados);
 
-        // Get all the timbradosList where numeroTimbrado contains DEFAULT_NUMERO_TIMBRADO
-        defaultTimbradosShouldBeFound("numeroTimbrado.contains=" + DEFAULT_NUMERO_TIMBRADO);
+        // Get all the timbradosList where numeroTimbrado is greater than or equal to DEFAULT_NUMERO_TIMBRADO
+        defaultTimbradosShouldBeFound("numeroTimbrado.greaterThanOrEqual=" + DEFAULT_NUMERO_TIMBRADO);
 
-        // Get all the timbradosList where numeroTimbrado contains UPDATED_NUMERO_TIMBRADO
-        defaultTimbradosShouldNotBeFound("numeroTimbrado.contains=" + UPDATED_NUMERO_TIMBRADO);
+        // Get all the timbradosList where numeroTimbrado is greater than or equal to UPDATED_NUMERO_TIMBRADO
+        defaultTimbradosShouldNotBeFound("numeroTimbrado.greaterThanOrEqual=" + UPDATED_NUMERO_TIMBRADO);
     }
 
     @Test
     @Transactional
-    void getAllTimbradosByNumeroTimbradoNotContainsSomething() throws Exception {
+    void getAllTimbradosByNumeroTimbradoIsLessThanOrEqualToSomething() throws Exception {
         // Initialize the database
         timbradosRepository.saveAndFlush(timbrados);
 
-        // Get all the timbradosList where numeroTimbrado does not contain DEFAULT_NUMERO_TIMBRADO
-        defaultTimbradosShouldNotBeFound("numeroTimbrado.doesNotContain=" + DEFAULT_NUMERO_TIMBRADO);
+        // Get all the timbradosList where numeroTimbrado is less than or equal to DEFAULT_NUMERO_TIMBRADO
+        defaultTimbradosShouldBeFound("numeroTimbrado.lessThanOrEqual=" + DEFAULT_NUMERO_TIMBRADO);
 
-        // Get all the timbradosList where numeroTimbrado does not contain UPDATED_NUMERO_TIMBRADO
-        defaultTimbradosShouldBeFound("numeroTimbrado.doesNotContain=" + UPDATED_NUMERO_TIMBRADO);
+        // Get all the timbradosList where numeroTimbrado is less than or equal to SMALLER_NUMERO_TIMBRADO
+        defaultTimbradosShouldNotBeFound("numeroTimbrado.lessThanOrEqual=" + SMALLER_NUMERO_TIMBRADO);
+    }
+
+    @Test
+    @Transactional
+    void getAllTimbradosByNumeroTimbradoIsLessThanSomething() throws Exception {
+        // Initialize the database
+        timbradosRepository.saveAndFlush(timbrados);
+
+        // Get all the timbradosList where numeroTimbrado is less than DEFAULT_NUMERO_TIMBRADO
+        defaultTimbradosShouldNotBeFound("numeroTimbrado.lessThan=" + DEFAULT_NUMERO_TIMBRADO);
+
+        // Get all the timbradosList where numeroTimbrado is less than UPDATED_NUMERO_TIMBRADO
+        defaultTimbradosShouldBeFound("numeroTimbrado.lessThan=" + UPDATED_NUMERO_TIMBRADO);
+    }
+
+    @Test
+    @Transactional
+    void getAllTimbradosByNumeroTimbradoIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        timbradosRepository.saveAndFlush(timbrados);
+
+        // Get all the timbradosList where numeroTimbrado is greater than DEFAULT_NUMERO_TIMBRADO
+        defaultTimbradosShouldNotBeFound("numeroTimbrado.greaterThan=" + DEFAULT_NUMERO_TIMBRADO);
+
+        // Get all the timbradosList where numeroTimbrado is greater than SMALLER_NUMERO_TIMBRADO
+        defaultTimbradosShouldBeFound("numeroTimbrado.greaterThan=" + SMALLER_NUMERO_TIMBRADO);
     }
 
     @Test
@@ -492,7 +519,7 @@ class TimbradosResourceIT {
         }
         em.persist(sucursales);
         em.flush();
-        timbrados.setSucursales(sucursales);
+        timbrados.addSucursales(sucursales);
         timbradosRepository.saveAndFlush(timbrados);
         Long sucursalesId = sucursales.getId();
 

@@ -11,6 +11,9 @@ import { FacturasService } from '../service/facturas.service';
 import { CondicionVenta } from 'app/entities/enumerations/condicion-venta.model';
 import { ConsultaClienteService } from 'app/util-services/consulta-cliente.service';
 import { EntityArrayResponseType, ProductosService } from 'app/entities/productos/service/productos.service';
+import { TimbradosService } from 'app/entities/timbrados/service/timbrados.service';
+import { SucursalesService } from 'app/entities/sucursales/service/sucursales.service';
+import { PuntoDeExpedicionService } from 'app/entities/punto-de-expedicion/service/punto-de-expedicion.service';
 
 @Component({
   selector: 'jhi-facturas-update',
@@ -20,6 +23,9 @@ export class FacturasUpdateComponent implements OnInit {
   isSaving = false;
   facturas: IFacturas | null = null;
   productos: any[] = [];
+  timbrados: any[] = [];
+  sucursales: any[] = [];
+
   condicionVentaValues = Object.keys(CondicionVenta);
 
   editForm: FacturasFormGroup = this.facturasFormService.createFacturasFormGroup();
@@ -27,12 +33,16 @@ export class FacturasUpdateComponent implements OnInit {
   nuevoItem: any = {};
 
   listaDetalle: any[] = [];
+  puntosExpedicion: any[] = [];
   constructor(
     protected facturasService: FacturasService,
     protected facturasFormService: FacturasFormService,
     protected productoService: ProductosService,
     protected activatedRoute: ActivatedRoute,
-    protected consultaCliente: ConsultaClienteService
+    protected consultaCliente: ConsultaClienteService,
+    protected timbradoService: TimbradosService,
+    protected sucursalesService: SucursalesService,
+    protected puntosExpedicionSerice: PuntoDeExpedicionService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +62,10 @@ export class FacturasUpdateComponent implements OnInit {
       this.editForm.controls.total.disable();
       // this.editForm.controls.fecha.setValue(dayjs().format() )
     });
+    this.queryBackendTimbrados().subscribe(data => {
+      const { body } = data;
+      this.timbrados = body;
+    });
   }
 
   previousState(): void {
@@ -61,25 +75,11 @@ export class FacturasUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const facturas = this.facturasFormService.getFacturas(this.editForm);
-    const detalle = this.listaDetalle.map((item: any) => {
-      return {
-        cantidad: item.cantidad,
-        precioUnitario: item.precio,
-        producto: parseInt(item.producto),
-        subtotal: item.subtotal,
-      };
-    });
-    const data = {
-      factura: facturas,
-      detalle: detalle,
-    };
-    this.subscribeToSaveResponse(this.facturasService.createNew(data));
-
-    /* if (facturas.id !== null) {
+    if (facturas.id !== null) {
       this.subscribeToSaveResponse(this.facturasService.update(facturas));
     } else {
       this.subscribeToSaveResponse(this.facturasService.create(facturas));
-    }*/
+    }
   }
   agregarDetalle(): void {
     this.listaDetalle.push(Object.assign({}, this.nuevoItem));
@@ -109,6 +109,24 @@ export class FacturasUpdateComponent implements OnInit {
       total += element.subtotal;
     }
     this.editForm.controls.total.setValue(total);
+  }
+  obtenerSucursales() {
+    this.editForm.controls.puntoExpedicion.setValue(null);
+    this.editForm.controls.sucursal.setValue(null);
+    this.puntosExpedicion = [];
+    this.sucursales = [];
+    this.queryBackenSucursales().subscribe(data => {
+      const { body } = data;
+      this.sucursales = body;
+    });
+  }
+  obtenerPE() {
+    this.editForm.controls.puntoExpedicion.setValue(null);
+    this.puntosExpedicion = [];
+    this.queryBackendPE().subscribe(data => {
+      const { body } = data;
+      this.puntosExpedicion = body;
+    });
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFacturas>>): void {
@@ -152,5 +170,41 @@ export class FacturasUpdateComponent implements OnInit {
       sort: '',
     };
     return this.productoService.query(queryObject);
+  }
+  protected queryBackendTimbrados(): Observable<any> {
+    const pageToLoad = 1;
+    const queryObject: any = {
+      page: pageToLoad - 1,
+      size: 100,
+      sort: '',
+    };
+    return this.timbradoService.query(queryObject);
+  }
+  protected queryBackenSucursales(): Observable<any> {
+    const data = this.timbrados.find(item => item.numeroTimbrado == this.editForm.controls.timbrado.value);
+    const pageToLoad = 1;
+    const queryObject: any = {
+      page: pageToLoad - 1,
+      size: 100,
+      sort: '',
+      timbradoId: {
+        equales: data.id,
+      },
+    };
+    return this.sucursalesService.query(queryObject);
+  }
+  protected queryBackendPE(): Observable<any> {
+    const data = this.sucursales.find(item => item.numeroEstablecimiento == this.editForm.controls.sucursal.value);
+
+    const pageToLoad = 1;
+    const queryObject: any = {
+      page: pageToLoad - 1,
+      size: 100,
+      sort: '',
+      puntoExpedicionId: {
+        equales: data.id,
+      },
+    };
+    return this.puntosExpedicionSerice.query(queryObject);
   }
 }

@@ -23,7 +23,7 @@ public class TimbradosCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter numeroTimbrado;
+    private IntegerFilter numeroTimbrado;
 
     private LocalDateFilter fechaInicio;
 
@@ -64,18 +64,18 @@ public class TimbradosCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getNumeroTimbrado() {
+    public IntegerFilter getNumeroTimbrado() {
         return numeroTimbrado;
     }
 
-    public StringFilter numeroTimbrado() {
+    public IntegerFilter numeroTimbrado() {
         if (numeroTimbrado == null) {
-            numeroTimbrado = new StringFilter();
+            numeroTimbrado = new IntegerFilter();
         }
         return numeroTimbrado;
     }
 
-    public void setNumeroTimbrado(StringFilter numeroTimbrado) {
+    public void setNumeroTimbrado(IntegerFilter numeroTimbrado) {
         this.numeroTimbrado = numeroTimbrado;
     }
 

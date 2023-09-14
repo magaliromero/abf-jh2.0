@@ -7,7 +7,7 @@
   "fields": [
     {
       "fieldName": "numeroPuntoDeExpedicion",
-      "fieldType": "String",
+      "fieldType": "Integer",
       "fieldValidateRules": ["required"]
     }
   ],

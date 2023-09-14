@@ -2,17 +2,25 @@ package py.com.abf.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,12 +30,14 @@ import py.com.abf.domain.PuntoDeExpedicion;
 import py.com.abf.domain.Sucursales;
 import py.com.abf.domain.Timbrados;
 import py.com.abf.repository.SucursalesRepository;
+import py.com.abf.service.SucursalesService;
 import py.com.abf.service.criteria.SucursalesCriteria;
 
 /**
  * Integration tests for the {@link SucursalesResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class SucursalesResourceIT {
@@ -38,8 +48,9 @@ class SucursalesResourceIT {
     private static final String DEFAULT_DIRECCION = "AAAAAAAAAA";
     private static final String UPDATED_DIRECCION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NUMERO_ESTABLECIMIENTO = "AAAAAAAAAA";
-    private static final String UPDATED_NUMERO_ESTABLECIMIENTO = "BBBBBBBBBB";
+    private static final Integer DEFAULT_NUMERO_ESTABLECIMIENTO = 1;
+    private static final Integer UPDATED_NUMERO_ESTABLECIMIENTO = 2;
+    private static final Integer SMALLER_NUMERO_ESTABLECIMIENTO = 1 - 1;
 
     private static final String ENTITY_API_URL = "/api/sucursales";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -49,6 +60,12 @@ class SucursalesResourceIT {
 
     @Autowired
     private SucursalesRepository sucursalesRepository;
+
+    @Mock
+    private SucursalesRepository sucursalesRepositoryMock;
+
+    @Mock
+    private SucursalesService sucursalesServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -69,6 +86,16 @@ class SucursalesResourceIT {
             .nombreSucursal(DEFAULT_NOMBRE_SUCURSAL)
             .direccion(DEFAULT_DIRECCION)
             .numeroEstablecimiento(DEFAULT_NUMERO_ESTABLECIMIENTO);
+        // Add required entity
+        Timbrados timbrados;
+        if (TestUtil.findAll(em, Timbrados.class).isEmpty()) {
+            timbrados = TimbradosResourceIT.createEntity(em);
+            em.persist(timbrados);
+            em.flush();
+        } else {
+            timbrados = TestUtil.findAll(em, Timbrados.class).get(0);
+        }
+        sucursales.setTimbrados(timbrados);
         return sucursales;
     }
 
@@ -83,6 +110,16 @@ class SucursalesResourceIT {
             .nombreSucursal(UPDATED_NOMBRE_SUCURSAL)
             .direccion(UPDATED_DIRECCION)
             .numeroEstablecimiento(UPDATED_NUMERO_ESTABLECIMIENTO);
+        // Add required entity
+        Timbrados timbrados;
+        if (TestUtil.findAll(em, Timbrados.class).isEmpty()) {
+            timbrados = TimbradosResourceIT.createUpdatedEntity(em);
+            em.persist(timbrados);
+            em.flush();
+        } else {
+            timbrados = TestUtil.findAll(em, Timbrados.class).get(0);
+        }
+        sucursales.setTimbrados(timbrados);
         return sucursales;
     }
 
@@ -176,6 +213,23 @@ class SucursalesResourceIT {
             .andExpect(jsonPath("$.[*].nombreSucursal").value(hasItem(DEFAULT_NOMBRE_SUCURSAL)))
             .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION)))
             .andExpect(jsonPath("$.[*].numeroEstablecimiento").value(hasItem(DEFAULT_NUMERO_ESTABLECIMIENTO)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllSucursalesWithEagerRelationshipsIsEnabled() throws Exception {
+        when(sucursalesServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restSucursalesMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(sucursalesServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllSucursalesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(sucursalesServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restSucursalesMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(sucursalesRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -384,28 +438,54 @@ class SucursalesResourceIT {
 
     @Test
     @Transactional
-    void getAllSucursalesByNumeroEstablecimientoContainsSomething() throws Exception {
+    void getAllSucursalesByNumeroEstablecimientoIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         sucursalesRepository.saveAndFlush(sucursales);
 
-        // Get all the sucursalesList where numeroEstablecimiento contains DEFAULT_NUMERO_ESTABLECIMIENTO
-        defaultSucursalesShouldBeFound("numeroEstablecimiento.contains=" + DEFAULT_NUMERO_ESTABLECIMIENTO);
+        // Get all the sucursalesList where numeroEstablecimiento is greater than or equal to DEFAULT_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldBeFound("numeroEstablecimiento.greaterThanOrEqual=" + DEFAULT_NUMERO_ESTABLECIMIENTO);
 
-        // Get all the sucursalesList where numeroEstablecimiento contains UPDATED_NUMERO_ESTABLECIMIENTO
-        defaultSucursalesShouldNotBeFound("numeroEstablecimiento.contains=" + UPDATED_NUMERO_ESTABLECIMIENTO);
+        // Get all the sucursalesList where numeroEstablecimiento is greater than or equal to UPDATED_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldNotBeFound("numeroEstablecimiento.greaterThanOrEqual=" + UPDATED_NUMERO_ESTABLECIMIENTO);
     }
 
     @Test
     @Transactional
-    void getAllSucursalesByNumeroEstablecimientoNotContainsSomething() throws Exception {
+    void getAllSucursalesByNumeroEstablecimientoIsLessThanOrEqualToSomething() throws Exception {
         // Initialize the database
         sucursalesRepository.saveAndFlush(sucursales);
 
-        // Get all the sucursalesList where numeroEstablecimiento does not contain DEFAULT_NUMERO_ESTABLECIMIENTO
-        defaultSucursalesShouldNotBeFound("numeroEstablecimiento.doesNotContain=" + DEFAULT_NUMERO_ESTABLECIMIENTO);
+        // Get all the sucursalesList where numeroEstablecimiento is less than or equal to DEFAULT_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldBeFound("numeroEstablecimiento.lessThanOrEqual=" + DEFAULT_NUMERO_ESTABLECIMIENTO);
 
-        // Get all the sucursalesList where numeroEstablecimiento does not contain UPDATED_NUMERO_ESTABLECIMIENTO
-        defaultSucursalesShouldBeFound("numeroEstablecimiento.doesNotContain=" + UPDATED_NUMERO_ESTABLECIMIENTO);
+        // Get all the sucursalesList where numeroEstablecimiento is less than or equal to SMALLER_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldNotBeFound("numeroEstablecimiento.lessThanOrEqual=" + SMALLER_NUMERO_ESTABLECIMIENTO);
+    }
+
+    @Test
+    @Transactional
+    void getAllSucursalesByNumeroEstablecimientoIsLessThanSomething() throws Exception {
+        // Initialize the database
+        sucursalesRepository.saveAndFlush(sucursales);
+
+        // Get all the sucursalesList where numeroEstablecimiento is less than DEFAULT_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldNotBeFound("numeroEstablecimiento.lessThan=" + DEFAULT_NUMERO_ESTABLECIMIENTO);
+
+        // Get all the sucursalesList where numeroEstablecimiento is less than UPDATED_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldBeFound("numeroEstablecimiento.lessThan=" + UPDATED_NUMERO_ESTABLECIMIENTO);
+    }
+
+    @Test
+    @Transactional
+    void getAllSucursalesByNumeroEstablecimientoIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        sucursalesRepository.saveAndFlush(sucursales);
+
+        // Get all the sucursalesList where numeroEstablecimiento is greater than DEFAULT_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldNotBeFound("numeroEstablecimiento.greaterThan=" + DEFAULT_NUMERO_ESTABLECIMIENTO);
+
+        // Get all the sucursalesList where numeroEstablecimiento is greater than SMALLER_NUMERO_ESTABLECIMIENTO
+        defaultSucursalesShouldBeFound("numeroEstablecimiento.greaterThan=" + SMALLER_NUMERO_ESTABLECIMIENTO);
     }
 
     @Test
@@ -444,7 +524,6 @@ class SucursalesResourceIT {
         em.persist(timbrados);
         em.flush();
         sucursales.setTimbrados(timbrados);
-        timbrados.setSucursales(sucursales);
         sucursalesRepository.saveAndFlush(sucursales);
         Long timbradosId = timbrados.getId();
 

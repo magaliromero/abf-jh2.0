@@ -21,6 +21,16 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "puntoExpedicion",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sucursal",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "razonSocial",
       "fieldType": "String",
       "fieldValidateRules": ["required"]

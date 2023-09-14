@@ -1,9 +1,6 @@
 package py.com.abf.service.impl;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -70,24 +67,15 @@ public class SucursalesServiceImpl implements SucursalesService {
         return sucursalesRepository.findAll(pageable);
     }
 
-    /**
-     *  Get all the sucursales where Timbrados is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<Sucursales> findAllWhereTimbradosIsNull() {
-        log.debug("Request to get all sucursales where Timbrados is null");
-        return StreamSupport
-            .stream(sucursalesRepository.findAll().spliterator(), false)
-            .filter(sucursales -> sucursales.getTimbrados() == null)
-            .collect(Collectors.toList());
+    public Page<Sucursales> findAllWithEagerRelationships(Pageable pageable) {
+        return sucursalesRepository.findAllWithEagerRelationships(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Sucursales> findOne(Long id) {
         log.debug("Request to get Sucursales : {}", id);
-        return sucursalesRepository.findById(id);
+        return sucursalesRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

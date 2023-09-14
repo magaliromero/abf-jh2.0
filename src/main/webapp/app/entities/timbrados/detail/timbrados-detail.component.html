@@ -26,12 +26,6 @@
         <dd>
           <span>{{ timbrados.fechaFin | formatMediumDate }}</span>
         </dd>
-        <dt><span jhiTranslate="abfApp.timbrados.sucursales">Sucursales</span></dt>
-        <dd>
-          <div *ngIf="timbrados.sucursales">
-            <a [routerLink]="['/sucursales', timbrados.sucursales.id, 'view']">{{ timbrados.sucursales.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

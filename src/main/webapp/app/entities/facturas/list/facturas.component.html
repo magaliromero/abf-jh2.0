@@ -58,6 +58,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="puntoExpedicion">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.facturas.puntoExpedicion">Punto Expedicion</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sucursal">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.facturas.sucursal">Sucursal</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="razonSocial">
             <div class="d-flex">
               <span jhiTranslate="abfApp.facturas.razonSocial">Razon Social</span>
@@ -93,6 +105,8 @@
           <td>{{ facturas.fecha | formatMediumDate }}</td>
           <td>{{ facturas.facturaNro }}</td>
           <td>{{ facturas.timbrado }}</td>
+          <td>{{ facturas.puntoExpedicion }}</td>
+          <td>{{ facturas.sucursal }}</td>
           <td>{{ facturas.razonSocial }}</td>
           <td>{{ facturas.ruc }}</td>
           <td jhiTranslate="{{ 'abfApp.CondicionVenta.' + facturas.condicionVenta }}">{{ facturas.condicionVenta }}</td>

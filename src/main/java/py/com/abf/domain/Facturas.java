@@ -41,6 +41,14 @@ public class Facturas implements Serializable {
     private Integer timbrado;
 
     @NotNull
+    @Column(name = "punto_expedicion", nullable = false)
+    private Integer puntoExpedicion;
+
+    @NotNull
+    @Column(name = "sucursal", nullable = false)
+    private Integer sucursal;
+
+    @NotNull
     @Column(name = "razon_social", nullable = false)
     private String razonSocial;
 
@@ -114,6 +122,32 @@ public class Facturas implements Serializable {
 
     public void setTimbrado(Integer timbrado) {
         this.timbrado = timbrado;
+    }
+
+    public Integer getPuntoExpedicion() {
+        return this.puntoExpedicion;
+    }
+
+    public Facturas puntoExpedicion(Integer puntoExpedicion) {
+        this.setPuntoExpedicion(puntoExpedicion);
+        return this;
+    }
+
+    public void setPuntoExpedicion(Integer puntoExpedicion) {
+        this.puntoExpedicion = puntoExpedicion;
+    }
+
+    public Integer getSucursal() {
+        return this.sucursal;
+    }
+
+    public Facturas sucursal(Integer sucursal) {
+        this.setSucursal(sucursal);
+        return this;
+    }
+
+    public void setSucursal(Integer sucursal) {
+        this.sucursal = sucursal;
     }
 
     public String getRazonSocial() {
@@ -226,6 +260,8 @@ public class Facturas implements Serializable {
             ", fecha='" + getFecha() + "'" +
             ", facturaNro='" + getFacturaNro() + "'" +
             ", timbrado=" + getTimbrado() +
+            ", puntoExpedicion=" + getPuntoExpedicion() +
+            ", sucursal=" + getSucursal() +
             ", razonSocial='" + getRazonSocial() + "'" +
             ", ruc='" + getRuc() + "'" +
             ", condicionVenta='" + getCondicionVenta() + "'" +

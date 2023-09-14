@@ -35,15 +35,16 @@ public class Sucursales implements Serializable {
 
     @NotNull
     @Column(name = "numero_establecimiento", nullable = false)
-    private String numeroEstablecimiento;
+    private Integer numeroEstablecimiento;
 
     @OneToMany(mappedBy = "sucursales")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "sucursales" }, allowSetters = true)
     private Set<PuntoDeExpedicion> puntoDeExpedicions = new HashSet<>();
 
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "sucursales" }, allowSetters = true)
-    @OneToOne(mappedBy = "sucursales")
     private Timbrados timbrados;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -87,16 +88,16 @@ public class Sucursales implements Serializable {
         this.direccion = direccion;
     }
 
-    public String getNumeroEstablecimiento() {
+    public Integer getNumeroEstablecimiento() {
         return this.numeroEstablecimiento;
     }
 
-    public Sucursales numeroEstablecimiento(String numeroEstablecimiento) {
+    public Sucursales numeroEstablecimiento(Integer numeroEstablecimiento) {
         this.setNumeroEstablecimiento(numeroEstablecimiento);
         return this;
     }
 
-    public void setNumeroEstablecimiento(String numeroEstablecimiento) {
+    public void setNumeroEstablecimiento(Integer numeroEstablecimiento) {
         this.numeroEstablecimiento = numeroEstablecimiento;
     }
 
@@ -136,12 +137,6 @@ public class Sucursales implements Serializable {
     }
 
     public void setTimbrados(Timbrados timbrados) {
-        if (this.timbrados != null) {
-            this.timbrados.setSucursales(null);
-        }
-        if (timbrados != null) {
-            timbrados.setSucursales(this);
-        }
         this.timbrados = timbrados;
     }
 
@@ -176,7 +171,7 @@ public class Sucursales implements Serializable {
             "id=" + getId() +
             ", nombreSucursal='" + getNombreSucursal() + "'" +
             ", direccion='" + getDireccion() + "'" +
-            ", numeroEstablecimiento='" + getNumeroEstablecimiento() + "'" +
+            ", numeroEstablecimiento=" + getNumeroEstablecimiento() +
             "}";
     }
 }

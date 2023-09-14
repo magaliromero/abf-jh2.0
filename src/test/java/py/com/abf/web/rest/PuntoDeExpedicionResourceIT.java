@@ -41,8 +41,9 @@ import py.com.abf.service.criteria.PuntoDeExpedicionCriteria;
 @WithMockUser
 class PuntoDeExpedicionResourceIT {
 
-    private static final String DEFAULT_NUMERO_PUNTO_DE_EXPEDICION = "AAAAAAAAAA";
-    private static final String UPDATED_NUMERO_PUNTO_DE_EXPEDICION = "BBBBBBBBBB";
+    private static final Integer DEFAULT_NUMERO_PUNTO_DE_EXPEDICION = 1;
+    private static final Integer UPDATED_NUMERO_PUNTO_DE_EXPEDICION = 2;
+    private static final Integer SMALLER_NUMERO_PUNTO_DE_EXPEDICION = 1 - 1;
 
     private static final String ENTITY_API_URL = "/api/punto-de-expedicions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -279,28 +280,54 @@ class PuntoDeExpedicionResourceIT {
 
     @Test
     @Transactional
-    void getAllPuntoDeExpedicionsByNumeroPuntoDeExpedicionContainsSomething() throws Exception {
+    void getAllPuntoDeExpedicionsByNumeroPuntoDeExpedicionIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         puntoDeExpedicionRepository.saveAndFlush(puntoDeExpedicion);
 
-        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion contains DEFAULT_NUMERO_PUNTO_DE_EXPEDICION
-        defaultPuntoDeExpedicionShouldBeFound("numeroPuntoDeExpedicion.contains=" + DEFAULT_NUMERO_PUNTO_DE_EXPEDICION);
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is greater than or equal to DEFAULT_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldBeFound("numeroPuntoDeExpedicion.greaterThanOrEqual=" + DEFAULT_NUMERO_PUNTO_DE_EXPEDICION);
 
-        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion contains UPDATED_NUMERO_PUNTO_DE_EXPEDICION
-        defaultPuntoDeExpedicionShouldNotBeFound("numeroPuntoDeExpedicion.contains=" + UPDATED_NUMERO_PUNTO_DE_EXPEDICION);
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is greater than or equal to UPDATED_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldNotBeFound("numeroPuntoDeExpedicion.greaterThanOrEqual=" + UPDATED_NUMERO_PUNTO_DE_EXPEDICION);
     }
 
     @Test
     @Transactional
-    void getAllPuntoDeExpedicionsByNumeroPuntoDeExpedicionNotContainsSomething() throws Exception {
+    void getAllPuntoDeExpedicionsByNumeroPuntoDeExpedicionIsLessThanOrEqualToSomething() throws Exception {
         // Initialize the database
         puntoDeExpedicionRepository.saveAndFlush(puntoDeExpedicion);
 
-        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion does not contain DEFAULT_NUMERO_PUNTO_DE_EXPEDICION
-        defaultPuntoDeExpedicionShouldNotBeFound("numeroPuntoDeExpedicion.doesNotContain=" + DEFAULT_NUMERO_PUNTO_DE_EXPEDICION);
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is less than or equal to DEFAULT_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldBeFound("numeroPuntoDeExpedicion.lessThanOrEqual=" + DEFAULT_NUMERO_PUNTO_DE_EXPEDICION);
 
-        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion does not contain UPDATED_NUMERO_PUNTO_DE_EXPEDICION
-        defaultPuntoDeExpedicionShouldBeFound("numeroPuntoDeExpedicion.doesNotContain=" + UPDATED_NUMERO_PUNTO_DE_EXPEDICION);
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is less than or equal to SMALLER_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldNotBeFound("numeroPuntoDeExpedicion.lessThanOrEqual=" + SMALLER_NUMERO_PUNTO_DE_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllPuntoDeExpedicionsByNumeroPuntoDeExpedicionIsLessThanSomething() throws Exception {
+        // Initialize the database
+        puntoDeExpedicionRepository.saveAndFlush(puntoDeExpedicion);
+
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is less than DEFAULT_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldNotBeFound("numeroPuntoDeExpedicion.lessThan=" + DEFAULT_NUMERO_PUNTO_DE_EXPEDICION);
+
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is less than UPDATED_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldBeFound("numeroPuntoDeExpedicion.lessThan=" + UPDATED_NUMERO_PUNTO_DE_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllPuntoDeExpedicionsByNumeroPuntoDeExpedicionIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        puntoDeExpedicionRepository.saveAndFlush(puntoDeExpedicion);
+
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is greater than DEFAULT_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldNotBeFound("numeroPuntoDeExpedicion.greaterThan=" + DEFAULT_NUMERO_PUNTO_DE_EXPEDICION);
+
+        // Get all the puntoDeExpedicionList where numeroPuntoDeExpedicion is greater than SMALLER_NUMERO_PUNTO_DE_EXPEDICION
+        defaultPuntoDeExpedicionShouldBeFound("numeroPuntoDeExpedicion.greaterThan=" + SMALLER_NUMERO_PUNTO_DE_EXPEDICION);
     }
 
     @Test

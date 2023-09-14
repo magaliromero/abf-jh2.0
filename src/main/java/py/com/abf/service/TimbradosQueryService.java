@@ -86,7 +86,7 @@ public class TimbradosQueryService extends QueryService<Timbrados> {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Timbrados_.id));
             }
             if (criteria.getNumeroTimbrado() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNumeroTimbrado(), Timbrados_.numeroTimbrado));
+                specification = specification.and(buildRangeSpecification(criteria.getNumeroTimbrado(), Timbrados_.numeroTimbrado));
             }
             if (criteria.getFechaInicio() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getFechaInicio(), Timbrados_.fechaInicio));

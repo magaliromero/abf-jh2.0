@@ -23,7 +23,6 @@ describe('Timbrados Form Service', () => {
             numeroTimbrado: expect.any(Object),
             fechaInicio: expect.any(Object),
             fechaFin: expect.any(Object),
-            sucursales: expect.any(Object),
           })
         );
       });
@@ -37,7 +36,6 @@ describe('Timbrados Form Service', () => {
             numeroTimbrado: expect.any(Object),
             fechaInicio: expect.any(Object),
             fechaFin: expect.any(Object),
-            sucursales: expect.any(Object),
           })
         );
       });

@@ -3,6 +3,8 @@ package py.com.abf.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -27,7 +29,7 @@ public class Timbrados implements Serializable {
 
     @NotNull
     @Column(name = "numero_timbrado", nullable = false, unique = true)
-    private String numeroTimbrado;
+    private Integer numeroTimbrado;
 
     @NotNull
     @Column(name = "fecha_inicio", nullable = false)
@@ -37,10 +39,10 @@ public class Timbrados implements Serializable {
     @Column(name = "fecha_fin", nullable = false)
     private LocalDate fechaFin;
 
+    @OneToMany(mappedBy = "timbrados")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "puntoDeExpedicions", "timbrados" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Sucursales sucursales;
+    private Set<Sucursales> sucursales = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -57,16 +59,16 @@ public class Timbrados implements Serializable {
         this.id = id;
     }
 
-    public String getNumeroTimbrado() {
+    public Integer getNumeroTimbrado() {
         return this.numeroTimbrado;
     }
 
-    public Timbrados numeroTimbrado(String numeroTimbrado) {
+    public Timbrados numeroTimbrado(Integer numeroTimbrado) {
         this.setNumeroTimbrado(numeroTimbrado);
         return this;
     }
 
-    public void setNumeroTimbrado(String numeroTimbrado) {
+    public void setNumeroTimbrado(Integer numeroTimbrado) {
         this.numeroTimbrado = numeroTimbrado;
     }
 
@@ -96,16 +98,34 @@ public class Timbrados implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public Sucursales getSucursales() {
+    public Set<Sucursales> getSucursales() {
         return this.sucursales;
     }
 
-    public void setSucursales(Sucursales sucursales) {
+    public void setSucursales(Set<Sucursales> sucursales) {
+        if (this.sucursales != null) {
+            this.sucursales.forEach(i -> i.setTimbrados(null));
+        }
+        if (sucursales != null) {
+            sucursales.forEach(i -> i.setTimbrados(this));
+        }
         this.sucursales = sucursales;
     }
 
-    public Timbrados sucursales(Sucursales sucursales) {
+    public Timbrados sucursales(Set<Sucursales> sucursales) {
         this.setSucursales(sucursales);
+        return this;
+    }
+
+    public Timbrados addSucursales(Sucursales sucursales) {
+        this.sucursales.add(sucursales);
+        sucursales.setTimbrados(this);
+        return this;
+    }
+
+    public Timbrados removeSucursales(Sucursales sucursales) {
+        this.sucursales.remove(sucursales);
+        sucursales.setTimbrados(null);
         return this;
     }
 
@@ -133,7 +153,7 @@ public class Timbrados implements Serializable {
     public String toString() {
         return "Timbrados{" +
             "id=" + getId() +
-            ", numeroTimbrado='" + getNumeroTimbrado() + "'" +
+            ", numeroTimbrado=" + getNumeroTimbrado() +
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
             "}";

@@ -48,7 +48,7 @@
             >Numero Establecimiento</label
           >
           <input
-            type="text"
+            type="number"
             class="form-control"
             name="numeroEstablecimiento"
             id="field_numeroEstablecimiento"
@@ -68,7 +68,40 @@
             >
               This field is required.
             </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('numeroEstablecimiento')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
           </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.sucursales.timbrados" for="field_timbrados">Timbrados</label>
+          <select
+            class="form-control"
+            id="field_timbrados"
+            data-cy="timbrados"
+            name="timbrados"
+            formControlName="timbrados"
+            [compareWith]="compareTimbrados"
+          >
+            <option *ngIf="editForm.get(['timbrados'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="timbradosOption" *ngFor="let timbradosOption of timbradosSharedCollection">
+              {{ timbradosOption.numeroTimbrado }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['timbrados'])!.invalid && (editForm.get(['timbrados'])!.dirty || editForm.get(['timbrados'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['timbrados'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
         </div>
       </div>
 

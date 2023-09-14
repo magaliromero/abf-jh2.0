@@ -85,6 +85,7 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.Evaluaciones.class.getName() + ".evaluacionesDetalles");
             createCache(cm, py.com.abf.domain.EvaluacionesDetalle.class.getName());
             createCache(cm, py.com.abf.domain.Timbrados.class.getName());
+            createCache(cm, py.com.abf.domain.Timbrados.class.getName() + ".sucursales");
             createCache(cm, py.com.abf.domain.Sucursales.class.getName());
             createCache(cm, py.com.abf.domain.Sucursales.class.getName() + ".puntoDeExpedicions");
             createCache(cm, py.com.abf.domain.PuntoDeExpedicion.class.getName());

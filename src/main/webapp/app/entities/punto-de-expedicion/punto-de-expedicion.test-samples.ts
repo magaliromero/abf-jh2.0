@@ -2,21 +2,21 @@ import { IPuntoDeExpedicion, NewPuntoDeExpedicion } from './punto-de-expedicion.
 
 export const sampleWithRequiredData: IPuntoDeExpedicion = {
   id: 49237,
-  numeroPuntoDeExpedicion: 'EXE cross-media',
+  numeroPuntoDeExpedicion: 58651,
 };
 
 export const sampleWithPartialData: IPuntoDeExpedicion = {
-  id: 48781,
-  numeroPuntoDeExpedicion: 'Concrete Gold',
+  id: 86551,
+  numeroPuntoDeExpedicion: 52133,
 };
 
 export const sampleWithFullData: IPuntoDeExpedicion = {
-  id: 81307,
-  numeroPuntoDeExpedicion: 'granular connecting Frozen',
+  id: 64724,
+  numeroPuntoDeExpedicion: 35771,
 };
 
 export const sampleWithNewData: NewPuntoDeExpedicion = {
-  numeroPuntoDeExpedicion: 'back backing',
+  numeroPuntoDeExpedicion: 69515,
   id: null,
 };
 

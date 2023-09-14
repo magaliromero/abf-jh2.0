@@ -16,7 +16,7 @@
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.timbrados.numeroTimbrado" for="field_numeroTimbrado">Numero Timbrado</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
             name="numeroTimbrado"
             id="field_numeroTimbrado"
@@ -34,6 +34,13 @@
               jhiTranslate="entity.validation.required"
             >
               This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('numeroTimbrado')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
             </small>
           </div>
         </div>
@@ -90,21 +97,6 @@
               This field is required.
             </small>
           </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.timbrados.sucursales" for="field_sucursales">Sucursales</label>
-          <select
-            class="form-control"
-            id="field_sucursales"
-            data-cy="sucursales"
-            name="sucursales"
-            formControlName="sucursales"
-            [compareWith]="compareSucursales"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="sucursalesOption" *ngFor="let sucursalesOption of sucursalesCollection">{{ sucursalesOption.id }}</option>
-          </select>
         </div>
       </div>
 

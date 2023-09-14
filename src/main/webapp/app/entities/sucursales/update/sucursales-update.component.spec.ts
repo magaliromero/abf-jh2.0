@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { SucursalesFormService } from './sucursales-form.service';
 import { SucursalesService } from '../service/sucursales.service';
 import { ISucursales } from '../sucursales.model';
+import { ITimbrados } from 'app/entities/timbrados/timbrados.model';
+import { TimbradosService } from 'app/entities/timbrados/service/timbrados.service';
 
 import { SucursalesUpdateComponent } from './sucursales-update.component';
 
@@ -18,6 +20,7 @@ describe('Sucursales Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let sucursalesFormService: SucursalesFormService;
   let sucursalesService: SucursalesService;
+  let timbradosService: TimbradosService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +43,43 @@ describe('Sucursales Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     sucursalesFormService = TestBed.inject(SucursalesFormService);
     sucursalesService = TestBed.inject(SucursalesService);
+    timbradosService = TestBed.inject(TimbradosService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Timbrados query and add missing value', () => {
       const sucursales: ISucursales = { id: 456 };
+      const timbrados: ITimbrados = { id: 64794 };
+      sucursales.timbrados = timbrados;
+
+      const timbradosCollection: ITimbrados[] = [{ id: 93690 }];
+      jest.spyOn(timbradosService, 'query').mockReturnValue(of(new HttpResponse({ body: timbradosCollection })));
+      const additionalTimbrados = [timbrados];
+      const expectedCollection: ITimbrados[] = [...additionalTimbrados, ...timbradosCollection];
+      jest.spyOn(timbradosService, 'addTimbradosToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ sucursales });
       comp.ngOnInit();
 
+      expect(timbradosService.query).toHaveBeenCalled();
+      expect(timbradosService.addTimbradosToCollectionIfMissing).toHaveBeenCalledWith(
+        timbradosCollection,
+        ...additionalTimbrados.map(expect.objectContaining)
+      );
+      expect(comp.timbradosSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const sucursales: ISucursales = { id: 456 };
+      const timbrados: ITimbrados = { id: 6042 };
+      sucursales.timbrados = timbrados;
+
+      activatedRoute.data = of({ sucursales });
+      comp.ngOnInit();
+
+      expect(comp.timbradosSharedCollection).toContain(timbrados);
       expect(comp.sucursales).toEqual(sucursales);
     });
   });
@@ -120,6 +149,18 @@ describe('Sucursales Management Update Component', () => {
       expect(sucursalesService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareTimbrados', () => {
+      it('Should forward to timbradosService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(timbradosService, 'compareTimbrados');
+        comp.compareTimbrados(entity, entity2);
+        expect(timbradosService.compareTimbrados).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

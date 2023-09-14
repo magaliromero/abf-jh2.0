@@ -16,7 +16,6 @@ application {
 }
 
 
-
 enum EstadosPagos{
  	PAGADO(Pagado)
     PENDIENTE(Pendiente)
@@ -134,6 +133,8 @@ entity Facturas(factura){
     fecha LocalDate required,
     facturaNro String required,
     timbrado Integer required,
+    puntoExpedicion Integer required,
+    sucursal Integer required,
     razonSocial String required,
     ruc String required,
     condicionVenta CondicionVenta required,
@@ -196,26 +197,24 @@ entity EvaluacionesDetalle(evaluaciones_detalle){
 }
 
 entity Timbrados (timbrado) {
-	numeroTimbrado String required unique
+	numeroTimbrado Integer required unique
 	fechaInicio LocalDate required
     fechaFin LocalDate required  
 }
 entity Sucursales(sucursales){
 	nombreSucursal String required 
     direccion String
-    numeroEstablecimiento String required
+    numeroEstablecimiento Integer required
 }
 entity PuntoDeExpedicion(punto_de_expedicion){
-	numeroPuntoDeExpedicion String required
+	numeroPuntoDeExpedicion Integer required
 }
 
-relationship OneToOne {
-	Timbrados to Sucursales
-}
 relationship OneToMany{
 		Sucursales to PuntoDeExpedicion { sucursales(nombreSucursal) required }
-}
+        Timbrados to Sucursales { timbrados(numeroTimbrado) required }
 
+}
 
 relationship OneToMany {
 	Evaluaciones to EvaluacionesDetalle { Evaluaciones(nroEvaluacion) required }

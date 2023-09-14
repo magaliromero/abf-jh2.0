@@ -21,6 +21,7 @@ type SucursalesFormGroupContent = {
   nombreSucursal: FormControl<ISucursales['nombreSucursal']>;
   direccion: FormControl<ISucursales['direccion']>;
   numeroEstablecimiento: FormControl<ISucursales['numeroEstablecimiento']>;
+  timbrados: FormControl<ISucursales['timbrados']>;
 };
 
 export type SucursalesFormGroup = FormGroup<SucursalesFormGroupContent>;
@@ -45,6 +46,9 @@ export class SucursalesFormService {
       }),
       direccion: new FormControl(sucursalesRawValue.direccion),
       numeroEstablecimiento: new FormControl(sucursalesRawValue.numeroEstablecimiento, {
+        validators: [Validators.required],
+      }),
+      timbrados: new FormControl(sucursalesRawValue.timbrados, {
         validators: [Validators.required],
       }),
     });

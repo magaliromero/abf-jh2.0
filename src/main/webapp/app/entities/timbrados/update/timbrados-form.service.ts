@@ -21,7 +21,6 @@ type TimbradosFormGroupContent = {
   numeroTimbrado: FormControl<ITimbrados['numeroTimbrado']>;
   fechaInicio: FormControl<ITimbrados['fechaInicio']>;
   fechaFin: FormControl<ITimbrados['fechaFin']>;
-  sucursales: FormControl<ITimbrados['sucursales']>;
 };
 
 export type TimbradosFormGroup = FormGroup<TimbradosFormGroupContent>;
@@ -50,7 +49,6 @@ export class TimbradosFormService {
       fechaFin: new FormControl(timbradosRawValue.fechaFin, {
         validators: [Validators.required],
       }),
-      sucursales: new FormControl(timbradosRawValue.sucursales),
     });
   }
 

@@ -23,7 +23,7 @@ public class PuntoDeExpedicionCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter numeroPuntoDeExpedicion;
+    private IntegerFilter numeroPuntoDeExpedicion;
 
     private LongFilter sucursalesId;
 
@@ -58,18 +58,18 @@ public class PuntoDeExpedicionCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getNumeroPuntoDeExpedicion() {
+    public IntegerFilter getNumeroPuntoDeExpedicion() {
         return numeroPuntoDeExpedicion;
     }
 
-    public StringFilter numeroPuntoDeExpedicion() {
+    public IntegerFilter numeroPuntoDeExpedicion() {
         if (numeroPuntoDeExpedicion == null) {
-            numeroPuntoDeExpedicion = new StringFilter();
+            numeroPuntoDeExpedicion = new IntegerFilter();
         }
         return numeroPuntoDeExpedicion;
     }
 
-    public void setNumeroPuntoDeExpedicion(StringFilter numeroPuntoDeExpedicion) {
+    public void setNumeroPuntoDeExpedicion(IntegerFilter numeroPuntoDeExpedicion) {
         this.numeroPuntoDeExpedicion = numeroPuntoDeExpedicion;
     }
 

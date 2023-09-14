@@ -27,7 +27,7 @@ public class SucursalesCriteria implements Serializable, Criteria {
 
     private StringFilter direccion;
 
-    private StringFilter numeroEstablecimiento;
+    private IntegerFilter numeroEstablecimiento;
 
     private LongFilter puntoDeExpedicionId;
 
@@ -97,18 +97,18 @@ public class SucursalesCriteria implements Serializable, Criteria {
         this.direccion = direccion;
     }
 
-    public StringFilter getNumeroEstablecimiento() {
+    public IntegerFilter getNumeroEstablecimiento() {
         return numeroEstablecimiento;
     }
 
-    public StringFilter numeroEstablecimiento() {
+    public IntegerFilter numeroEstablecimiento() {
         if (numeroEstablecimiento == null) {
-            numeroEstablecimiento = new StringFilter();
+            numeroEstablecimiento = new IntegerFilter();
         }
         return numeroEstablecimiento;
     }
 
-    public void setNumeroEstablecimiento(StringFilter numeroEstablecimiento) {
+    public void setNumeroEstablecimiento(IntegerFilter numeroEstablecimiento) {
         this.numeroEstablecimiento = numeroEstablecimiento;
     }
 

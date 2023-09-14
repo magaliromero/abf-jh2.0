@@ -1,6 +1,5 @@
 package py.com.abf.service;
 
-import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,12 +40,14 @@ public interface SucursalesService {
      * @return the list of entities.
      */
     Page<Sucursales> findAll(Pageable pageable);
+
     /**
-     * Get all the Sucursales where Timbrados is {@code null}.
+     * Get all the sucursales with eager load of many-to-many relationships.
      *
-     * @return the {@link List} of entities.
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
-    List<Sucursales> findAllWhereTimbradosIsNull();
+    Page<Sucursales> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" sucursales.

@@ -26,7 +26,7 @@ public class PuntoDeExpedicion implements Serializable {
 
     @NotNull
     @Column(name = "numero_punto_de_expedicion", nullable = false)
-    private String numeroPuntoDeExpedicion;
+    private Integer numeroPuntoDeExpedicion;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -48,16 +48,16 @@ public class PuntoDeExpedicion implements Serializable {
         this.id = id;
     }
 
-    public String getNumeroPuntoDeExpedicion() {
+    public Integer getNumeroPuntoDeExpedicion() {
         return this.numeroPuntoDeExpedicion;
     }
 
-    public PuntoDeExpedicion numeroPuntoDeExpedicion(String numeroPuntoDeExpedicion) {
+    public PuntoDeExpedicion numeroPuntoDeExpedicion(Integer numeroPuntoDeExpedicion) {
         this.setNumeroPuntoDeExpedicion(numeroPuntoDeExpedicion);
         return this;
     }
 
-    public void setNumeroPuntoDeExpedicion(String numeroPuntoDeExpedicion) {
+    public void setNumeroPuntoDeExpedicion(Integer numeroPuntoDeExpedicion) {
         this.numeroPuntoDeExpedicion = numeroPuntoDeExpedicion;
     }
 
@@ -98,7 +98,7 @@ public class PuntoDeExpedicion implements Serializable {
     public String toString() {
         return "PuntoDeExpedicion{" +
             "id=" + getId() +
-            ", numeroPuntoDeExpedicion='" + getNumeroPuntoDeExpedicion() + "'" +
+            ", numeroPuntoDeExpedicion=" + getNumeroPuntoDeExpedicion() +
             "}";
     }
 }

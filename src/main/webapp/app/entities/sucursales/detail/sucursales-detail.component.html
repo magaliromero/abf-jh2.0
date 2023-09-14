@@ -26,6 +26,12 @@
         <dd>
           <span>{{ sucursales.numeroEstablecimiento }}</span>
         </dd>
+        <dt><span jhiTranslate="abfApp.sucursales.timbrados">Timbrados</span></dt>
+        <dd>
+          <div *ngIf="sucursales.timbrados">
+            <a [routerLink]="['/timbrados', sucursales.timbrados.id, 'view']">{{ sucursales.timbrados.numeroTimbrado }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

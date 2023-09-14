@@ -43,7 +43,7 @@
     <include file="config/liquibase/changelog/20230601134113_added_entity_constraints_Matricula.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230601134213_added_entity_constraints_Evaluaciones.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230601134313_added_entity_constraints_EvaluacionesDetalle.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230812134751_added_entity_constraints_Timbrados.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230812134752_added_entity_constraints_Sucursales.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230812134753_added_entity_constraints_PuntoDeExpedicion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

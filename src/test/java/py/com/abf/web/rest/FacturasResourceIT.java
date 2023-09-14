@@ -45,6 +45,14 @@ class FacturasResourceIT {
     private static final Integer UPDATED_TIMBRADO = 2;
     private static final Integer SMALLER_TIMBRADO = 1 - 1;
 
+    private static final Integer DEFAULT_PUNTO_EXPEDICION = 1;
+    private static final Integer UPDATED_PUNTO_EXPEDICION = 2;
+    private static final Integer SMALLER_PUNTO_EXPEDICION = 1 - 1;
+
+    private static final Integer DEFAULT_SUCURSAL = 1;
+    private static final Integer UPDATED_SUCURSAL = 2;
+    private static final Integer SMALLER_SUCURSAL = 1 - 1;
+
     private static final String DEFAULT_RAZON_SOCIAL = "AAAAAAAAAA";
     private static final String UPDATED_RAZON_SOCIAL = "BBBBBBBBBB";
 
@@ -86,6 +94,8 @@ class FacturasResourceIT {
             .fecha(DEFAULT_FECHA)
             .facturaNro(DEFAULT_FACTURA_NRO)
             .timbrado(DEFAULT_TIMBRADO)
+            .puntoExpedicion(DEFAULT_PUNTO_EXPEDICION)
+            .sucursal(DEFAULT_SUCURSAL)
             .razonSocial(DEFAULT_RAZON_SOCIAL)
             .ruc(DEFAULT_RUC)
             .condicionVenta(DEFAULT_CONDICION_VENTA)
@@ -104,6 +114,8 @@ class FacturasResourceIT {
             .fecha(UPDATED_FECHA)
             .facturaNro(UPDATED_FACTURA_NRO)
             .timbrado(UPDATED_TIMBRADO)
+            .puntoExpedicion(UPDATED_PUNTO_EXPEDICION)
+            .sucursal(UPDATED_SUCURSAL)
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
@@ -132,6 +144,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getFecha()).isEqualTo(DEFAULT_FECHA);
         assertThat(testFacturas.getFacturaNro()).isEqualTo(DEFAULT_FACTURA_NRO);
         assertThat(testFacturas.getTimbrado()).isEqualTo(DEFAULT_TIMBRADO);
+        assertThat(testFacturas.getPuntoExpedicion()).isEqualTo(DEFAULT_PUNTO_EXPEDICION);
+        assertThat(testFacturas.getSucursal()).isEqualTo(DEFAULT_SUCURSAL);
         assertThat(testFacturas.getRazonSocial()).isEqualTo(DEFAULT_RAZON_SOCIAL);
         assertThat(testFacturas.getRuc()).isEqualTo(DEFAULT_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(DEFAULT_CONDICION_VENTA);
@@ -196,6 +210,40 @@ class FacturasResourceIT {
         int databaseSizeBeforeTest = facturasRepository.findAll().size();
         // set the field null
         facturas.setTimbrado(null);
+
+        // Create the Facturas, which fails.
+
+        restFacturasMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(facturas)))
+            .andExpect(status().isBadRequest());
+
+        List<Facturas> facturasList = facturasRepository.findAll();
+        assertThat(facturasList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkPuntoExpedicionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = facturasRepository.findAll().size();
+        // set the field null
+        facturas.setPuntoExpedicion(null);
+
+        // Create the Facturas, which fails.
+
+        restFacturasMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(facturas)))
+            .andExpect(status().isBadRequest());
+
+        List<Facturas> facturasList = facturasRepository.findAll();
+        assertThat(facturasList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkSucursalIsRequired() throws Exception {
+        int databaseSizeBeforeTest = facturasRepository.findAll().size();
+        // set the field null
+        facturas.setSucursal(null);
 
         // Create the Facturas, which fails.
 
@@ -290,6 +338,8 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].facturaNro").value(hasItem(DEFAULT_FACTURA_NRO)))
             .andExpect(jsonPath("$.[*].timbrado").value(hasItem(DEFAULT_TIMBRADO)))
+            .andExpect(jsonPath("$.[*].puntoExpedicion").value(hasItem(DEFAULT_PUNTO_EXPEDICION)))
+            .andExpect(jsonPath("$.[*].sucursal").value(hasItem(DEFAULT_SUCURSAL)))
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
             .andExpect(jsonPath("$.[*].ruc").value(hasItem(DEFAULT_RUC)))
             .andExpect(jsonPath("$.[*].condicionVenta").value(hasItem(DEFAULT_CONDICION_VENTA.toString())))
@@ -311,6 +361,8 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()))
             .andExpect(jsonPath("$.facturaNro").value(DEFAULT_FACTURA_NRO))
             .andExpect(jsonPath("$.timbrado").value(DEFAULT_TIMBRADO))
+            .andExpect(jsonPath("$.puntoExpedicion").value(DEFAULT_PUNTO_EXPEDICION))
+            .andExpect(jsonPath("$.sucursal").value(DEFAULT_SUCURSAL))
             .andExpect(jsonPath("$.razonSocial").value(DEFAULT_RAZON_SOCIAL))
             .andExpect(jsonPath("$.ruc").value(DEFAULT_RUC))
             .andExpect(jsonPath("$.condicionVenta").value(DEFAULT_CONDICION_VENTA.toString()))
@@ -580,6 +632,188 @@ class FacturasResourceIT {
 
         // Get all the facturasList where timbrado is greater than SMALLER_TIMBRADO
         defaultFacturasShouldBeFound("timbrado.greaterThan=" + SMALLER_TIMBRADO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPuntoExpedicionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where puntoExpedicion equals to DEFAULT_PUNTO_EXPEDICION
+        defaultFacturasShouldBeFound("puntoExpedicion.equals=" + DEFAULT_PUNTO_EXPEDICION);
+
+        // Get all the facturasList where puntoExpedicion equals to UPDATED_PUNTO_EXPEDICION
+        defaultFacturasShouldNotBeFound("puntoExpedicion.equals=" + UPDATED_PUNTO_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPuntoExpedicionIsInShouldWork() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where puntoExpedicion in DEFAULT_PUNTO_EXPEDICION or UPDATED_PUNTO_EXPEDICION
+        defaultFacturasShouldBeFound("puntoExpedicion.in=" + DEFAULT_PUNTO_EXPEDICION + "," + UPDATED_PUNTO_EXPEDICION);
+
+        // Get all the facturasList where puntoExpedicion equals to UPDATED_PUNTO_EXPEDICION
+        defaultFacturasShouldNotBeFound("puntoExpedicion.in=" + UPDATED_PUNTO_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPuntoExpedicionIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where puntoExpedicion is not null
+        defaultFacturasShouldBeFound("puntoExpedicion.specified=true");
+
+        // Get all the facturasList where puntoExpedicion is null
+        defaultFacturasShouldNotBeFound("puntoExpedicion.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPuntoExpedicionIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where puntoExpedicion is greater than or equal to DEFAULT_PUNTO_EXPEDICION
+        defaultFacturasShouldBeFound("puntoExpedicion.greaterThanOrEqual=" + DEFAULT_PUNTO_EXPEDICION);
+
+        // Get all the facturasList where puntoExpedicion is greater than or equal to UPDATED_PUNTO_EXPEDICION
+        defaultFacturasShouldNotBeFound("puntoExpedicion.greaterThanOrEqual=" + UPDATED_PUNTO_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPuntoExpedicionIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where puntoExpedicion is less than or equal to DEFAULT_PUNTO_EXPEDICION
+        defaultFacturasShouldBeFound("puntoExpedicion.lessThanOrEqual=" + DEFAULT_PUNTO_EXPEDICION);
+
+        // Get all the facturasList where puntoExpedicion is less than or equal to SMALLER_PUNTO_EXPEDICION
+        defaultFacturasShouldNotBeFound("puntoExpedicion.lessThanOrEqual=" + SMALLER_PUNTO_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPuntoExpedicionIsLessThanSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where puntoExpedicion is less than DEFAULT_PUNTO_EXPEDICION
+        defaultFacturasShouldNotBeFound("puntoExpedicion.lessThan=" + DEFAULT_PUNTO_EXPEDICION);
+
+        // Get all the facturasList where puntoExpedicion is less than UPDATED_PUNTO_EXPEDICION
+        defaultFacturasShouldBeFound("puntoExpedicion.lessThan=" + UPDATED_PUNTO_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPuntoExpedicionIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where puntoExpedicion is greater than DEFAULT_PUNTO_EXPEDICION
+        defaultFacturasShouldNotBeFound("puntoExpedicion.greaterThan=" + DEFAULT_PUNTO_EXPEDICION);
+
+        // Get all the facturasList where puntoExpedicion is greater than SMALLER_PUNTO_EXPEDICION
+        defaultFacturasShouldBeFound("puntoExpedicion.greaterThan=" + SMALLER_PUNTO_EXPEDICION);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasBySucursalIsEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where sucursal equals to DEFAULT_SUCURSAL
+        defaultFacturasShouldBeFound("sucursal.equals=" + DEFAULT_SUCURSAL);
+
+        // Get all the facturasList where sucursal equals to UPDATED_SUCURSAL
+        defaultFacturasShouldNotBeFound("sucursal.equals=" + UPDATED_SUCURSAL);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasBySucursalIsInShouldWork() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where sucursal in DEFAULT_SUCURSAL or UPDATED_SUCURSAL
+        defaultFacturasShouldBeFound("sucursal.in=" + DEFAULT_SUCURSAL + "," + UPDATED_SUCURSAL);
+
+        // Get all the facturasList where sucursal equals to UPDATED_SUCURSAL
+        defaultFacturasShouldNotBeFound("sucursal.in=" + UPDATED_SUCURSAL);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasBySucursalIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where sucursal is not null
+        defaultFacturasShouldBeFound("sucursal.specified=true");
+
+        // Get all the facturasList where sucursal is null
+        defaultFacturasShouldNotBeFound("sucursal.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasBySucursalIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where sucursal is greater than or equal to DEFAULT_SUCURSAL
+        defaultFacturasShouldBeFound("sucursal.greaterThanOrEqual=" + DEFAULT_SUCURSAL);
+
+        // Get all the facturasList where sucursal is greater than or equal to UPDATED_SUCURSAL
+        defaultFacturasShouldNotBeFound("sucursal.greaterThanOrEqual=" + UPDATED_SUCURSAL);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasBySucursalIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where sucursal is less than or equal to DEFAULT_SUCURSAL
+        defaultFacturasShouldBeFound("sucursal.lessThanOrEqual=" + DEFAULT_SUCURSAL);
+
+        // Get all the facturasList where sucursal is less than or equal to SMALLER_SUCURSAL
+        defaultFacturasShouldNotBeFound("sucursal.lessThanOrEqual=" + SMALLER_SUCURSAL);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasBySucursalIsLessThanSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where sucursal is less than DEFAULT_SUCURSAL
+        defaultFacturasShouldNotBeFound("sucursal.lessThan=" + DEFAULT_SUCURSAL);
+
+        // Get all the facturasList where sucursal is less than UPDATED_SUCURSAL
+        defaultFacturasShouldBeFound("sucursal.lessThan=" + UPDATED_SUCURSAL);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasBySucursalIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where sucursal is greater than DEFAULT_SUCURSAL
+        defaultFacturasShouldNotBeFound("sucursal.greaterThan=" + DEFAULT_SUCURSAL);
+
+        // Get all the facturasList where sucursal is greater than SMALLER_SUCURSAL
+        defaultFacturasShouldBeFound("sucursal.greaterThan=" + SMALLER_SUCURSAL);
     }
 
     @Test
@@ -877,6 +1111,8 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].facturaNro").value(hasItem(DEFAULT_FACTURA_NRO)))
             .andExpect(jsonPath("$.[*].timbrado").value(hasItem(DEFAULT_TIMBRADO)))
+            .andExpect(jsonPath("$.[*].puntoExpedicion").value(hasItem(DEFAULT_PUNTO_EXPEDICION)))
+            .andExpect(jsonPath("$.[*].sucursal").value(hasItem(DEFAULT_SUCURSAL)))
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
             .andExpect(jsonPath("$.[*].ruc").value(hasItem(DEFAULT_RUC)))
             .andExpect(jsonPath("$.[*].condicionVenta").value(hasItem(DEFAULT_CONDICION_VENTA.toString())))
@@ -932,6 +1168,8 @@ class FacturasResourceIT {
             .fecha(UPDATED_FECHA)
             .facturaNro(UPDATED_FACTURA_NRO)
             .timbrado(UPDATED_TIMBRADO)
+            .puntoExpedicion(UPDATED_PUNTO_EXPEDICION)
+            .sucursal(UPDATED_SUCURSAL)
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
@@ -952,6 +1190,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testFacturas.getFacturaNro()).isEqualTo(UPDATED_FACTURA_NRO);
         assertThat(testFacturas.getTimbrado()).isEqualTo(UPDATED_TIMBRADO);
+        assertThat(testFacturas.getPuntoExpedicion()).isEqualTo(UPDATED_PUNTO_EXPEDICION);
+        assertThat(testFacturas.getSucursal()).isEqualTo(UPDATED_SUCURSAL);
         assertThat(testFacturas.getRazonSocial()).isEqualTo(UPDATED_RAZON_SOCIAL);
         assertThat(testFacturas.getRuc()).isEqualTo(UPDATED_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
@@ -1029,6 +1269,8 @@ class FacturasResourceIT {
         partialUpdatedFacturas
             .facturaNro(UPDATED_FACTURA_NRO)
             .timbrado(UPDATED_TIMBRADO)
+            .puntoExpedicion(UPDATED_PUNTO_EXPEDICION)
+            .sucursal(UPDATED_SUCURSAL)
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
@@ -1049,6 +1291,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getFecha()).isEqualTo(DEFAULT_FECHA);
         assertThat(testFacturas.getFacturaNro()).isEqualTo(UPDATED_FACTURA_NRO);
         assertThat(testFacturas.getTimbrado()).isEqualTo(UPDATED_TIMBRADO);
+        assertThat(testFacturas.getPuntoExpedicion()).isEqualTo(UPDATED_PUNTO_EXPEDICION);
+        assertThat(testFacturas.getSucursal()).isEqualTo(UPDATED_SUCURSAL);
         assertThat(testFacturas.getRazonSocial()).isEqualTo(UPDATED_RAZON_SOCIAL);
         assertThat(testFacturas.getRuc()).isEqualTo(UPDATED_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
@@ -1071,6 +1315,8 @@ class FacturasResourceIT {
             .fecha(UPDATED_FECHA)
             .facturaNro(UPDATED_FACTURA_NRO)
             .timbrado(UPDATED_TIMBRADO)
+            .puntoExpedicion(UPDATED_PUNTO_EXPEDICION)
+            .sucursal(UPDATED_SUCURSAL)
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
@@ -1091,6 +1337,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testFacturas.getFacturaNro()).isEqualTo(UPDATED_FACTURA_NRO);
         assertThat(testFacturas.getTimbrado()).isEqualTo(UPDATED_TIMBRADO);
+        assertThat(testFacturas.getPuntoExpedicion()).isEqualTo(UPDATED_PUNTO_EXPEDICION);
+        assertThat(testFacturas.getSucursal()).isEqualTo(UPDATED_SUCURSAL);
         assertThat(testFacturas.getRazonSocial()).isEqualTo(UPDATED_RAZON_SOCIAL);
         assertThat(testFacturas.getRuc()).isEqualTo(UPDATED_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);

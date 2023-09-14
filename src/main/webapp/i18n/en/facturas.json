@@ -21,6 +21,8 @@
       "fecha": "Fecha",
       "facturaNro": "Factura Nro",
       "timbrado": "Timbrado",
+      "puntoExpedicion": "Punto Expedicion",
+      "sucursal": "Sucursal",
       "razonSocial": "Razon Social",
       "ruc": "Ruc",
       "condicionVenta": "Condicion Venta",

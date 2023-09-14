@@ -88,7 +88,7 @@ public class PuntoDeExpedicionQueryService extends QueryService<PuntoDeExpedicio
             if (criteria.getNumeroPuntoDeExpedicion() != null) {
                 specification =
                     specification.and(
-                        buildStringSpecification(criteria.getNumeroPuntoDeExpedicion(), PuntoDeExpedicion_.numeroPuntoDeExpedicion)
+                        buildRangeSpecification(criteria.getNumeroPuntoDeExpedicion(), PuntoDeExpedicion_.numeroPuntoDeExpedicion)
                     );
             }
             if (criteria.getSucursalesId() != null) {

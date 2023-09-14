@@ -7,7 +7,7 @@
   "fields": [
     {
       "fieldName": "numeroTimbrado",
-      "fieldType": "String",
+      "fieldType": "Integer",
       "fieldValidateRules": ["required", "unique"]
     },
     {
@@ -30,9 +30,8 @@
     {
       "otherEntityName": "sucursales",
       "otherEntityRelationshipName": "timbrados",
-      "ownerSide": true,
       "relationshipName": "sucursales",
-      "relationshipType": "one-to-one"
+      "relationshipType": "one-to-many"
     }
   ],
   "service": "serviceImpl"

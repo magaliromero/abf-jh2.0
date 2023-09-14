@@ -7,7 +7,6 @@ import { finalize } from 'rxjs/operators';
 import { ClientesFormService, ClientesFormGroup } from './clientes-form.service';
 import { IClientes } from '../clientes.model';
 import { ClientesService } from '../service/clientes.service';
-import { CodigoVerificadorService } from 'app/util-services/codigo-verificador.service';
 
 @Component({
   selector: 'jhi-clientes-update',
@@ -22,22 +21,9 @@ export class ClientesUpdateComponent implements OnInit {
   constructor(
     protected clientesService: ClientesService,
     protected clientesFormService: ClientesFormService,
-    protected activatedRoute: ActivatedRoute,
-    protected codigoVerificadorService: CodigoVerificadorService
+    protected activatedRoute: ActivatedRoute
   ) {}
 
-  calcularCodigo() {
-    const documento = this.editForm.controls.documento.value;
-    this.codigoVerificadorService.obtenerRuc(documento || ' ').subscribe({
-      next: (response: any) => {
-        this.editForm.controls.ruc.setValue(documento + '-' + response.body);
-        console.log(response);
-      },
-      error: response => {
-        console.log(response + 'ERROR');
-      },
-    });
-  }
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ clientes }) => {
       this.clientes = clientes;

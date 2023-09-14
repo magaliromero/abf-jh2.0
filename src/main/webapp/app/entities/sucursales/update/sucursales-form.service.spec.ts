@@ -23,6 +23,7 @@ describe('Sucursales Form Service', () => {
             nombreSucursal: expect.any(Object),
             direccion: expect.any(Object),
             numeroEstablecimiento: expect.any(Object),
+            timbrados: expect.any(Object),
           })
         );
       });
@@ -36,6 +37,7 @@ describe('Sucursales Form Service', () => {
             nombreSucursal: expect.any(Object),
             direccion: expect.any(Object),
             numeroEstablecimiento: expect.any(Object),
+            timbrados: expect.any(Object),
           })
         );
       });

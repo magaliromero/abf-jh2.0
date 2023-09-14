@@ -23,6 +23,12 @@
             <column name="timbrado" type="integer">
                 <constraints nullable="false" />
             </column>
+            <column name="punto_expedicion" type="integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="sucursal" type="integer">
+                <constraints nullable="false" />
+            </column>
             <column name="razon_social" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -59,6 +65,8 @@
             <column name="fecha" type="date"/>
             <column name="factura_nro" type="string"/>
             <column name="timbrado" type="numeric"/>
+            <column name="punto_expedicion" type="numeric"/>
+            <column name="sucursal" type="numeric"/>
             <column name="razon_social" type="string"/>
             <column name="ruc" type="string"/>
             <column name="condicion_venta" type="string"/>

@@ -6,6 +6,8 @@ export interface IFacturas {
   fecha?: dayjs.Dayjs | null;
   facturaNro?: string | null;
   timbrado?: number | null;
+  puntoExpedicion?: number | null;
+  sucursal?: number | null;
   razonSocial?: string | null;
   ruc?: string | null;
   condicionVenta?: CondicionVenta | null;
