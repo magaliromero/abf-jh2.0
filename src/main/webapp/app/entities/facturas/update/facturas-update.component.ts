@@ -14,6 +14,7 @@ import { EntityArrayResponseType, ProductosService } from 'app/entities/producto
 import { TimbradosService } from 'app/entities/timbrados/service/timbrados.service';
 import { SucursalesService } from 'app/entities/sucursales/service/sucursales.service';
 import { PuntoDeExpedicionService } from 'app/entities/punto-de-expedicion/service/punto-de-expedicion.service';
+import { AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-facturas-update',
@@ -42,10 +43,13 @@ export class FacturasUpdateComponent implements OnInit {
     protected consultaCliente: ConsultaClienteService,
     protected timbradoService: TimbradosService,
     protected sucursalesService: SucursalesService,
-    protected puntosExpedicionSerice: PuntoDeExpedicionService
+    protected puntosExpedicionSerice: PuntoDeExpedicionService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
+    this.validarTimbrado();
+
     this.activatedRoute.data.subscribe(({ facturas }) => {
       this.facturas = facturas;
       if (facturas) {
@@ -128,6 +132,9 @@ export class FacturasUpdateComponent implements OnInit {
       this.puntosExpedicion = body;
     });
   }
+  validarTimbrado() {
+    alert('funciona');
+  }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFacturas>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
@@ -173,10 +180,13 @@ export class FacturasUpdateComponent implements OnInit {
   }
   protected queryBackendTimbrados(): Observable<any> {
     const pageToLoad = 1;
+    const now = new Date();
+    const date = dayjs(now);
     const queryObject: any = {
       page: pageToLoad - 1,
       size: 100,
       sort: '',
+      'fechaFin.greaterThan': date.format('YYYY-MM-DD'),
     };
     return this.timbradoService.query(queryObject);
   }
@@ -201,9 +211,7 @@ export class FacturasUpdateComponent implements OnInit {
       page: pageToLoad - 1,
       size: 100,
       sort: '',
-      puntoExpedicionId: {
-        equales: data.id,
-      },
+      'sucursalesId.in': data.id,
     };
     return this.puntosExpedicionSerice.query(queryObject);
   }
