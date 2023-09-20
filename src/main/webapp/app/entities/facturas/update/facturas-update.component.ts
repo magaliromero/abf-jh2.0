@@ -183,13 +183,13 @@ export class FacturasUpdateComponent implements OnInit {
   protected queryBackenSucursales(): Observable<any> {
     const data = this.timbrados.find(item => item.numeroTimbrado == this.editForm.controls.timbrado.value);
     const pageToLoad = 1;
+    console.log(data);
     const queryObject: any = {
       page: pageToLoad - 1,
-      size: 100,
-      sort: '',
-      timbradoId: {
-        equales: data.id,
-      },
+      size: 20,
+      sort: ['id,asc'],
+      eagerload: true,
+      'timbradosId.in': data.id,
     };
     return this.sucursalesService.query(queryObject);
   }

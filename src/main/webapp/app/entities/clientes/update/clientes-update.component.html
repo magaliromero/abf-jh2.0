@@ -14,6 +14,28 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.clientes.documento" for="field_documento">Documento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="documento"
+            id="field_documento"
+            data-cy="documento"
+            formControlName="documento"
+            (change)="calcularCodigo()"
+          />
+          <div *ngIf="editForm.get('documento')!.invalid && (editForm.get('documento')!.dirty || editForm.get('documento')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('documento')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.clientes.ruc" for="field_ruc">Ruc</label>
           <input type="text" class="form-control" name="ruc" id="field_ruc" data-cy="ruc" formControlName="ruc" />
         </div>
@@ -68,30 +90,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.clientes.documento" for="field_documento">Documento</label>
-          <input type="text" class="form-control" name="documento" id="field_documento" data-cy="documento" formControlName="documento" />
-          <div *ngIf="editForm.get('documento')!.invalid && (editForm.get('documento')!.dirty || editForm.get('documento')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('documento')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.clientes.email" for="field_email">Email</label>
-          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.clientes.telefono" for="field_telefono">Telefono</label>
-          <input type="text" class="form-control" name="telefono" id="field_telefono" data-cy="telefono" formControlName="telefono" />
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.clientes.fechaNacimiento" for="field_fechaNacimiento">Fecha Nacimiento</label>
           <div class="input-group">
             <input
@@ -108,6 +106,16 @@
               <fa-icon icon="calendar-alt"></fa-icon>
             </button>
           </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.clientes.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.clientes.telefono" for="field_telefono">Telefono</label>
+          <input type="text" class="form-control" name="telefono" id="field_telefono" data-cy="telefono" formControlName="telefono" />
         </div>
 
         <div class="row mb-3">
