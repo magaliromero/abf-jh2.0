@@ -42,7 +42,15 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.clientes.nombres" for="field_nombres">Nombres</label>
-          <input type="text" class="form-control" name="nombres" id="field_nombres" data-cy="nombres" formControlName="nombres" />
+          <input
+            (change)="autocomplete()"
+            type="text"
+            class="form-control"
+            name="nombres"
+            id="field_nombres"
+            data-cy="nombres"
+            formControlName="nombres"
+          />
           <div *ngIf="editForm.get('nombres')!.invalid && (editForm.get('nombres')!.dirty || editForm.get('nombres')!.touched)">
             <small
               class="form-text text-danger"
@@ -56,7 +64,15 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.clientes.apellidos" for="field_apellidos">Apellidos</label>
-          <input type="text" class="form-control" name="apellidos" id="field_apellidos" data-cy="apellidos" formControlName="apellidos" />
+          <input
+            (change)="autocomplete()"
+            type="text"
+            class="form-control"
+            name="apellidos"
+            id="field_apellidos"
+            data-cy="apellidos"
+            formControlName="apellidos"
+          />
           <div *ngIf="editForm.get('apellidos')!.invalid && (editForm.get('apellidos')!.dirty || editForm.get('apellidos')!.touched)">
             <small
               class="form-text text-danger"

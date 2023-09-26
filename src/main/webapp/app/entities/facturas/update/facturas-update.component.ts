@@ -132,9 +132,7 @@ export class FacturasUpdateComponent implements OnInit {
       this.puntosExpedicion = body;
     });
   }
-  validarTimbrado() {
-    alert('funciona');
-  }
+  validarTimbrado() {}
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFacturas>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({

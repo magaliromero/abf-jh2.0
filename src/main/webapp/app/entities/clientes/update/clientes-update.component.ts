@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { ClientesFormService, ClientesFormGroup } from './clientes-form.service'
 import { IClientes } from '../clientes.model';
 import { ClientesService } from '../service/clientes.service';
 import { CodigoVerificadorService } from 'app/util-services/codigo-verificador.service';
+import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-clientes-update',
@@ -38,6 +39,15 @@ export class ClientesUpdateComponent implements OnInit {
       },
     });
   }
+
+  autocomplete() {
+    console.log('-->');
+
+    const nombre = this.editForm.controls.nombres.value;
+    const apellido = this.editForm.controls.apellidos.value;
+    this.editForm.controls.razonSocial.setValue((nombre || '') + ' ' + (apellido || ''));
+  }
+
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ clientes }) => {
       this.clientes = clientes;
