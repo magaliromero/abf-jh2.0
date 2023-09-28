@@ -7,6 +7,7 @@
 
       <div>
         <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
 
         <div class="row">
           <div class="col-1 mb-3" *ngIf="editForm.controls.id.value !== null">
@@ -74,7 +75,14 @@
           </div>
           <div class="col-2">
             <label class="form-label" for="field_sucursal">Punto Exp.</label>
-            <select class="form-control" formControlName="puntoExpedicion" name="field_puntoExpedicion" id="id_puntoExpedicion" required>
+            <select
+              (change)="asignarNroFactura()"
+              class="form-control"
+              formControlName="puntoExpedicion"
+              name="field_puntoExpedicion"
+              id="id_puntoExpedicion"
+              required
+            >
               <!-- se agrego prod -->
               <option *ngFor="let item of puntosExpedicion" [value]="item.numeroPuntoDeExpedicion">
                 {{ item.numeroPuntoDeExpedicion }}
@@ -194,29 +202,6 @@
           </div>
 
           <div class="col-4 mb-3">
-            <label class="form-label" jhiTranslate="abfApp.facturas.razonSocial" for="field_razonSocial">Razon Social</label>
-            <input
-              type="text"
-              class="form-control"
-              name="razonSocial"
-              id="field_razonSocial"
-              data-cy="razonSocial"
-              formControlName="razonSocial"
-            />
-            <div
-              *ngIf="editForm.get('razonSocial')!.invalid && (editForm.get('razonSocial')!.dirty || editForm.get('razonSocial')!.touched)"
-            >
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('razonSocial')?.errors?.required"
-                jhiTranslate="entity.validation.required"
-              >
-                This field is required.
-              </small>
-            </div>
-          </div>
-
-          <div class="col-6 mb-3">
             <label class="form-label" jhiTranslate="abfApp.facturas.ruc" for="field_ruc">Ruc</label>
             <input
               (change)="updateRazonSocial()"
@@ -233,8 +218,7 @@
               </small>
             </div>
           </div>
-
-          <div class="col-2 mb-8">
+          <div class="col-4 mb-8">
             <label class="form-label" jhiTranslate="abfApp.facturas.condicionVenta" for="field_condicionVenta">Condicion Venta</label>
             <select
               class="form-control"
@@ -260,6 +244,29 @@
                 jhiTranslate="entity.validation.required"
               >
                 Requerido.
+              </small>
+            </div>
+          </div>
+
+          <div class="col-11 mb-3">
+            <label class="form-label" jhiTranslate="abfApp.facturas.razonSocial" for="field_razonSocial">Razon Social</label>
+            <input
+              type="text"
+              class="form-control"
+              name="razonSocial"
+              id="field_razonSocial"
+              data-cy="razonSocial"
+              formControlName="razonSocial"
+            />
+            <div
+              *ngIf="editForm.get('razonSocial')!.invalid && (editForm.get('razonSocial')!.dirty || editForm.get('razonSocial')!.touched)"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('razonSocial')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
               </small>
             </div>
           </div>

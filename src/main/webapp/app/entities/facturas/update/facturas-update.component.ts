@@ -15,6 +15,9 @@ import { TimbradosService } from 'app/entities/timbrados/service/timbrados.servi
 import { SucursalesService } from 'app/entities/sucursales/service/sucursales.service';
 import { PuntoDeExpedicionService } from 'app/entities/punto-de-expedicion/service/punto-de-expedicion.service';
 import { AlertService } from 'app/core/util/alert.service';
+import { ITimbrados } from 'app/entities/timbrados/timbrados.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClientesUpdateComponent } from 'app/entities/clientes/update/clientes-update.component';
 
 @Component({
   selector: 'jhi-facturas-update',
@@ -44,12 +47,11 @@ export class FacturasUpdateComponent implements OnInit {
     protected timbradoService: TimbradosService,
     protected sucursalesService: SucursalesService,
     protected puntosExpedicionSerice: PuntoDeExpedicionService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    protected modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
-    this.validarTimbrado();
-
     this.activatedRoute.data.subscribe(({ facturas }) => {
       this.facturas = facturas;
       if (facturas) {
@@ -105,6 +107,18 @@ export class FacturasUpdateComponent implements OnInit {
       this.nuevoItem.descripcionProducto = product.descripcion;
     }
   }
+  asignarNroFactura() {
+    const timbrado = this.editForm.controls.timbrado.value;
+    const pe = this.editForm.controls.puntoExpedicion.value;
+    const sucursal = this.editForm.controls.sucursal.value;
+    this.consultaCliente.consultaNumeroFac(timbrado, pe, sucursal).subscribe({
+      next: resp => {
+        console.log(resp);
+        const nro = resp.body?.toString() ?? '';
+        this.editForm.controls.facturaNro.setValue(nro);
+      },
+    });
+  }
 
   calcularTotal(): void {
     let total = 0;
@@ -115,6 +129,7 @@ export class FacturasUpdateComponent implements OnInit {
     this.editForm.controls.total.setValue(total);
   }
   obtenerSucursales() {
+    this.validarTimbrado();
     this.editForm.controls.puntoExpedicion.setValue(null);
     this.editForm.controls.sucursal.setValue(null);
     this.puntosExpedicion = [];
@@ -132,7 +147,32 @@ export class FacturasUpdateComponent implements OnInit {
       this.puntosExpedicion = body;
     });
   }
-  validarTimbrado() {}
+  validarTimbrado() {
+    const data = this.timbrados.find(item => item.numeroTimbrado == this.editForm.controls.timbrado.value);
+    const cantDias = data?.fechaFin?.diff(new Date(), 'days');
+    const mensaje = `El timbrado vence en ${cantDias ?? 0} días.`;
+    if (cantDias > 15 && cantDias < 31) {
+      this.alertService.addAlert(
+        {
+          type: 'warning',
+          message: mensaje,
+          timeout: 5000,
+          toast: false,
+        },
+        this.alertService.get()
+      );
+    } else if (cantDias > 0 && cantDias < 15) {
+      this.alertService.addAlert(
+        {
+          type: 'danger',
+          message: mensaje,
+          timeout: 5000,
+          toast: false,
+        },
+        this.alertService.get()
+      );
+    }
+  }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFacturas>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
@@ -165,6 +205,9 @@ export class FacturasUpdateComponent implements OnInit {
         this.editForm.controls.razonSocial.setValue(response.body.razonSocial);
         console.log(response);
       },
+      error: error => {
+        this.modalService.open(ClientesUpdateComponent);
+      },
     });
   }
   protected queryBackendProductos(): Observable<any> {
@@ -191,7 +234,6 @@ export class FacturasUpdateComponent implements OnInit {
   protected queryBackenSucursales(): Observable<any> {
     const data = this.timbrados.find(item => item.numeroTimbrado == this.editForm.controls.timbrado.value);
     const pageToLoad = 1;
-    console.log(data);
     const queryObject: any = {
       page: pageToLoad - 1,
       size: 20,
