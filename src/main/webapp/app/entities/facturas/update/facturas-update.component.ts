@@ -81,11 +81,25 @@ export class FacturasUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const facturas = this.facturasFormService.getFacturas(this.editForm);
-    if (facturas.id !== null) {
+    const detalle = this.listaDetalle.map((item: any) => {
+      return {
+        cantidad: item.cantidad,
+        precioUnitario: item.precio,
+        producto: parseInt(item.producto),
+        subtotal: item.subtotal,
+      };
+    });
+    const data = {
+      factura: facturas,
+      detalle: detalle,
+    };
+    this.subscribeToSaveResponse(this.facturasService.createNew(data));
+
+    /* if (facturas.id !== null) {
       this.subscribeToSaveResponse(this.facturasService.update(facturas));
     } else {
       this.subscribeToSaveResponse(this.facturasService.create(facturas));
-    }
+    } */
   }
   agregarDetalle(): void {
     this.listaDetalle.push(Object.assign({}, this.nuevoItem));

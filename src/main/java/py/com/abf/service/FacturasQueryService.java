@@ -106,9 +106,9 @@ public class FacturasQueryService extends QueryService<Facturas> {
             if (criteria.getRuc() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getRuc(), Facturas_.ruc));
             }
-            if (criteria.getCondicionVenta() != null) {
+            /*       if (criteria.getCondicionVenta() != null) {
                 specification = specification.and(buildSpecification(criteria.getCondicionVenta(), Facturas_.condicionVenta));
-            }
+            } */
             if (criteria.getTotal() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getTotal(), Facturas_.total));
             }
