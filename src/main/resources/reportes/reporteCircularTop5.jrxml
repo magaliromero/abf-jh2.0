@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="graficos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16e4432e-00fd-4a45-b256-e50fedca954c">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="precioPromedio" class="java.math.BigDecimal"/>
+	<field name="precio" class="java.lang.Long"/>
+	<field name="cantidadProyectos" class="java.lang.Long"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="293">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="40" y="80" width="463" height="210" uuid="c0276861-34d3-451f-9e88-a8fe29fa06dc"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{descripcion}+"-"+$F{cantidadProyectos}]]></keyExpression>
+					<valueExpression><![CDATA[$F{precioPromedio}]]></valueExpression>
+					<labelExpression><![CDATA[$F{codigo}]]></labelExpression>
+				</pieDataset>
+				<piePlot isShowLabels="true">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
