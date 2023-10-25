@@ -27,14 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 import py.com.abf.service.ReporteService;
 
 @RestController
-@RequestMapping(value = "/reporte")
+@RequestMapping(value = "/reportes")
 @CrossOrigin(origins = "*")
 public class ReportesResource {
 
     @Autowired
     private ReporteService report;
 
-    @GetMapping("params/")
+    @GetMapping
     public void reporteMultiParam(HttpServletResponse response) {
         try {
             System.out.println("DATA ");

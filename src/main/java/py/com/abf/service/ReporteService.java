@@ -41,6 +41,7 @@ public class ReporteService {
 
     public ClientesService clienteService;
     public FacturasService facturasService;
+    public FacturaDetalleService facturasDetalleService;
 
     public ReporteService(ClientesService clienteService, FacturasService facturasService) {
         this.clienteService = clienteService;
@@ -63,29 +64,29 @@ public class ReporteService {
                     System.out.println(fact.getFacturaDetalles());
                     //HashMap<String, Object> facParams = objectMapper.convertValue(cliente, HashMap.class);
                     parameters.put("timbrado", fact.getTimbrado().toString());
+                    parameters.put("fecha", fact.getFecha());
                     parameters.put("facturaNumero", fact.getFacturaNro());
-                    parameters.put("ruc", cliente);
+                    parameters.put("rucJogapo", "1231231-1");
+                    parameters.put("telefonoJogapo", "0999 312 132");
+                    parameters.put("direccionJogapo", "Calle falsa 123");
                     parameters.put("razonSocial", cliente.getRazonSocial());
                     parameters.put("documento", cliente.getDocumento());
+                    parameters.put("importeTotal", fact.getTotal());
+                    parameters.put("direccion", cliente.getDireccion());
                     ///lista = mapperReporte.preciosPromedioTop5(new Date(), new Date());
-                    HashMap<String, Object> item = new HashMap<>();
-
-                    /* <field name="cantidad" class="java.lang.Integer"/>
-	<field name="descripcion" class="java.lang.String"/>
-	<field name="precio" class="java.lang.String"/>
-	<field name="exenta" class="java.lang.Long"/>
-	<field name="ivacinco" class="java.lang.Long"/>
-	<field name="ivadiez" class="java.lang.Long"/> */
+                    //facturasDetalleService.
 
                     Set<FacturaDetalle> listaDetalle = fact.getFacturaDetalles();
+                    for (FacturaDetalle itemDet : listaDetalle) {
+                        HashMap<String, Object> item = new HashMap<>();
 
-                    for (FacturaDetalle detalle : listaDetalle) {
-                        item.put("cantidad", detalle.getCantidad());
-                        item.put("precio", detalle.getPrecioUnitario().toString());
+                        item.put("cantidad", itemDet.getCantidad());
+                        item.put("precio", itemDet.getPrecioUnitario());
                         item.put("exenta", 0L);
                         item.put("ivacinco", 0L);
                         item.put("ivadiez", 0L);
-                        item.put("descripcion", detalle.getProducto().getDescripcion());
+                        item.put("descripcion", itemDet.getProducto().getDescripcion());
+                        item.put("subtotal", itemDet.getSubtotal());
                         lista.add(item);
                     }
 

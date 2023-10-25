@@ -41,4 +41,5 @@ public interface FacturaDetalleRepository extends JpaRepository<FacturaDetalle, 
         "select facturaDetalle from FacturaDetalle facturaDetalle left join fetch facturaDetalle.producto left join fetch facturaDetalle.factura where facturaDetalle.id =:id"
     )
     Optional<FacturaDetalle> findOneWithToOneRelationships(@Param("id") Long id);
+    //List<FacturaDetalle> findyByFactura();
 }
