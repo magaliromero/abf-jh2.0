@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import py.com.abf.domain.Evaluaciones;
 import py.com.abf.domain.EvaluacionesConDetalle;
-import py.com.abf.domain.Facturas;
 import py.com.abf.repository.EvaluacionesRepository;
 import py.com.abf.service.EvaluacionesQueryService;
 import py.com.abf.service.EvaluacionesService;
@@ -84,8 +83,8 @@ public class EvaluacionesResource {
     }
 
     @PostMapping("/evaluaciones/detalle")
-    public ResponseEntity<Evaluaciones> nuevoFactura(@Valid @RequestBody EvaluacionesConDetalle data) throws URISyntaxException {
-        log.debug("REST request to save Facturas : {}", data);
+    public ResponseEntity<Evaluaciones> nuevaEvaluacion(@Valid @RequestBody EvaluacionesConDetalle data) throws URISyntaxException {
+        log.debug("REST request to save Evaluaciones : {}", data);
 
         Evaluaciones result = evaluacionesImpl.saveWithDetails(data);
         return ResponseEntity.ok(result);

@@ -99,8 +99,8 @@ public class EvaluacionesServiceImpl implements EvaluacionesService {
     public Evaluaciones saveWithDetails(EvaluacionesConDetalle data) {
         log.debug("Request to save data : {}", data);
 
-        Evaluaciones f = evaluacionesRepository.save(data.getCabecera());
-        log.debug("Factura guardada : {}", f);
+        Evaluaciones f = evaluacionesRepository.save(data.getEvaluaciones());
+        log.debug("Evaluación guardada : {}", f);
 
         List<EvaluacionesDetalleItem> items = data.getDetalle();
         for (EvaluacionesDetalleItem temp : items) {
