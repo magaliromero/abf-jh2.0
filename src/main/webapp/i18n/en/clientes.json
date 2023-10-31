@@ -4,7 +4,7 @@
       "home": {
         "title": "Clientes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Clientes",
+        "createLabel": "Create a new Cliente",
         "createOrEditLabel": "Create or edit a Clientes",
         "notFound": "No Clientes found"
       },
@@ -21,12 +21,12 @@
       "ruc": "Ruc",
       "nombres": "Nombres",
       "apellidos": "Apellidos",
-      "razonSocial": "Razon Social",
+      "razonSocial": "Razón Social",
       "documento": "Documento",
       "email": "Email",
-      "telefono": "Telefono",
-      "fechaNacimiento": "Fecha Nacimiento",
-      "direccion": "Direccion"
+      "telefono": "Teléfono",
+      "fechaNacimiento": "Fecha de nacimiento",
+      "direccion": "Dirección"
     }
   }
 }

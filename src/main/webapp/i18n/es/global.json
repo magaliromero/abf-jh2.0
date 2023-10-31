@@ -16,17 +16,17 @@
         "funcionarios": "Funcionarios",
         "clientes": "Clientes",
         "facturas": "Facturas",
-        "facturaDetalle": "Factura Detalle",
+        "facturaDetalle": "Detalle de factura",
         "pagos": "Pagos",
         "productos": "Productos",
         "materiales": "Materiales",
-        "prestamos": "Prestamos",
-        "matricula": "Matricula",
+        "prestamos": "Préstamos",
+        "matricula": "Matrícula",
         "evaluaciones": "Evaluaciones",
-        "evaluacionesDetalle": "Evaluaciones Detalle",
+        "evaluacionesDetalle": "Detalle de Evaluaciones",
         "timbrados": "Timbrados",
         "sucursales": "Sucursales",
-        "puntoDeExpedicion": "Punto De Expedicion",
+        "puntoDeExpedicion": "Punto De Expedición",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -117,8 +117,8 @@
       "edit": "Editar",
       "open": "Abrir",
       "save": "Guardar",
-      "view": "Vista",
-      "show": "Show {{otherEntity}}"
+      "view": "Ver",
+      "show": "Mostrar {{otherEntity}}"
     },
     "detail": {
       "field": "Campo",
