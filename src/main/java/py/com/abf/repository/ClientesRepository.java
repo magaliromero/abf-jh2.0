@@ -11,4 +11,5 @@ import py.com.abf.domain.Clientes;
 @Repository
 public interface ClientesRepository extends JpaRepository<Clientes, Long>, JpaSpecificationExecutor<Clientes> {
     Clientes findByRuc(String ruc);
+    Clientes findByDocumento(String documento);
 }

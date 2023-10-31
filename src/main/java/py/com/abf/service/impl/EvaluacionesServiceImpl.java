@@ -97,9 +97,9 @@ public class EvaluacionesServiceImpl implements EvaluacionesService {
     }
 
     public Evaluaciones saveWithDetails(EvaluacionesConDetalle data) {
-        log.debug("Request to save data : {}", data);
+        log.debug("Request to save data : {}", data.getCabecera());
 
-        Evaluaciones f = evaluacionesRepository.save(data.getEvaluaciones());
+        Evaluaciones f = evaluacionesRepository.save(data.getCabecera());
         log.debug("Evaluación guardada : {}", f);
 
         List<EvaluacionesDetalleItem> items = data.getDetalle();
@@ -107,6 +107,7 @@ public class EvaluacionesServiceImpl implements EvaluacionesService {
             Temas p = this.temasRepository.findById(temp.getTema().longValue()).orElse(null);
             if (p != null) {
                 EvaluacionesDetalle fd = new EvaluacionesDetalle();
+                fd.setEvaluaciones(f);
                 fd.setComentarios(temp.getComentarios());
                 fd.puntaje(temp.getPuntaje());
                 fd.setTemas(p);

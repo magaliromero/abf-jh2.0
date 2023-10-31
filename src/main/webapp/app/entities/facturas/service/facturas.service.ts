@@ -28,12 +28,18 @@ export type EntityArrayResponseType = HttpResponse<IFacturas[]>;
 @Injectable({ providedIn: 'root' })
 export class FacturasService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/facturas');
+  protected reporteUrl = this.applicationConfigService.getEndpointFor('reportes/');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   createNew(data: any): Observable<any> {
     return this.http
       .post<RestFacturas>(this.resourceUrl + '/detalle', data, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+  obtenerReporte(idFactura: any): Observable<any> {
+    return this.http
+      .get<RestFacturas>(this.reporteUrl + idFactura, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 

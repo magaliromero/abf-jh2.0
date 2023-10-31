@@ -27,15 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 import py.com.abf.service.ReporteService;
 
 @RestController
-@RequestMapping(value = "/reportes")
+@RequestMapping(value = "/reportes/")
 @CrossOrigin(origins = "*")
 public class ReportesResource {
 
     @Autowired
     private ReporteService report;
 
-    @GetMapping
-    public void reporteMultiParam(HttpServletResponse response) {
+    @GetMapping("{facturaId}")
+    public void reporteMultiParam(HttpServletResponse response, @PathVariable("facturaId") Long facturaId) {
         try {
             System.out.println("DATA ");
             response.setContentType("application/x-download");
@@ -44,8 +44,8 @@ public class ReportesResource {
             OutputStream out = response.getOutputStream();
 
             HashMap<String, Object> param = new HashMap<>();
-            param.put("clienteId", 1L);
-            param.put("facturaId", 1L);
+            // param.put("clienteId", 1L);
+            param.put("facturaId", facturaId);
 
             report.exportReport(out, "factura", "pdf", param);
         } catch (Exception e) {

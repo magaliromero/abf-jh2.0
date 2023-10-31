@@ -62,7 +62,7 @@
 	<parameter name="documento" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="direccion" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="apellido" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="fechaFactura" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="fechaFactura" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="rucJogapo" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="telefonoJogapo" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="direccionJogapo" class="java.lang.String" isForPrompting="false"/>
@@ -79,7 +79,7 @@
 		<groupHeader>
 			<band height="4">
 				<staticText>
-					<reportElement style="Column header" positionType="Float" x="493" y="-20" width="50" height="20" forecolor="#000000" uuid="355899e6-f450-4e41-8635-e223e8dc0cd3">
+					<reportElement style="Column header" positionType="Float" x="480" y="-20" width="71" height="20" forecolor="#000000" uuid="355899e6-f450-4e41-8635-e223e8dc0cd3">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe61c838-e9fb-42ef-bb02-a658645c12e1"/>
 					</reportElement>
 					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -166,7 +166,7 @@
 				<reportElement x="0" y="0" width="551" height="70" backcolor="#156DC6" uuid="9f234f2f-3160-40be-af2b-15df015224c2"/>
 			</rectangle>
 			<image>
-				<reportElement x="10" y="20" width="122" height="70" uuid="ea1c026e-bd59-4860-911c-cc6898f8f11b"/>
+				<reportElement x="10" y="2" width="100" height="64" uuid="ea1c026e-bd59-4860-911c-cc6898f8f11b"/>
 				<imageExpression><![CDATA["img/jogapo-logo.png"]]></imageExpression>
 			</image>
 			<staticText>
@@ -253,7 +253,7 @@
 				<text><![CDATA[CANT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="50" y="0" width="117" height="20" forecolor="#000000" uuid="afb9ec8f-7d81-41ff-8c4d-80b8250a9736">
+				<reportElement style="Column header" positionType="Float" x="50" y="0" width="140" height="20" forecolor="#000000" uuid="afb9ec8f-7d81-41ff-8c4d-80b8250a9736">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="015db843-473a-4687-8f81-c24e59823c32"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -268,7 +268,7 @@
 				<text><![CDATA[DESCRIPCÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="190" y="0" width="67" height="20" forecolor="#000000" uuid="00d0e934-e3a0-43a0-b613-999176bfbd72">
+				<reportElement style="Column header" positionType="Float" x="190" y="0" width="80" height="20" forecolor="#000000" uuid="00d0e934-e3a0-43a0-b613-999176bfbd72">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="58200a83-1c13-46f3-80d8-27aa0e74c50f"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -283,7 +283,7 @@
 				<text><![CDATA[PRECIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="276" y="0" width="50" height="20" forecolor="#000000" uuid="16cd9c2e-f28d-43d4-882b-6101567995bf">
+				<reportElement style="Column header" positionType="Float" x="276" y="0" width="63" height="20" forecolor="#000000" uuid="16cd9c2e-f28d-43d4-882b-6101567995bf">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2c1fe2a-7cb2-49bc-8b40-066e2993629f"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -298,7 +298,7 @@
 				<text><![CDATA[EXENTA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="350" y="0" width="50" height="20" forecolor="#000000" uuid="9097ca50-c0f5-42fd-982c-ee7152c2156f">
+				<reportElement style="Column header" positionType="Float" x="339" y="0" width="71" height="20" forecolor="#000000" uuid="9097ca50-c0f5-42fd-982c-ee7152c2156f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cb1219ad-f315-4d52-b56a-c42953c9159f"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -313,7 +313,7 @@
 				<text><![CDATA[IVA 5%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="420" y="0" width="50" height="20" forecolor="#000000" uuid="355899e6-f450-4e41-8635-e223e8dc0cd3">
+				<reportElement style="Column header" positionType="Float" x="410" y="0" width="70" height="20" forecolor="#000000" uuid="355899e6-f450-4e41-8635-e223e8dc0cd3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe61c838-e9fb-42ef-bb02-a658645c12e1"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -347,7 +347,7 @@
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="50" y="0" width="117" height="20" uuid="2e3aad51-43a6-4e86-a5b1-c1069a70561a">
+				<reportElement style="Detail" positionType="Float" x="50" y="0" width="124" height="20" uuid="2e3aad51-43a6-4e86-a5b1-c1069a70561a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="015db843-473a-4687-8f81-c24e59823c32"/>
 				</reportElement>
 				<box>

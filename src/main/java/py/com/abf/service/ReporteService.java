@@ -35,17 +35,20 @@ import py.com.abf.domain.FacturaDetalle;
 import py.com.abf.domain.Facturas;
 import py.com.abf.report.SimpleReportExporter;
 import py.com.abf.report.SimpleReportFiller;
+import py.com.abf.service.impl.ClientesServiceImpl;
 
 @Service
 public class ReporteService {
 
-    public ClientesService clienteService;
+    public ClientesServiceImpl clienteService;
     public FacturasService facturasService;
     public FacturaDetalleService facturasDetalleService;
+    private ConsultaClienteService consultaRucService;
 
-    public ReporteService(ClientesService clienteService, FacturasService facturasService) {
+    public ReporteService(ClientesServiceImpl clienteService, FacturasService facturasService, ConsultaClienteService consultaRucService) {
         this.clienteService = clienteService;
         this.facturasService = facturasService;
+        this.consultaRucService = consultaRucService;
     }
 
     public void exportReport(OutputStream out, String reporte, String tipoReporte, HashMap<String, Object> parametrosPeticion) {
@@ -56,15 +59,15 @@ public class ReporteService {
             List<HashMap<String, Object>> lista = new ArrayList<>();
             switch (reporte) {
                 case "factura":
-                    Long id = (Long) parametrosPeticion.get("clienteId");
                     Long facutraId = (Long) parametrosPeticion.get("facturaId");
-                    Clientes cliente = this.clienteService.findOne(id).orElse(null);
                     Facturas fact = this.facturasService.findOne(facutraId).orElse(null);
+                    System.out.println("DATA RUC" + (fact.getRuc() == "5159789-6"));
+                    Clientes cliente = this.consultaRucService.findOne(fact.getRuc());
 
-                    System.out.println(fact.getFacturaDetalles());
+                    System.out.println(cliente);
                     //HashMap<String, Object> facParams = objectMapper.convertValue(cliente, HashMap.class);
                     parameters.put("timbrado", fact.getTimbrado().toString());
-                    parameters.put("fecha", fact.getFecha());
+                    parameters.put("fechaFactura", fact.getFecha().toString());
                     parameters.put("facturaNumero", fact.getFacturaNro());
                     parameters.put("rucJogapo", "1231231-1");
                     parameters.put("telefonoJogapo", "0999 312 132");
