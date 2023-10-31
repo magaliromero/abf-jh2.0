@@ -1,21 +1,21 @@
 {
   "abfApp": {
-    "materiales": {
+    "material": {
       "home": {
-        "title": "Materiales",
+        "title": "material",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Materiales",
-        "createOrEditLabel": "Crear o editar Materiales",
-        "notFound": "Ningún Materiales encontrado"
+        "createLabel": "Crear nuevo material",
+        "createOrEditLabel": "Crear o editar material",
+        "notFound": "Ningún material encontrado"
       },
-      "created": "Un nuevo Materiales ha sido creado con el identificador {{ param }}",
-      "updated": "Un Materiales ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Materiales ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo material ha sido creado con el identificador {{ param }}",
+      "updated": "Un material ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un material ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Materiales {{ id }}?"
+        "question": "¿Seguro que quiere eliminar material {{ id }}?"
       },
       "detail": {
-        "title": "Materiales"
+        "title": "material"
       },
       "id": "ID",
       "descripcion": "Descripcion",
