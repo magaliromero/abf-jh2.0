@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Temas;
 
 /**
- * Service Interface for managing {@link Temas}.
+ * Service Interface for managing {@link py.com.abf.domain.Temas}.
  */
 public interface TemasService {
     /**

@@ -27,7 +27,7 @@ describe('Matricula Form Service', () => {
             fechaPago: expect.any(Object),
             estado: expect.any(Object),
             alumno: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -44,14 +44,13 @@ describe('Matricula Form Service', () => {
             fechaPago: expect.any(Object),
             estado: expect.any(Object),
             alumno: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getMatricula', () => {
       it('should return NewMatricula for default Matricula initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createMatriculaFormGroup(sampleWithNewData);
 
         const matricula = service.getMatricula(formGroup) as any;

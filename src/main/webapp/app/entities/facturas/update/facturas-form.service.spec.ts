@@ -29,7 +29,7 @@ describe('Facturas Form Service', () => {
             ruc: expect.any(Object),
             condicionVenta: expect.any(Object),
             total: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -48,14 +48,13 @@ describe('Facturas Form Service', () => {
             ruc: expect.any(Object),
             condicionVenta: expect.any(Object),
             total: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getFacturas', () => {
       it('should return NewFacturas for default Facturas initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createFacturasFormGroup(sampleWithNewData);
 
         const facturas = service.getFacturas(formGroup) as any;

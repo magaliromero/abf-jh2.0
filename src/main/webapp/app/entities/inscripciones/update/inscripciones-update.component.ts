@@ -4,17 +4,22 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { InscripcionesFormService, InscripcionesFormGroup } from './inscripciones-form.service';
-import { IInscripciones } from '../inscripciones.model';
-import { InscripcionesService } from '../service/inscripciones.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
 import { ICursos } from 'app/entities/cursos/cursos.model';
 import { CursosService } from 'app/entities/cursos/service/cursos.service';
+import { InscripcionesService } from '../service/inscripciones.service';
+import { IInscripciones } from '../inscripciones.model';
+import { InscripcionesFormService, InscripcionesFormGroup } from './inscripciones-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-inscripciones-update',
   templateUrl: './inscripciones-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class InscripcionesUpdateComponent implements OnInit {
   isSaving = false;
@@ -30,7 +35,7 @@ export class InscripcionesUpdateComponent implements OnInit {
     protected inscripcionesFormService: InscripcionesFormService,
     protected alumnosService: AlumnosService,
     protected cursosService: CursosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareAlumnos = (o1: IAlumnos | null, o2: IAlumnos | null): boolean => this.alumnosService.compareAlumnos(o1, o2);
@@ -87,11 +92,11 @@ export class InscripcionesUpdateComponent implements OnInit {
 
     this.alumnosSharedCollection = this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(
       this.alumnosSharedCollection,
-      inscripciones.alumnos
+      inscripciones.alumnos,
     );
     this.cursosSharedCollection = this.cursosService.addCursosToCollectionIfMissing<ICursos>(
       this.cursosSharedCollection,
-      inscripciones.cursos
+      inscripciones.cursos,
     );
   }
 
@@ -100,7 +105,7 @@ export class InscripcionesUpdateComponent implements OnInit {
       .query()
       .pipe(map((res: HttpResponse<IAlumnos[]>) => res.body ?? []))
       .pipe(
-        map((alumnos: IAlumnos[]) => this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(alumnos, this.inscripciones?.alumnos))
+        map((alumnos: IAlumnos[]) => this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(alumnos, this.inscripciones?.alumnos)),
       )
       .subscribe((alumnos: IAlumnos[]) => (this.alumnosSharedCollection = alumnos));
 

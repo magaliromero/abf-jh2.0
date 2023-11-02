@@ -37,7 +37,6 @@ describe('TiposDocumentos Service', () => {
     });
 
     it('should create a TiposDocumentos', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const tiposDocumentos = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

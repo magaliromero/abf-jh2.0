@@ -12,7 +12,7 @@ import py.com.abf.repository.FacturaDetalleRepository;
 import py.com.abf.service.FacturaDetalleService;
 
 /**
- * Service Implementation for managing {@link FacturaDetalle}.
+ * Service Implementation for managing {@link py.com.abf.domain.FacturaDetalle}.
  */
 @Service
 @Transactional

@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { InscripcionesDetailComponent } from './inscripciones-detail.component';
 
 describe('Inscripciones Management Detail Component', () => {
-  let comp: InscripcionesDetailComponent;
-  let fixture: ComponentFixture<InscripcionesDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [InscripcionesDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [InscripcionesDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ inscripciones: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: InscripcionesDetailComponent,
+              resolve: { inscripciones: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(InscripcionesDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(InscripcionesDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load inscripciones on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load inscripciones on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', InscripcionesDetailComponent);
 
       // THEN
-      expect(comp.inscripciones).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.inscripciones).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

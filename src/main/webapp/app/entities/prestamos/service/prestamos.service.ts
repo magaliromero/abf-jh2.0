@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
+
 import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
@@ -30,7 +32,10 @@ export type EntityArrayResponseType = HttpResponse<IPrestamos[]>;
 export class PrestamosService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/prestamos');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(prestamos: NewPrestamos): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(prestamos);

@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { ITimbrados } from '../timbrados.model';
 import { TimbradosService } from '../service/timbrados.service';
 
-import { TimbradosRoutingResolveService } from './timbrados-routing-resolve.service';
+import timbradosResolve from './timbrados-routing-resolve.service';
 
 describe('Timbrados routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: TimbradosRoutingResolveService;
   let service: TimbradosService;
   let resultTimbrados: ITimbrados | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Timbrados routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(TimbradosRoutingResolveService);
     service = TestBed.inject(TimbradosService);
     resultTimbrados = undefined;
   });
@@ -46,8 +44,12 @@ describe('Timbrados routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTimbrados = result;
+      TestBed.runInInjectionContext(() => {
+        timbradosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTimbrados = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Timbrados routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTimbrados = result;
+      TestBed.runInInjectionContext(() => {
+        timbradosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTimbrados = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Timbrados routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTimbrados = result;
+      TestBed.runInInjectionContext(() => {
+        timbradosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTimbrados = result;
+          },
+        });
       });
 
       // THEN

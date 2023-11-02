@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -38,7 +37,6 @@ import py.com.abf.domain.TiposDocumentos;
 import py.com.abf.domain.enumeration.EstadosPersona;
 import py.com.abf.repository.AlumnosRepository;
 import py.com.abf.service.AlumnosService;
-import py.com.abf.service.criteria.AlumnosCriteria;
 
 /**
  * Integration tests for the {@link AlumnosResource} REST controller.
@@ -1134,7 +1132,6 @@ class AlumnosResourceIT {
         alumnos.addInscripciones(inscripciones);
         alumnosRepository.saveAndFlush(alumnos);
         Long inscripcionesId = inscripciones.getId();
-
         // Get all the alumnosList where inscripciones equals to inscripcionesId
         defaultAlumnosShouldBeFound("inscripcionesId.equals=" + inscripcionesId);
 
@@ -1157,7 +1154,6 @@ class AlumnosResourceIT {
         alumnos.addEvaluaciones(evaluaciones);
         alumnosRepository.saveAndFlush(alumnos);
         Long evaluacionesId = evaluaciones.getId();
-
         // Get all the alumnosList where evaluaciones equals to evaluacionesId
         defaultAlumnosShouldBeFound("evaluacionesId.equals=" + evaluacionesId);
 
@@ -1180,7 +1176,6 @@ class AlumnosResourceIT {
         alumnos.addMatricula(matricula);
         alumnosRepository.saveAndFlush(alumnos);
         Long matriculaId = matricula.getId();
-
         // Get all the alumnosList where matricula equals to matriculaId
         defaultAlumnosShouldBeFound("matriculaId.equals=" + matriculaId);
 
@@ -1203,7 +1198,6 @@ class AlumnosResourceIT {
         alumnos.addPrestamos(prestamos);
         alumnosRepository.saveAndFlush(alumnos);
         Long prestamosId = prestamos.getId();
-
         // Get all the alumnosList where prestamos equals to prestamosId
         defaultAlumnosShouldBeFound("prestamosId.equals=" + prestamosId);
 
@@ -1226,7 +1220,6 @@ class AlumnosResourceIT {
         alumnos.addRegistroClases(registroClases);
         alumnosRepository.saveAndFlush(alumnos);
         Long registroClasesId = registroClases.getId();
-
         // Get all the alumnosList where registroClases equals to registroClasesId
         defaultAlumnosShouldBeFound("registroClasesId.equals=" + registroClasesId);
 
@@ -1249,7 +1242,6 @@ class AlumnosResourceIT {
         alumnos.setTipoDocumentos(tipoDocumentos);
         alumnosRepository.saveAndFlush(alumnos);
         Long tipoDocumentosId = tipoDocumentos.getId();
-
         // Get all the alumnosList where tipoDocumentos equals to tipoDocumentosId
         defaultAlumnosShouldBeFound("tipoDocumentosId.equals=" + tipoDocumentosId);
 
@@ -1320,7 +1312,7 @@ class AlumnosResourceIT {
         int databaseSizeBeforeUpdate = alumnosRepository.findAll().size();
 
         // Update the alumnos
-        Alumnos updatedAlumnos = alumnosRepository.findById(alumnos.getId()).get();
+        Alumnos updatedAlumnos = alumnosRepository.findById(alumnos.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedAlumnos are not directly saved in db
         em.detach(updatedAlumnos);
         updatedAlumnos
@@ -1428,11 +1420,12 @@ class AlumnosResourceIT {
         partialUpdatedAlumnos.setId(alumnos.getId());
 
         partialUpdatedAlumnos
+            .elo(UPDATED_ELO)
             .fideId(UPDATED_FIDE_ID)
+            .nombres(UPDATED_NOMBRES)
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
             .email(UPDATED_EMAIL)
-            .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
-            .estado(UPDATED_ESTADO);
+            .telefono(UPDATED_TELEFONO);
 
         restAlumnosMockMvc
             .perform(
@@ -1446,16 +1439,16 @@ class AlumnosResourceIT {
         List<Alumnos> alumnosList = alumnosRepository.findAll();
         assertThat(alumnosList).hasSize(databaseSizeBeforeUpdate);
         Alumnos testAlumnos = alumnosList.get(alumnosList.size() - 1);
-        assertThat(testAlumnos.getElo()).isEqualTo(DEFAULT_ELO);
+        assertThat(testAlumnos.getElo()).isEqualTo(UPDATED_ELO);
         assertThat(testAlumnos.getFideId()).isEqualTo(UPDATED_FIDE_ID);
-        assertThat(testAlumnos.getNombres()).isEqualTo(DEFAULT_NOMBRES);
+        assertThat(testAlumnos.getNombres()).isEqualTo(UPDATED_NOMBRES);
         assertThat(testAlumnos.getApellidos()).isEqualTo(DEFAULT_APELLIDOS);
         assertThat(testAlumnos.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
         assertThat(testAlumnos.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testAlumnos.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
-        assertThat(testAlumnos.getFechaNacimiento()).isEqualTo(UPDATED_FECHA_NACIMIENTO);
+        assertThat(testAlumnos.getTelefono()).isEqualTo(UPDATED_TELEFONO);
+        assertThat(testAlumnos.getFechaNacimiento()).isEqualTo(DEFAULT_FECHA_NACIMIENTO);
         assertThat(testAlumnos.getDocumento()).isEqualTo(DEFAULT_DOCUMENTO);
-        assertThat(testAlumnos.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testAlumnos.getEstado()).isEqualTo(DEFAULT_ESTADO);
     }
 
     @Test

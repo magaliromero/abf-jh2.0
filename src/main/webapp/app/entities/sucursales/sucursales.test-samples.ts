@@ -1,28 +1,28 @@
 import { ISucursales, NewSucursales } from './sucursales.model';
 
 export const sampleWithRequiredData: ISucursales = {
-  id: 64468,
-  nombreSucursal: 'Land 1080p relationships',
-  numeroEstablecimiento: 60955,
+  id: 510,
+  nombreSucursal: 'down',
+  numeroEstablecimiento: 26919,
 };
 
 export const sampleWithPartialData: ISucursales = {
-  id: 64401,
-  nombreSucursal: 'Ball transmitter interface',
-  direccion: 'multi-tasking',
-  numeroEstablecimiento: 12473,
+  id: 4590,
+  nombreSucursal: 'tugboat delight regarding',
+  direccion: 'woot',
+  numeroEstablecimiento: 7114,
 };
 
 export const sampleWithFullData: ISucursales = {
-  id: 7777,
-  nombreSucursal: 'full-range JSON',
-  direccion: 'Port',
-  numeroEstablecimiento: 91578,
+  id: 675,
+  nombreSucursal: 'yuck',
+  direccion: 'yum cruelly mileage',
+  numeroEstablecimiento: 24199,
 };
 
 export const sampleWithNewData: NewSucursales = {
-  nombreSucursal: 'Unions',
-  numeroEstablecimiento: 37356,
+  nombreSucursal: 'inasmuch',
+  numeroEstablecimiento: 24448,
   id: null,
 };
 

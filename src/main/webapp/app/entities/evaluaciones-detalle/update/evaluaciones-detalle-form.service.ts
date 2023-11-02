@@ -39,7 +39,7 @@ export class EvaluacionesDetalleFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       comentarios: new FormControl(evaluacionesDetalleRawValue.comentarios, {
         validators: [Validators.required],
@@ -66,7 +66,7 @@ export class EvaluacionesDetalleFormService {
       {
         ...evaluacionesDetalleRawValue,
         id: { value: evaluacionesDetalleRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

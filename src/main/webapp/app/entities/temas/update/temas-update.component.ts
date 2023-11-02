@@ -4,13 +4,18 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { TemasFormService, TemasFormGroup } from './temas-form.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITemas } from '../temas.model';
 import { TemasService } from '../service/temas.service';
+import { TemasFormService, TemasFormGroup } from './temas-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-temas-update',
   templateUrl: './temas-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class TemasUpdateComponent implements OnInit {
   isSaving = false;
@@ -21,7 +26,7 @@ export class TemasUpdateComponent implements OnInit {
   constructor(
     protected temasService: TemasService,
     protected temasFormService: TemasFormService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

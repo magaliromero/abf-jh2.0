@@ -1,26 +1,26 @@
 import { ITemas, NewTemas } from './temas.model';
 
 export const sampleWithRequiredData: ITemas = {
-  id: 89167,
-  titulo: 'connecting Concrete',
-  descripcion: 'functionalities SSL virtual',
+  id: 28554,
+  titulo: 'vice ordinary',
+  descripcion: 'drat whenever',
 };
 
 export const sampleWithPartialData: ITemas = {
-  id: 18783,
-  titulo: 'GB',
-  descripcion: 'enterprise',
+  id: 4014,
+  titulo: 'uh-huh witty',
+  descripcion: 'save wonderfully march',
 };
 
 export const sampleWithFullData: ITemas = {
-  id: 56707,
-  titulo: 'mission-critical',
-  descripcion: 'Legacy Pataca Account',
+  id: 20580,
+  titulo: 'hail digital',
+  descripcion: 'dupe crossly hmph',
 };
 
 export const sampleWithNewData: NewTemas = {
-  titulo: 'Coordinator enable',
-  descripcion: 'architectures Tools',
+  titulo: 'or',
+  descripcion: 'vegetation unexpectedly before',
   id: null,
 };
 

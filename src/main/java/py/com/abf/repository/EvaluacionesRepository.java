@@ -27,13 +27,13 @@ public interface EvaluacionesRepository extends JpaRepository<Evaluaciones, Long
     }
 
     @Query(
-        value = "select distinct evaluaciones from Evaluaciones evaluaciones left join fetch evaluaciones.alumnos left join fetch evaluaciones.funcionarios",
-        countQuery = "select count(distinct evaluaciones) from Evaluaciones evaluaciones"
+        value = "select evaluaciones from Evaluaciones evaluaciones left join fetch evaluaciones.alumnos left join fetch evaluaciones.funcionarios",
+        countQuery = "select count(evaluaciones) from Evaluaciones evaluaciones"
     )
     Page<Evaluaciones> findAllWithToOneRelationships(Pageable pageable);
 
     @Query(
-        "select distinct evaluaciones from Evaluaciones evaluaciones left join fetch evaluaciones.alumnos left join fetch evaluaciones.funcionarios"
+        "select evaluaciones from Evaluaciones evaluaciones left join fetch evaluaciones.alumnos left join fetch evaluaciones.funcionarios"
     )
     List<Evaluaciones> findAllWithToOneRelationships();
 

@@ -39,7 +39,6 @@ describe('RegistroClases Service', () => {
     });
 
     it('should create a RegistroClases', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const registroClases = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

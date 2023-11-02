@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Prestamos;
 
 /**
- * Service Interface for managing {@link Prestamos}.
+ * Service Interface for managing {@link py.com.abf.domain.Prestamos}.
  */
 public interface PrestamosService {
     /**

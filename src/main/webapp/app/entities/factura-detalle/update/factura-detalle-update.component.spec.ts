@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { FacturaDetalleFormService } from './factura-detalle-form.service';
-import { FacturaDetalleService } from '../service/factura-detalle.service';
-import { IFacturaDetalle } from '../factura-detalle.model';
 import { IProductos } from 'app/entities/productos/productos.model';
 import { ProductosService } from 'app/entities/productos/service/productos.service';
 import { IFacturas } from 'app/entities/facturas/facturas.model';
 import { FacturasService } from 'app/entities/facturas/service/facturas.service';
+import { IFacturaDetalle } from '../factura-detalle.model';
+import { FacturaDetalleService } from '../service/factura-detalle.service';
+import { FacturaDetalleFormService } from './factura-detalle-form.service';
 
 import { FacturaDetalleUpdateComponent } from './factura-detalle-update.component';
 
@@ -27,8 +27,7 @@ describe('FacturaDetalle Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [FacturaDetalleUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), FacturaDetalleUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -55,10 +54,10 @@ describe('FacturaDetalle Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Productos query and add missing value', () => {
       const facturaDetalle: IFacturaDetalle = { id: 456 };
-      const producto: IProductos = { id: 10275 };
+      const producto: IProductos = { id: 3456 };
       facturaDetalle.producto = producto;
 
-      const productosCollection: IProductos[] = [{ id: 25359 }];
+      const productosCollection: IProductos[] = [{ id: 17235 }];
       jest.spyOn(productosService, 'query').mockReturnValue(of(new HttpResponse({ body: productosCollection })));
       const additionalProductos = [producto];
       const expectedCollection: IProductos[] = [...additionalProductos, ...productosCollection];
@@ -70,17 +69,17 @@ describe('FacturaDetalle Management Update Component', () => {
       expect(productosService.query).toHaveBeenCalled();
       expect(productosService.addProductosToCollectionIfMissing).toHaveBeenCalledWith(
         productosCollection,
-        ...additionalProductos.map(expect.objectContaining)
+        ...additionalProductos.map(expect.objectContaining),
       );
       expect(comp.productosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Facturas query and add missing value', () => {
       const facturaDetalle: IFacturaDetalle = { id: 456 };
-      const factura: IFacturas = { id: 95427 };
+      const factura: IFacturas = { id: 5797 };
       facturaDetalle.factura = factura;
 
-      const facturasCollection: IFacturas[] = [{ id: 31200 }];
+      const facturasCollection: IFacturas[] = [{ id: 23376 }];
       jest.spyOn(facturasService, 'query').mockReturnValue(of(new HttpResponse({ body: facturasCollection })));
       const additionalFacturas = [factura];
       const expectedCollection: IFacturas[] = [...additionalFacturas, ...facturasCollection];
@@ -92,16 +91,16 @@ describe('FacturaDetalle Management Update Component', () => {
       expect(facturasService.query).toHaveBeenCalled();
       expect(facturasService.addFacturasToCollectionIfMissing).toHaveBeenCalledWith(
         facturasCollection,
-        ...additionalFacturas.map(expect.objectContaining)
+        ...additionalFacturas.map(expect.objectContaining),
       );
       expect(comp.facturasSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const facturaDetalle: IFacturaDetalle = { id: 456 };
-      const producto: IProductos = { id: 40032 };
+      const producto: IProductos = { id: 30826 };
       facturaDetalle.producto = producto;
-      const factura: IFacturas = { id: 64992 };
+      const factura: IFacturas = { id: 17187 };
       facturaDetalle.factura = factura;
 
       activatedRoute.data = of({ facturaDetalle });

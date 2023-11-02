@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IMatricula } from '../matricula.model';
 import { MatriculaService } from '../service/matricula.service';
 
-import { MatriculaRoutingResolveService } from './matricula-routing-resolve.service';
+import matriculaResolve from './matricula-routing-resolve.service';
 
 describe('Matricula routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: MatriculaRoutingResolveService;
   let service: MatriculaService;
   let resultMatricula: IMatricula | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Matricula routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(MatriculaRoutingResolveService);
     service = TestBed.inject(MatriculaService);
     resultMatricula = undefined;
   });
@@ -46,8 +44,12 @@ describe('Matricula routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultMatricula = result;
+      TestBed.runInInjectionContext(() => {
+        matriculaResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultMatricula = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Matricula routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultMatricula = result;
+      TestBed.runInInjectionContext(() => {
+        matriculaResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultMatricula = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Matricula routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultMatricula = result;
+      TestBed.runInInjectionContext(() => {
+        matriculaResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultMatricula = result;
+          },
+        });
       });
 
       // THEN

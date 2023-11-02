@@ -12,7 +12,7 @@ import py.com.abf.repository.PuntoDeExpedicionRepository;
 import py.com.abf.service.PuntoDeExpedicionService;
 
 /**
- * Service Implementation for managing {@link PuntoDeExpedicion}.
+ * Service Implementation for managing {@link py.com.abf.domain.PuntoDeExpedicion}.
  */
 @Service
 @Transactional

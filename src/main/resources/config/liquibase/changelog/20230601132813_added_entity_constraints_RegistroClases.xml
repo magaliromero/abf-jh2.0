@@ -12,18 +12,21 @@
                                  baseTableName="registro_clases"
                                  constraintName="fk_registro_clases__temas_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="temas"/>
+                                 referencedTableName="temas"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="funcionario_id"
                                  baseTableName="registro_clases"
                                  constraintName="fk_registro_clases__funcionario_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="funcionarios"/>
+                                 referencedTableName="funcionarios"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="alumnos_id"
                                  baseTableName="registro_clases"
                                  constraintName="fk_registro_clases__alumnos_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="alumnos"/>
+                                 referencedTableName="alumnos"
+                                 />
     </changeSet>
 </databaseChangeLog>

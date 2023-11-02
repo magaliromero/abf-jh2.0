@@ -1,12 +1,12 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import py.com.abf.domain.enumeration.EstadosPersona;
@@ -72,17 +72,17 @@ public class Funcionarios implements Serializable {
     @Column(name = "tipo_funcionario")
     private TipoFuncionarios tipoFuncionario;
 
-    @OneToMany(mappedBy = "funcionarios")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarios")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "evaluacionesDetalles", "alumnos", "funcionarios" }, allowSetters = true)
     private Set<Evaluaciones> evaluaciones = new HashSet<>();
 
-    @OneToMany(mappedBy = "funcionario")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionario")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "producto", "funcionario" }, allowSetters = true)
     private Set<Pagos> pagos = new HashSet<>();
 
-    @OneToMany(mappedBy = "funcionario")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionario")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
@@ -366,7 +366,7 @@ public class Funcionarios implements Serializable {
         if (!(o instanceof Funcionarios)) {
             return false;
         }
-        return id != null && id.equals(((Funcionarios) o).id);
+        return getId() != null && getId().equals(((Funcionarios) o).getId());
     }
 
     @Override

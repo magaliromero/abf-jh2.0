@@ -3,27 +3,28 @@ import dayjs from 'dayjs/esm';
 import { IRegistroClases, NewRegistroClases } from './registro-clases.model';
 
 export const sampleWithRequiredData: IRegistroClases = {
-  id: 57702,
+  id: 9352,
   fecha: dayjs('2023-06-01'),
-  cantidadHoras: 61826,
+  cantidadHoras: 5368,
 };
 
 export const sampleWithPartialData: IRegistroClases = {
-  id: 32560,
+  id: 6819,
   fecha: dayjs('2023-05-31'),
-  cantidadHoras: 70147,
+  cantidadHoras: 4332,
+  asistenciaAlumno: false,
 };
 
 export const sampleWithFullData: IRegistroClases = {
-  id: 58298,
+  id: 4032,
   fecha: dayjs('2023-06-01'),
-  cantidadHoras: 59361,
-  asistenciaAlumno: true,
+  cantidadHoras: 3126,
+  asistenciaAlumno: false,
 };
 
 export const sampleWithNewData: NewRegistroClases = {
-  fecha: dayjs('2023-06-01'),
-  cantidadHoras: 26022,
+  fecha: dayjs('2023-05-31'),
+  cantidadHoras: 22918,
   id: null,
 };
 

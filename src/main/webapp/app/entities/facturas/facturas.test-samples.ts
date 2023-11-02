@@ -1,58 +1,56 @@
 import dayjs from 'dayjs/esm';
 
-import { CondicionVenta } from 'app/entities/enumerations/condicion-venta.model';
-
 import { IFacturas, NewFacturas } from './facturas.model';
 
 export const sampleWithRequiredData: IFacturas = {
-  id: 29679,
-  fecha: dayjs('2023-06-01'),
-  facturaNro: 'explicit circuit',
-  timbrado: 61190,
-  puntoExpedicion: 31438,
-  sucursal: 69517,
-  razonSocial: 'Turkey Solomon',
-  ruc: 'Home Valley',
-  condicionVenta: CondicionVenta['CONTADO'],
-  total: 19828,
+  id: 4707,
+  fecha: dayjs('2023-05-31'),
+  facturaNro: 'hence ha aha',
+  timbrado: 4925,
+  puntoExpedicion: 25572,
+  sucursal: 28215,
+  razonSocial: 'ugh junior against',
+  ruc: 'failing so winged',
+  condicionVenta: 'CONTADO',
+  total: 4197,
 };
 
 export const sampleWithPartialData: IFacturas = {
-  id: 33085,
-  fecha: dayjs('2023-06-01'),
-  facturaNro: 'functionalities Yuan',
-  timbrado: 4130,
-  puntoExpedicion: 94397,
-  sucursal: 6241,
-  razonSocial: 'User-centric connect',
-  ruc: 'Organic Dam',
-  condicionVenta: CondicionVenta['CONTADO'],
-  total: 66134,
+  id: 20772,
+  fecha: dayjs('2023-05-31'),
+  facturaNro: 'keep authority',
+  timbrado: 12097,
+  puntoExpedicion: 25335,
+  sucursal: 18835,
+  razonSocial: 'why sedately',
+  ruc: 'scud',
+  condicionVenta: 'CONTADO',
+  total: 7164,
 };
 
 export const sampleWithFullData: IFacturas = {
-  id: 13455,
+  id: 14098,
   fecha: dayjs('2023-05-31'),
-  facturaNro: 'compress bypassing',
-  timbrado: 95856,
-  puntoExpedicion: 85696,
-  sucursal: 76002,
-  razonSocial: 'facilitate Bacon tan',
-  ruc: 'Licensed Hat distributed',
-  condicionVenta: CondicionVenta['CONTADO'],
-  total: 50823,
+  facturaNro: 'frenetically bitmap volley',
+  timbrado: 28309,
+  puntoExpedicion: 1303,
+  sucursal: 8297,
+  razonSocial: 'woot until',
+  ruc: 'mmm mmm aromatic',
+  condicionVenta: 'CONTADO',
+  total: 27171,
 };
 
 export const sampleWithNewData: NewFacturas = {
   fecha: dayjs('2023-06-01'),
-  facturaNro: 'Fish Frozen ROI',
-  timbrado: 34930,
-  puntoExpedicion: 38516,
-  sucursal: 12789,
-  razonSocial: 'Terrace',
-  ruc: 'magnetic',
-  condicionVenta: CondicionVenta['CONTADO'],
-  total: 2091,
+  facturaNro: 'never replica',
+  timbrado: 19134,
+  puntoExpedicion: 30454,
+  sucursal: 7629,
+  razonSocial: 'geez though gravy',
+  ruc: 'unselfish energetically',
+  condicionVenta: 'CONTADO',
+  total: 14595,
   id: null,
 };
 

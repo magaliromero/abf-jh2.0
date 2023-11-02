@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601134113",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "matricula",
   "fields": [
     {
@@ -36,20 +34,19 @@
       "fieldValues": "PAGADO (Pagado),PENDIENTE (Pendiente),ANULADO (Anulado)"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Matricula",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "alumnos",
-      "otherEntityRelationshipName": "matricula",
       "relationshipName": "alumno",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

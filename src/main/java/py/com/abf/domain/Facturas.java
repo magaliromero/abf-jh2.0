@@ -1,12 +1,12 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import py.com.abf.domain.enumeration.CondicionVenta;
@@ -65,10 +65,14 @@ public class Facturas implements Serializable {
     @Column(name = "total", nullable = false)
     private Integer total;
 
-    @OneToMany(mappedBy = "factura")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "factura")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "producto", "factura" }, allowSetters = true)
     private Set<FacturaDetalle> facturaDetalles = new HashSet<>();
+
+    @JsonIgnoreProperties(value = { "facturas", "notaCreditoDetalles" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "facturas")
+    private NotaCredito notaCredito;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -233,6 +237,25 @@ public class Facturas implements Serializable {
         return this;
     }
 
+    public NotaCredito getNotaCredito() {
+        return this.notaCredito;
+    }
+
+    public void setNotaCredito(NotaCredito notaCredito) {
+        if (this.notaCredito != null) {
+            this.notaCredito.setFacturas(null);
+        }
+        if (notaCredito != null) {
+            notaCredito.setFacturas(this);
+        }
+        this.notaCredito = notaCredito;
+    }
+
+    public Facturas notaCredito(NotaCredito notaCredito) {
+        this.setNotaCredito(notaCredito);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -243,7 +266,7 @@ public class Facturas implements Serializable {
         if (!(o instanceof Facturas)) {
             return false;
         }
-        return id != null && id.equals(((Facturas) o).id);
+        return getId() != null && getId().equals(((Facturas) o).getId());
     }
 
     @Override

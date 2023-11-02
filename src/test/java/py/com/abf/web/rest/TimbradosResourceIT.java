@@ -5,12 +5,12 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Sucursales;
 import py.com.abf.domain.Timbrados;
 import py.com.abf.repository.TimbradosRepository;
-import py.com.abf.service.criteria.TimbradosCriteria;
 
 /**
  * Integration tests for the {@link TimbradosResource} REST controller.
@@ -522,7 +521,6 @@ class TimbradosResourceIT {
         timbrados.addSucursales(sucursales);
         timbradosRepository.saveAndFlush(timbrados);
         Long sucursalesId = sucursales.getId();
-
         // Get all the timbradosList where sucursales equals to sucursalesId
         defaultTimbradosShouldBeFound("sucursalesId.equals=" + sucursalesId);
 
@@ -586,7 +584,7 @@ class TimbradosResourceIT {
         int databaseSizeBeforeUpdate = timbradosRepository.findAll().size();
 
         // Update the timbrados
-        Timbrados updatedTimbrados = timbradosRepository.findById(timbrados.getId()).get();
+        Timbrados updatedTimbrados = timbradosRepository.findById(timbrados.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedTimbrados are not directly saved in db
         em.detach(updatedTimbrados);
         updatedTimbrados.numeroTimbrado(UPDATED_NUMERO_TIMBRADO).fechaInicio(UPDATED_FECHA_INICIO).fechaFin(UPDATED_FECHA_FIN);
@@ -676,7 +674,7 @@ class TimbradosResourceIT {
         Timbrados partialUpdatedTimbrados = new Timbrados();
         partialUpdatedTimbrados.setId(timbrados.getId());
 
-        partialUpdatedTimbrados.fechaInicio(UPDATED_FECHA_INICIO).fechaFin(UPDATED_FECHA_FIN);
+        partialUpdatedTimbrados.fechaInicio(UPDATED_FECHA_INICIO);
 
         restTimbradosMockMvc
             .perform(
@@ -692,7 +690,7 @@ class TimbradosResourceIT {
         Timbrados testTimbrados = timbradosList.get(timbradosList.size() - 1);
         assertThat(testTimbrados.getNumeroTimbrado()).isEqualTo(DEFAULT_NUMERO_TIMBRADO);
         assertThat(testTimbrados.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
-        assertThat(testTimbrados.getFechaFin()).isEqualTo(UPDATED_FECHA_FIN);
+        assertThat(testTimbrados.getFechaFin()).isEqualTo(DEFAULT_FECHA_FIN);
     }
 
     @Test

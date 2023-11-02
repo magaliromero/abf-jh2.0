@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
+
 import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
@@ -30,7 +32,10 @@ export type EntityArrayResponseType = HttpResponse<ITimbrados[]>;
 export class TimbradosService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/timbrados');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(timbrados: NewTimbrados): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(timbrados);

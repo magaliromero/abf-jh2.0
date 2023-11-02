@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { TimbradosFormService } from './timbrados-form.service';
 import { TimbradosService } from '../service/timbrados.service';
 import { ITimbrados } from '../timbrados.model';
+import { TimbradosFormService } from './timbrados-form.service';
 
 import { TimbradosUpdateComponent } from './timbrados-update.component';
 
@@ -21,8 +21,7 @@ describe('Timbrados Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [TimbradosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), TimbradosUpdateComponent],
       providers: [
         FormBuilder,
         {

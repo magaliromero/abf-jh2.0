@@ -1,6 +1,6 @@
 package py.com.abf.web.rest.vm;
 
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 import py.com.abf.service.dto.AdminUserDTO;
 
 /**

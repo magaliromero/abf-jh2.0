@@ -39,7 +39,6 @@ describe('Inscripciones Service', () => {
     });
 
     it('should create a Inscripciones', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const inscripciones = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

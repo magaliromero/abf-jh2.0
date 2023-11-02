@@ -27,13 +27,13 @@ public interface FacturaDetalleRepository extends JpaRepository<FacturaDetalle, 
     }
 
     @Query(
-        value = "select distinct facturaDetalle from FacturaDetalle facturaDetalle left join fetch facturaDetalle.producto left join fetch facturaDetalle.factura",
-        countQuery = "select count(distinct facturaDetalle) from FacturaDetalle facturaDetalle"
+        value = "select facturaDetalle from FacturaDetalle facturaDetalle left join fetch facturaDetalle.producto left join fetch facturaDetalle.factura",
+        countQuery = "select count(facturaDetalle) from FacturaDetalle facturaDetalle"
     )
     Page<FacturaDetalle> findAllWithToOneRelationships(Pageable pageable);
 
     @Query(
-        "select distinct facturaDetalle from FacturaDetalle facturaDetalle left join fetch facturaDetalle.producto left join fetch facturaDetalle.factura"
+        "select facturaDetalle from FacturaDetalle facturaDetalle left join fetch facturaDetalle.producto left join fetch facturaDetalle.factura"
     )
     List<FacturaDetalle> findAllWithToOneRelationships();
 

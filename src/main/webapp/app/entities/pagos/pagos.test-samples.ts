@@ -3,30 +3,30 @@ import dayjs from 'dayjs/esm';
 import { IPagos, NewPagos } from './pagos.model';
 
 export const sampleWithRequiredData: IPagos = {
-  id: 35750,
-  fecha: dayjs('2023-05-31'),
-  total: 36645,
-  cantidadHoras: 2075,
+  id: 14636,
+  fecha: dayjs('2023-06-01'),
+  total: 11435,
+  cantidadHoras: 22855,
 };
 
 export const sampleWithPartialData: IPagos = {
-  id: 12142,
-  fecha: dayjs('2023-05-31'),
-  total: 60113,
-  cantidadHoras: 85247,
+  id: 13727,
+  fecha: dayjs('2023-06-01'),
+  total: 31501,
+  cantidadHoras: 4717,
 };
 
 export const sampleWithFullData: IPagos = {
-  id: 92852,
+  id: 21193,
   fecha: dayjs('2023-05-31'),
-  total: 97277,
-  cantidadHoras: 29305,
+  total: 25586,
+  cantidadHoras: 29597,
 };
 
 export const sampleWithNewData: NewPagos = {
   fecha: dayjs('2023-05-31'),
-  total: 94228,
-  cantidadHoras: 60224,
+  total: 23910,
+  cantidadHoras: 12814,
   id: null,
 };
 

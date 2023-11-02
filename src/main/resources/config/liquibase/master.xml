@@ -5,8 +5,8 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <property name="now" value="current_timestamp" dbms="postgresql"/>
     <property name="floatType" value="float4" dbms="postgresql"/>
-    <property name="clobType" value="longvarchar" dbms="postgresql"/>
-    <property name="blobType" value="bytea" dbms="postgresql"/>
+    <property name="clobType" value="clob" dbms="postgresql"/>
+    <property name="blobType" value="blob" dbms="postgresql"/>
     <property name="uuidType" value="uuid" dbms="postgresql"/>
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
@@ -31,6 +31,8 @@
     <include file="config/liquibase/changelog/20230812134751_added_entity_Timbrados.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230812134752_added_entity_Sucursales.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230812134753_added_entity_PuntoDeExpedicion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231031020228_added_entity_NotaCredito.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231031020229_added_entity_NotaCreditoDetalle.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20230601132813_added_entity_constraints_RegistroClases.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230601132913_added_entity_constraints_Cursos.xml" relativeToChangelogFile="false"/>
@@ -45,6 +47,8 @@
     <include file="config/liquibase/changelog/20230601134313_added_entity_constraints_EvaluacionesDetalle.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230812134752_added_entity_constraints_Sucursales.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230812134753_added_entity_constraints_PuntoDeExpedicion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231031020228_added_entity_constraints_NotaCredito.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231031020229_added_entity_constraints_NotaCreditoDetalle.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

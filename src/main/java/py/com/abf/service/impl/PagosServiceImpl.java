@@ -12,7 +12,7 @@ import py.com.abf.repository.PagosRepository;
 import py.com.abf.service.PagosService;
 
 /**
- * Service Implementation for managing {@link Pagos}.
+ * Service Implementation for managing {@link py.com.abf.domain.Pagos}.
  */
 @Service
 @Transactional

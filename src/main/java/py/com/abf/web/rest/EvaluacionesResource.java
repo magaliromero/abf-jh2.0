@@ -1,12 +1,12 @@
 package py.com.abf.web.rest;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,13 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import py.com.abf.domain.Evaluaciones;
-import py.com.abf.domain.EvaluacionesConDetalle;
-import py.com.abf.domain.Facturas;
 import py.com.abf.repository.EvaluacionesRepository;
 import py.com.abf.service.EvaluacionesQueryService;
 import py.com.abf.service.EvaluacionesService;
 import py.com.abf.service.criteria.EvaluacionesCriteria;
-import py.com.abf.service.impl.EvaluacionesServiceImpl;
 import py.com.abf.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -49,18 +46,14 @@ public class EvaluacionesResource {
 
     private final EvaluacionesQueryService evaluacionesQueryService;
 
-    private final EvaluacionesServiceImpl evaluacionesImpl;
-
     public EvaluacionesResource(
         EvaluacionesService evaluacionesService,
         EvaluacionesRepository evaluacionesRepository,
-        EvaluacionesQueryService evaluacionesQueryService,
-        EvaluacionesServiceImpl evaluacionesImpl
+        EvaluacionesQueryService evaluacionesQueryService
     ) {
         this.evaluacionesService = evaluacionesService;
         this.evaluacionesRepository = evaluacionesRepository;
         this.evaluacionesQueryService = evaluacionesQueryService;
-        this.evaluacionesImpl = evaluacionesImpl;
     }
 
     /**
@@ -81,14 +74,6 @@ public class EvaluacionesResource {
             .created(new URI("/api/evaluaciones/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
-    }
-
-    @PostMapping("/evaluaciones/detalle")
-    public ResponseEntity<Evaluaciones> nuevoFactura(@Valid @RequestBody EvaluacionesConDetalle data) throws URISyntaxException {
-        log.debug("REST request to save Facturas : {}", data);
-
-        Evaluaciones result = evaluacionesImpl.saveWithDetails(data);
-        return ResponseEntity.ok(result);
     }
 
     /**
@@ -171,9 +156,10 @@ public class EvaluacionesResource {
     @GetMapping("/evaluaciones")
     public ResponseEntity<List<Evaluaciones>> getAllEvaluaciones(
         EvaluacionesCriteria criteria,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get Evaluaciones by criteria: {}", criteria);
+
         Page<Evaluaciones> page = evaluacionesQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

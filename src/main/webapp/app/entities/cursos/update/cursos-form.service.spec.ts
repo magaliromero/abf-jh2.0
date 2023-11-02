@@ -27,7 +27,7 @@ describe('Cursos Form Service', () => {
             cantidadClases: expect.any(Object),
             nivel: expect.any(Object),
             temas: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -44,14 +44,13 @@ describe('Cursos Form Service', () => {
             cantidadClases: expect.any(Object),
             nivel: expect.any(Object),
             temas: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getCursos', () => {
       it('should return NewCursos for default Cursos initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createCursosFormGroup(sampleWithNewData);
 
         const cursos = service.getCursos(formGroup) as any;

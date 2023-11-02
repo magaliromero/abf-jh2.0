@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IFacturaDetalle } from '../factura-detalle.model';
 import { FacturaDetalleService } from '../service/factura-detalle.service';
 
-import { FacturaDetalleRoutingResolveService } from './factura-detalle-routing-resolve.service';
+import facturaDetalleResolve from './factura-detalle-routing-resolve.service';
 
 describe('FacturaDetalle routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: FacturaDetalleRoutingResolveService;
   let service: FacturaDetalleService;
   let resultFacturaDetalle: IFacturaDetalle | null | undefined;
 
@@ -34,7 +33,6 @@ describe('FacturaDetalle routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(FacturaDetalleRoutingResolveService);
     service = TestBed.inject(FacturaDetalleService);
     resultFacturaDetalle = undefined;
   });
@@ -46,8 +44,12 @@ describe('FacturaDetalle routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultFacturaDetalle = result;
+      TestBed.runInInjectionContext(() => {
+        facturaDetalleResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultFacturaDetalle = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('FacturaDetalle routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultFacturaDetalle = result;
+      TestBed.runInInjectionContext(() => {
+        facturaDetalleResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultFacturaDetalle = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('FacturaDetalle routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultFacturaDetalle = result;
+      TestBed.runInInjectionContext(() => {
+        facturaDetalleResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultFacturaDetalle = result;
+          },
+        });
       });
 
       // THEN

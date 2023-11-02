@@ -14,8 +14,8 @@ export interface IFuncionarios {
   telefono?: string | null;
   fechaNacimiento?: dayjs.Dayjs | null;
   documento?: string | null;
-  estado?: EstadosPersona | null;
-  tipoFuncionario?: TipoFuncionarios | null;
+  estado?: keyof typeof EstadosPersona | null;
+  tipoFuncionario?: keyof typeof TipoFuncionarios | null;
   tipoDocumentos?: Pick<ITiposDocumentos, 'id' | 'descripcion'> | null;
 }
 

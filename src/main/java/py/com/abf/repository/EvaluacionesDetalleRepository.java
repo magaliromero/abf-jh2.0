@@ -28,13 +28,13 @@ public interface EvaluacionesDetalleRepository
     }
 
     @Query(
-        value = "select distinct evaluacionesDetalle from EvaluacionesDetalle evaluacionesDetalle left join fetch evaluacionesDetalle.evaluaciones left join fetch evaluacionesDetalle.temas",
-        countQuery = "select count(distinct evaluacionesDetalle) from EvaluacionesDetalle evaluacionesDetalle"
+        value = "select evaluacionesDetalle from EvaluacionesDetalle evaluacionesDetalle left join fetch evaluacionesDetalle.evaluaciones left join fetch evaluacionesDetalle.temas",
+        countQuery = "select count(evaluacionesDetalle) from EvaluacionesDetalle evaluacionesDetalle"
     )
     Page<EvaluacionesDetalle> findAllWithToOneRelationships(Pageable pageable);
 
     @Query(
-        "select distinct evaluacionesDetalle from EvaluacionesDetalle evaluacionesDetalle left join fetch evaluacionesDetalle.evaluaciones left join fetch evaluacionesDetalle.temas"
+        "select evaluacionesDetalle from EvaluacionesDetalle evaluacionesDetalle left join fetch evaluacionesDetalle.evaluaciones left join fetch evaluacionesDetalle.temas"
     )
     List<EvaluacionesDetalle> findAllWithToOneRelationships();
 

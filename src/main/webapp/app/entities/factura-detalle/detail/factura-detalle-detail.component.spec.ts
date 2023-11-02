@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { FacturaDetalleDetailComponent } from './factura-detalle-detail.component';
 
 describe('FacturaDetalle Management Detail Component', () => {
-  let comp: FacturaDetalleDetailComponent;
-  let fixture: ComponentFixture<FacturaDetalleDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [FacturaDetalleDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FacturaDetalleDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ facturaDetalle: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: FacturaDetalleDetailComponent,
+              resolve: { facturaDetalle: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(FacturaDetalleDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(FacturaDetalleDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load facturaDetalle on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load facturaDetalle on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', FacturaDetalleDetailComponent);
 
       // THEN
-      expect(comp.facturaDetalle).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.facturaDetalle).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

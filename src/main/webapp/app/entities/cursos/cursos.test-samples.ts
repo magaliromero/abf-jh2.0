@@ -1,38 +1,36 @@
 import dayjs from 'dayjs/esm';
 
-import { Niveles } from 'app/entities/enumerations/niveles.model';
-
 import { ICursos, NewCursos } from './cursos.model';
 
 export const sampleWithRequiredData: ICursos = {
-  id: 88953,
-  nombreCurso: 'Washington channels Djibouti',
-  descripcion: 'back-end',
-  nivel: Niveles['PREAJEDREZ'],
+  id: 21537,
+  nombreCurso: 'wheel',
+  descripcion: 'meh finally ectodermal',
+  nivel: 'INICIAL',
 };
 
 export const sampleWithPartialData: ICursos = {
-  id: 96032,
-  nombreCurso: 'dot-com Operations',
-  descripcion: 'Mississippi',
+  id: 29579,
+  nombreCurso: 'classroom',
+  descripcion: 'paraphrase maintain',
   fechaInicio: dayjs('2023-06-01'),
-  nivel: Niveles['INICIAL'],
+  nivel: 'INICIAL',
 };
 
 export const sampleWithFullData: ICursos = {
-  id: 78666,
-  nombreCurso: 'microchip',
-  descripcion: 'solid Fish',
+  id: 18236,
+  nombreCurso: 'loose as',
+  descripcion: 'pish concerned',
   fechaInicio: dayjs('2023-06-01'),
-  fechaFin: dayjs('2023-06-01'),
-  cantidadClases: 82546,
-  nivel: Niveles['INICIAL'],
+  fechaFin: dayjs('2023-05-31'),
+  cantidadClases: 11045,
+  nivel: 'PRINCIPIANTE',
 };
 
 export const sampleWithNewData: NewCursos = {
-  nombreCurso: 'silver',
-  descripcion: 'Generic digital indigo',
-  nivel: Niveles['INICIAL'],
+  nombreCurso: 'flatline violently',
+  descripcion: 'referendum',
+  nivel: 'AVANZADO',
   id: null,
 };
 

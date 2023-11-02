@@ -1,0 +1,74 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231031020228",
+  "entityTableName": "nota_credito",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notaNro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "puntoExpedicion",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sucursal",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "razonSocial",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ruc",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "direccion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "motivoEmision",
+      "fieldType": "Motivo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ANULACION (Anulacion),DEVOLUCION (Devolucion),DESCUENTO (Descuento),OTRO (Otro)"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "NotaCredito",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "facturaNro",
+      "otherEntityName": "facturas",
+      "relationshipName": "facturas",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "notaCreditoDetalle",
+      "otherEntityRelationshipName": "notaCredito",
+      "relationshipName": "notaCreditoDetalle",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -8,12 +8,12 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.materiales.descripcion" for="field_descripcion">Descripcion</label>
           <input
             type="text"
@@ -28,18 +28,17 @@
               class="form-text text-danger"
               *ngIf="editForm.get('descripcion')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.materiales.cantidad" for="field_cantidad">Cantidad</label>
           <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.materiales.cantidadEnPrestamo" for="field_cantidadEnPrestamo"
             >Cantidad En Prestamo</label
           >

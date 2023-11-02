@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { EvaluacionesFormService } from './evaluaciones-form.service';
-import { EvaluacionesService } from '../service/evaluaciones.service';
-import { IEvaluaciones } from '../evaluaciones.model';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
 import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
 import { FuncionariosService } from 'app/entities/funcionarios/service/funcionarios.service';
+import { IEvaluaciones } from '../evaluaciones.model';
+import { EvaluacionesService } from '../service/evaluaciones.service';
+import { EvaluacionesFormService } from './evaluaciones-form.service';
 
 import { EvaluacionesUpdateComponent } from './evaluaciones-update.component';
 
@@ -27,8 +27,7 @@ describe('Evaluaciones Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [EvaluacionesUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), EvaluacionesUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -55,10 +54,10 @@ describe('Evaluaciones Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Alumnos query and add missing value', () => {
       const evaluaciones: IEvaluaciones = { id: 456 };
-      const alumnos: IAlumnos = { id: 93573 };
+      const alumnos: IAlumnos = { id: 8357 };
       evaluaciones.alumnos = alumnos;
 
-      const alumnosCollection: IAlumnos[] = [{ id: 63763 }];
+      const alumnosCollection: IAlumnos[] = [{ id: 15266 }];
       jest.spyOn(alumnosService, 'query').mockReturnValue(of(new HttpResponse({ body: alumnosCollection })));
       const additionalAlumnos = [alumnos];
       const expectedCollection: IAlumnos[] = [...additionalAlumnos, ...alumnosCollection];
@@ -70,17 +69,17 @@ describe('Evaluaciones Management Update Component', () => {
       expect(alumnosService.query).toHaveBeenCalled();
       expect(alumnosService.addAlumnosToCollectionIfMissing).toHaveBeenCalledWith(
         alumnosCollection,
-        ...additionalAlumnos.map(expect.objectContaining)
+        ...additionalAlumnos.map(expect.objectContaining),
       );
       expect(comp.alumnosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Funcionarios query and add missing value', () => {
       const evaluaciones: IEvaluaciones = { id: 456 };
-      const funcionarios: IFuncionarios = { id: 6804 };
+      const funcionarios: IFuncionarios = { id: 1863 };
       evaluaciones.funcionarios = funcionarios;
 
-      const funcionariosCollection: IFuncionarios[] = [{ id: 94975 }];
+      const funcionariosCollection: IFuncionarios[] = [{ id: 28260 }];
       jest.spyOn(funcionariosService, 'query').mockReturnValue(of(new HttpResponse({ body: funcionariosCollection })));
       const additionalFuncionarios = [funcionarios];
       const expectedCollection: IFuncionarios[] = [...additionalFuncionarios, ...funcionariosCollection];
@@ -92,16 +91,16 @@ describe('Evaluaciones Management Update Component', () => {
       expect(funcionariosService.query).toHaveBeenCalled();
       expect(funcionariosService.addFuncionariosToCollectionIfMissing).toHaveBeenCalledWith(
         funcionariosCollection,
-        ...additionalFuncionarios.map(expect.objectContaining)
+        ...additionalFuncionarios.map(expect.objectContaining),
       );
       expect(comp.funcionariosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const evaluaciones: IEvaluaciones = { id: 456 };
-      const alumnos: IAlumnos = { id: 88866 };
+      const alumnos: IAlumnos = { id: 1600 };
       evaluaciones.alumnos = alumnos;
-      const funcionarios: IFuncionarios = { id: 31409 };
+      const funcionarios: IFuncionarios = { id: 32480 };
       evaluaciones.funcionarios = funcionarios;
 
       activatedRoute.data = of({ evaluaciones });

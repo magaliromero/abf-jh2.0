@@ -12,7 +12,7 @@ import py.com.abf.repository.RegistroClasesRepository;
 import py.com.abf.service.RegistroClasesService;
 
 /**
- * Service Implementation for managing {@link RegistroClases}.
+ * Service Implementation for managing {@link py.com.abf.domain.RegistroClases}.
  */
 @Service
 @Transactional

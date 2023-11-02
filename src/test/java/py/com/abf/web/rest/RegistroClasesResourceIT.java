@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -34,7 +33,6 @@ import py.com.abf.domain.RegistroClases;
 import py.com.abf.domain.Temas;
 import py.com.abf.repository.RegistroClasesRepository;
 import py.com.abf.service.RegistroClasesService;
-import py.com.abf.service.criteria.RegistroClasesCriteria;
 
 /**
  * Integration tests for the {@link RegistroClasesResource} REST controller.
@@ -555,7 +553,6 @@ class RegistroClasesResourceIT {
         registroClases.setTemas(temas);
         registroClasesRepository.saveAndFlush(registroClases);
         Long temasId = temas.getId();
-
         // Get all the registroClasesList where temas equals to temasId
         defaultRegistroClasesShouldBeFound("temasId.equals=" + temasId);
 
@@ -578,7 +575,6 @@ class RegistroClasesResourceIT {
         registroClases.setFuncionario(funcionario);
         registroClasesRepository.saveAndFlush(registroClases);
         Long funcionarioId = funcionario.getId();
-
         // Get all the registroClasesList where funcionario equals to funcionarioId
         defaultRegistroClasesShouldBeFound("funcionarioId.equals=" + funcionarioId);
 
@@ -601,7 +597,6 @@ class RegistroClasesResourceIT {
         registroClases.setAlumnos(alumnos);
         registroClasesRepository.saveAndFlush(registroClases);
         Long alumnosId = alumnos.getId();
-
         // Get all the registroClasesList where alumnos equals to alumnosId
         defaultRegistroClasesShouldBeFound("alumnosId.equals=" + alumnosId);
 
@@ -665,7 +660,7 @@ class RegistroClasesResourceIT {
         int databaseSizeBeforeUpdate = registroClasesRepository.findAll().size();
 
         // Update the registroClases
-        RegistroClases updatedRegistroClases = registroClasesRepository.findById(registroClases.getId()).get();
+        RegistroClases updatedRegistroClases = registroClasesRepository.findById(registroClases.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedRegistroClases are not directly saved in db
         em.detach(updatedRegistroClases);
         updatedRegistroClases.fecha(UPDATED_FECHA).cantidadHoras(UPDATED_CANTIDAD_HORAS).asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO);

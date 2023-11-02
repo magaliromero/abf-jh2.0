@@ -1,11 +1,11 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import py.com.abf.domain.enumeration.TipoProductos;
@@ -44,15 +44,20 @@ public class Productos implements Serializable {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "producto")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "producto", "funcionario" }, allowSetters = true)
     private Set<Pagos> pagos = new HashSet<>();
 
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "producto")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "producto", "factura" }, allowSetters = true)
     private Set<FacturaDetalle> facturaDetalles = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "producto")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "notaCredito", "producto" }, allowSetters = true)
+    private Set<NotaCreditoDetalle> notaCreditoDetalles = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -183,6 +188,37 @@ public class Productos implements Serializable {
         return this;
     }
 
+    public Set<NotaCreditoDetalle> getNotaCreditoDetalles() {
+        return this.notaCreditoDetalles;
+    }
+
+    public void setNotaCreditoDetalles(Set<NotaCreditoDetalle> notaCreditoDetalles) {
+        if (this.notaCreditoDetalles != null) {
+            this.notaCreditoDetalles.forEach(i -> i.setProducto(null));
+        }
+        if (notaCreditoDetalles != null) {
+            notaCreditoDetalles.forEach(i -> i.setProducto(this));
+        }
+        this.notaCreditoDetalles = notaCreditoDetalles;
+    }
+
+    public Productos notaCreditoDetalles(Set<NotaCreditoDetalle> notaCreditoDetalles) {
+        this.setNotaCreditoDetalles(notaCreditoDetalles);
+        return this;
+    }
+
+    public Productos addNotaCreditoDetalle(NotaCreditoDetalle notaCreditoDetalle) {
+        this.notaCreditoDetalles.add(notaCreditoDetalle);
+        notaCreditoDetalle.setProducto(this);
+        return this;
+    }
+
+    public Productos removeNotaCreditoDetalle(NotaCreditoDetalle notaCreditoDetalle) {
+        this.notaCreditoDetalles.remove(notaCreditoDetalle);
+        notaCreditoDetalle.setProducto(null);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -193,7 +229,7 @@ public class Productos implements Serializable {
         if (!(o instanceof Productos)) {
             return false;
         }
-        return id != null && id.equals(((Productos) o).id);
+        return getId() != null && getId().equals(((Productos) o).getId());
     }
 
     @Override

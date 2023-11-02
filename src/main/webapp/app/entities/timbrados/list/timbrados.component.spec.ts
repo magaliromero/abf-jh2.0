@@ -18,8 +18,11 @@ describe('Timbrados Management Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: 'timbrados', component: TimbradosComponent }]), HttpClientTestingModule],
-      declarations: [TimbradosComponent],
+      imports: [
+        RouterTestingModule.withRoutes([{ path: 'timbrados', component: TimbradosComponent }]),
+        HttpClientTestingModule,
+        TimbradosComponent,
+      ],
       providers: [
         {
           provide: ActivatedRoute,
@@ -33,7 +36,7 @@ describe('Timbrados Management Component', () => {
                 size: '1',
                 sort: 'id,desc',
                 'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
-              })
+              }),
             ),
             snapshot: { queryParams: {} },
           },
@@ -54,8 +57,8 @@ describe('Timbrados Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -108,7 +111,7 @@ describe('Timbrados Management Component', () => {
         queryParams: expect.objectContaining({
           sort: ['name,asc'],
         }),
-      })
+      }),
     );
   });
 

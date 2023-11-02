@@ -12,7 +12,7 @@ import py.com.abf.repository.MaterialesRepository;
 import py.com.abf.service.MaterialesService;
 
 /**
- * Service Implementation for managing {@link Materiales}.
+ * Service Implementation for managing {@link py.com.abf.domain.Materiales}.
  */
 @Service
 @Transactional

@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { EvaluacionesDetalleDetailComponent } from './evaluaciones-detalle-detail.component';
 
 describe('EvaluacionesDetalle Management Detail Component', () => {
-  let comp: EvaluacionesDetalleDetailComponent;
-  let fixture: ComponentFixture<EvaluacionesDetalleDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [EvaluacionesDetalleDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [EvaluacionesDetalleDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ evaluacionesDetalle: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: EvaluacionesDetalleDetailComponent,
+              resolve: { evaluacionesDetalle: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(EvaluacionesDetalleDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(EvaluacionesDetalleDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load evaluacionesDetalle on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load evaluacionesDetalle on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', EvaluacionesDetalleDetailComponent);
 
       // THEN
-      expect(comp.evaluacionesDetalle).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.evaluacionesDetalle).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

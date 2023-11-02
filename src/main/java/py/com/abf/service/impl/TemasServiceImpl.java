@@ -12,7 +12,7 @@ import py.com.abf.repository.TemasRepository;
 import py.com.abf.service.TemasService;
 
 /**
- * Service Implementation for managing {@link Temas}.
+ * Service Implementation for managing {@link py.com.abf.domain.Temas}.
  */
 @Service
 @Transactional

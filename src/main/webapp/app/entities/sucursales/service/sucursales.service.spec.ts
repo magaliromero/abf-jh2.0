@@ -37,7 +37,6 @@ describe('Sucursales Service', () => {
     });
 
     it('should create a Sucursales', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const sucursales = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

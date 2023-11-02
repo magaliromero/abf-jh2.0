@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { MatriculaFormService } from './matricula-form.service';
-import { MatriculaService } from '../service/matricula.service';
-import { IMatricula } from '../matricula.model';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
+import { MatriculaService } from '../service/matricula.service';
+import { IMatricula } from '../matricula.model';
+import { MatriculaFormService } from './matricula-form.service';
 
 import { MatriculaUpdateComponent } from './matricula-update.component';
 
@@ -24,8 +24,7 @@ describe('Matricula Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [MatriculaUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), MatriculaUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -51,10 +50,10 @@ describe('Matricula Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Alumnos query and add missing value', () => {
       const matricula: IMatricula = { id: 456 };
-      const alumno: IAlumnos = { id: 33220 };
+      const alumno: IAlumnos = { id: 24949 };
       matricula.alumno = alumno;
 
-      const alumnosCollection: IAlumnos[] = [{ id: 26642 }];
+      const alumnosCollection: IAlumnos[] = [{ id: 26409 }];
       jest.spyOn(alumnosService, 'query').mockReturnValue(of(new HttpResponse({ body: alumnosCollection })));
       const additionalAlumnos = [alumno];
       const expectedCollection: IAlumnos[] = [...additionalAlumnos, ...alumnosCollection];
@@ -66,14 +65,14 @@ describe('Matricula Management Update Component', () => {
       expect(alumnosService.query).toHaveBeenCalled();
       expect(alumnosService.addAlumnosToCollectionIfMissing).toHaveBeenCalledWith(
         alumnosCollection,
-        ...additionalAlumnos.map(expect.objectContaining)
+        ...additionalAlumnos.map(expect.objectContaining),
       );
       expect(comp.alumnosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const matricula: IMatricula = { id: 456 };
-      const alumno: IAlumnos = { id: 55885 };
+      const alumno: IAlumnos = { id: 6773 };
       matricula.alumno = alumno;
 
       activatedRoute.data = of({ matricula });

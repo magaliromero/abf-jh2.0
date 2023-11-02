@@ -37,7 +37,7 @@ export class PuntoDeExpedicionFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       numeroPuntoDeExpedicion: new FormControl(puntoDeExpedicionRawValue.numeroPuntoDeExpedicion, {
         validators: [Validators.required],
@@ -58,7 +58,7 @@ export class PuntoDeExpedicionFormService {
       {
         ...puntoDeExpedicionRawValue,
         id: { value: puntoDeExpedicionRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

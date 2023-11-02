@@ -91,8 +91,6 @@ entity TiposDocumentos(tipos_documentos){
 }
 
 entity Alumnos(alumnos){
-	elo Integer,
-    fideId Integer,
 	nombres String required,
 	apellidos String required,
     nombreCompleto String required,
@@ -100,12 +98,12 @@ entity Alumnos(alumnos){
 	telefono String required,
 	fechaNacimiento LocalDate required,
 	documento String required,
-    estado EstadosPersona required
+    estado EstadosPersona required,
+    elo Integer,
+    fideId Integer,
 }
 
 entity Funcionarios(funcionarios){
-	elo Integer,
-    fideId Integer,
 	nombres String required,
 	apellidos String required,
     nombreCompleto String required,
@@ -114,7 +112,9 @@ entity Funcionarios(funcionarios){
 	fechaNacimiento LocalDate  required,
 	documento String required,
     estado EstadosPersona required,
-    tipoFuncionario TipoFuncionarios
+    tipoFuncionario TipoFuncionarios,
+    elo Integer,
+    fideId Integer,
 }
 
 entity Clientes(clientes){
@@ -263,6 +263,48 @@ relationship OneToMany{
 relationship OneToMany{
  	Temas to Cursos { temas(titulo) required},
 }
+
+enum Motivo{
+ 	ANULACION(Anulacion)
+    DEVOLUCION(Devolucion)
+    DESCUENTO(Descuento) 
+	OTRO(Otro)
+}
+
+entity NotaCredito(nota_credito){
+    fecha LocalDate required,
+    notaNro String required,
+    puntoExpedicion Integer required,
+    sucursal Integer required,
+    razonSocial String required,
+    ruc String required,
+	direccion String,
+    motivoEmision Motivo required,
+	total Integer required
+}
+
+
+
+entity NotaCreditoDetalle(notaCredito_detalle){
+	cantidad Integer,
+    precioUnitario Integer,
+    subtotal Integer,
+	porcentajeIva Integer,
+	valorPorcentaje Integer,
+	
+}
+relationship OneToMany {
+	NotaCredito to NotaCreditoDetalle{ NotaCredito(notaNro) required }
+}
+relationship OneToMany {
+	Productos to NotaCreditoDetalle { producto(descripcion) required }
+}
+
+relationship OneToOne {
+	NotaCredito { Facturas(facturaNro) required }  to Facturas  
+}
+
+
 
 service all with serviceClass
 service all with serviceImpl

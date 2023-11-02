@@ -1,12 +1,12 @@
 package py.com.abf.web.rest;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -157,9 +157,10 @@ public class EvaluacionesDetalleResource {
     @GetMapping("/evaluaciones-detalles")
     public ResponseEntity<List<EvaluacionesDetalle>> getAllEvaluacionesDetalles(
         EvaluacionesDetalleCriteria criteria,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get EvaluacionesDetalles by criteria: {}", criteria);
+
         Page<EvaluacionesDetalle> page = evaluacionesDetalleQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

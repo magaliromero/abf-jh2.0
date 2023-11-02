@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { FacturasFormService } from './facturas-form.service';
 import { FacturasService } from '../service/facturas.service';
 import { IFacturas } from '../facturas.model';
+import { FacturasFormService } from './facturas-form.service';
 
 import { FacturasUpdateComponent } from './facturas-update.component';
 
@@ -21,8 +21,7 @@ describe('Facturas Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [FacturasUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), FacturasUpdateComponent],
       providers: [
         FormBuilder,
         {

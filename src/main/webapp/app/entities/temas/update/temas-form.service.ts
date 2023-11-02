@@ -37,7 +37,7 @@ export class TemasFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       titulo: new FormControl(temasRawValue.titulo, {
         validators: [Validators.required],
@@ -58,7 +58,7 @@ export class TemasFormService {
       {
         ...temasRawValue,
         id: { value: temasRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

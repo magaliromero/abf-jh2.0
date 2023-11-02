@@ -12,6 +12,7 @@
                                  baseTableName="punto_de_expedicion"
                                  constraintName="fk_punto_de_expedicion__sucursales_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="sucursales"/>
+                                 referencedTableName="sucursales"
+                                 />
     </changeSet>
 </databaseChangeLog>

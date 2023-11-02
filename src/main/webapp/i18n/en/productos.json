@@ -23,7 +23,8 @@
       "porcentajeIva": "Porcentaje Iva",
       "descripcion": "Descripcion",
       "pagos": "Pagos",
-      "facturaDetalle": "Factura Detalle"
+      "facturaDetalle": "Factura Detalle",
+      "notaCreditoDetalle": "Nota Credito Detalle"
     }
   }
 }

@@ -6,11 +6,11 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -31,7 +30,6 @@ import py.com.abf.domain.Facturas;
 import py.com.abf.domain.Productos;
 import py.com.abf.repository.FacturaDetalleRepository;
 import py.com.abf.service.FacturaDetalleService;
-import py.com.abf.service.criteria.FacturaDetalleCriteria;
 
 /**
  * Integration tests for the {@link FacturaDetalleResource} REST controller.
@@ -747,7 +745,6 @@ class FacturaDetalleResourceIT {
         facturaDetalle.setProducto(producto);
         facturaDetalleRepository.saveAndFlush(facturaDetalle);
         Long productoId = producto.getId();
-
         // Get all the facturaDetalleList where producto equals to productoId
         defaultFacturaDetalleShouldBeFound("productoId.equals=" + productoId);
 
@@ -770,7 +767,6 @@ class FacturaDetalleResourceIT {
         facturaDetalle.setFactura(factura);
         facturaDetalleRepository.saveAndFlush(facturaDetalle);
         Long facturaId = factura.getId();
-
         // Get all the facturaDetalleList where factura equals to facturaId
         defaultFacturaDetalleShouldBeFound("facturaId.equals=" + facturaId);
 
@@ -836,7 +832,7 @@ class FacturaDetalleResourceIT {
         int databaseSizeBeforeUpdate = facturaDetalleRepository.findAll().size();
 
         // Update the facturaDetalle
-        FacturaDetalle updatedFacturaDetalle = facturaDetalleRepository.findById(facturaDetalle.getId()).get();
+        FacturaDetalle updatedFacturaDetalle = facturaDetalleRepository.findById(facturaDetalle.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedFacturaDetalle are not directly saved in db
         em.detach(updatedFacturaDetalle);
         updatedFacturaDetalle
@@ -933,8 +929,6 @@ class FacturaDetalleResourceIT {
         FacturaDetalle partialUpdatedFacturaDetalle = new FacturaDetalle();
         partialUpdatedFacturaDetalle.setId(facturaDetalle.getId());
 
-        partialUpdatedFacturaDetalle.cantidad(UPDATED_CANTIDAD);
-
         restFacturaDetalleMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedFacturaDetalle.getId())
@@ -947,7 +941,7 @@ class FacturaDetalleResourceIT {
         List<FacturaDetalle> facturaDetalleList = facturaDetalleRepository.findAll();
         assertThat(facturaDetalleList).hasSize(databaseSizeBeforeUpdate);
         FacturaDetalle testFacturaDetalle = facturaDetalleList.get(facturaDetalleList.size() - 1);
-        assertThat(testFacturaDetalle.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testFacturaDetalle.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
         assertThat(testFacturaDetalle.getPrecioUnitario()).isEqualTo(DEFAULT_PRECIO_UNITARIO);
         assertThat(testFacturaDetalle.getSubtotal()).isEqualTo(DEFAULT_SUBTOTAL);
         assertThat(testFacturaDetalle.getPorcentajeIva()).isEqualTo(DEFAULT_PORCENTAJE_IVA);

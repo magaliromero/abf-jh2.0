@@ -41,7 +41,7 @@ export class RegistroClasesFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       fecha: new FormControl(registroClasesRawValue.fecha, {
         validators: [Validators.required],
@@ -72,7 +72,7 @@ export class RegistroClasesFormService {
       {
         ...registroClasesRawValue,
         id: { value: registroClasesRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

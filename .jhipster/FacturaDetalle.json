@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133613",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "factura_detalle",
   "fields": [
     {
@@ -26,28 +24,27 @@
       "fieldType": "Integer"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "FacturaDetalle",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "descripcion",
       "otherEntityName": "productos",
-      "otherEntityRelationshipName": "facturaDetalle",
       "relationshipName": "producto",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "facturaNro",
       "otherEntityName": "facturas",
-      "otherEntityRelationshipName": "facturaDetalle",
       "relationshipName": "factura",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

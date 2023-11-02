@@ -25,7 +25,7 @@ describe('Prestamos Form Service', () => {
             estado: expect.any(Object),
             materiales: expect.any(Object),
             alumnos: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -40,14 +40,13 @@ describe('Prestamos Form Service', () => {
             estado: expect.any(Object),
             materiales: expect.any(Object),
             alumnos: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getPrestamos', () => {
       it('should return NewPrestamos for default Prestamos initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createPrestamosFormGroup(sampleWithNewData);
 
         const prestamos = service.getPrestamos(formGroup) as any;

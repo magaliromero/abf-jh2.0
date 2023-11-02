@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601134013",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "prestamos",
   "fields": [
     {
@@ -21,28 +19,27 @@
       "fieldValues": "DEVUELTO (Devuelto),PRESTADO (En Prestamo),VENCIDO (No devuelto)"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Prestamos",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "descripcion",
       "otherEntityName": "materiales",
-      "otherEntityRelationshipName": "prestamos",
       "relationshipName": "materiales",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "alumnos",
-      "otherEntityRelationshipName": "prestamos",
       "relationshipName": "alumnos",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

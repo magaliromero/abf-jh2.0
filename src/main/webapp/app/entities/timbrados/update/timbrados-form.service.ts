@@ -38,7 +38,7 @@ export class TimbradosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       numeroTimbrado: new FormControl(timbradosRawValue.numeroTimbrado, {
         validators: [Validators.required],
@@ -62,7 +62,7 @@ export class TimbradosFormService {
       {
         ...timbradosRawValue,
         id: { value: timbradosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

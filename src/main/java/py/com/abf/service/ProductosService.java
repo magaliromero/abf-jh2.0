@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Productos;
 
 /**
- * Service Interface for managing {@link Productos}.
+ * Service Interface for managing {@link py.com.abf.domain.Productos}.
  */
 public interface ProductosService {
     /**

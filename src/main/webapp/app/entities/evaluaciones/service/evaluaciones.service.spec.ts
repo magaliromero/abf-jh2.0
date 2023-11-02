@@ -39,7 +39,6 @@ describe('Evaluaciones Service', () => {
     });
 
     it('should create a Evaluaciones', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const evaluaciones = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

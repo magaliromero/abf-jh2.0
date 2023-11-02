@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { ITiposDocumentos } from '../tipos-documentos.model';
 import { TiposDocumentosService } from '../service/tipos-documentos.service';
 
-import { TiposDocumentosRoutingResolveService } from './tipos-documentos-routing-resolve.service';
+import tiposDocumentosResolve from './tipos-documentos-routing-resolve.service';
 
 describe('TiposDocumentos routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: TiposDocumentosRoutingResolveService;
   let service: TiposDocumentosService;
   let resultTiposDocumentos: ITiposDocumentos | null | undefined;
 
@@ -34,7 +33,6 @@ describe('TiposDocumentos routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(TiposDocumentosRoutingResolveService);
     service = TestBed.inject(TiposDocumentosService);
     resultTiposDocumentos = undefined;
   });
@@ -46,8 +44,12 @@ describe('TiposDocumentos routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTiposDocumentos = result;
+      TestBed.runInInjectionContext(() => {
+        tiposDocumentosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTiposDocumentos = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('TiposDocumentos routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTiposDocumentos = result;
+      TestBed.runInInjectionContext(() => {
+        tiposDocumentosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTiposDocumentos = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('TiposDocumentos routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTiposDocumentos = result;
+      TestBed.runInInjectionContext(() => {
+        tiposDocumentosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTiposDocumentos = result;
+          },
+        });
       });
 
       // THEN

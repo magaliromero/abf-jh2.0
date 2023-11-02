@@ -1,36 +1,34 @@
-import { TipoProductos } from 'app/entities/enumerations/tipo-productos.model';
-
 import { IProductos, NewProductos } from './productos.model';
 
 export const sampleWithRequiredData: IProductos = {
-  id: 57594,
-  tipoProducto: TipoProductos['SERVICIO'],
-  precioUnitario: 4500,
-  porcentajeIva: 3613,
-  descripcion: 'Director Metal neural',
+  id: 16959,
+  tipoProducto: 'SERVICIO',
+  precioUnitario: 13682,
+  porcentajeIva: 649,
+  descripcion: 'integer oof',
 };
 
 export const sampleWithPartialData: IProductos = {
-  id: 96089,
-  tipoProducto: TipoProductos['SERVICIO'],
-  precioUnitario: 49319,
-  porcentajeIva: 24521,
-  descripcion: 'Buckinghamshire invoice',
+  id: 5778,
+  tipoProducto: 'PRODUCTO',
+  precioUnitario: 5576,
+  porcentajeIva: 4317,
+  descripcion: 'flicker',
 };
 
 export const sampleWithFullData: IProductos = {
-  id: 45427,
-  tipoProducto: TipoProductos['PRODUCTO'],
-  precioUnitario: 553,
-  porcentajeIva: 4120,
-  descripcion: 'Minnesota',
+  id: 23793,
+  tipoProducto: 'PRODUCTO',
+  precioUnitario: 23619,
+  porcentajeIva: 2866,
+  descripcion: 'eek',
 };
 
 export const sampleWithNewData: NewProductos = {
-  tipoProducto: TipoProductos['SERVICIO'],
-  precioUnitario: 35076,
-  porcentajeIva: 31870,
-  descripcion: 'asynchronous Persistent',
+  tipoProducto: 'PRODUCTO',
+  precioUnitario: 25018,
+  porcentajeIva: 1574,
+  descripcion: 'following aboard',
   id: null,
 };
 

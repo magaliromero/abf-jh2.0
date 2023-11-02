@@ -2,7 +2,7 @@ package py.com.abf.service.criteria;
 
 import java.io.Serializable;
 import java.util.Objects;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import py.com.abf.domain.enumeration.CondicionVenta;
 import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.*;
@@ -61,6 +61,8 @@ public class FacturasCriteria implements Serializable, Criteria {
 
     private LongFilter facturaDetalleId;
 
+    private LongFilter notaCreditoId;
+
     private Boolean distinct;
 
     public FacturasCriteria() {}
@@ -77,6 +79,7 @@ public class FacturasCriteria implements Serializable, Criteria {
         this.condicionVenta = other.condicionVenta == null ? null : other.condicionVenta.copy();
         this.total = other.total == null ? null : other.total.copy();
         this.facturaDetalleId = other.facturaDetalleId == null ? null : other.facturaDetalleId.copy();
+        this.notaCreditoId = other.notaCreditoId == null ? null : other.notaCreditoId.copy();
         this.distinct = other.distinct;
     }
 
@@ -250,6 +253,21 @@ public class FacturasCriteria implements Serializable, Criteria {
         this.facturaDetalleId = facturaDetalleId;
     }
 
+    public LongFilter getNotaCreditoId() {
+        return notaCreditoId;
+    }
+
+    public LongFilter notaCreditoId() {
+        if (notaCreditoId == null) {
+            notaCreditoId = new LongFilter();
+        }
+        return notaCreditoId;
+    }
+
+    public void setNotaCreditoId(LongFilter notaCreditoId) {
+        this.notaCreditoId = notaCreditoId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -279,6 +297,7 @@ public class FacturasCriteria implements Serializable, Criteria {
             Objects.equals(condicionVenta, that.condicionVenta) &&
             Objects.equals(total, that.total) &&
             Objects.equals(facturaDetalleId, that.facturaDetalleId) &&
+            Objects.equals(notaCreditoId, that.notaCreditoId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -297,6 +316,7 @@ public class FacturasCriteria implements Serializable, Criteria {
             condicionVenta,
             total,
             facturaDetalleId,
+            notaCreditoId,
             distinct
         );
     }
@@ -316,6 +336,7 @@ public class FacturasCriteria implements Serializable, Criteria {
             (condicionVenta != null ? "condicionVenta=" + condicionVenta + ", " : "") +
             (total != null ? "total=" + total + ", " : "") +
             (facturaDetalleId != null ? "facturaDetalleId=" + facturaDetalleId + ", " : "") +
+            (notaCreditoId != null ? "notaCreditoId=" + notaCreditoId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

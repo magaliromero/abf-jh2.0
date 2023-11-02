@@ -4,14 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { ProductosFormService, ProductosFormGroup } from './productos-form.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { TipoProductos } from 'app/entities/enumerations/tipo-productos.model';
 import { IProductos } from '../productos.model';
 import { ProductosService } from '../service/productos.service';
-import { TipoProductos } from 'app/entities/enumerations/tipo-productos.model';
+import { ProductosFormService, ProductosFormGroup } from './productos-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-productos-update',
   templateUrl: './productos-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class ProductosUpdateComponent implements OnInit {
   isSaving = false;
@@ -23,7 +28,7 @@ export class ProductosUpdateComponent implements OnInit {
   constructor(
     protected productosService: ProductosService,
     protected productosFormService: ProductosFormService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

@@ -5,10 +5,10 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import py.com.abf.domain.EvaluacionesDetalle;
 import py.com.abf.domain.RegistroClases;
 import py.com.abf.domain.Temas;
 import py.com.abf.repository.TemasRepository;
-import py.com.abf.service.criteria.TemasCriteria;
 
 /**
  * Integration tests for the {@link TemasResource} REST controller.
@@ -347,7 +346,6 @@ class TemasResourceIT {
         temas.addEvaluacionesDetalle(evaluacionesDetalle);
         temasRepository.saveAndFlush(temas);
         Long evaluacionesDetalleId = evaluacionesDetalle.getId();
-
         // Get all the temasList where evaluacionesDetalle equals to evaluacionesDetalleId
         defaultTemasShouldBeFound("evaluacionesDetalleId.equals=" + evaluacionesDetalleId);
 
@@ -370,7 +368,6 @@ class TemasResourceIT {
         temas.addRegistroClases(registroClases);
         temasRepository.saveAndFlush(temas);
         Long registroClasesId = registroClases.getId();
-
         // Get all the temasList where registroClases equals to registroClasesId
         defaultTemasShouldBeFound("registroClasesId.equals=" + registroClasesId);
 
@@ -393,7 +390,6 @@ class TemasResourceIT {
         temas.addCursos(cursos);
         temasRepository.saveAndFlush(temas);
         Long cursosId = cursos.getId();
-
         // Get all the temasList where cursos equals to cursosId
         defaultTemasShouldBeFound("cursosId.equals=" + cursosId);
 
@@ -456,7 +452,7 @@ class TemasResourceIT {
         int databaseSizeBeforeUpdate = temasRepository.findAll().size();
 
         // Update the temas
-        Temas updatedTemas = temasRepository.findById(temas.getId()).get();
+        Temas updatedTemas = temasRepository.findById(temas.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedTemas are not directly saved in db
         em.detach(updatedTemas);
         updatedTemas.titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
@@ -545,6 +541,8 @@ class TemasResourceIT {
         Temas partialUpdatedTemas = new Temas();
         partialUpdatedTemas.setId(temas.getId());
 
+        partialUpdatedTemas.titulo(UPDATED_TITULO).descripcion(UPDATED_DESCRIPCION);
+
         restTemasMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedTemas.getId())
@@ -557,8 +555,8 @@ class TemasResourceIT {
         List<Temas> temasList = temasRepository.findAll();
         assertThat(temasList).hasSize(databaseSizeBeforeUpdate);
         Temas testTemas = temasList.get(temasList.size() - 1);
-        assertThat(testTemas.getTitulo()).isEqualTo(DEFAULT_TITULO);
-        assertThat(testTemas.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
+        assertThat(testTemas.getTitulo()).isEqualTo(UPDATED_TITULO);
+        assertThat(testTemas.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 
     @Test

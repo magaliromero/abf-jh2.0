@@ -12,7 +12,7 @@ import py.com.abf.repository.EvaluacionesDetalleRepository;
 import py.com.abf.service.EvaluacionesDetalleService;
 
 /**
- * Service Implementation for managing {@link EvaluacionesDetalle}.
+ * Service Implementation for managing {@link py.com.abf.domain.EvaluacionesDetalle}.
  */
 @Service
 @Transactional

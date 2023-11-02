@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133213",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "alumnos",
   "fields": [
     {
@@ -54,50 +52,54 @@
       "fieldValues": "ACTIVO (Activo),INACTIVO (Inactivo)"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Alumnos",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "inscripciones",
       "otherEntityRelationshipName": "alumnos",
       "relationshipName": "inscripciones",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "evaluaciones",
       "otherEntityRelationshipName": "alumnos",
       "relationshipName": "evaluaciones",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "matricula",
       "otherEntityRelationshipName": "alumno",
       "relationshipName": "matricula",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "prestamos",
       "otherEntityRelationshipName": "alumnos",
       "relationshipName": "prestamos",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "registroClases",
       "otherEntityRelationshipName": "alumnos",
       "relationshipName": "registroClases",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityField": "descripcion",
       "otherEntityName": "tiposDocumentos",
-      "otherEntityRelationshipName": "alumnos",
       "relationshipName": "tipoDocumentos",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

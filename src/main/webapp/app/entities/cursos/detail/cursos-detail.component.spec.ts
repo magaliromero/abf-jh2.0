@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { CursosDetailComponent } from './cursos-detail.component';
 
 describe('Cursos Management Detail Component', () => {
-  let comp: CursosDetailComponent;
-  let fixture: ComponentFixture<CursosDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [CursosDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CursosDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ cursos: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: CursosDetailComponent,
+              resolve: { cursos: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(CursosDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(CursosDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load cursos on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load cursos on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', CursosDetailComponent);
 
       // THEN
-      expect(comp.cursos).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.cursos).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

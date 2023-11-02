@@ -24,7 +24,7 @@ describe('Evaluaciones Form Service', () => {
             fecha: expect.any(Object),
             alumnos: expect.any(Object),
             funcionarios: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -38,14 +38,13 @@ describe('Evaluaciones Form Service', () => {
             fecha: expect.any(Object),
             alumnos: expect.any(Object),
             funcionarios: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getEvaluaciones', () => {
       it('should return NewEvaluaciones for default Evaluaciones initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createEvaluacionesFormGroup(sampleWithNewData);
 
         const evaluaciones = service.getEvaluaciones(formGroup) as any;

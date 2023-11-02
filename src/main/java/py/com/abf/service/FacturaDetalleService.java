@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.FacturaDetalle;
 
 /**
- * Service Interface for managing {@link FacturaDetalle}.
+ * Service Interface for managing {@link py.com.abf.domain.FacturaDetalle}.
  */
 public interface FacturaDetalleService {
     /**

@@ -1,0 +1,34 @@
+{
+  "abfApp": {
+    "notaCredito": {
+      "home": {
+        "title": "Nota Creditos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Nota Credito",
+        "createOrEditLabel": "Create or edit a Nota Credito",
+        "notFound": "No Nota Creditos found"
+      },
+      "created": "A new Nota Credito is created with identifier {{ param }}",
+      "updated": "A Nota Credito is updated with identifier {{ param }}",
+      "deleted": "A Nota Credito is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Nota Credito {{ id }}?"
+      },
+      "detail": {
+        "title": "Nota Credito"
+      },
+      "id": "ID",
+      "fecha": "Fecha",
+      "notaNro": "Nota Nro",
+      "puntoExpedicion": "Punto Expedicion",
+      "sucursal": "Sucursal",
+      "razonSocial": "Razon Social",
+      "ruc": "Ruc",
+      "direccion": "Direccion",
+      "motivoEmision": "Motivo Emision",
+      "total": "Total",
+      "facturas": "Facturas",
+      "notaCreditoDetalle": "Nota Credito Detalle"
+    }
+  }
+}

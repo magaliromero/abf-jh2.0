@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -33,7 +32,6 @@ import py.com.abf.domain.Matricula;
 import py.com.abf.domain.enumeration.EstadosPagos;
 import py.com.abf.repository.MatriculaRepository;
 import py.com.abf.service.MatriculaService;
-import py.com.abf.service.criteria.MatriculaCriteria;
 
 /**
  * Integration tests for the {@link MatriculaResource} REST controller.
@@ -830,7 +828,6 @@ class MatriculaResourceIT {
         matricula.setAlumno(alumno);
         matriculaRepository.saveAndFlush(matricula);
         Long alumnoId = alumno.getId();
-
         // Get all the matriculaList where alumno equals to alumnoId
         defaultMatriculaShouldBeFound("alumnoId.equals=" + alumnoId);
 
@@ -897,7 +894,7 @@ class MatriculaResourceIT {
         int databaseSizeBeforeUpdate = matriculaRepository.findAll().size();
 
         // Update the matricula
-        Matricula updatedMatricula = matriculaRepository.findById(matricula.getId()).get();
+        Matricula updatedMatricula = matriculaRepository.findById(matricula.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedMatricula are not directly saved in db
         em.detach(updatedMatricula);
         updatedMatricula

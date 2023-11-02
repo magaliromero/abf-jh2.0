@@ -39,7 +39,6 @@ describe('Alumnos Service', () => {
     });
 
     it('should create a Alumnos', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const alumnos = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

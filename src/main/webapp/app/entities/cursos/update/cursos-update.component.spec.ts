@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { CursosFormService } from './cursos-form.service';
-import { CursosService } from '../service/cursos.service';
-import { ICursos } from '../cursos.model';
 import { ITemas } from 'app/entities/temas/temas.model';
 import { TemasService } from 'app/entities/temas/service/temas.service';
+import { CursosService } from '../service/cursos.service';
+import { ICursos } from '../cursos.model';
+import { CursosFormService } from './cursos-form.service';
 
 import { CursosUpdateComponent } from './cursos-update.component';
 
@@ -24,8 +24,7 @@ describe('Cursos Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [CursosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), CursosUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -51,10 +50,10 @@ describe('Cursos Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Temas query and add missing value', () => {
       const cursos: ICursos = { id: 456 };
-      const temas: ITemas = { id: 22047 };
+      const temas: ITemas = { id: 26106 };
       cursos.temas = temas;
 
-      const temasCollection: ITemas[] = [{ id: 57250 }];
+      const temasCollection: ITemas[] = [{ id: 12893 }];
       jest.spyOn(temasService, 'query').mockReturnValue(of(new HttpResponse({ body: temasCollection })));
       const additionalTemas = [temas];
       const expectedCollection: ITemas[] = [...additionalTemas, ...temasCollection];
@@ -66,14 +65,14 @@ describe('Cursos Management Update Component', () => {
       expect(temasService.query).toHaveBeenCalled();
       expect(temasService.addTemasToCollectionIfMissing).toHaveBeenCalledWith(
         temasCollection,
-        ...additionalTemas.map(expect.objectContaining)
+        ...additionalTemas.map(expect.objectContaining),
       );
       expect(comp.temasSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const cursos: ICursos = { id: 456 };
-      const temas: ITemas = { id: 21253 };
+      const temas: ITemas = { id: 14591 };
       cursos.temas = temas;
 
       activatedRoute.data = of({ cursos });

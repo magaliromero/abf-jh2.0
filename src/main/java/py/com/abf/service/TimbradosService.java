@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Timbrados;
 
 /**
- * Service Interface for managing {@link Timbrados}.
+ * Service Interface for managing {@link py.com.abf.domain.Timbrados}.
  */
 public interface TimbradosService {
     /**

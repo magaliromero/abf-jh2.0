@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { MaterialesFormService } from './materiales-form.service';
 import { MaterialesService } from '../service/materiales.service';
 import { IMateriales } from '../materiales.model';
+import { MaterialesFormService } from './materiales-form.service';
 
 import { MaterialesUpdateComponent } from './materiales-update.component';
 
@@ -21,8 +21,7 @@ describe('Materiales Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [MaterialesUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), MaterialesUpdateComponent],
       providers: [
         FormBuilder,
         {

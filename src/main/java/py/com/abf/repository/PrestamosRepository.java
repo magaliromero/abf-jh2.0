@@ -27,12 +27,12 @@ public interface PrestamosRepository extends JpaRepository<Prestamos, Long>, Jpa
     }
 
     @Query(
-        value = "select distinct prestamos from Prestamos prestamos left join fetch prestamos.materiales left join fetch prestamos.alumnos",
-        countQuery = "select count(distinct prestamos) from Prestamos prestamos"
+        value = "select prestamos from Prestamos prestamos left join fetch prestamos.materiales left join fetch prestamos.alumnos",
+        countQuery = "select count(prestamos) from Prestamos prestamos"
     )
     Page<Prestamos> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct prestamos from Prestamos prestamos left join fetch prestamos.materiales left join fetch prestamos.alumnos")
+    @Query("select prestamos from Prestamos prestamos left join fetch prestamos.materiales left join fetch prestamos.alumnos")
     List<Prestamos> findAllWithToOneRelationships();
 
     @Query(

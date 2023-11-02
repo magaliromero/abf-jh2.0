@@ -27,13 +27,13 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, Lo
     }
 
     @Query(
-        value = "select distinct inscripciones from Inscripciones inscripciones left join fetch inscripciones.alumnos left join fetch inscripciones.cursos",
-        countQuery = "select count(distinct inscripciones) from Inscripciones inscripciones"
+        value = "select inscripciones from Inscripciones inscripciones left join fetch inscripciones.alumnos left join fetch inscripciones.cursos",
+        countQuery = "select count(inscripciones) from Inscripciones inscripciones"
     )
     Page<Inscripciones> findAllWithToOneRelationships(Pageable pageable);
 
     @Query(
-        "select distinct inscripciones from Inscripciones inscripciones left join fetch inscripciones.alumnos left join fetch inscripciones.cursos"
+        "select inscripciones from Inscripciones inscripciones left join fetch inscripciones.alumnos left join fetch inscripciones.cursos"
     )
     List<Inscripciones> findAllWithToOneRelationships();
 

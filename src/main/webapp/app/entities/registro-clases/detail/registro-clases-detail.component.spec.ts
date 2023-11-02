@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { RegistroClasesDetailComponent } from './registro-clases-detail.component';
 
 describe('RegistroClases Management Detail Component', () => {
-  let comp: RegistroClasesDetailComponent;
-  let fixture: ComponentFixture<RegistroClasesDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [RegistroClasesDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [RegistroClasesDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ registroClases: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: RegistroClasesDetailComponent,
+              resolve: { registroClases: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(RegistroClasesDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(RegistroClasesDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load registroClases on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load registroClases on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', RegistroClasesDetailComponent);
 
       // THEN
-      expect(comp.registroClases).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.registroClases).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

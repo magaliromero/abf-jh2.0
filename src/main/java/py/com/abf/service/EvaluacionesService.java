@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Evaluaciones;
 
 /**
- * Service Interface for managing {@link Evaluaciones}.
+ * Service Interface for managing {@link py.com.abf.domain.Evaluaciones}.
  */
 public interface EvaluacionesService {
     /**

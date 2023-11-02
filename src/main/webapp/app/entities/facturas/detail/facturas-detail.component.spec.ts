@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { FacturasDetailComponent } from './facturas-detail.component';
 
 describe('Facturas Management Detail Component', () => {
-  let comp: FacturasDetailComponent;
-  let fixture: ComponentFixture<FacturasDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [FacturasDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FacturasDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ facturas: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: FacturasDetailComponent,
+              resolve: { facturas: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(FacturasDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(FacturasDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load facturas on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load facturas on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', FacturasDetailComponent);
 
       // THEN
-      expect(comp.facturas).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.facturas).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

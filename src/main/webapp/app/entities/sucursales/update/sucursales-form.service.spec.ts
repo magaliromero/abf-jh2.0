@@ -24,7 +24,7 @@ describe('Sucursales Form Service', () => {
             direccion: expect.any(Object),
             numeroEstablecimiento: expect.any(Object),
             timbrados: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -38,14 +38,13 @@ describe('Sucursales Form Service', () => {
             direccion: expect.any(Object),
             numeroEstablecimiento: expect.any(Object),
             timbrados: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getSucursales', () => {
       it('should return NewSucursales for default Sucursales initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createSucursalesFormGroup(sampleWithNewData);
 
         const sucursales = service.getSucursales(formGroup) as any;

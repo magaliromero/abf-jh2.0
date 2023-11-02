@@ -16,7 +16,10 @@ export type EntityArrayResponseType = HttpResponse<ITemas[]>;
 export class TemasService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/temas');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(temas: NewTemas): Observable<EntityResponseType> {
     return this.http.post<ITemas>(this.resourceUrl, temas, { observe: 'response' });

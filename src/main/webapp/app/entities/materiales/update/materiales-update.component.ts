@@ -4,13 +4,18 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { MaterialesFormService, MaterialesFormGroup } from './materiales-form.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IMateriales } from '../materiales.model';
 import { MaterialesService } from '../service/materiales.service';
+import { MaterialesFormService, MaterialesFormGroup } from './materiales-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-materiales-update',
   templateUrl: './materiales-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class MaterialesUpdateComponent implements OnInit {
   isSaving = false;
@@ -21,7 +26,7 @@ export class MaterialesUpdateComponent implements OnInit {
   constructor(
     protected materialesService: MaterialesService,
     protected materialesFormService: MaterialesFormService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

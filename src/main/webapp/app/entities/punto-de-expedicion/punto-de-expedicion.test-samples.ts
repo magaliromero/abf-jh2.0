@@ -1,22 +1,22 @@
 import { IPuntoDeExpedicion, NewPuntoDeExpedicion } from './punto-de-expedicion.model';
 
 export const sampleWithRequiredData: IPuntoDeExpedicion = {
-  id: 49237,
-  numeroPuntoDeExpedicion: 58651,
+  id: 1349,
+  numeroPuntoDeExpedicion: 7249,
 };
 
 export const sampleWithPartialData: IPuntoDeExpedicion = {
-  id: 86551,
-  numeroPuntoDeExpedicion: 52133,
+  id: 27741,
+  numeroPuntoDeExpedicion: 14498,
 };
 
 export const sampleWithFullData: IPuntoDeExpedicion = {
-  id: 64724,
-  numeroPuntoDeExpedicion: 35771,
+  id: 28800,
+  numeroPuntoDeExpedicion: 28191,
 };
 
 export const sampleWithNewData: NewPuntoDeExpedicion = {
-  numeroPuntoDeExpedicion: 69515,
+  numeroPuntoDeExpedicion: 30163,
   id: null,
 };
 

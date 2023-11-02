@@ -18,8 +18,11 @@ describe('FacturaDetalle Management Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: 'factura-detalle', component: FacturaDetalleComponent }]), HttpClientTestingModule],
-      declarations: [FacturaDetalleComponent],
+      imports: [
+        RouterTestingModule.withRoutes([{ path: 'factura-detalle', component: FacturaDetalleComponent }]),
+        HttpClientTestingModule,
+        FacturaDetalleComponent,
+      ],
       providers: [
         {
           provide: ActivatedRoute,
@@ -33,7 +36,7 @@ describe('FacturaDetalle Management Component', () => {
                 size: '1',
                 sort: 'id,desc',
                 'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
-              })
+              }),
             ),
             snapshot: { queryParams: {} },
           },
@@ -54,8 +57,8 @@ describe('FacturaDetalle Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -108,7 +111,7 @@ describe('FacturaDetalle Management Component', () => {
         queryParams: expect.objectContaining({
           sort: ['name,asc'],
         }),
-      })
+      }),
     );
   });
 

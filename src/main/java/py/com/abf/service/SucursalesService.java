@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Sucursales;
 
 /**
- * Service Interface for managing {@link Sucursales}.
+ * Service Interface for managing {@link py.com.abf.domain.Sucursales}.
  */
 public interface SucursalesService {
     /**

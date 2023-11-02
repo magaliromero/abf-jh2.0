@@ -37,7 +37,6 @@ describe('PuntoDeExpedicion Service', () => {
     });
 
     it('should create a PuntoDeExpedicion', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const puntoDeExpedicion = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

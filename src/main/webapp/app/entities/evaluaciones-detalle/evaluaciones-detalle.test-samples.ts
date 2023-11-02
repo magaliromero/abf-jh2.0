@@ -1,26 +1,26 @@
 import { IEvaluacionesDetalle, NewEvaluacionesDetalle } from './evaluaciones-detalle.model';
 
 export const sampleWithRequiredData: IEvaluacionesDetalle = {
-  id: 78677,
-  comentarios: 'IB',
-  puntaje: 43633,
+  id: 3287,
+  comentarios: 'viciously shine',
+  puntaje: 2616,
 };
 
 export const sampleWithPartialData: IEvaluacionesDetalle = {
-  id: 95549,
-  comentarios: 'parsing Thailand',
-  puntaje: 91838,
+  id: 1007,
+  comentarios: 'silhouette catnap',
+  puntaje: 14090,
 };
 
 export const sampleWithFullData: IEvaluacionesDetalle = {
-  id: 14654,
-  comentarios: 'policy Verde Data',
-  puntaje: 71748,
+  id: 26414,
+  comentarios: 'when',
+  puntaje: 23318,
 };
 
 export const sampleWithNewData: NewEvaluacionesDetalle = {
-  comentarios: 'mission-critical',
-  puntaje: 99187,
+  comentarios: 'save rap urgently',
+  puntaje: 30643,
   id: null,
 };
 

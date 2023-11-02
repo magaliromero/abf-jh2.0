@@ -7,6 +7,7 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "temas": "Temas",
         "registroClases": "Registro Clases",
         "cursos": "Cursos",
@@ -27,7 +28,8 @@
         "timbrados": "Timbrados",
         "sucursales": "Sucursales",
         "puntoDeExpedicion": "Punto De Expedicion",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+        "notaCredito": "Nota Credito",
+        "notaCreditoDetalle": "Nota Credito Detalle"
       },
       "account": {
         "main": "Cuenta",

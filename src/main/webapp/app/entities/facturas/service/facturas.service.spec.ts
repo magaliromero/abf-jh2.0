@@ -39,7 +39,6 @@ describe('Facturas Service', () => {
     });
 
     it('should create a Facturas', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const facturas = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

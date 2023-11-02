@@ -1,9 +1,9 @@
 package py.com.abf.domain;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -197,7 +197,7 @@ public class Clientes implements Serializable {
         if (!(o instanceof Clientes)) {
             return false;
         }
-        return id != null && id.equals(((Clientes) o).id);
+        return getId() != null && getId().equals(((Clientes) o).getId());
     }
 
     @Override

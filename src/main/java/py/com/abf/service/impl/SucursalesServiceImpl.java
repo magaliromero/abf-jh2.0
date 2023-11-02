@@ -12,7 +12,7 @@ import py.com.abf.repository.SucursalesRepository;
 import py.com.abf.service.SucursalesService;
 
 /**
- * Service Implementation for managing {@link Sucursales}.
+ * Service Implementation for managing {@link py.com.abf.domain.Sucursales}.
  */
 @Service
 @Transactional

@@ -1,11 +1,11 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -34,7 +34,7 @@ public class TiposDocumentos implements Serializable {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @OneToMany(mappedBy = "tipoDocumentos")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoDocumentos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
@@ -42,7 +42,7 @@ public class TiposDocumentos implements Serializable {
     )
     private Set<Alumnos> alumnos = new HashSet<>();
 
-    @OneToMany(mappedBy = "tipoDocumentos")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoDocumentos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "evaluaciones", "pagos", "registroClases", "tipoDocumentos" }, allowSetters = true)
     private Set<Funcionarios> funcionarios = new HashSet<>();
@@ -160,7 +160,7 @@ public class TiposDocumentos implements Serializable {
         if (!(o instanceof TiposDocumentos)) {
             return false;
         }
-        return id != null && id.equals(((TiposDocumentos) o).id);
+        return getId() != null && getId().equals(((TiposDocumentos) o).getId());
     }
 
     @Override

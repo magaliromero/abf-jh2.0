@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { InscripcionesFormService } from './inscripciones-form.service';
-import { InscripcionesService } from '../service/inscripciones.service';
-import { IInscripciones } from '../inscripciones.model';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
 import { ICursos } from 'app/entities/cursos/cursos.model';
 import { CursosService } from 'app/entities/cursos/service/cursos.service';
+import { IInscripciones } from '../inscripciones.model';
+import { InscripcionesService } from '../service/inscripciones.service';
+import { InscripcionesFormService } from './inscripciones-form.service';
 
 import { InscripcionesUpdateComponent } from './inscripciones-update.component';
 
@@ -27,8 +27,7 @@ describe('Inscripciones Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [InscripcionesUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), InscripcionesUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -55,10 +54,10 @@ describe('Inscripciones Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Alumnos query and add missing value', () => {
       const inscripciones: IInscripciones = { id: 456 };
-      const alumnos: IAlumnos = { id: 60516 };
+      const alumnos: IAlumnos = { id: 31732 };
       inscripciones.alumnos = alumnos;
 
-      const alumnosCollection: IAlumnos[] = [{ id: 23127 }];
+      const alumnosCollection: IAlumnos[] = [{ id: 19969 }];
       jest.spyOn(alumnosService, 'query').mockReturnValue(of(new HttpResponse({ body: alumnosCollection })));
       const additionalAlumnos = [alumnos];
       const expectedCollection: IAlumnos[] = [...additionalAlumnos, ...alumnosCollection];
@@ -70,17 +69,17 @@ describe('Inscripciones Management Update Component', () => {
       expect(alumnosService.query).toHaveBeenCalled();
       expect(alumnosService.addAlumnosToCollectionIfMissing).toHaveBeenCalledWith(
         alumnosCollection,
-        ...additionalAlumnos.map(expect.objectContaining)
+        ...additionalAlumnos.map(expect.objectContaining),
       );
       expect(comp.alumnosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Cursos query and add missing value', () => {
       const inscripciones: IInscripciones = { id: 456 };
-      const cursos: ICursos = { id: 33650 };
+      const cursos: ICursos = { id: 8743 };
       inscripciones.cursos = cursos;
 
-      const cursosCollection: ICursos[] = [{ id: 14166 }];
+      const cursosCollection: ICursos[] = [{ id: 3414 }];
       jest.spyOn(cursosService, 'query').mockReturnValue(of(new HttpResponse({ body: cursosCollection })));
       const additionalCursos = [cursos];
       const expectedCollection: ICursos[] = [...additionalCursos, ...cursosCollection];
@@ -92,16 +91,16 @@ describe('Inscripciones Management Update Component', () => {
       expect(cursosService.query).toHaveBeenCalled();
       expect(cursosService.addCursosToCollectionIfMissing).toHaveBeenCalledWith(
         cursosCollection,
-        ...additionalCursos.map(expect.objectContaining)
+        ...additionalCursos.map(expect.objectContaining),
       );
       expect(comp.cursosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const inscripciones: IInscripciones = { id: 456 };
-      const alumnos: IAlumnos = { id: 94428 };
+      const alumnos: IAlumnos = { id: 32186 };
       inscripciones.alumnos = alumnos;
-      const cursos: ICursos = { id: 10351 };
+      const cursos: ICursos = { id: 8196 };
       inscripciones.cursos = cursos;
 
       activatedRoute.data = of({ inscripciones });

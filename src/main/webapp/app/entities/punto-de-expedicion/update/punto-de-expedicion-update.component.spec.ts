@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { PuntoDeExpedicionFormService } from './punto-de-expedicion-form.service';
-import { PuntoDeExpedicionService } from '../service/punto-de-expedicion.service';
-import { IPuntoDeExpedicion } from '../punto-de-expedicion.model';
 import { ISucursales } from 'app/entities/sucursales/sucursales.model';
 import { SucursalesService } from 'app/entities/sucursales/service/sucursales.service';
+import { PuntoDeExpedicionService } from '../service/punto-de-expedicion.service';
+import { IPuntoDeExpedicion } from '../punto-de-expedicion.model';
+import { PuntoDeExpedicionFormService } from './punto-de-expedicion-form.service';
 
 import { PuntoDeExpedicionUpdateComponent } from './punto-de-expedicion-update.component';
 
@@ -24,8 +24,7 @@ describe('PuntoDeExpedicion Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [PuntoDeExpedicionUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), PuntoDeExpedicionUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -51,10 +50,10 @@ describe('PuntoDeExpedicion Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Sucursales query and add missing value', () => {
       const puntoDeExpedicion: IPuntoDeExpedicion = { id: 456 };
-      const sucursales: ISucursales = { id: 64385 };
+      const sucursales: ISucursales = { id: 9761 };
       puntoDeExpedicion.sucursales = sucursales;
 
-      const sucursalesCollection: ISucursales[] = [{ id: 97694 }];
+      const sucursalesCollection: ISucursales[] = [{ id: 22529 }];
       jest.spyOn(sucursalesService, 'query').mockReturnValue(of(new HttpResponse({ body: sucursalesCollection })));
       const additionalSucursales = [sucursales];
       const expectedCollection: ISucursales[] = [...additionalSucursales, ...sucursalesCollection];
@@ -66,14 +65,14 @@ describe('PuntoDeExpedicion Management Update Component', () => {
       expect(sucursalesService.query).toHaveBeenCalled();
       expect(sucursalesService.addSucursalesToCollectionIfMissing).toHaveBeenCalledWith(
         sucursalesCollection,
-        ...additionalSucursales.map(expect.objectContaining)
+        ...additionalSucursales.map(expect.objectContaining),
       );
       expect(comp.sucursalesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const puntoDeExpedicion: IPuntoDeExpedicion = { id: 456 };
-      const sucursales: ISucursales = { id: 48449 };
+      const sucursales: ISucursales = { id: 22186 };
       puntoDeExpedicion.sucursales = sucursales;
 
       activatedRoute.data = of({ puntoDeExpedicion });

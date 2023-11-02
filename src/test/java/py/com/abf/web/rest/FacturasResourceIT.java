@@ -5,12 +5,12 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.FacturaDetalle;
 import py.com.abf.domain.Facturas;
+import py.com.abf.domain.NotaCredito;
 import py.com.abf.domain.enumeration.CondicionVenta;
 import py.com.abf.repository.FacturasRepository;
-import py.com.abf.service.criteria.FacturasCriteria;
 
 /**
  * Integration tests for the {@link FacturasResource} REST controller.
@@ -1091,12 +1091,34 @@ class FacturasResourceIT {
         facturas.addFacturaDetalle(facturaDetalle);
         facturasRepository.saveAndFlush(facturas);
         Long facturaDetalleId = facturaDetalle.getId();
-
         // Get all the facturasList where facturaDetalle equals to facturaDetalleId
         defaultFacturasShouldBeFound("facturaDetalleId.equals=" + facturaDetalleId);
 
         // Get all the facturasList where facturaDetalle equals to (facturaDetalleId + 1)
         defaultFacturasShouldNotBeFound("facturaDetalleId.equals=" + (facturaDetalleId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByNotaCreditoIsEqualToSomething() throws Exception {
+        NotaCredito notaCredito;
+        if (TestUtil.findAll(em, NotaCredito.class).isEmpty()) {
+            facturasRepository.saveAndFlush(facturas);
+            notaCredito = NotaCreditoResourceIT.createEntity(em);
+        } else {
+            notaCredito = TestUtil.findAll(em, NotaCredito.class).get(0);
+        }
+        em.persist(notaCredito);
+        em.flush();
+        facturas.setNotaCredito(notaCredito);
+        notaCredito.setFacturas(facturas);
+        facturasRepository.saveAndFlush(facturas);
+        Long notaCreditoId = notaCredito.getId();
+        // Get all the facturasList where notaCredito equals to notaCreditoId
+        defaultFacturasShouldBeFound("notaCreditoId.equals=" + notaCreditoId);
+
+        // Get all the facturasList where notaCredito equals to (notaCreditoId + 1)
+        defaultFacturasShouldNotBeFound("notaCreditoId.equals=" + (notaCreditoId + 1));
     }
 
     /**
@@ -1161,7 +1183,7 @@ class FacturasResourceIT {
         int databaseSizeBeforeUpdate = facturasRepository.findAll().size();
 
         // Update the facturas
-        Facturas updatedFacturas = facturasRepository.findById(facturas.getId()).get();
+        Facturas updatedFacturas = facturasRepository.findById(facturas.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedFacturas are not directly saved in db
         em.detach(updatedFacturas);
         updatedFacturas
@@ -1267,14 +1289,12 @@ class FacturasResourceIT {
         partialUpdatedFacturas.setId(facturas.getId());
 
         partialUpdatedFacturas
+            .fecha(UPDATED_FECHA)
             .facturaNro(UPDATED_FACTURA_NRO)
             .timbrado(UPDATED_TIMBRADO)
-            .puntoExpedicion(UPDATED_PUNTO_EXPEDICION)
             .sucursal(UPDATED_SUCURSAL)
             .razonSocial(UPDATED_RAZON_SOCIAL)
-            .ruc(UPDATED_RUC)
-            .condicionVenta(UPDATED_CONDICION_VENTA)
-            .total(UPDATED_TOTAL);
+            .ruc(UPDATED_RUC);
 
         restFacturasMockMvc
             .perform(
@@ -1288,15 +1308,15 @@ class FacturasResourceIT {
         List<Facturas> facturasList = facturasRepository.findAll();
         assertThat(facturasList).hasSize(databaseSizeBeforeUpdate);
         Facturas testFacturas = facturasList.get(facturasList.size() - 1);
-        assertThat(testFacturas.getFecha()).isEqualTo(DEFAULT_FECHA);
+        assertThat(testFacturas.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testFacturas.getFacturaNro()).isEqualTo(UPDATED_FACTURA_NRO);
         assertThat(testFacturas.getTimbrado()).isEqualTo(UPDATED_TIMBRADO);
-        assertThat(testFacturas.getPuntoExpedicion()).isEqualTo(UPDATED_PUNTO_EXPEDICION);
+        assertThat(testFacturas.getPuntoExpedicion()).isEqualTo(DEFAULT_PUNTO_EXPEDICION);
         assertThat(testFacturas.getSucursal()).isEqualTo(UPDATED_SUCURSAL);
         assertThat(testFacturas.getRazonSocial()).isEqualTo(UPDATED_RAZON_SOCIAL);
         assertThat(testFacturas.getRuc()).isEqualTo(UPDATED_RUC);
-        assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
-        assertThat(testFacturas.getTotal()).isEqualTo(UPDATED_TOTAL);
+        assertThat(testFacturas.getCondicionVenta()).isEqualTo(DEFAULT_CONDICION_VENTA);
+        assertThat(testFacturas.getTotal()).isEqualTo(DEFAULT_TOTAL);
     }
 
     @Test

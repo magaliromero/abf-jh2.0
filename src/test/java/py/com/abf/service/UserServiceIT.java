@@ -15,14 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.data.auditing.DateTimeProvider;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
-import py.com.abf.config.Constants;
 import py.com.abf.domain.User;
 import py.com.abf.repository.UserRepository;
-import py.com.abf.service.dto.AdminUserDTO;
 import tech.jhipster.security.RandomUtil;
 
 /**

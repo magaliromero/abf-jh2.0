@@ -4,13 +4,18 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { TimbradosFormService, TimbradosFormGroup } from './timbrados-form.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITimbrados } from '../timbrados.model';
 import { TimbradosService } from '../service/timbrados.service';
+import { TimbradosFormService, TimbradosFormGroup } from './timbrados-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-timbrados-update',
   templateUrl: './timbrados-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class TimbradosUpdateComponent implements OnInit {
   isSaving = false;
@@ -21,7 +26,7 @@ export class TimbradosUpdateComponent implements OnInit {
   constructor(
     protected timbradosService: TimbradosService,
     protected timbradosFormService: TimbradosFormService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

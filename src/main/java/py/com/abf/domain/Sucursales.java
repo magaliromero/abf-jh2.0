@@ -1,11 +1,11 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -37,7 +37,7 @@ public class Sucursales implements Serializable {
     @Column(name = "numero_establecimiento", nullable = false)
     private Integer numeroEstablecimiento;
 
-    @OneToMany(mappedBy = "sucursales")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sucursales")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "sucursales" }, allowSetters = true)
     private Set<PuntoDeExpedicion> puntoDeExpedicions = new HashSet<>();
@@ -155,7 +155,7 @@ public class Sucursales implements Serializable {
         if (!(o instanceof Sucursales)) {
             return false;
         }
-        return id != null && id.equals(((Sucursales) o).id);
+        return getId() != null && getId().equals(((Sucursales) o).getId());
     }
 
     @Override

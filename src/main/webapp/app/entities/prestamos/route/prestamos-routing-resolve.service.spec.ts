@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IPrestamos } from '../prestamos.model';
 import { PrestamosService } from '../service/prestamos.service';
 
-import { PrestamosRoutingResolveService } from './prestamos-routing-resolve.service';
+import prestamosResolve from './prestamos-routing-resolve.service';
 
 describe('Prestamos routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: PrestamosRoutingResolveService;
   let service: PrestamosService;
   let resultPrestamos: IPrestamos | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Prestamos routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(PrestamosRoutingResolveService);
     service = TestBed.inject(PrestamosService);
     resultPrestamos = undefined;
   });
@@ -46,8 +44,12 @@ describe('Prestamos routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultPrestamos = result;
+      TestBed.runInInjectionContext(() => {
+        prestamosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultPrestamos = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Prestamos routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultPrestamos = result;
+      TestBed.runInInjectionContext(() => {
+        prestamosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultPrestamos = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Prestamos routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultPrestamos = result;
+      TestBed.runInInjectionContext(() => {
+        prestamosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultPrestamos = result;
+          },
+        });
       });
 
       // THEN

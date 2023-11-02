@@ -12,7 +12,7 @@ import py.com.abf.repository.InscripcionesRepository;
 import py.com.abf.service.InscripcionesService;
 
 /**
- * Service Implementation for managing {@link Inscripciones}.
+ * Service Implementation for managing {@link py.com.abf.domain.Inscripciones}.
  */
 @Service
 @Transactional

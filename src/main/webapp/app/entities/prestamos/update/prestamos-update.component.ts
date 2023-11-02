@@ -4,18 +4,23 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { PrestamosFormService, PrestamosFormGroup } from './prestamos-form.service';
-import { IPrestamos } from '../prestamos.model';
-import { PrestamosService } from '../service/prestamos.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IMateriales } from 'app/entities/materiales/materiales.model';
 import { MaterialesService } from 'app/entities/materiales/service/materiales.service';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
 import { EstadosPrestamos } from 'app/entities/enumerations/estados-prestamos.model';
+import { PrestamosService } from '../service/prestamos.service';
+import { IPrestamos } from '../prestamos.model';
+import { PrestamosFormService, PrestamosFormGroup } from './prestamos-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-prestamos-update',
   templateUrl: './prestamos-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class PrestamosUpdateComponent implements OnInit {
   isSaving = false;
@@ -32,7 +37,7 @@ export class PrestamosUpdateComponent implements OnInit {
     protected prestamosFormService: PrestamosFormService,
     protected materialesService: MaterialesService,
     protected alumnosService: AlumnosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareMateriales = (o1: IMateriales | null, o2: IMateriales | null): boolean => this.materialesService.compareMateriales(o1, o2);
@@ -89,11 +94,11 @@ export class PrestamosUpdateComponent implements OnInit {
 
     this.materialesSharedCollection = this.materialesService.addMaterialesToCollectionIfMissing<IMateriales>(
       this.materialesSharedCollection,
-      prestamos.materiales
+      prestamos.materiales,
     );
     this.alumnosSharedCollection = this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(
       this.alumnosSharedCollection,
-      prestamos.alumnos
+      prestamos.alumnos,
     );
   }
 
@@ -103,8 +108,8 @@ export class PrestamosUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IMateriales[]>) => res.body ?? []))
       .pipe(
         map((materiales: IMateriales[]) =>
-          this.materialesService.addMaterialesToCollectionIfMissing<IMateriales>(materiales, this.prestamos?.materiales)
-        )
+          this.materialesService.addMaterialesToCollectionIfMissing<IMateriales>(materiales, this.prestamos?.materiales),
+        ),
       )
       .subscribe((materiales: IMateriales[]) => (this.materialesSharedCollection = materiales));
 

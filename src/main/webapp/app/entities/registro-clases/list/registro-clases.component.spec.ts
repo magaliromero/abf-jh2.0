@@ -18,8 +18,11 @@ describe('RegistroClases Management Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: 'registro-clases', component: RegistroClasesComponent }]), HttpClientTestingModule],
-      declarations: [RegistroClasesComponent],
+      imports: [
+        RouterTestingModule.withRoutes([{ path: 'registro-clases', component: RegistroClasesComponent }]),
+        HttpClientTestingModule,
+        RegistroClasesComponent,
+      ],
       providers: [
         {
           provide: ActivatedRoute,
@@ -33,7 +36,7 @@ describe('RegistroClases Management Component', () => {
                 size: '1',
                 sort: 'id,desc',
                 'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
-              })
+              }),
             ),
             snapshot: { queryParams: {} },
           },
@@ -54,8 +57,8 @@ describe('RegistroClases Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -108,7 +111,7 @@ describe('RegistroClases Management Component', () => {
         queryParams: expect.objectContaining({
           sort: ['name,asc'],
         }),
-      })
+      }),
     );
   });
 

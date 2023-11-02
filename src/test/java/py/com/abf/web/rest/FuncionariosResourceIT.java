@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -37,7 +36,6 @@ import py.com.abf.domain.enumeration.EstadosPersona;
 import py.com.abf.domain.enumeration.TipoFuncionarios;
 import py.com.abf.repository.FuncionariosRepository;
 import py.com.abf.service.FuncionariosService;
-import py.com.abf.service.criteria.FuncionariosCriteria;
 
 /**
  * Integration tests for the {@link FuncionariosResource} REST controller.
@@ -1197,7 +1195,6 @@ class FuncionariosResourceIT {
         funcionarios.addEvaluaciones(evaluaciones);
         funcionariosRepository.saveAndFlush(funcionarios);
         Long evaluacionesId = evaluaciones.getId();
-
         // Get all the funcionariosList where evaluaciones equals to evaluacionesId
         defaultFuncionariosShouldBeFound("evaluacionesId.equals=" + evaluacionesId);
 
@@ -1220,7 +1217,6 @@ class FuncionariosResourceIT {
         funcionarios.addPagos(pagos);
         funcionariosRepository.saveAndFlush(funcionarios);
         Long pagosId = pagos.getId();
-
         // Get all the funcionariosList where pagos equals to pagosId
         defaultFuncionariosShouldBeFound("pagosId.equals=" + pagosId);
 
@@ -1243,7 +1239,6 @@ class FuncionariosResourceIT {
         funcionarios.addRegistroClases(registroClases);
         funcionariosRepository.saveAndFlush(funcionarios);
         Long registroClasesId = registroClases.getId();
-
         // Get all the funcionariosList where registroClases equals to registroClasesId
         defaultFuncionariosShouldBeFound("registroClasesId.equals=" + registroClasesId);
 
@@ -1266,7 +1261,6 @@ class FuncionariosResourceIT {
         funcionarios.setTipoDocumentos(tipoDocumentos);
         funcionariosRepository.saveAndFlush(funcionarios);
         Long tipoDocumentosId = tipoDocumentos.getId();
-
         // Get all the funcionariosList where tipoDocumentos equals to tipoDocumentosId
         defaultFuncionariosShouldBeFound("tipoDocumentosId.equals=" + tipoDocumentosId);
 
@@ -1338,7 +1332,7 @@ class FuncionariosResourceIT {
         int databaseSizeBeforeUpdate = funcionariosRepository.findAll().size();
 
         // Update the funcionarios
-        Funcionarios updatedFuncionarios = funcionariosRepository.findById(funcionarios.getId()).get();
+        Funcionarios updatedFuncionarios = funcionariosRepository.findById(funcionarios.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedFuncionarios are not directly saved in db
         em.detach(updatedFuncionarios);
         updatedFuncionarios
@@ -1448,12 +1442,11 @@ class FuncionariosResourceIT {
         partialUpdatedFuncionarios.setId(funcionarios.getId());
 
         partialUpdatedFuncionarios
+            .elo(UPDATED_ELO)
             .fideId(UPDATED_FIDE_ID)
             .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
-            .email(UPDATED_EMAIL)
-            .telefono(UPDATED_TELEFONO)
-            .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
+            .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
             .documento(UPDATED_DOCUMENTO)
             .estado(UPDATED_ESTADO);
 
@@ -1469,14 +1462,14 @@ class FuncionariosResourceIT {
         List<Funcionarios> funcionariosList = funcionariosRepository.findAll();
         assertThat(funcionariosList).hasSize(databaseSizeBeforeUpdate);
         Funcionarios testFuncionarios = funcionariosList.get(funcionariosList.size() - 1);
-        assertThat(testFuncionarios.getElo()).isEqualTo(DEFAULT_ELO);
+        assertThat(testFuncionarios.getElo()).isEqualTo(UPDATED_ELO);
         assertThat(testFuncionarios.getFideId()).isEqualTo(UPDATED_FIDE_ID);
         assertThat(testFuncionarios.getNombres()).isEqualTo(UPDATED_NOMBRES);
         assertThat(testFuncionarios.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
-        assertThat(testFuncionarios.getNombreCompleto()).isEqualTo(DEFAULT_NOMBRE_COMPLETO);
-        assertThat(testFuncionarios.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testFuncionarios.getTelefono()).isEqualTo(UPDATED_TELEFONO);
-        assertThat(testFuncionarios.getFechaNacimiento()).isEqualTo(UPDATED_FECHA_NACIMIENTO);
+        assertThat(testFuncionarios.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
+        assertThat(testFuncionarios.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testFuncionarios.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
+        assertThat(testFuncionarios.getFechaNacimiento()).isEqualTo(DEFAULT_FECHA_NACIMIENTO);
         assertThat(testFuncionarios.getDocumento()).isEqualTo(UPDATED_DOCUMENTO);
         assertThat(testFuncionarios.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testFuncionarios.getTipoFuncionario()).isEqualTo(DEFAULT_TIPO_FUNCIONARIO);

@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { TiposDocumentosFormService } from './tipos-documentos-form.service';
 import { TiposDocumentosService } from '../service/tipos-documentos.service';
 import { ITiposDocumentos } from '../tipos-documentos.model';
+import { TiposDocumentosFormService } from './tipos-documentos-form.service';
 
 import { TiposDocumentosUpdateComponent } from './tipos-documentos-update.component';
 
@@ -21,8 +21,7 @@ describe('TiposDocumentos Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [TiposDocumentosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), TiposDocumentosUpdateComponent],
       providers: [
         FormBuilder,
         {

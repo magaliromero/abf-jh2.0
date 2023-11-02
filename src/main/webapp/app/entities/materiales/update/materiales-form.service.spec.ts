@@ -23,7 +23,7 @@ describe('Materiales Form Service', () => {
             descripcion: expect.any(Object),
             cantidad: expect.any(Object),
             cantidadEnPrestamo: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -36,14 +36,13 @@ describe('Materiales Form Service', () => {
             descripcion: expect.any(Object),
             cantidad: expect.any(Object),
             cantidadEnPrestamo: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getMateriales', () => {
       it('should return NewMateriales for default Materiales initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createMaterialesFormGroup(sampleWithNewData);
 
         const materiales = service.getMateriales(formGroup) as any;

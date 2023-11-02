@@ -18,8 +18,7 @@ describe('RegistroClases Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [RegistroClasesDeleteDialogComponent],
+      imports: [HttpClientTestingModule, RegistroClasesDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(RegistroClasesDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('RegistroClases Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

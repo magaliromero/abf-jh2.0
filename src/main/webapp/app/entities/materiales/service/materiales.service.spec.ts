@@ -37,7 +37,6 @@ describe('Materiales Service', () => {
     });
 
     it('should create a Materiales', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const materiales = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

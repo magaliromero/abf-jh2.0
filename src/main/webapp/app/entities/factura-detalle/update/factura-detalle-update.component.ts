@@ -4,17 +4,22 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { FacturaDetalleFormService, FacturaDetalleFormGroup } from './factura-detalle-form.service';
-import { IFacturaDetalle } from '../factura-detalle.model';
-import { FacturaDetalleService } from '../service/factura-detalle.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IProductos } from 'app/entities/productos/productos.model';
 import { ProductosService } from 'app/entities/productos/service/productos.service';
 import { IFacturas } from 'app/entities/facturas/facturas.model';
 import { FacturasService } from 'app/entities/facturas/service/facturas.service';
+import { FacturaDetalleService } from '../service/factura-detalle.service';
+import { IFacturaDetalle } from '../factura-detalle.model';
+import { FacturaDetalleFormService, FacturaDetalleFormGroup } from './factura-detalle-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-factura-detalle-update',
   templateUrl: './factura-detalle-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class FacturaDetalleUpdateComponent implements OnInit {
   isSaving = false;
@@ -30,7 +35,7 @@ export class FacturaDetalleUpdateComponent implements OnInit {
     protected facturaDetalleFormService: FacturaDetalleFormService,
     protected productosService: ProductosService,
     protected facturasService: FacturasService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareProductos = (o1: IProductos | null, o2: IProductos | null): boolean => this.productosService.compareProductos(o1, o2);
@@ -87,11 +92,11 @@ export class FacturaDetalleUpdateComponent implements OnInit {
 
     this.productosSharedCollection = this.productosService.addProductosToCollectionIfMissing<IProductos>(
       this.productosSharedCollection,
-      facturaDetalle.producto
+      facturaDetalle.producto,
     );
     this.facturasSharedCollection = this.facturasService.addFacturasToCollectionIfMissing<IFacturas>(
       this.facturasSharedCollection,
-      facturaDetalle.factura
+      facturaDetalle.factura,
     );
   }
 
@@ -101,8 +106,8 @@ export class FacturaDetalleUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IProductos[]>) => res.body ?? []))
       .pipe(
         map((productos: IProductos[]) =>
-          this.productosService.addProductosToCollectionIfMissing<IProductos>(productos, this.facturaDetalle?.producto)
-        )
+          this.productosService.addProductosToCollectionIfMissing<IProductos>(productos, this.facturaDetalle?.producto),
+        ),
       )
       .subscribe((productos: IProductos[]) => (this.productosSharedCollection = productos));
 
@@ -111,8 +116,8 @@ export class FacturaDetalleUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IFacturas[]>) => res.body ?? []))
       .pipe(
         map((facturas: IFacturas[]) =>
-          this.facturasService.addFacturasToCollectionIfMissing<IFacturas>(facturas, this.facturaDetalle?.factura)
-        )
+          this.facturasService.addFacturasToCollectionIfMissing<IFacturas>(facturas, this.facturaDetalle?.factura),
+        ),
       )
       .subscribe((facturas: IFacturas[]) => (this.facturasSharedCollection = facturas));
   }

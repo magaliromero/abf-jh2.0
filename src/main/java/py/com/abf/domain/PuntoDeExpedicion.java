@@ -1,9 +1,9 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -84,7 +84,7 @@ public class PuntoDeExpedicion implements Serializable {
         if (!(o instanceof PuntoDeExpedicion)) {
             return false;
         }
-        return id != null && id.equals(((PuntoDeExpedicion) o).id);
+        return getId() != null && getId().equals(((PuntoDeExpedicion) o).getId());
     }
 
     @Override

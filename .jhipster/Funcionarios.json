@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133313",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "funcionarios",
   "fields": [
     {
@@ -60,38 +58,40 @@
       "fieldValues": "PROFESORES (Profesores),FUNCIONARIOS (Funcionarios),OTRO (Otro)"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Funcionarios",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "evaluaciones",
       "otherEntityRelationshipName": "funcionarios",
       "relationshipName": "evaluaciones",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "pagos",
       "otherEntityRelationshipName": "funcionario",
       "relationshipName": "pagos",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "registroClases",
       "otherEntityRelationshipName": "funcionario",
       "relationshipName": "registroClases",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityField": "descripcion",
       "otherEntityName": "tiposDocumentos",
-      "otherEntityRelationshipName": "funcionarios",
       "relationshipName": "tipoDocumentos",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

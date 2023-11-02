@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IEvaluaciones } from '../evaluaciones.model';
 import { EvaluacionesService } from '../service/evaluaciones.service';
 
-import { EvaluacionesRoutingResolveService } from './evaluaciones-routing-resolve.service';
+import evaluacionesResolve from './evaluaciones-routing-resolve.service';
 
 describe('Evaluaciones routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: EvaluacionesRoutingResolveService;
   let service: EvaluacionesService;
   let resultEvaluaciones: IEvaluaciones | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Evaluaciones routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(EvaluacionesRoutingResolveService);
     service = TestBed.inject(EvaluacionesService);
     resultEvaluaciones = undefined;
   });
@@ -46,8 +44,12 @@ describe('Evaluaciones routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultEvaluaciones = result;
+      TestBed.runInInjectionContext(() => {
+        evaluacionesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultEvaluaciones = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Evaluaciones routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultEvaluaciones = result;
+      TestBed.runInInjectionContext(() => {
+        evaluacionesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultEvaluaciones = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Evaluaciones routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultEvaluaciones = result;
+      TestBed.runInInjectionContext(() => {
+        evaluacionesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultEvaluaciones = result;
+          },
+        });
       });
 
       // THEN

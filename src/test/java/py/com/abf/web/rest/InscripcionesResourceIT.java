@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -33,7 +32,6 @@ import py.com.abf.domain.Cursos;
 import py.com.abf.domain.Inscripciones;
 import py.com.abf.repository.InscripcionesRepository;
 import py.com.abf.service.InscripcionesService;
-import py.com.abf.service.criteria.InscripcionesCriteria;
 
 /**
  * Integration tests for the {@link InscripcionesResource} REST controller.
@@ -343,7 +341,6 @@ class InscripcionesResourceIT {
         inscripciones.setAlumnos(alumnos);
         inscripcionesRepository.saveAndFlush(inscripciones);
         Long alumnosId = alumnos.getId();
-
         // Get all the inscripcionesList where alumnos equals to alumnosId
         defaultInscripcionesShouldBeFound("alumnosId.equals=" + alumnosId);
 
@@ -366,7 +363,6 @@ class InscripcionesResourceIT {
         inscripciones.setCursos(cursos);
         inscripcionesRepository.saveAndFlush(inscripciones);
         Long cursosId = cursos.getId();
-
         // Get all the inscripcionesList where cursos equals to cursosId
         defaultInscripcionesShouldBeFound("cursosId.equals=" + cursosId);
 
@@ -428,7 +424,7 @@ class InscripcionesResourceIT {
         int databaseSizeBeforeUpdate = inscripcionesRepository.findAll().size();
 
         // Update the inscripciones
-        Inscripciones updatedInscripciones = inscripcionesRepository.findById(inscripciones.getId()).get();
+        Inscripciones updatedInscripciones = inscripcionesRepository.findById(inscripciones.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedInscripciones are not directly saved in db
         em.detach(updatedInscripciones);
         updatedInscripciones.fechaInscripcion(UPDATED_FECHA_INSCRIPCION);

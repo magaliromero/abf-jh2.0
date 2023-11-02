@@ -1,10 +1,10 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import py.com.abf.domain.enumeration.EstadosPagos;
@@ -174,7 +174,7 @@ public class Matricula implements Serializable {
         if (!(o instanceof Matricula)) {
             return false;
         }
-        return id != null && id.equals(((Matricula) o).id);
+        return getId() != null && getId().equals(((Matricula) o).getId());
     }
 
     @Override

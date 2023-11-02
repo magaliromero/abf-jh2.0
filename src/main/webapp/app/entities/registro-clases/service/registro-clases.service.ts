@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
+
 import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
@@ -29,7 +31,10 @@ export type EntityArrayResponseType = HttpResponse<IRegistroClases[]>;
 export class RegistroClasesService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/registro-clases');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(registroClases: NewRegistroClases): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(registroClases);
@@ -84,7 +89,7 @@ export class RegistroClasesService {
     const registroClases: Type[] = registroClasesToCheck.filter(isPresent);
     if (registroClases.length > 0) {
       const registroClasesCollectionIdentifiers = registroClasesCollection.map(
-        registroClasesItem => this.getRegistroClasesIdentifier(registroClasesItem)!
+        registroClasesItem => this.getRegistroClasesIdentifier(registroClasesItem)!,
       );
       const registroClasesToAdd = registroClases.filter(registroClasesItem => {
         const registroClasesIdentifier = this.getRegistroClasesIdentifier(registroClasesItem);
@@ -100,7 +105,7 @@ export class RegistroClasesService {
   }
 
   protected convertDateFromClient<T extends IRegistroClases | NewRegistroClases | PartialUpdateRegistroClases>(
-    registroClases: T
+    registroClases: T,
   ): RestOf<T> {
     return {
       ...registroClases,

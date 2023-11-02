@@ -1,7 +1,7 @@
 package py.com.abf.service;
 
+import jakarta.persistence.criteria.JoinType;
 import java.util.List;
-import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -109,6 +109,15 @@ public class ProductosQueryService extends QueryService<Productos> {
                         buildSpecification(
                             criteria.getFacturaDetalleId(),
                             root -> root.join(Productos_.facturaDetalles, JoinType.LEFT).get(FacturaDetalle_.id)
+                        )
+                    );
+            }
+            if (criteria.getNotaCreditoDetalleId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getNotaCreditoDetalleId(),
+                            root -> root.join(Productos_.notaCreditoDetalles, JoinType.LEFT).get(NotaCreditoDetalle_.id)
                         )
                     );
             }

@@ -42,7 +42,7 @@ export class CursosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       nombreCurso: new FormControl(cursosRawValue.nombreCurso, {
         validators: [Validators.required],
@@ -72,7 +72,7 @@ export class CursosFormService {
       {
         ...cursosRawValue,
         id: { value: cursosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

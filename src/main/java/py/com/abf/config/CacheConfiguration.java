@@ -77,6 +77,7 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.Productos.class.getName());
             createCache(cm, py.com.abf.domain.Productos.class.getName() + ".pagos");
             createCache(cm, py.com.abf.domain.Productos.class.getName() + ".facturaDetalles");
+            createCache(cm, py.com.abf.domain.Productos.class.getName() + ".notaCreditoDetalles");
             createCache(cm, py.com.abf.domain.Materiales.class.getName());
             createCache(cm, py.com.abf.domain.Materiales.class.getName() + ".prestamos");
             createCache(cm, py.com.abf.domain.Prestamos.class.getName());
@@ -89,6 +90,9 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.Sucursales.class.getName());
             createCache(cm, py.com.abf.domain.Sucursales.class.getName() + ".puntoDeExpedicions");
             createCache(cm, py.com.abf.domain.PuntoDeExpedicion.class.getName());
+            createCache(cm, py.com.abf.domain.NotaCredito.class.getName());
+            createCache(cm, py.com.abf.domain.NotaCredito.class.getName() + ".notaCreditoDetalles");
+            createCache(cm, py.com.abf.domain.NotaCreditoDetalle.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Alumnos;
 
 /**
- * Service Interface for managing {@link Alumnos}.
+ * Service Interface for managing {@link py.com.abf.domain.Alumnos}.
  */
 public interface AlumnosService {
     /**

@@ -27,7 +27,7 @@ describe('FacturaDetalle Form Service', () => {
             valorPorcentaje: expect.any(Object),
             producto: expect.any(Object),
             factura: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -44,14 +44,13 @@ describe('FacturaDetalle Form Service', () => {
             valorPorcentaje: expect.any(Object),
             producto: expect.any(Object),
             factura: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getFacturaDetalle', () => {
       it('should return NewFacturaDetalle for default FacturaDetalle initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createFacturaDetalleFormGroup(sampleWithNewData);
 
         const facturaDetalle = service.getFacturaDetalle(formGroup) as any;

@@ -24,7 +24,7 @@ describe('EvaluacionesDetalle Form Service', () => {
             puntaje: expect.any(Object),
             evaluaciones: expect.any(Object),
             temas: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -38,14 +38,13 @@ describe('EvaluacionesDetalle Form Service', () => {
             puntaje: expect.any(Object),
             evaluaciones: expect.any(Object),
             temas: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getEvaluacionesDetalle', () => {
       it('should return NewEvaluacionesDetalle for default EvaluacionesDetalle initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createEvaluacionesDetalleFormGroup(sampleWithNewData);
 
         const evaluacionesDetalle = service.getEvaluacionesDetalle(formGroup) as any;

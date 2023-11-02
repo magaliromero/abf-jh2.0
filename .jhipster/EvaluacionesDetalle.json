@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601134313",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "evaluaciones_detalle",
   "fields": [
     {
@@ -16,28 +14,27 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "EvaluacionesDetalle",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "nroEvaluacion",
       "otherEntityName": "evaluaciones",
-      "otherEntityRelationshipName": "evaluacionesDetalle",
       "relationshipName": "evaluaciones",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "titulo",
       "otherEntityName": "temas",
-      "otherEntityRelationshipName": "evaluacionesDetalle",
       "relationshipName": "temas",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

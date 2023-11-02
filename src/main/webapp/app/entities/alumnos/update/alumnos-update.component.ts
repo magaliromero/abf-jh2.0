@@ -4,16 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { AlumnosFormService, AlumnosFormGroup } from './alumnos-form.service';
-import { IAlumnos } from '../alumnos.model';
-import { AlumnosService } from '../service/alumnos.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITiposDocumentos } from 'app/entities/tipos-documentos/tipos-documentos.model';
 import { TiposDocumentosService } from 'app/entities/tipos-documentos/service/tipos-documentos.service';
 import { EstadosPersona } from 'app/entities/enumerations/estados-persona.model';
+import { AlumnosService } from '../service/alumnos.service';
+import { IAlumnos } from '../alumnos.model';
+import { AlumnosFormService, AlumnosFormGroup } from './alumnos-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-alumnos-update',
   templateUrl: './alumnos-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class AlumnosUpdateComponent implements OnInit {
   isSaving = false;
@@ -28,7 +33,7 @@ export class AlumnosUpdateComponent implements OnInit {
     protected alumnosService: AlumnosService,
     protected alumnosFormService: AlumnosFormService,
     protected tiposDocumentosService: TiposDocumentosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareTiposDocumentos = (o1: ITiposDocumentos | null, o2: ITiposDocumentos | null): boolean =>
@@ -84,7 +89,7 @@ export class AlumnosUpdateComponent implements OnInit {
 
     this.tiposDocumentosSharedCollection = this.tiposDocumentosService.addTiposDocumentosToCollectionIfMissing<ITiposDocumentos>(
       this.tiposDocumentosSharedCollection,
-      alumnos.tipoDocumentos
+      alumnos.tipoDocumentos,
     );
   }
 
@@ -96,9 +101,9 @@ export class AlumnosUpdateComponent implements OnInit {
         map((tiposDocumentos: ITiposDocumentos[]) =>
           this.tiposDocumentosService.addTiposDocumentosToCollectionIfMissing<ITiposDocumentos>(
             tiposDocumentos,
-            this.alumnos?.tipoDocumentos
-          )
-        )
+            this.alumnos?.tipoDocumentos,
+          ),
+        ),
       )
       .subscribe((tiposDocumentos: ITiposDocumentos[]) => (this.tiposDocumentosSharedCollection = tiposDocumentos));
   }

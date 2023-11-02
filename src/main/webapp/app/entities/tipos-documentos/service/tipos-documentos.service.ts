@@ -16,7 +16,10 @@ export type EntityArrayResponseType = HttpResponse<ITiposDocumentos[]>;
 export class TiposDocumentosService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/tipos-documentos');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(tiposDocumentos: NewTiposDocumentos): Observable<EntityResponseType> {
     return this.http.post<ITiposDocumentos>(this.resourceUrl, tiposDocumentos, { observe: 'response' });
@@ -62,7 +65,7 @@ export class TiposDocumentosService {
     const tiposDocumentos: Type[] = tiposDocumentosToCheck.filter(isPresent);
     if (tiposDocumentos.length > 0) {
       const tiposDocumentosCollectionIdentifiers = tiposDocumentosCollection.map(
-        tiposDocumentosItem => this.getTiposDocumentosIdentifier(tiposDocumentosItem)!
+        tiposDocumentosItem => this.getTiposDocumentosIdentifier(tiposDocumentosItem)!,
       );
       const tiposDocumentosToAdd = tiposDocumentos.filter(tiposDocumentosItem => {
         const tiposDocumentosIdentifier = this.getTiposDocumentosIdentifier(tiposDocumentosItem);

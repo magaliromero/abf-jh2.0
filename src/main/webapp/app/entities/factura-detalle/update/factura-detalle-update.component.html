@@ -12,17 +12,17 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.facturaDetalle.cantidad" for="field_cantidad">Cantidad</label>
           <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.facturaDetalle.precioUnitario" for="field_precioUnitario">Precio Unitario</label>
           <input
             type="number"
@@ -34,12 +34,12 @@
           />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.facturaDetalle.subtotal" for="field_subtotal">Subtotal</label>
           <input type="number" class="form-control" name="subtotal" id="field_subtotal" data-cy="subtotal" formControlName="subtotal" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.facturaDetalle.porcentajeIva" for="field_porcentajeIva">Porcentaje Iva</label>
           <input
             type="number"
@@ -51,7 +51,7 @@
           />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.facturaDetalle.valorPorcentaje" for="field_valorPorcentaje"
             >Valor Porcentaje</label
           >
@@ -65,7 +65,7 @@
           />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.facturaDetalle.producto" for="field_producto">Producto</label>
           <select
             class="form-control"
@@ -86,12 +86,11 @@
             class="form-text text-danger"
             *ngIf="editForm.get(['producto'])?.errors?.required"
             jhiTranslate="entity.validation.required"
+            >This field is required.</small
           >
-            This field is required.
-          </small>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.facturaDetalle.factura" for="field_factura">Factura</label>
           <select
             class="form-control"
@@ -108,13 +107,9 @@
           </select>
         </div>
         <div *ngIf="editForm.get(['factura'])!.invalid && (editForm.get(['factura'])!.dirty || editForm.get(['factura'])!.touched)">
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get(['factura'])?.errors?.required"
-            jhiTranslate="entity.validation.required"
+          <small class="form-text text-danger" *ngIf="editForm.get(['factura'])?.errors?.required" jhiTranslate="entity.validation.required"
+            >This field is required.</small
           >
-            This field is required.
-          </small>
         </div>
       </div>
 

@@ -38,7 +38,7 @@ export class InscripcionesFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       fechaInscripcion: new FormControl(inscripcionesRawValue.fechaInscripcion),
       alumnos: new FormControl(inscripcionesRawValue.alumnos, {
@@ -60,7 +60,7 @@ export class InscripcionesFormService {
       {
         ...inscripcionesRawValue,
         id: { value: inscripcionesRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

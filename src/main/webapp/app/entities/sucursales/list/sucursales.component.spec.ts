@@ -18,8 +18,11 @@ describe('Sucursales Management Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: 'sucursales', component: SucursalesComponent }]), HttpClientTestingModule],
-      declarations: [SucursalesComponent],
+      imports: [
+        RouterTestingModule.withRoutes([{ path: 'sucursales', component: SucursalesComponent }]),
+        HttpClientTestingModule,
+        SucursalesComponent,
+      ],
       providers: [
         {
           provide: ActivatedRoute,
@@ -33,7 +36,7 @@ describe('Sucursales Management Component', () => {
                 size: '1',
                 sort: 'id,desc',
                 'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
-              })
+              }),
             ),
             snapshot: { queryParams: {} },
           },
@@ -54,8 +57,8 @@ describe('Sucursales Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -108,7 +111,7 @@ describe('Sucursales Management Component', () => {
         queryParams: expect.objectContaining({
           sort: ['name,asc'],
         }),
-      })
+      }),
     );
   });
 

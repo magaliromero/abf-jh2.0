@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -34,7 +33,6 @@ import py.com.abf.domain.EvaluacionesDetalle;
 import py.com.abf.domain.Funcionarios;
 import py.com.abf.repository.EvaluacionesRepository;
 import py.com.abf.service.EvaluacionesService;
-import py.com.abf.service.criteria.EvaluacionesCriteria;
 
 /**
  * Integration tests for the {@link EvaluacionesResource} REST controller.
@@ -476,7 +474,6 @@ class EvaluacionesResourceIT {
         evaluaciones.addEvaluacionesDetalle(evaluacionesDetalle);
         evaluacionesRepository.saveAndFlush(evaluaciones);
         Long evaluacionesDetalleId = evaluacionesDetalle.getId();
-
         // Get all the evaluacionesList where evaluacionesDetalle equals to evaluacionesDetalleId
         defaultEvaluacionesShouldBeFound("evaluacionesDetalleId.equals=" + evaluacionesDetalleId);
 
@@ -499,7 +496,6 @@ class EvaluacionesResourceIT {
         evaluaciones.setAlumnos(alumnos);
         evaluacionesRepository.saveAndFlush(evaluaciones);
         Long alumnosId = alumnos.getId();
-
         // Get all the evaluacionesList where alumnos equals to alumnosId
         defaultEvaluacionesShouldBeFound("alumnosId.equals=" + alumnosId);
 
@@ -522,7 +518,6 @@ class EvaluacionesResourceIT {
         evaluaciones.setFuncionarios(funcionarios);
         evaluacionesRepository.saveAndFlush(evaluaciones);
         Long funcionariosId = funcionarios.getId();
-
         // Get all the evaluacionesList where funcionarios equals to funcionariosId
         defaultEvaluacionesShouldBeFound("funcionariosId.equals=" + funcionariosId);
 
@@ -585,7 +580,7 @@ class EvaluacionesResourceIT {
         int databaseSizeBeforeUpdate = evaluacionesRepository.findAll().size();
 
         // Update the evaluaciones
-        Evaluaciones updatedEvaluaciones = evaluacionesRepository.findById(evaluaciones.getId()).get();
+        Evaluaciones updatedEvaluaciones = evaluacionesRepository.findById(evaluaciones.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedEvaluaciones are not directly saved in db
         em.detach(updatedEvaluaciones);
         updatedEvaluaciones.nroEvaluacion(UPDATED_NRO_EVALUACION).fecha(UPDATED_FECHA);
@@ -674,7 +669,7 @@ class EvaluacionesResourceIT {
         Evaluaciones partialUpdatedEvaluaciones = new Evaluaciones();
         partialUpdatedEvaluaciones.setId(evaluaciones.getId());
 
-        partialUpdatedEvaluaciones.nroEvaluacion(UPDATED_NRO_EVALUACION).fecha(UPDATED_FECHA);
+        partialUpdatedEvaluaciones.fecha(UPDATED_FECHA);
 
         restEvaluacionesMockMvc
             .perform(
@@ -688,7 +683,7 @@ class EvaluacionesResourceIT {
         List<Evaluaciones> evaluacionesList = evaluacionesRepository.findAll();
         assertThat(evaluacionesList).hasSize(databaseSizeBeforeUpdate);
         Evaluaciones testEvaluaciones = evaluacionesList.get(evaluacionesList.size() - 1);
-        assertThat(testEvaluaciones.getNroEvaluacion()).isEqualTo(UPDATED_NRO_EVALUACION);
+        assertThat(testEvaluaciones.getNroEvaluacion()).isEqualTo(DEFAULT_NRO_EVALUACION);
         assertThat(testEvaluaciones.getFecha()).isEqualTo(UPDATED_FECHA);
     }
 

@@ -1,11 +1,11 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -34,17 +34,17 @@ public class Temas implements Serializable {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @OneToMany(mappedBy = "temas")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "temas")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "evaluaciones", "temas" }, allowSetters = true)
     private Set<EvaluacionesDetalle> evaluacionesDetalles = new HashSet<>();
 
-    @OneToMany(mappedBy = "temas")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "temas")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
 
-    @OneToMany(mappedBy = "temas")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "temas")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "inscripciones", "temas" }, allowSetters = true)
     private Set<Cursos> cursos = new HashSet<>();
@@ -193,7 +193,7 @@ public class Temas implements Serializable {
         if (!(o instanceof Temas)) {
             return false;
         }
-        return id != null && id.equals(((Temas) o).id);
+        return getId() != null && getId().equals(((Temas) o).getId());
     }
 
     @Override

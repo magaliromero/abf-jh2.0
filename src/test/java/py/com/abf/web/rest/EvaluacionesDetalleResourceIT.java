@@ -6,11 +6,11 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -31,7 +30,6 @@ import py.com.abf.domain.EvaluacionesDetalle;
 import py.com.abf.domain.Temas;
 import py.com.abf.repository.EvaluacionesDetalleRepository;
 import py.com.abf.service.EvaluacionesDetalleService;
-import py.com.abf.service.criteria.EvaluacionesDetalleCriteria;
 
 /**
  * Integration tests for the {@link EvaluacionesDetalleResource} REST controller.
@@ -454,7 +452,6 @@ class EvaluacionesDetalleResourceIT {
         evaluacionesDetalle.setEvaluaciones(evaluaciones);
         evaluacionesDetalleRepository.saveAndFlush(evaluacionesDetalle);
         Long evaluacionesId = evaluaciones.getId();
-
         // Get all the evaluacionesDetalleList where evaluaciones equals to evaluacionesId
         defaultEvaluacionesDetalleShouldBeFound("evaluacionesId.equals=" + evaluacionesId);
 
@@ -477,7 +474,6 @@ class EvaluacionesDetalleResourceIT {
         evaluacionesDetalle.setTemas(temas);
         evaluacionesDetalleRepository.saveAndFlush(evaluacionesDetalle);
         Long temasId = temas.getId();
-
         // Get all the evaluacionesDetalleList where temas equals to temasId
         defaultEvaluacionesDetalleShouldBeFound("temasId.equals=" + temasId);
 
@@ -540,7 +536,7 @@ class EvaluacionesDetalleResourceIT {
         int databaseSizeBeforeUpdate = evaluacionesDetalleRepository.findAll().size();
 
         // Update the evaluacionesDetalle
-        EvaluacionesDetalle updatedEvaluacionesDetalle = evaluacionesDetalleRepository.findById(evaluacionesDetalle.getId()).get();
+        EvaluacionesDetalle updatedEvaluacionesDetalle = evaluacionesDetalleRepository.findById(evaluacionesDetalle.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedEvaluacionesDetalle are not directly saved in db
         em.detach(updatedEvaluacionesDetalle);
         updatedEvaluacionesDetalle.comentarios(UPDATED_COMENTARIOS).puntaje(UPDATED_PUNTAJE);

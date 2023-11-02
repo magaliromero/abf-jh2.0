@@ -8,12 +8,12 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.sucursales.nombreSucursal" for="field_nombreSucursal">Nombre Sucursal</label>
           <input
             type="text"
@@ -32,18 +32,17 @@
               class="form-text text-danger"
               *ngIf="editForm.get('nombreSucursal')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.sucursales.direccion" for="field_direccion">Direccion</label>
           <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.sucursales.numeroEstablecimiento" for="field_numeroEstablecimiento"
             >Numero Establecimiento</label
           >
@@ -65,20 +64,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('numeroEstablecimiento')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('numeroEstablecimiento')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.sucursales.timbrados" for="field_timbrados">Timbrados</label>
           <select
             class="form-control"
@@ -99,9 +96,8 @@
             class="form-text text-danger"
             *ngIf="editForm.get(['timbrados'])?.errors?.required"
             jhiTranslate="entity.validation.required"
+            >This field is required.</small
           >
-            This field is required.
-          </small>
         </div>
       </div>
 

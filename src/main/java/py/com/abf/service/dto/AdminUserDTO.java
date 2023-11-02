@@ -1,10 +1,10 @@
 package py.com.abf.service.dto;
 
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.validation.constraints.*;
 import py.com.abf.config.Constants;
 import py.com.abf.domain.Authority;
 import py.com.abf.domain.User;

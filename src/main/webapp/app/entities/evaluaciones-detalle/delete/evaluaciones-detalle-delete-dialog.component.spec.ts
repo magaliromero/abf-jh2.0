@@ -18,8 +18,7 @@ describe('EvaluacionesDetalle Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [EvaluacionesDetalleDeleteDialogComponent],
+      imports: [HttpClientTestingModule, EvaluacionesDetalleDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(EvaluacionesDetalleDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('EvaluacionesDetalle Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

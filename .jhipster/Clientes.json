@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133413",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "clientes",
   "fields": [
     {
@@ -46,11 +44,10 @@
       "fieldType": "String"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Clientes",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

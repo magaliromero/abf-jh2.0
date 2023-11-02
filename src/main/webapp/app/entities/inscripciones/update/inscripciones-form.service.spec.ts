@@ -23,7 +23,7 @@ describe('Inscripciones Form Service', () => {
             fechaInscripcion: expect.any(Object),
             alumnos: expect.any(Object),
             cursos: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -36,14 +36,13 @@ describe('Inscripciones Form Service', () => {
             fechaInscripcion: expect.any(Object),
             alumnos: expect.any(Object),
             cursos: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getInscripciones', () => {
       it('should return NewInscripciones for default Inscripciones initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createInscripcionesFormGroup(sampleWithNewData);
 
         const inscripciones = service.getInscripciones(formGroup) as any;

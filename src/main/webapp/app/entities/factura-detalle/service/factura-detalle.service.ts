@@ -16,7 +16,10 @@ export type EntityArrayResponseType = HttpResponse<IFacturaDetalle[]>;
 export class FacturaDetalleService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/factura-detalles');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(facturaDetalle: NewFacturaDetalle): Observable<EntityResponseType> {
     return this.http.post<IFacturaDetalle>(this.resourceUrl, facturaDetalle, { observe: 'response' });
@@ -62,7 +65,7 @@ export class FacturaDetalleService {
     const facturaDetalles: Type[] = facturaDetallesToCheck.filter(isPresent);
     if (facturaDetalles.length > 0) {
       const facturaDetalleCollectionIdentifiers = facturaDetalleCollection.map(
-        facturaDetalleItem => this.getFacturaDetalleIdentifier(facturaDetalleItem)!
+        facturaDetalleItem => this.getFacturaDetalleIdentifier(facturaDetalleItem)!,
       );
       const facturaDetallesToAdd = facturaDetalles.filter(facturaDetalleItem => {
         const facturaDetalleIdentifier = this.getFacturaDetalleIdentifier(facturaDetalleItem);

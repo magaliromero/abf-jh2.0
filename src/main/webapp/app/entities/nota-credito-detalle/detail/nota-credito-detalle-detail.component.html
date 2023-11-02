@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="notaCreditoDetalle">
+      <h2 data-cy="notaCreditoDetalleDetailsHeading">
+        <span jhiTranslate="abfApp.notaCreditoDetalle.detail.title">Nota Credito Detalle</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ notaCreditoDetalle.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.cantidad">Cantidad</span></dt>
+        <dd>
+          <span>{{ notaCreditoDetalle.cantidad }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.precioUnitario">Precio Unitario</span></dt>
+        <dd>
+          <span>{{ notaCreditoDetalle.precioUnitario }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.subtotal">Subtotal</span></dt>
+        <dd>
+          <span>{{ notaCreditoDetalle.subtotal }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.porcentajeIva">Porcentaje Iva</span></dt>
+        <dd>
+          <span>{{ notaCreditoDetalle.porcentajeIva }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.valorPorcentaje">Valor Porcentaje</span></dt>
+        <dd>
+          <span>{{ notaCreditoDetalle.valorPorcentaje }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.notaCredito">Nota Credito</span></dt>
+        <dd>
+          <div *ngIf="notaCreditoDetalle.notaCredito">
+            <a [routerLink]="['/nota-credito', notaCreditoDetalle.notaCredito.id, 'view']">{{ notaCreditoDetalle.notaCredito.notaNro }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.producto">Producto</span></dt>
+        <dd>
+          <div *ngIf="notaCreditoDetalle.producto">
+            <a [routerLink]="['/productos', notaCreditoDetalle.producto.id, 'view']">{{ notaCreditoDetalle.producto.descripcion }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/nota-credito-detalle', notaCreditoDetalle.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

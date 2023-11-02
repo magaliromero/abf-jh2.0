@@ -4,16 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { MatriculaFormService, MatriculaFormGroup } from './matricula-form.service';
-import { IMatricula } from '../matricula.model';
-import { MatriculaService } from '../service/matricula.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
 import { EstadosPagos } from 'app/entities/enumerations/estados-pagos.model';
+import { MatriculaService } from '../service/matricula.service';
+import { IMatricula } from '../matricula.model';
+import { MatriculaFormService, MatriculaFormGroup } from './matricula-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-matricula-update',
   templateUrl: './matricula-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class MatriculaUpdateComponent implements OnInit {
   isSaving = false;
@@ -28,7 +33,7 @@ export class MatriculaUpdateComponent implements OnInit {
     protected matriculaService: MatriculaService,
     protected matriculaFormService: MatriculaFormService,
     protected alumnosService: AlumnosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareAlumnos = (o1: IAlumnos | null, o2: IAlumnos | null): boolean => this.alumnosService.compareAlumnos(o1, o2);
@@ -83,7 +88,7 @@ export class MatriculaUpdateComponent implements OnInit {
 
     this.alumnosSharedCollection = this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(
       this.alumnosSharedCollection,
-      matricula.alumno
+      matricula.alumno,
     );
   }
 

@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IClientes } from '../clientes.model';
 import { ClientesService } from '../service/clientes.service';
 
-import { ClientesRoutingResolveService } from './clientes-routing-resolve.service';
+import clientesResolve from './clientes-routing-resolve.service';
 
 describe('Clientes routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: ClientesRoutingResolveService;
   let service: ClientesService;
   let resultClientes: IClientes | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Clientes routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(ClientesRoutingResolveService);
     service = TestBed.inject(ClientesService);
     resultClientes = undefined;
   });
@@ -46,8 +44,12 @@ describe('Clientes routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultClientes = result;
+      TestBed.runInInjectionContext(() => {
+        clientesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultClientes = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Clientes routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultClientes = result;
+      TestBed.runInInjectionContext(() => {
+        clientesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultClientes = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Clientes routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultClientes = result;
+      TestBed.runInInjectionContext(() => {
+        clientesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultClientes = result;
+          },
+        });
       });
 
       // THEN

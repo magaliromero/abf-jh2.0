@@ -39,7 +39,7 @@ export class SucursalesFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       nombreSucursal: new FormControl(sucursalesRawValue.nombreSucursal, {
         validators: [Validators.required],
@@ -64,7 +64,7 @@ export class SucursalesFormService {
       {
         ...sucursalesRawValue,
         id: { value: sucursalesRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

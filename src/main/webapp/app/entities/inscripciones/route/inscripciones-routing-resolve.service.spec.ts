@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IInscripciones } from '../inscripciones.model';
 import { InscripcionesService } from '../service/inscripciones.service';
 
-import { InscripcionesRoutingResolveService } from './inscripciones-routing-resolve.service';
+import inscripcionesResolve from './inscripciones-routing-resolve.service';
 
 describe('Inscripciones routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: InscripcionesRoutingResolveService;
   let service: InscripcionesService;
   let resultInscripciones: IInscripciones | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Inscripciones routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(InscripcionesRoutingResolveService);
     service = TestBed.inject(InscripcionesService);
     resultInscripciones = undefined;
   });
@@ -46,8 +44,12 @@ describe('Inscripciones routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultInscripciones = result;
+      TestBed.runInInjectionContext(() => {
+        inscripcionesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultInscripciones = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Inscripciones routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultInscripciones = result;
+      TestBed.runInInjectionContext(() => {
+        inscripcionesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultInscripciones = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Inscripciones routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultInscripciones = result;
+      TestBed.runInInjectionContext(() => {
+        inscripcionesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultInscripciones = result;
+          },
+        });
       });
 
       // THEN

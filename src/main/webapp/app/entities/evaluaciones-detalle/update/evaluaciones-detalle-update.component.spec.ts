@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { EvaluacionesDetalleFormService } from './evaluaciones-detalle-form.service';
-import { EvaluacionesDetalleService } from '../service/evaluaciones-detalle.service';
-import { IEvaluacionesDetalle } from '../evaluaciones-detalle.model';
 import { IEvaluaciones } from 'app/entities/evaluaciones/evaluaciones.model';
 import { EvaluacionesService } from 'app/entities/evaluaciones/service/evaluaciones.service';
 import { ITemas } from 'app/entities/temas/temas.model';
 import { TemasService } from 'app/entities/temas/service/temas.service';
+import { IEvaluacionesDetalle } from '../evaluaciones-detalle.model';
+import { EvaluacionesDetalleService } from '../service/evaluaciones-detalle.service';
+import { EvaluacionesDetalleFormService } from './evaluaciones-detalle-form.service';
 
 import { EvaluacionesDetalleUpdateComponent } from './evaluaciones-detalle-update.component';
 
@@ -27,8 +27,7 @@ describe('EvaluacionesDetalle Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [EvaluacionesDetalleUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), EvaluacionesDetalleUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -55,10 +54,10 @@ describe('EvaluacionesDetalle Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Evaluaciones query and add missing value', () => {
       const evaluacionesDetalle: IEvaluacionesDetalle = { id: 456 };
-      const evaluaciones: IEvaluaciones = { id: 18704 };
+      const evaluaciones: IEvaluaciones = { id: 20979 };
       evaluacionesDetalle.evaluaciones = evaluaciones;
 
-      const evaluacionesCollection: IEvaluaciones[] = [{ id: 45463 }];
+      const evaluacionesCollection: IEvaluaciones[] = [{ id: 16544 }];
       jest.spyOn(evaluacionesService, 'query').mockReturnValue(of(new HttpResponse({ body: evaluacionesCollection })));
       const additionalEvaluaciones = [evaluaciones];
       const expectedCollection: IEvaluaciones[] = [...additionalEvaluaciones, ...evaluacionesCollection];
@@ -70,17 +69,17 @@ describe('EvaluacionesDetalle Management Update Component', () => {
       expect(evaluacionesService.query).toHaveBeenCalled();
       expect(evaluacionesService.addEvaluacionesToCollectionIfMissing).toHaveBeenCalledWith(
         evaluacionesCollection,
-        ...additionalEvaluaciones.map(expect.objectContaining)
+        ...additionalEvaluaciones.map(expect.objectContaining),
       );
       expect(comp.evaluacionesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Temas query and add missing value', () => {
       const evaluacionesDetalle: IEvaluacionesDetalle = { id: 456 };
-      const temas: ITemas = { id: 20732 };
+      const temas: ITemas = { id: 1882 };
       evaluacionesDetalle.temas = temas;
 
-      const temasCollection: ITemas[] = [{ id: 9847 }];
+      const temasCollection: ITemas[] = [{ id: 28133 }];
       jest.spyOn(temasService, 'query').mockReturnValue(of(new HttpResponse({ body: temasCollection })));
       const additionalTemas = [temas];
       const expectedCollection: ITemas[] = [...additionalTemas, ...temasCollection];
@@ -92,16 +91,16 @@ describe('EvaluacionesDetalle Management Update Component', () => {
       expect(temasService.query).toHaveBeenCalled();
       expect(temasService.addTemasToCollectionIfMissing).toHaveBeenCalledWith(
         temasCollection,
-        ...additionalTemas.map(expect.objectContaining)
+        ...additionalTemas.map(expect.objectContaining),
       );
       expect(comp.temasSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const evaluacionesDetalle: IEvaluacionesDetalle = { id: 456 };
-      const evaluaciones: IEvaluaciones = { id: 11157 };
+      const evaluaciones: IEvaluaciones = { id: 31127 };
       evaluacionesDetalle.evaluaciones = evaluaciones;
-      const temas: ITemas = { id: 26776 };
+      const temas: ITemas = { id: 1248 };
       evaluacionesDetalle.temas = temas;
 
       activatedRoute.data = of({ evaluacionesDetalle });

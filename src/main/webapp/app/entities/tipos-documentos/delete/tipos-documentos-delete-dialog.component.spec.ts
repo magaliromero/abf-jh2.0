@@ -18,8 +18,7 @@ describe('TiposDocumentos Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [TiposDocumentosDeleteDialogComponent],
+      imports: [HttpClientTestingModule, TiposDocumentosDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(TiposDocumentosDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('TiposDocumentos Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

@@ -3,16 +3,16 @@ import dayjs from 'dayjs/esm';
 import { IInscripciones, NewInscripciones } from './inscripciones.model';
 
 export const sampleWithRequiredData: IInscripciones = {
-  id: 63115,
+  id: 9958,
 };
 
 export const sampleWithPartialData: IInscripciones = {
-  id: 64205,
+  id: 28610,
 };
 
 export const sampleWithFullData: IInscripciones = {
-  id: 111,
-  fechaInscripcion: dayjs('2023-06-01'),
+  id: 6502,
+  fechaInscripcion: dayjs('2023-05-31'),
 };
 
 export const sampleWithNewData: NewInscripciones = {

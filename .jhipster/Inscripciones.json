@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133013",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "inscripcion",
   "fields": [
     {
@@ -10,28 +8,27 @@
       "fieldType": "LocalDate"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Inscripciones",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "alumnos",
-      "otherEntityRelationshipName": "inscripciones",
       "relationshipName": "alumnos",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "nombreCurso",
       "otherEntityName": "cursos",
-      "otherEntityRelationshipName": "inscripciones",
       "relationshipName": "cursos",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

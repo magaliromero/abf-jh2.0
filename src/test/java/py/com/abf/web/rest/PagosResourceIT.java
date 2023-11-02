@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -33,7 +32,6 @@ import py.com.abf.domain.Pagos;
 import py.com.abf.domain.Productos;
 import py.com.abf.repository.PagosRepository;
 import py.com.abf.service.PagosService;
-import py.com.abf.service.criteria.PagosCriteria;
 
 /**
  * Integration tests for the {@link PagosResource} REST controller.
@@ -570,7 +568,6 @@ class PagosResourceIT {
         pagos.setProducto(producto);
         pagosRepository.saveAndFlush(pagos);
         Long productoId = producto.getId();
-
         // Get all the pagosList where producto equals to productoId
         defaultPagosShouldBeFound("productoId.equals=" + productoId);
 
@@ -593,7 +590,6 @@ class PagosResourceIT {
         pagos.setFuncionario(funcionario);
         pagosRepository.saveAndFlush(pagos);
         Long funcionarioId = funcionario.getId();
-
         // Get all the pagosList where funcionario equals to funcionarioId
         defaultPagosShouldBeFound("funcionarioId.equals=" + funcionarioId);
 
@@ -657,7 +653,7 @@ class PagosResourceIT {
         int databaseSizeBeforeUpdate = pagosRepository.findAll().size();
 
         // Update the pagos
-        Pagos updatedPagos = pagosRepository.findById(pagos.getId()).get();
+        Pagos updatedPagos = pagosRepository.findById(pagos.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedPagos are not directly saved in db
         em.detach(updatedPagos);
         updatedPagos.fecha(UPDATED_FECHA).total(UPDATED_TOTAL).cantidadHoras(UPDATED_CANTIDAD_HORAS);
@@ -747,7 +743,7 @@ class PagosResourceIT {
         Pagos partialUpdatedPagos = new Pagos();
         partialUpdatedPagos.setId(pagos.getId());
 
-        partialUpdatedPagos.total(UPDATED_TOTAL).cantidadHoras(UPDATED_CANTIDAD_HORAS);
+        partialUpdatedPagos.fecha(UPDATED_FECHA);
 
         restPagosMockMvc
             .perform(
@@ -761,9 +757,9 @@ class PagosResourceIT {
         List<Pagos> pagosList = pagosRepository.findAll();
         assertThat(pagosList).hasSize(databaseSizeBeforeUpdate);
         Pagos testPagos = pagosList.get(pagosList.size() - 1);
-        assertThat(testPagos.getFecha()).isEqualTo(DEFAULT_FECHA);
-        assertThat(testPagos.getTotal()).isEqualTo(UPDATED_TOTAL);
-        assertThat(testPagos.getCantidadHoras()).isEqualTo(UPDATED_CANTIDAD_HORAS);
+        assertThat(testPagos.getFecha()).isEqualTo(UPDATED_FECHA);
+        assertThat(testPagos.getTotal()).isEqualTo(DEFAULT_TOTAL);
+        assertThat(testPagos.getCantidadHoras()).isEqualTo(DEFAULT_CANTIDAD_HORAS);
     }
 
     @Test

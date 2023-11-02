@@ -22,7 +22,7 @@ describe('TiposDocumentos Form Service', () => {
             id: expect.any(Object),
             codigo: expect.any(Object),
             descripcion: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -34,14 +34,13 @@ describe('TiposDocumentos Form Service', () => {
             id: expect.any(Object),
             codigo: expect.any(Object),
             descripcion: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getTiposDocumentos', () => {
       it('should return NewTiposDocumentos for default TiposDocumentos initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createTiposDocumentosFormGroup(sampleWithNewData);
 
         const tiposDocumentos = service.getTiposDocumentos(formGroup) as any;

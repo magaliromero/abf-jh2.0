@@ -12,7 +12,7 @@ import py.com.abf.repository.CursosRepository;
 import py.com.abf.service.CursosService;
 
 /**
- * Service Implementation for managing {@link Cursos}.
+ * Service Implementation for managing {@link py.com.abf.domain.Cursos}.
  */
 @Service
 @Transactional

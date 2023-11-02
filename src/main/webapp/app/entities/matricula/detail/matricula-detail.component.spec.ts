@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { MatriculaDetailComponent } from './matricula-detail.component';
 
 describe('Matricula Management Detail Component', () => {
-  let comp: MatriculaDetailComponent;
-  let fixture: ComponentFixture<MatriculaDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [MatriculaDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [MatriculaDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ matricula: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: MatriculaDetailComponent,
+              resolve: { matricula: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(MatriculaDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(MatriculaDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load matricula on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load matricula on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', MatriculaDetailComponent);
 
       // THEN
-      expect(comp.matricula).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.matricula).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

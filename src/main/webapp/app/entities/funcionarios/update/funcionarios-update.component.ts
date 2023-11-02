@@ -4,17 +4,22 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { FuncionariosFormService, FuncionariosFormGroup } from './funcionarios-form.service';
-import { IFuncionarios } from '../funcionarios.model';
-import { FuncionariosService } from '../service/funcionarios.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITiposDocumentos } from 'app/entities/tipos-documentos/tipos-documentos.model';
 import { TiposDocumentosService } from 'app/entities/tipos-documentos/service/tipos-documentos.service';
 import { EstadosPersona } from 'app/entities/enumerations/estados-persona.model';
 import { TipoFuncionarios } from 'app/entities/enumerations/tipo-funcionarios.model';
+import { FuncionariosService } from '../service/funcionarios.service';
+import { IFuncionarios } from '../funcionarios.model';
+import { FuncionariosFormService, FuncionariosFormGroup } from './funcionarios-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-funcionarios-update',
   templateUrl: './funcionarios-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class FuncionariosUpdateComponent implements OnInit {
   isSaving = false;
@@ -30,7 +35,7 @@ export class FuncionariosUpdateComponent implements OnInit {
     protected funcionariosService: FuncionariosService,
     protected funcionariosFormService: FuncionariosFormService,
     protected tiposDocumentosService: TiposDocumentosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareTiposDocumentos = (o1: ITiposDocumentos | null, o2: ITiposDocumentos | null): boolean =>
@@ -86,7 +91,7 @@ export class FuncionariosUpdateComponent implements OnInit {
 
     this.tiposDocumentosSharedCollection = this.tiposDocumentosService.addTiposDocumentosToCollectionIfMissing<ITiposDocumentos>(
       this.tiposDocumentosSharedCollection,
-      funcionarios.tipoDocumentos
+      funcionarios.tipoDocumentos,
     );
   }
 
@@ -98,9 +103,9 @@ export class FuncionariosUpdateComponent implements OnInit {
         map((tiposDocumentos: ITiposDocumentos[]) =>
           this.tiposDocumentosService.addTiposDocumentosToCollectionIfMissing<ITiposDocumentos>(
             tiposDocumentos,
-            this.funcionarios?.tipoDocumentos
-          )
-        )
+            this.funcionarios?.tipoDocumentos,
+          ),
+        ),
       )
       .subscribe((tiposDocumentos: ITiposDocumentos[]) => (this.tiposDocumentosSharedCollection = tiposDocumentos));
   }

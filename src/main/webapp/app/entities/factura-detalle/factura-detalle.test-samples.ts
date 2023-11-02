@@ -1,22 +1,22 @@
 import { IFacturaDetalle, NewFacturaDetalle } from './factura-detalle.model';
 
 export const sampleWithRequiredData: IFacturaDetalle = {
-  id: 75937,
+  id: 11660,
 };
 
 export const sampleWithPartialData: IFacturaDetalle = {
-  id: 28221,
-  subtotal: 44237,
-  porcentajeIva: 29590,
+  id: 13638,
+  precioUnitario: 19286,
+  subtotal: 16481,
 };
 
 export const sampleWithFullData: IFacturaDetalle = {
-  id: 28908,
-  cantidad: 95357,
-  precioUnitario: 18337,
-  subtotal: 2938,
-  porcentajeIva: 93147,
-  valorPorcentaje: 97646,
+  id: 25928,
+  cantidad: 3939,
+  precioUnitario: 20413,
+  subtotal: 32182,
+  porcentajeIva: 26284,
+  valorPorcentaje: 27430,
 };
 
 export const sampleWithNewData: NewFacturaDetalle = {

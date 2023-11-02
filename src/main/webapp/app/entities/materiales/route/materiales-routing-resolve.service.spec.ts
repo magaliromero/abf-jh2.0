@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IMateriales } from '../materiales.model';
 import { MaterialesService } from '../service/materiales.service';
 
-import { MaterialesRoutingResolveService } from './materiales-routing-resolve.service';
+import materialesResolve from './materiales-routing-resolve.service';
 
 describe('Materiales routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: MaterialesRoutingResolveService;
   let service: MaterialesService;
   let resultMateriales: IMateriales | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Materiales routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(MaterialesRoutingResolveService);
     service = TestBed.inject(MaterialesService);
     resultMateriales = undefined;
   });
@@ -46,8 +44,12 @@ describe('Materiales routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultMateriales = result;
+      TestBed.runInInjectionContext(() => {
+        materialesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultMateriales = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Materiales routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultMateriales = result;
+      TestBed.runInInjectionContext(() => {
+        materialesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultMateriales = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Materiales routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultMateriales = result;
+      TestBed.runInInjectionContext(() => {
+        materialesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultMateriales = result;
+          },
+        });
       });
 
       // THEN

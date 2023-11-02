@@ -26,7 +26,7 @@ describe('RegistroClases Form Service', () => {
             temas: expect.any(Object),
             funcionario: expect.any(Object),
             alumnos: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -42,14 +42,13 @@ describe('RegistroClases Form Service', () => {
             temas: expect.any(Object),
             funcionario: expect.any(Object),
             alumnos: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getRegistroClases', () => {
       it('should return NewRegistroClases for default RegistroClases initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createRegistroClasesFormGroup(sampleWithNewData);
 
         const registroClases = service.getRegistroClases(formGroup) as any;

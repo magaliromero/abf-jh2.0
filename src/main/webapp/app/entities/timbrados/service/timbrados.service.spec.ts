@@ -40,7 +40,6 @@ describe('Timbrados Service', () => {
     });
 
     it('should create a Timbrados', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const timbrados = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

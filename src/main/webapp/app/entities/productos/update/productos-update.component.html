@@ -8,12 +8,12 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.productos.tipoProducto" for="field_tipoProducto">Tipo Producto</label>
           <select class="form-control" name="tipoProducto" formControlName="tipoProducto" id="field_tipoProducto" data-cy="tipoProducto">
             <option [ngValue]="null">{{ 'abfApp.TipoProductos.null' | translate }}</option>
@@ -28,13 +28,12 @@
               class="form-text text-danger"
               *ngIf="editForm.get('tipoProducto')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.productos.precioUnitario" for="field_precioUnitario">Precio Unitario</label>
           <input
             type="number"
@@ -53,20 +52,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('precioUnitario')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('precioUnitario')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.productos.porcentajeIva" for="field_porcentajeIva">Porcentaje Iva</label>
           <input
             type="number"
@@ -85,20 +82,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('porcentajeIva')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('porcentajeIva')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.productos.descripcion" for="field_descripcion">Descripcion</label>
           <input
             type="text"
@@ -113,9 +108,8 @@
               class="form-text text-danger"
               *ngIf="editForm.get('descripcion')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@ export class ClientesFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       ruc: new FormControl(clientesRawValue.ruc),
       nombres: new FormControl(clientesRawValue.nombres, {
@@ -76,7 +76,7 @@ export class ClientesFormService {
       {
         ...clientesRawValue,
         id: { value: clientesRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

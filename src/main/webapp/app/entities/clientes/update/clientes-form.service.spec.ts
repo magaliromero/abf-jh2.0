@@ -29,7 +29,7 @@ describe('Clientes Form Service', () => {
             telefono: expect.any(Object),
             fechaNacimiento: expect.any(Object),
             direccion: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -48,14 +48,13 @@ describe('Clientes Form Service', () => {
             telefono: expect.any(Object),
             fechaNacimiento: expect.any(Object),
             direccion: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getClientes', () => {
       it('should return NewClientes for default Clientes initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createClientesFormGroup(sampleWithNewData);
 
         const clientes = service.getClientes(formGroup) as any;

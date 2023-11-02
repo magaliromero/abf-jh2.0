@@ -5,10 +5,10 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Materiales;
 import py.com.abf.domain.Prestamos;
 import py.com.abf.repository.MaterialesRepository;
-import py.com.abf.service.criteria.MaterialesCriteria;
 
 /**
  * Integration tests for the {@link MaterialesResource} REST controller.
@@ -459,7 +458,6 @@ class MaterialesResourceIT {
         materiales.addPrestamos(prestamos);
         materialesRepository.saveAndFlush(materiales);
         Long prestamosId = prestamos.getId();
-
         // Get all the materialesList where prestamos equals to prestamosId
         defaultMaterialesShouldBeFound("prestamosId.equals=" + prestamosId);
 
@@ -523,7 +521,7 @@ class MaterialesResourceIT {
         int databaseSizeBeforeUpdate = materialesRepository.findAll().size();
 
         // Update the materiales
-        Materiales updatedMateriales = materialesRepository.findById(materiales.getId()).get();
+        Materiales updatedMateriales = materialesRepository.findById(materiales.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedMateriales are not directly saved in db
         em.detach(updatedMateriales);
         updatedMateriales.descripcion(UPDATED_DESCRIPCION).cantidad(UPDATED_CANTIDAD).cantidadEnPrestamo(UPDATED_CANTIDAD_EN_PRESTAMO);
@@ -613,7 +611,7 @@ class MaterialesResourceIT {
         Materiales partialUpdatedMateriales = new Materiales();
         partialUpdatedMateriales.setId(materiales.getId());
 
-        partialUpdatedMateriales.descripcion(UPDATED_DESCRIPCION).cantidadEnPrestamo(UPDATED_CANTIDAD_EN_PRESTAMO);
+        partialUpdatedMateriales.descripcion(UPDATED_DESCRIPCION).cantidad(UPDATED_CANTIDAD);
 
         restMaterialesMockMvc
             .perform(
@@ -628,8 +626,8 @@ class MaterialesResourceIT {
         assertThat(materialesList).hasSize(databaseSizeBeforeUpdate);
         Materiales testMateriales = materialesList.get(materialesList.size() - 1);
         assertThat(testMateriales.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
-        assertThat(testMateriales.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
-        assertThat(testMateriales.getCantidadEnPrestamo()).isEqualTo(UPDATED_CANTIDAD_EN_PRESTAMO);
+        assertThat(testMateriales.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testMateriales.getCantidadEnPrestamo()).isEqualTo(DEFAULT_CANTIDAD_EN_PRESTAMO);
     }
 
     @Test

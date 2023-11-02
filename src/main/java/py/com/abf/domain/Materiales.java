@@ -1,11 +1,11 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -36,7 +36,7 @@ public class Materiales implements Serializable {
     @Column(name = "cantidad_en_prestamo")
     private Integer cantidadEnPrestamo;
 
-    @OneToMany(mappedBy = "materiales")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "materiales")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "materiales", "alumnos" }, allowSetters = true)
     private Set<Prestamos> prestamos = new HashSet<>();
@@ -136,7 +136,7 @@ public class Materiales implements Serializable {
         if (!(o instanceof Materiales)) {
             return false;
         }
-        return id != null && id.equals(((Materiales) o).id);
+        return getId() != null && getId().equals(((Materiales) o).getId());
     }
 
     @Override

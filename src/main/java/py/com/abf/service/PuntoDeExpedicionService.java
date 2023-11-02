@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.PuntoDeExpedicion;
 
 /**
- * Service Interface for managing {@link PuntoDeExpedicion}.
+ * Service Interface for managing {@link py.com.abf.domain.PuntoDeExpedicion}.
  */
 public interface PuntoDeExpedicionService {
     /**

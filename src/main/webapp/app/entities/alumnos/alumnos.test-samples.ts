@@ -1,54 +1,53 @@
 import dayjs from 'dayjs/esm';
 
-import { EstadosPersona } from 'app/entities/enumerations/estados-persona.model';
-
 import { IAlumnos, NewAlumnos } from './alumnos.model';
 
 export const sampleWithRequiredData: IAlumnos = {
-  id: 67399,
-  nombres: 'Licensed',
-  apellidos: 'Cambridgeshire',
-  nombreCompleto: 'Future-proofed Direct International',
-  telefono: 'Ohio Electronics mobile',
-  fechaNacimiento: dayjs('2023-06-01'),
-  documento: 'help-desk magnetic migration',
-  estado: EstadosPersona['ACTIVO'],
+  id: 5673,
+  nombres: 'freeload multicast greatly',
+  apellidos: 'um',
+  nombreCompleto: 'dine',
+  telefono: 'even',
+  fechaNacimiento: dayjs('2023-05-31'),
+  documento: 'deaden interface',
+  estado: 'ACTIVO',
 };
 
 export const sampleWithPartialData: IAlumnos = {
-  id: 33002,
-  elo: 30108,
-  nombres: 'eyeballs',
-  apellidos: 'Shoes National',
-  nombreCompleto: 'AI transmitting',
-  telefono: 'orange Washington',
-  fechaNacimiento: dayjs('2023-06-01'),
-  documento: 'architecture Kenyan Mongolia',
-  estado: EstadosPersona['ACTIVO'],
+  id: 13758,
+  elo: 27499,
+  nombres: 'gee',
+  apellidos: 'inside stingy in',
+  nombreCompleto: 'gregarious gosh',
+  email: 'Moises5@hotmail.com',
+  telefono: 'well-groomed',
+  fechaNacimiento: dayjs('2023-05-31'),
+  documento: 'atop',
+  estado: 'ACTIVO',
 };
 
 export const sampleWithFullData: IAlumnos = {
-  id: 74829,
-  elo: 70893,
-  fideId: 4894,
-  nombres: 'Mouse Bike e-business',
-  apellidos: 'Hill Small',
-  nombreCompleto: 'channels HTTP Human',
-  email: 'Reta30@gmail.com',
-  telefono: 'payment ivory',
-  fechaNacimiento: dayjs('2023-06-01'),
-  documento: 'Wooden Architect e-commerce',
-  estado: EstadosPersona['ACTIVO'],
+  id: 23949,
+  elo: 8629,
+  fideId: 1144,
+  nombres: 'vice meh',
+  apellidos: 'gee',
+  nombreCompleto: 'grove',
+  email: 'Percival.VonRueden@yahoo.com',
+  telefono: 'firebomb suite',
+  fechaNacimiento: dayjs('2023-05-31'),
+  documento: 'searchingly psst aboard',
+  estado: 'INACTIVO',
 };
 
 export const sampleWithNewData: NewAlumnos = {
-  nombres: 'Granite auxiliary',
-  apellidos: 'generate Bedfordshire cyan',
-  nombreCompleto: 'Account',
-  telefono: 'cross-platform',
+  nombres: 'at or solemnly',
+  apellidos: 'whose',
+  nombreCompleto: 'shakily',
+  telefono: 'buoyant',
   fechaNacimiento: dayjs('2023-06-01'),
-  documento: 'Auto Market',
-  estado: EstadosPersona['ACTIVO'],
+  documento: 'aha frugal ephemeris',
+  estado: 'INACTIVO',
   id: null,
 };
 

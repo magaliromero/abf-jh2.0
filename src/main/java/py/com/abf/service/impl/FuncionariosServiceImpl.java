@@ -12,7 +12,7 @@ import py.com.abf.repository.FuncionariosRepository;
 import py.com.abf.service.FuncionariosService;
 
 /**
- * Service Implementation for managing {@link Funcionarios}.
+ * Service Implementation for managing {@link py.com.abf.domain.Funcionarios}.
  */
 @Service
 @Transactional

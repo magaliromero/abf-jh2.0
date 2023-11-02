@@ -12,6 +12,7 @@
                                  baseTableName="cursos"
                                  constraintName="fk_cursos__temas_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="temas"/>
+                                 referencedTableName="temas"
+                                 />
     </changeSet>
 </databaseChangeLog>

@@ -21,8 +21,8 @@ describe('TiposDocumentos Management Component', () => {
       imports: [
         RouterTestingModule.withRoutes([{ path: 'tipos-documentos', component: TiposDocumentosComponent }]),
         HttpClientTestingModule,
+        TiposDocumentosComponent,
       ],
-      declarations: [TiposDocumentosComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -36,7 +36,7 @@ describe('TiposDocumentos Management Component', () => {
                 size: '1',
                 sort: 'id,desc',
                 'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
-              })
+              }),
             ),
             snapshot: { queryParams: {} },
           },
@@ -57,8 +57,8 @@ describe('TiposDocumentos Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -111,7 +111,7 @@ describe('TiposDocumentos Management Component', () => {
         queryParams: expect.objectContaining({
           sort: ['name,asc'],
         }),
-      })
+      }),
     );
   });
 

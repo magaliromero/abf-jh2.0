@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity NotaCredito.
+    -->
+    <changeSet id="20231031020228-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="facturas_id"
+                                 baseTableName="nota_credito"
+                                 constraintName="fk_nota_credito__facturas_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="factura"
+                                 />
+    </changeSet>
+</databaseChangeLog>

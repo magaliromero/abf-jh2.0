@@ -27,12 +27,12 @@ public interface PuntoDeExpedicionRepository extends JpaRepository<PuntoDeExpedi
     }
 
     @Query(
-        value = "select distinct puntoDeExpedicion from PuntoDeExpedicion puntoDeExpedicion left join fetch puntoDeExpedicion.sucursales",
-        countQuery = "select count(distinct puntoDeExpedicion) from PuntoDeExpedicion puntoDeExpedicion"
+        value = "select puntoDeExpedicion from PuntoDeExpedicion puntoDeExpedicion left join fetch puntoDeExpedicion.sucursales",
+        countQuery = "select count(puntoDeExpedicion) from PuntoDeExpedicion puntoDeExpedicion"
     )
     Page<PuntoDeExpedicion> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct puntoDeExpedicion from PuntoDeExpedicion puntoDeExpedicion left join fetch puntoDeExpedicion.sucursales")
+    @Query("select puntoDeExpedicion from PuntoDeExpedicion puntoDeExpedicion left join fetch puntoDeExpedicion.sucursales")
     List<PuntoDeExpedicion> findAllWithToOneRelationships();
 
     @Query(

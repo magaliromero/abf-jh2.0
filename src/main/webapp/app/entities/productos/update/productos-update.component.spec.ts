@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { ProductosFormService } from './productos-form.service';
 import { ProductosService } from '../service/productos.service';
 import { IProductos } from '../productos.model';
+import { ProductosFormService } from './productos-form.service';
 
 import { ProductosUpdateComponent } from './productos-update.component';
 
@@ -21,8 +21,7 @@ describe('Productos Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [ProductosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), ProductosUpdateComponent],
       providers: [
         FormBuilder,
         {

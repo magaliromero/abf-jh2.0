@@ -12,6 +12,7 @@
                                  baseTableName="sucursales"
                                  constraintName="fk_sucursales__timbrados_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="timbrado"/>
+                                 referencedTableName="timbrado"
+                                 />
     </changeSet>
 </databaseChangeLog>

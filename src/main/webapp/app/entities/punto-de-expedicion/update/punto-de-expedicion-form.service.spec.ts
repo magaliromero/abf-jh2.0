@@ -22,7 +22,7 @@ describe('PuntoDeExpedicion Form Service', () => {
             id: expect.any(Object),
             numeroPuntoDeExpedicion: expect.any(Object),
             sucursales: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -34,14 +34,13 @@ describe('PuntoDeExpedicion Form Service', () => {
             id: expect.any(Object),
             numeroPuntoDeExpedicion: expect.any(Object),
             sucursales: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getPuntoDeExpedicion', () => {
       it('should return NewPuntoDeExpedicion for default PuntoDeExpedicion initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createPuntoDeExpedicionFormGroup(sampleWithNewData);
 
         const puntoDeExpedicion = service.getPuntoDeExpedicion(formGroup) as any;

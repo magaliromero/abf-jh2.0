@@ -26,9 +26,6 @@ spring:
     host: localhost
   main:
     allow-bean-definition-overriding: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   messages:
     basename: i18n/messages
   task:
@@ -67,7 +64,7 @@ jhipster:
       enabled: false
       host: localhost
       port: 5000
-      queue-size: 512
+      ring-buffer-size: 512
   security:
     authentication:
       jwt:
@@ -75,6 +72,7 @@ jhipster:
         base64-secret: OTFkZDA2M2E0NjlmMTY5YzU2OWIyZDhiYzNkOGViZmNiZGFmNGYyYjkwMGJjYjY2YjNiNmMyNjZjMjMxYTNhYjgzZDI0NzgzMTExNzI0N2ZmNmQ5M2EwYWRhM2M2ZDYyNzA5MGZhNmEwNGExNjk5ZDk4YTQ2ZWMzYTQ3OTE3Mjk=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 86400
 
 # ===================================================================
 # Application specific properties

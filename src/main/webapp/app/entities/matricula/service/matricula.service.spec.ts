@@ -41,7 +41,6 @@ describe('Matricula Service', () => {
     });
 
     it('should create a Matricula', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const matricula = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

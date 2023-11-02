@@ -27,12 +27,12 @@ public interface FuncionariosRepository extends JpaRepository<Funcionarios, Long
     }
 
     @Query(
-        value = "select distinct funcionarios from Funcionarios funcionarios left join fetch funcionarios.tipoDocumentos",
-        countQuery = "select count(distinct funcionarios) from Funcionarios funcionarios"
+        value = "select funcionarios from Funcionarios funcionarios left join fetch funcionarios.tipoDocumentos",
+        countQuery = "select count(funcionarios) from Funcionarios funcionarios"
     )
     Page<Funcionarios> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct funcionarios from Funcionarios funcionarios left join fetch funcionarios.tipoDocumentos")
+    @Query("select funcionarios from Funcionarios funcionarios left join fetch funcionarios.tipoDocumentos")
     List<Funcionarios> findAllWithToOneRelationships();
 
     @Query("select funcionarios from Funcionarios funcionarios left join fetch funcionarios.tipoDocumentos where funcionarios.id =:id")

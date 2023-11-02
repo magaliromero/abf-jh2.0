@@ -6,11 +6,11 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -30,7 +29,6 @@ import py.com.abf.domain.PuntoDeExpedicion;
 import py.com.abf.domain.Sucursales;
 import py.com.abf.repository.PuntoDeExpedicionRepository;
 import py.com.abf.service.PuntoDeExpedicionService;
-import py.com.abf.service.criteria.PuntoDeExpedicionCriteria;
 
 /**
  * Integration tests for the {@link PuntoDeExpedicionResource} REST controller.
@@ -345,7 +343,6 @@ class PuntoDeExpedicionResourceIT {
         puntoDeExpedicion.setSucursales(sucursales);
         puntoDeExpedicionRepository.saveAndFlush(puntoDeExpedicion);
         Long sucursalesId = sucursales.getId();
-
         // Get all the puntoDeExpedicionList where sucursales equals to sucursalesId
         defaultPuntoDeExpedicionShouldBeFound("sucursalesId.equals=" + sucursalesId);
 
@@ -407,7 +404,7 @@ class PuntoDeExpedicionResourceIT {
         int databaseSizeBeforeUpdate = puntoDeExpedicionRepository.findAll().size();
 
         // Update the puntoDeExpedicion
-        PuntoDeExpedicion updatedPuntoDeExpedicion = puntoDeExpedicionRepository.findById(puntoDeExpedicion.getId()).get();
+        PuntoDeExpedicion updatedPuntoDeExpedicion = puntoDeExpedicionRepository.findById(puntoDeExpedicion.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedPuntoDeExpedicion are not directly saved in db
         em.detach(updatedPuntoDeExpedicion);
         updatedPuntoDeExpedicion.numeroPuntoDeExpedicion(UPDATED_NUMERO_PUNTO_DE_EXPEDICION);
@@ -497,6 +494,8 @@ class PuntoDeExpedicionResourceIT {
         PuntoDeExpedicion partialUpdatedPuntoDeExpedicion = new PuntoDeExpedicion();
         partialUpdatedPuntoDeExpedicion.setId(puntoDeExpedicion.getId());
 
+        partialUpdatedPuntoDeExpedicion.numeroPuntoDeExpedicion(UPDATED_NUMERO_PUNTO_DE_EXPEDICION);
+
         restPuntoDeExpedicionMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedPuntoDeExpedicion.getId())
@@ -509,7 +508,7 @@ class PuntoDeExpedicionResourceIT {
         List<PuntoDeExpedicion> puntoDeExpedicionList = puntoDeExpedicionRepository.findAll();
         assertThat(puntoDeExpedicionList).hasSize(databaseSizeBeforeUpdate);
         PuntoDeExpedicion testPuntoDeExpedicion = puntoDeExpedicionList.get(puntoDeExpedicionList.size() - 1);
-        assertThat(testPuntoDeExpedicion.getNumeroPuntoDeExpedicion()).isEqualTo(DEFAULT_NUMERO_PUNTO_DE_EXPEDICION);
+        assertThat(testPuntoDeExpedicion.getNumeroPuntoDeExpedicion()).isEqualTo(UPDATED_NUMERO_PUNTO_DE_EXPEDICION);
     }
 
     @Test

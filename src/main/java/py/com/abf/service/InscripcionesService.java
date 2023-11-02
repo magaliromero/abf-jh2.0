@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Inscripciones;
 
 /**
- * Service Interface for managing {@link Inscripciones}.
+ * Service Interface for managing {@link py.com.abf.domain.Inscripciones}.
  */
 public interface InscripcionesService {
     /**

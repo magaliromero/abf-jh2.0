@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601132813",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "registro_clases",
   "fields": [
     {
@@ -20,36 +18,35 @@
       "fieldType": "Boolean"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "RegistroClases",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "descripcion",
       "otherEntityName": "temas",
-      "otherEntityRelationshipName": "registroClases",
       "relationshipName": "temas",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "funcionarios",
-      "otherEntityRelationshipName": "registroClases",
       "relationshipName": "funcionario",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "alumnos",
-      "otherEntityRelationshipName": "registroClases",
       "relationshipName": "alumnos",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

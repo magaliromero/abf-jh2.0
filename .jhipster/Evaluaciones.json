@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601134213",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "evaluaciones",
   "fields": [
     {
@@ -16,34 +14,34 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Evaluaciones",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "evaluacionesDetalle",
       "otherEntityRelationshipName": "evaluaciones",
       "relationshipName": "evaluacionesDetalle",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "alumnos",
-      "otherEntityRelationshipName": "evaluaciones",
       "relationshipName": "alumnos",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "funcionarios",
-      "otherEntityRelationshipName": "evaluaciones",
       "relationshipName": "funcionarios",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

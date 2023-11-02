@@ -8,12 +8,12 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.pagos.fecha" for="field_fecha">Fecha</label>
           <div class="input-group">
             <input
@@ -29,26 +29,26 @@
             <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
           </div>
           <div *ngIf="editForm.get('fecha')!.invalid && (editForm.get('fecha')!.dirty || editForm.get('fecha')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('fecha')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('fecha')?.errors?.required" jhiTranslate="entity.validation.required"
+              >This field is required.</small
+            >
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.pagos.total" for="field_total">Total</label>
           <input type="number" class="form-control" name="total" id="field_total" data-cy="total" formControlName="total" />
           <div *ngIf="editForm.get('total')!.invalid && (editForm.get('total')!.dirty || editForm.get('total')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('total')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
-            <small class="form-text text-danger" [hidden]="!editForm.get('total')?.errors?.number" jhiTranslate="entity.validation.number">
-              This field should be a number.
-            </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('total')?.errors?.required" jhiTranslate="entity.validation.required"
+              >This field is required.</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('total')?.errors?.number" jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
+            >
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.pagos.cantidadHoras" for="field_cantidadHoras">Cantidad Horas</label>
           <input
             type="number"
@@ -67,20 +67,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('cantidadHoras')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('cantidadHoras')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.pagos.producto" for="field_producto">Producto</label>
           <select
             class="form-control"
@@ -101,12 +99,11 @@
             class="form-text text-danger"
             *ngIf="editForm.get(['producto'])?.errors?.required"
             jhiTranslate="entity.validation.required"
+            >This field is required.</small
           >
-            This field is required.
-          </small>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.pagos.funcionario" for="field_funcionario">Funcionario</label>
           <select
             class="form-control"

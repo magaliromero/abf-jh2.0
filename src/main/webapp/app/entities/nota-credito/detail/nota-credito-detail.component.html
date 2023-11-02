@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="notaCredito">
+      <h2 data-cy="notaCreditoDetailsHeading"><span jhiTranslate="abfApp.notaCredito.detail.title">Nota Credito</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ notaCredito.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ notaCredito.fecha | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.notaNro">Nota Nro</span></dt>
+        <dd>
+          <span>{{ notaCredito.notaNro }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.puntoExpedicion">Punto Expedicion</span></dt>
+        <dd>
+          <span>{{ notaCredito.puntoExpedicion }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.sucursal">Sucursal</span></dt>
+        <dd>
+          <span>{{ notaCredito.sucursal }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.razonSocial">Razon Social</span></dt>
+        <dd>
+          <span>{{ notaCredito.razonSocial }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.ruc">Ruc</span></dt>
+        <dd>
+          <span>{{ notaCredito.ruc }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.direccion">Direccion</span></dt>
+        <dd>
+          <span>{{ notaCredito.direccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.motivoEmision">Motivo Emision</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'abfApp.Motivo.' + notaCredito.motivoEmision }}">{{ notaCredito.motivoEmision }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.total">Total</span></dt>
+        <dd>
+          <span>{{ notaCredito.total }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.notaCredito.facturas">Facturas</span></dt>
+        <dd>
+          <div *ngIf="notaCredito.facturas">
+            <a [routerLink]="['/facturas', notaCredito.facturas.id, 'view']">{{ notaCredito.facturas.facturaNro }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/nota-credito', notaCredito.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -32,7 +32,7 @@ describe('Funcionarios Form Service', () => {
             estado: expect.any(Object),
             tipoFuncionario: expect.any(Object),
             tipoDocumentos: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -54,14 +54,13 @@ describe('Funcionarios Form Service', () => {
             estado: expect.any(Object),
             tipoFuncionario: expect.any(Object),
             tipoDocumentos: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getFuncionarios', () => {
       it('should return NewFuncionarios for default Funcionarios initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createFuncionariosFormGroup(sampleWithNewData);
 
         const funcionarios = service.getFuncionarios(formGroup) as any;

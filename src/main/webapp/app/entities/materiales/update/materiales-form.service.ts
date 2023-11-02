@@ -38,7 +38,7 @@ export class MaterialesFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       descripcion: new FormControl(materialesRawValue.descripcion, {
         validators: [Validators.required],
@@ -58,7 +58,7 @@ export class MaterialesFormService {
       {
         ...materialesRawValue,
         id: { value: materialesRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

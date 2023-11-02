@@ -1,10 +1,10 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -39,10 +39,10 @@ public class Pagos implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles", "notaCreditoDetalles" }, allowSetters = true)
     private Productos producto;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "evaluaciones", "pagos", "registroClases", "tipoDocumentos" }, allowSetters = true)
     private Funcionarios funcionario;
 
@@ -136,7 +136,7 @@ public class Pagos implements Serializable {
         if (!(o instanceof Pagos)) {
             return false;
         }
-        return id != null && id.equals(((Pagos) o).id);
+        return getId() != null && getId().equals(((Pagos) o).getId());
     }
 
     @Override

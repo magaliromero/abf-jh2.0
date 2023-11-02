@@ -12,6 +12,7 @@
                                  baseTableName="alumnos"
                                  constraintName="fk_alumnos__tipo_documentos_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="tipos_documentos"/>
+                                 referencedTableName="tipos_documentos"
+                                 />
     </changeSet>
 </databaseChangeLog>

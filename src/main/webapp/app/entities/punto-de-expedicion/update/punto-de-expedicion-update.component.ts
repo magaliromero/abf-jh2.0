@@ -4,15 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { PuntoDeExpedicionFormService, PuntoDeExpedicionFormGroup } from './punto-de-expedicion-form.service';
-import { IPuntoDeExpedicion } from '../punto-de-expedicion.model';
-import { PuntoDeExpedicionService } from '../service/punto-de-expedicion.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ISucursales } from 'app/entities/sucursales/sucursales.model';
 import { SucursalesService } from 'app/entities/sucursales/service/sucursales.service';
+import { IPuntoDeExpedicion } from '../punto-de-expedicion.model';
+import { PuntoDeExpedicionService } from '../service/punto-de-expedicion.service';
+import { PuntoDeExpedicionFormService, PuntoDeExpedicionFormGroup } from './punto-de-expedicion-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-punto-de-expedicion-update',
   templateUrl: './punto-de-expedicion-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class PuntoDeExpedicionUpdateComponent implements OnInit {
   isSaving = false;
@@ -26,7 +31,7 @@ export class PuntoDeExpedicionUpdateComponent implements OnInit {
     protected puntoDeExpedicionService: PuntoDeExpedicionService,
     protected puntoDeExpedicionFormService: PuntoDeExpedicionFormService,
     protected sucursalesService: SucursalesService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareSucursales = (o1: ISucursales | null, o2: ISucursales | null): boolean => this.sucursalesService.compareSucursales(o1, o2);
@@ -81,7 +86,7 @@ export class PuntoDeExpedicionUpdateComponent implements OnInit {
 
     this.sucursalesSharedCollection = this.sucursalesService.addSucursalesToCollectionIfMissing<ISucursales>(
       this.sucursalesSharedCollection,
-      puntoDeExpedicion.sucursales
+      puntoDeExpedicion.sucursales,
     );
   }
 
@@ -91,8 +96,8 @@ export class PuntoDeExpedicionUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ISucursales[]>) => res.body ?? []))
       .pipe(
         map((sucursales: ISucursales[]) =>
-          this.sucursalesService.addSucursalesToCollectionIfMissing<ISucursales>(sucursales, this.puntoDeExpedicion?.sucursales)
-        )
+          this.sucursalesService.addSucursalesToCollectionIfMissing<ISucursales>(sucursales, this.puntoDeExpedicion?.sucursales),
+        ),
       )
       .subscribe((sucursales: ISucursales[]) => (this.sucursalesSharedCollection = sucursales));
   }

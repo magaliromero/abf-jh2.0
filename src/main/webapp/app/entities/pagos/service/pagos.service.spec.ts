@@ -39,7 +39,6 @@ describe('Pagos Service', () => {
     });
 
     it('should create a Pagos', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const pagos = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

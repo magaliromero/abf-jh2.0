@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { FuncionariosFormService } from './funcionarios-form.service';
-import { FuncionariosService } from '../service/funcionarios.service';
-import { IFuncionarios } from '../funcionarios.model';
 import { ITiposDocumentos } from 'app/entities/tipos-documentos/tipos-documentos.model';
 import { TiposDocumentosService } from 'app/entities/tipos-documentos/service/tipos-documentos.service';
+import { FuncionariosService } from '../service/funcionarios.service';
+import { IFuncionarios } from '../funcionarios.model';
+import { FuncionariosFormService } from './funcionarios-form.service';
 
 import { FuncionariosUpdateComponent } from './funcionarios-update.component';
 
@@ -24,8 +24,7 @@ describe('Funcionarios Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [FuncionariosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), FuncionariosUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -51,10 +50,10 @@ describe('Funcionarios Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call TiposDocumentos query and add missing value', () => {
       const funcionarios: IFuncionarios = { id: 456 };
-      const tipoDocumentos: ITiposDocumentos = { id: 55663 };
+      const tipoDocumentos: ITiposDocumentos = { id: 12212 };
       funcionarios.tipoDocumentos = tipoDocumentos;
 
-      const tiposDocumentosCollection: ITiposDocumentos[] = [{ id: 69543 }];
+      const tiposDocumentosCollection: ITiposDocumentos[] = [{ id: 24056 }];
       jest.spyOn(tiposDocumentosService, 'query').mockReturnValue(of(new HttpResponse({ body: tiposDocumentosCollection })));
       const additionalTiposDocumentos = [tipoDocumentos];
       const expectedCollection: ITiposDocumentos[] = [...additionalTiposDocumentos, ...tiposDocumentosCollection];
@@ -66,14 +65,14 @@ describe('Funcionarios Management Update Component', () => {
       expect(tiposDocumentosService.query).toHaveBeenCalled();
       expect(tiposDocumentosService.addTiposDocumentosToCollectionIfMissing).toHaveBeenCalledWith(
         tiposDocumentosCollection,
-        ...additionalTiposDocumentos.map(expect.objectContaining)
+        ...additionalTiposDocumentos.map(expect.objectContaining),
       );
       expect(comp.tiposDocumentosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const funcionarios: IFuncionarios = { id: 456 };
-      const tipoDocumentos: ITiposDocumentos = { id: 71300 };
+      const tipoDocumentos: ITiposDocumentos = { id: 25724 };
       funcionarios.tipoDocumentos = tipoDocumentos;
 
       activatedRoute.data = of({ funcionarios });

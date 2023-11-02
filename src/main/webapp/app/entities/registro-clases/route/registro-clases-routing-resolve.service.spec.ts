@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IRegistroClases } from '../registro-clases.model';
 import { RegistroClasesService } from '../service/registro-clases.service';
 
-import { RegistroClasesRoutingResolveService } from './registro-clases-routing-resolve.service';
+import registroClasesResolve from './registro-clases-routing-resolve.service';
 
 describe('RegistroClases routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: RegistroClasesRoutingResolveService;
   let service: RegistroClasesService;
   let resultRegistroClases: IRegistroClases | null | undefined;
 
@@ -34,7 +33,6 @@ describe('RegistroClases routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(RegistroClasesRoutingResolveService);
     service = TestBed.inject(RegistroClasesService);
     resultRegistroClases = undefined;
   });
@@ -46,8 +44,12 @@ describe('RegistroClases routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultRegistroClases = result;
+      TestBed.runInInjectionContext(() => {
+        registroClasesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultRegistroClases = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('RegistroClases routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultRegistroClases = result;
+      TestBed.runInInjectionContext(() => {
+        registroClasesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultRegistroClases = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('RegistroClases routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultRegistroClases = result;
+      TestBed.runInInjectionContext(() => {
+        registroClasesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultRegistroClases = result;
+          },
+        });
       });
 
       // THEN

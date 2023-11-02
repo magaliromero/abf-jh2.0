@@ -1,17 +1,24 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import SharedModule from 'app/shared/shared.module';
+import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 import { IMateriales } from '../materiales.model';
 import { MaterialesService } from '../service/materiales.service';
-import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 
 @Component({
+  standalone: true,
   templateUrl: './materiales-delete-dialog.component.html',
+  imports: [SharedModule, FormsModule],
 })
 export class MaterialesDeleteDialogComponent {
   materiales?: IMateriales;
 
-  constructor(protected materialesService: MaterialesService, protected activeModal: NgbActiveModal) {}
+  constructor(
+    protected materialesService: MaterialesService,
+    protected activeModal: NgbActiveModal,
+  ) {}
 
   cancel(): void {
     this.activeModal.dismiss();

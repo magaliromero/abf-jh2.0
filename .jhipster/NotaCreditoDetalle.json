@@ -1,0 +1,50 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231031020229",
+  "entityTableName": "nota_credito_detalle",
+  "fields": [
+    {
+      "fieldName": "cantidad",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "precioUnitario",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "subtotal",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "porcentajeIva",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "valorPorcentaje",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "NotaCreditoDetalle",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "notaNro",
+      "otherEntityName": "notaCredito",
+      "relationshipName": "notaCredito",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "productos",
+      "relationshipName": "producto",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

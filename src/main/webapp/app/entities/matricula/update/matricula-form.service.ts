@@ -42,7 +42,7 @@ export class MatriculaFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       concepto: new FormControl(matriculaRawValue.concepto, {
         validators: [Validators.required],
@@ -76,7 +76,7 @@ export class MatriculaFormService {
       {
         ...matriculaRawValue,
         id: { value: matriculaRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

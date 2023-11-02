@@ -39,7 +39,6 @@ describe('Funcionarios Service', () => {
     });
 
     it('should create a Funcionarios', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const funcionarios = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

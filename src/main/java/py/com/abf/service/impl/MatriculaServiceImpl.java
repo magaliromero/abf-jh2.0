@@ -12,7 +12,7 @@ import py.com.abf.repository.MatriculaRepository;
 import py.com.abf.service.MatriculaService;
 
 /**
- * Service Implementation for managing {@link Matricula}.
+ * Service Implementation for managing {@link py.com.abf.domain.Matricula}.
  */
 @Service
 @Transactional

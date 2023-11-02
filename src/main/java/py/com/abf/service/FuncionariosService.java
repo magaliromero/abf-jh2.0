@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Funcionarios;
 
 /**
- * Service Interface for managing {@link Funcionarios}.
+ * Service Interface for managing {@link py.com.abf.domain.Funcionarios}.
  */
 public interface FuncionariosService {
     /**

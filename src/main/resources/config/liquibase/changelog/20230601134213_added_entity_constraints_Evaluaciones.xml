@@ -12,12 +12,14 @@
                                  baseTableName="evaluaciones"
                                  constraintName="fk_evaluaciones__alumnos_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="alumnos"/>
+                                 referencedTableName="alumnos"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="funcionarios_id"
                                  baseTableName="evaluaciones"
                                  constraintName="fk_evaluaciones__funcionarios_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="funcionarios"/>
+                                 referencedTableName="funcionarios"
+                                 />
     </changeSet>
 </databaseChangeLog>

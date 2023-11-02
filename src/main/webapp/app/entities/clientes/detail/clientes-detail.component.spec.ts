@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { ClientesDetailComponent } from './clientes-detail.component';
 
 describe('Clientes Management Detail Component', () => {
-  let comp: ClientesDetailComponent;
-  let fixture: ComponentFixture<ClientesDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ClientesDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ClientesDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ clientes: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: ClientesDetailComponent,
+              resolve: { clientes: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(ClientesDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(ClientesDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load clientes on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load clientes on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', ClientesDetailComponent);
 
       // THEN
-      expect(comp.clientes).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.clientes).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

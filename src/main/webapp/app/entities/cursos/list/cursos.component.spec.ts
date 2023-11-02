@@ -18,8 +18,7 @@ describe('Cursos Management Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: 'cursos', component: CursosComponent }]), HttpClientTestingModule],
-      declarations: [CursosComponent],
+      imports: [RouterTestingModule.withRoutes([{ path: 'cursos', component: CursosComponent }]), HttpClientTestingModule, CursosComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -33,7 +32,7 @@ describe('Cursos Management Component', () => {
                 size: '1',
                 sort: 'id,desc',
                 'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
-              })
+              }),
             ),
             snapshot: { queryParams: {} },
           },
@@ -54,8 +53,8 @@ describe('Cursos Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -108,7 +107,7 @@ describe('Cursos Management Component', () => {
         queryParams: expect.objectContaining({
           sort: ['name,asc'],
         }),
-      })
+      }),
     );
   });
 

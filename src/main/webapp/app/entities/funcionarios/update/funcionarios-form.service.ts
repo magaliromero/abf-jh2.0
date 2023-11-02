@@ -47,7 +47,7 @@ export class FuncionariosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       elo: new FormControl(funcionariosRawValue.elo),
       fideId: new FormControl(funcionariosRawValue.fideId),
@@ -92,7 +92,7 @@ export class FuncionariosFormService {
       {
         ...funcionariosRawValue,
         id: { value: funcionariosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

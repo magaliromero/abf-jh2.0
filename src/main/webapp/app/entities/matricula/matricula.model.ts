@@ -9,7 +9,7 @@ export interface IMatricula {
   fechaInscripcion?: dayjs.Dayjs | null;
   fechaInicio?: dayjs.Dayjs | null;
   fechaPago?: dayjs.Dayjs | null;
-  estado?: EstadosPagos | null;
+  estado?: keyof typeof EstadosPagos | null;
   alumno?: Pick<IAlumnos, 'id' | 'nombreCompleto'> | null;
 }
 

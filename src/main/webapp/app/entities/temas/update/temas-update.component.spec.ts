@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { TemasFormService } from './temas-form.service';
 import { TemasService } from '../service/temas.service';
 import { ITemas } from '../temas.model';
+import { TemasFormService } from './temas-form.service';
 
 import { TemasUpdateComponent } from './temas-update.component';
 
@@ -21,8 +21,7 @@ describe('Temas Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [TemasUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), TemasUpdateComponent],
       providers: [
         FormBuilder,
         {

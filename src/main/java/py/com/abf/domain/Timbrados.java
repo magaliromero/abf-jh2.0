@@ -1,12 +1,12 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -39,7 +39,7 @@ public class Timbrados implements Serializable {
     @Column(name = "fecha_fin", nullable = false)
     private LocalDate fechaFin;
 
-    @OneToMany(mappedBy = "timbrados")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "timbrados")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "puntoDeExpedicions", "timbrados" }, allowSetters = true)
     private Set<Sucursales> sucursales = new HashSet<>();
@@ -139,7 +139,7 @@ public class Timbrados implements Serializable {
         if (!(o instanceof Timbrados)) {
             return false;
         }
-        return id != null && id.equals(((Timbrados) o).id);
+        return getId() != null && getId().equals(((Timbrados) o).getId());
     }
 
     @Override

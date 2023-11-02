@@ -46,7 +46,7 @@ export class AlumnosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       elo: new FormControl(alumnosRawValue.elo),
       fideId: new FormControl(alumnosRawValue.fideId),
@@ -88,7 +88,7 @@ export class AlumnosFormService {
       {
         ...alumnosRawValue,
         id: { value: alumnosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

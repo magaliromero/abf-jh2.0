@@ -27,7 +27,8 @@
       "ruc": "Ruc",
       "condicionVenta": "Condicion Venta",
       "total": "Total",
-      "facturaDetalle": "Factura Detalle"
+      "facturaDetalle": "Factura Detalle",
+      "notaCredito": "Nota Credito"
     }
   }
 }

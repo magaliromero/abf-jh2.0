@@ -16,7 +16,10 @@ export type EntityArrayResponseType = HttpResponse<IPuntoDeExpedicion[]>;
 export class PuntoDeExpedicionService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/punto-de-expedicions');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(puntoDeExpedicion: NewPuntoDeExpedicion): Observable<EntityResponseType> {
     return this.http.post<IPuntoDeExpedicion>(this.resourceUrl, puntoDeExpedicion, { observe: 'response' });
@@ -26,7 +29,7 @@ export class PuntoDeExpedicionService {
     return this.http.put<IPuntoDeExpedicion>(
       `${this.resourceUrl}/${this.getPuntoDeExpedicionIdentifier(puntoDeExpedicion)}`,
       puntoDeExpedicion,
-      { observe: 'response' }
+      { observe: 'response' },
     );
   }
 
@@ -34,7 +37,7 @@ export class PuntoDeExpedicionService {
     return this.http.patch<IPuntoDeExpedicion>(
       `${this.resourceUrl}/${this.getPuntoDeExpedicionIdentifier(puntoDeExpedicion)}`,
       puntoDeExpedicion,
-      { observe: 'response' }
+      { observe: 'response' },
     );
   }
 
@@ -66,7 +69,7 @@ export class PuntoDeExpedicionService {
     const puntoDeExpedicions: Type[] = puntoDeExpedicionsToCheck.filter(isPresent);
     if (puntoDeExpedicions.length > 0) {
       const puntoDeExpedicionCollectionIdentifiers = puntoDeExpedicionCollection.map(
-        puntoDeExpedicionItem => this.getPuntoDeExpedicionIdentifier(puntoDeExpedicionItem)!
+        puntoDeExpedicionItem => this.getPuntoDeExpedicionIdentifier(puntoDeExpedicionItem)!,
       );
       const puntoDeExpedicionsToAdd = puntoDeExpedicions.filter(puntoDeExpedicionItem => {
         const puntoDeExpedicionIdentifier = this.getPuntoDeExpedicionIdentifier(puntoDeExpedicionItem);

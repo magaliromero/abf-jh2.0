@@ -40,7 +40,7 @@ export class PagosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       fecha: new FormControl(pagosRawValue.fecha, {
         validators: [Validators.required],
@@ -68,7 +68,7 @@ export class PagosFormService {
       {
         ...pagosRawValue,
         id: { value: pagosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

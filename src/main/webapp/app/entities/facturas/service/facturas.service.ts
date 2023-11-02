@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
+
 import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
@@ -29,13 +31,10 @@ export type EntityArrayResponseType = HttpResponse<IFacturas[]>;
 export class FacturasService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/facturas');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
-
-  createNew(data: any): Observable<any> {
-    return this.http
-      .post<RestFacturas>(this.resourceUrl + '/detalle', data, { observe: 'response' })
-      .pipe(map(res => this.convertResponseFromServer(res)));
-  }
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(facturas: NewFacturas): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(facturas);

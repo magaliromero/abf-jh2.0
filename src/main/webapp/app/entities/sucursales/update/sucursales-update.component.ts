@@ -4,15 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { SucursalesFormService, SucursalesFormGroup } from './sucursales-form.service';
-import { ISucursales } from '../sucursales.model';
-import { SucursalesService } from '../service/sucursales.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITimbrados } from 'app/entities/timbrados/timbrados.model';
 import { TimbradosService } from 'app/entities/timbrados/service/timbrados.service';
+import { ISucursales } from '../sucursales.model';
+import { SucursalesService } from '../service/sucursales.service';
+import { SucursalesFormService, SucursalesFormGroup } from './sucursales-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-sucursales-update',
   templateUrl: './sucursales-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class SucursalesUpdateComponent implements OnInit {
   isSaving = false;
@@ -26,7 +31,7 @@ export class SucursalesUpdateComponent implements OnInit {
     protected sucursalesService: SucursalesService,
     protected sucursalesFormService: SucursalesFormService,
     protected timbradosService: TimbradosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareTimbrados = (o1: ITimbrados | null, o2: ITimbrados | null): boolean => this.timbradosService.compareTimbrados(o1, o2);
@@ -81,7 +86,7 @@ export class SucursalesUpdateComponent implements OnInit {
 
     this.timbradosSharedCollection = this.timbradosService.addTimbradosToCollectionIfMissing<ITimbrados>(
       this.timbradosSharedCollection,
-      sucursales.timbrados
+      sucursales.timbrados,
     );
   }
 
@@ -91,8 +96,8 @@ export class SucursalesUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ITimbrados[]>) => res.body ?? []))
       .pipe(
         map((timbrados: ITimbrados[]) =>
-          this.timbradosService.addTimbradosToCollectionIfMissing<ITimbrados>(timbrados, this.sucursales?.timbrados)
-        )
+          this.timbradosService.addTimbradosToCollectionIfMissing<ITimbrados>(timbrados, this.sucursales?.timbrados),
+        ),
       )
       .subscribe((timbrados: ITimbrados[]) => (this.timbradosSharedCollection = timbrados));
   }

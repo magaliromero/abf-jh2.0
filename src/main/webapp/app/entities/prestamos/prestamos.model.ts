@@ -7,7 +7,7 @@ export interface IPrestamos {
   id: number;
   fechaPrestamo?: dayjs.Dayjs | null;
   fechaDevolucion?: dayjs.Dayjs | null;
-  estado?: EstadosPrestamos | null;
+  estado?: keyof typeof EstadosPrestamos | null;
   materiales?: Pick<IMateriales, 'id' | 'descripcion'> | null;
   alumnos?: Pick<IAlumnos, 'id' | 'nombreCompleto'> | null;
 }

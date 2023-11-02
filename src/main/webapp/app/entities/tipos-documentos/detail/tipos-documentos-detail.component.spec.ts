@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { TiposDocumentosDetailComponent } from './tipos-documentos-detail.component';
 
 describe('TiposDocumentos Management Detail Component', () => {
-  let comp: TiposDocumentosDetailComponent;
-  let fixture: ComponentFixture<TiposDocumentosDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TiposDocumentosDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TiposDocumentosDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ tiposDocumentos: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: TiposDocumentosDetailComponent,
+              resolve: { tiposDocumentos: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(TiposDocumentosDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(TiposDocumentosDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load tiposDocumentos on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load tiposDocumentos on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', TiposDocumentosDetailComponent);
 
       // THEN
-      expect(comp.tiposDocumentos).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.tiposDocumentos).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

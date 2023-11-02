@@ -39,7 +39,7 @@ export class ProductosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       tipoProducto: new FormControl(productosRawValue.tipoProducto, {
         validators: [Validators.required],
@@ -66,7 +66,7 @@ export class ProductosFormService {
       {
         ...productosRawValue,
         id: { value: productosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

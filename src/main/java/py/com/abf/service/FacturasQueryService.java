@@ -1,7 +1,7 @@
 package py.com.abf.service;
 
+import jakarta.persistence.criteria.JoinType;
 import java.util.List;
-import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -106,9 +106,9 @@ public class FacturasQueryService extends QueryService<Facturas> {
             if (criteria.getRuc() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getRuc(), Facturas_.ruc));
             }
-            /*       if (criteria.getCondicionVenta() != null) {
+            if (criteria.getCondicionVenta() != null) {
                 specification = specification.and(buildSpecification(criteria.getCondicionVenta(), Facturas_.condicionVenta));
-            } */
+            }
             if (criteria.getTotal() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getTotal(), Facturas_.total));
             }
@@ -118,6 +118,15 @@ public class FacturasQueryService extends QueryService<Facturas> {
                         buildSpecification(
                             criteria.getFacturaDetalleId(),
                             root -> root.join(Facturas_.facturaDetalles, JoinType.LEFT).get(FacturaDetalle_.id)
+                        )
+                    );
+            }
+            if (criteria.getNotaCreditoId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getNotaCreditoId(),
+                            root -> root.join(Facturas_.notaCredito, JoinType.LEFT).get(NotaCredito_.id)
                         )
                     );
             }

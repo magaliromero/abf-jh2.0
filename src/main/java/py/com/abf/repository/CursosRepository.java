@@ -26,13 +26,10 @@ public interface CursosRepository extends JpaRepository<Cursos, Long>, JpaSpecif
         return this.findAllWithToOneRelationships(pageable);
     }
 
-    @Query(
-        value = "select distinct cursos from Cursos cursos left join fetch cursos.temas",
-        countQuery = "select count(distinct cursos) from Cursos cursos"
-    )
+    @Query(value = "select cursos from Cursos cursos left join fetch cursos.temas", countQuery = "select count(cursos) from Cursos cursos")
     Page<Cursos> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct cursos from Cursos cursos left join fetch cursos.temas")
+    @Query("select cursos from Cursos cursos left join fetch cursos.temas")
     List<Cursos> findAllWithToOneRelationships();
 
     @Query("select cursos from Cursos cursos left join fetch cursos.temas where cursos.id =:id")

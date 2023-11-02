@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601132713",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "temas",
   "fields": [
     {
@@ -16,30 +14,32 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Temas",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "evaluacionesDetalle",
       "otherEntityRelationshipName": "temas",
       "relationshipName": "evaluacionesDetalle",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "registroClases",
       "otherEntityRelationshipName": "temas",
       "relationshipName": "registroClases",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "cursos",
       "otherEntityRelationshipName": "temas",
       "relationshipName": "cursos",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

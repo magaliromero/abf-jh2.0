@@ -27,12 +27,12 @@ public interface SucursalesRepository extends JpaRepository<Sucursales, Long>, J
     }
 
     @Query(
-        value = "select distinct sucursales from Sucursales sucursales left join fetch sucursales.timbrados",
-        countQuery = "select count(distinct sucursales) from Sucursales sucursales"
+        value = "select sucursales from Sucursales sucursales left join fetch sucursales.timbrados",
+        countQuery = "select count(sucursales) from Sucursales sucursales"
     )
     Page<Sucursales> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct sucursales from Sucursales sucursales left join fetch sucursales.timbrados")
+    @Query("select sucursales from Sucursales sucursales left join fetch sucursales.timbrados")
     List<Sucursales> findAllWithToOneRelationships();
 
     @Query("select sucursales from Sucursales sucursales left join fetch sucursales.timbrados where sucursales.id =:id")

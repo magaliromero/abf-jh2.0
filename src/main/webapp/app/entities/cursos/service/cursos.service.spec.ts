@@ -40,7 +40,6 @@ describe('Cursos Service', () => {
     });
 
     it('should create a Cursos', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const cursos = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

@@ -4,16 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { CursosFormService, CursosFormGroup } from './cursos-form.service';
-import { ICursos } from '../cursos.model';
-import { CursosService } from '../service/cursos.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITemas } from 'app/entities/temas/temas.model';
 import { TemasService } from 'app/entities/temas/service/temas.service';
 import { Niveles } from 'app/entities/enumerations/niveles.model';
+import { CursosService } from '../service/cursos.service';
+import { ICursos } from '../cursos.model';
+import { CursosFormService, CursosFormGroup } from './cursos-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-cursos-update',
   templateUrl: './cursos-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class CursosUpdateComponent implements OnInit {
   isSaving = false;
@@ -28,7 +33,7 @@ export class CursosUpdateComponent implements OnInit {
     protected cursosService: CursosService,
     protected cursosFormService: CursosFormService,
     protected temasService: TemasService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareTemas = (o1: ITemas | null, o2: ITemas | null): boolean => this.temasService.compareTemas(o1, o2);

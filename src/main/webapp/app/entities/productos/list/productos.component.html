@@ -15,7 +15,7 @@
         [routerLink]="['/productos/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.productos.home.createLabel"> Create a new Productos </span>
+        <span jhiTranslate="abfApp.productos.home.createLabel">Create a new Productos</span>
       </button>
     </div>
   </h2>
@@ -106,6 +106,21 @@
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.productos.facturaDetalle' | translate) }"
                   >Show Factura Detalle</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/nota-credito-detalle']"
+                [queryParams]="{ 'filter[productoId.in]': productos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.productos.notaCreditoDetalle' | translate) }"
+                  >Show Nota Credito Detalle</span
                 >
               </button>
               <button

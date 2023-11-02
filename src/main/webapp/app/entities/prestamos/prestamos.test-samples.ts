@@ -1,31 +1,30 @@
 import dayjs from 'dayjs/esm';
 
-import { EstadosPrestamos } from 'app/entities/enumerations/estados-prestamos.model';
-
 import { IPrestamos, NewPrestamos } from './prestamos.model';
 
 export const sampleWithRequiredData: IPrestamos = {
-  id: 9135,
-  fechaPrestamo: dayjs('2023-06-01'),
-  estado: EstadosPrestamos['DEVUELTO'],
+  id: 942,
+  fechaPrestamo: dayjs('2023-05-31'),
+  estado: 'PRESTADO',
 };
 
 export const sampleWithPartialData: IPrestamos = {
-  id: 94363,
+  id: 5753,
   fechaPrestamo: dayjs('2023-06-01'),
-  estado: EstadosPrestamos['VENCIDO'],
+  fechaDevolucion: dayjs('2023-06-01'),
+  estado: 'DEVUELTO',
 };
 
 export const sampleWithFullData: IPrestamos = {
-  id: 94689,
+  id: 5301,
   fechaPrestamo: dayjs('2023-06-01'),
-  fechaDevolucion: dayjs('2023-05-31'),
-  estado: EstadosPrestamos['VENCIDO'],
+  fechaDevolucion: dayjs('2023-06-01'),
+  estado: 'DEVUELTO',
 };
 
 export const sampleWithNewData: NewPrestamos = {
-  fechaPrestamo: dayjs('2023-06-01'),
-  estado: EstadosPrestamos['PRESTADO'],
+  fechaPrestamo: dayjs('2023-05-31'),
+  estado: 'DEVUELTO',
   id: null,
 };
 

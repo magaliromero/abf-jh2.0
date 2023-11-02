@@ -1,12 +1,13 @@
 package py.com.abf.service;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Facturas;
 
 /**
- * Service Interface for managing {@link Facturas}.
+ * Service Interface for managing {@link py.com.abf.domain.Facturas}.
  */
 public interface FacturasService {
     /**
@@ -40,6 +41,13 @@ public interface FacturasService {
      * @return the list of entities.
      */
     Page<Facturas> findAll(Pageable pageable);
+
+    /**
+     * Get all the Facturas where NotaCredito is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<Facturas> findAllWhereNotaCreditoIsNull();
 
     /**
      * Get the "id" facturas.

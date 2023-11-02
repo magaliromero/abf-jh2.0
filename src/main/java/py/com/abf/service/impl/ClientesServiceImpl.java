@@ -12,7 +12,7 @@ import py.com.abf.repository.ClientesRepository;
 import py.com.abf.service.ClientesService;
 
 /**
- * Service Implementation for managing {@link Clientes}.
+ * Service Implementation for managing {@link py.com.abf.domain.Clientes}.
  */
 @Service
 @Transactional

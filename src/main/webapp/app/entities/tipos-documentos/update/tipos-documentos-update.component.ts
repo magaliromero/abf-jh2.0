@@ -4,13 +4,18 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { TiposDocumentosFormService, TiposDocumentosFormGroup } from './tipos-documentos-form.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ITiposDocumentos } from '../tipos-documentos.model';
 import { TiposDocumentosService } from '../service/tipos-documentos.service';
+import { TiposDocumentosFormService, TiposDocumentosFormGroup } from './tipos-documentos-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-tipos-documentos-update',
   templateUrl: './tipos-documentos-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class TiposDocumentosUpdateComponent implements OnInit {
   isSaving = false;
@@ -21,7 +26,7 @@ export class TiposDocumentosUpdateComponent implements OnInit {
   constructor(
     protected tiposDocumentosService: TiposDocumentosService,
     protected tiposDocumentosFormService: TiposDocumentosFormService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

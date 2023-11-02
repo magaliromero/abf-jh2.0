@@ -18,8 +18,7 @@ describe('Inscripciones Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [InscripcionesDeleteDialogComponent],
+      imports: [HttpClientTestingModule, InscripcionesDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(InscripcionesDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('Inscripciones Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

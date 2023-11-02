@@ -39,7 +39,6 @@ describe('Clientes Service', () => {
     });
 
     it('should create a Clientes', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const clientes = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

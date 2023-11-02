@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { ClientesFormService } from './clientes-form.service';
 import { ClientesService } from '../service/clientes.service';
 import { IClientes } from '../clientes.model';
+import { ClientesFormService } from './clientes-form.service';
 
 import { ClientesUpdateComponent } from './clientes-update.component';
 
@@ -21,8 +21,7 @@ describe('Clientes Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [ClientesUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), ClientesUpdateComponent],
       providers: [
         FormBuilder,
         {

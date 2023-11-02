@@ -22,7 +22,7 @@ describe('Temas Form Service', () => {
             id: expect.any(Object),
             titulo: expect.any(Object),
             descripcion: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -34,14 +34,13 @@ describe('Temas Form Service', () => {
             id: expect.any(Object),
             titulo: expect.any(Object),
             descripcion: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getTemas', () => {
       it('should return NewTemas for default Temas initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createTemasFormGroup(sampleWithNewData);
 
         const temas = service.getTemas(formGroup) as any;

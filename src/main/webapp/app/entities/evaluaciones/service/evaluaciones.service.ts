@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
+
 import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
@@ -29,17 +31,15 @@ export type EntityArrayResponseType = HttpResponse<IEvaluaciones[]>;
 export class EvaluacionesService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/evaluaciones');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(evaluaciones: NewEvaluaciones): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(evaluaciones);
     return this.http
       .post<RestEvaluaciones>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map(res => this.convertResponseFromServer(res)));
-  }
-  createDetails(data: any): Observable<EntityResponseType> {
-    return this.http
-      .post<RestEvaluaciones>(this.resourceUrl + '/detalle', data, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
@@ -89,7 +89,7 @@ export class EvaluacionesService {
     const evaluaciones: Type[] = evaluacionesToCheck.filter(isPresent);
     if (evaluaciones.length > 0) {
       const evaluacionesCollectionIdentifiers = evaluacionesCollection.map(
-        evaluacionesItem => this.getEvaluacionesIdentifier(evaluacionesItem)!
+        evaluacionesItem => this.getEvaluacionesIdentifier(evaluacionesItem)!,
       );
       const evaluacionesToAdd = evaluaciones.filter(evaluacionesItem => {
         const evaluacionesIdentifier = this.getEvaluacionesIdentifier(evaluacionesItem);

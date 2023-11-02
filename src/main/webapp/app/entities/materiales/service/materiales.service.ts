@@ -16,7 +16,10 @@ export type EntityArrayResponseType = HttpResponse<IMateriales[]>;
 export class MaterialesService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/materiales');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(materiales: NewMateriales): Observable<EntityResponseType> {
     return this.http.post<IMateriales>(this.resourceUrl, materiales, { observe: 'response' });

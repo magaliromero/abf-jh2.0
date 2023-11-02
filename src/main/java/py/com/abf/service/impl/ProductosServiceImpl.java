@@ -12,7 +12,7 @@ import py.com.abf.repository.ProductosRepository;
 import py.com.abf.service.ProductosService;
 
 /**
- * Service Implementation for managing {@link Productos}.
+ * Service Implementation for managing {@link py.com.abf.domain.Productos}.
  */
 @Service
 @Transactional

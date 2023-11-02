@@ -6,11 +6,11 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -31,7 +30,6 @@ import py.com.abf.domain.Sucursales;
 import py.com.abf.domain.Timbrados;
 import py.com.abf.repository.SucursalesRepository;
 import py.com.abf.service.SucursalesService;
-import py.com.abf.service.criteria.SucursalesCriteria;
 
 /**
  * Integration tests for the {@link SucursalesResource} REST controller.
@@ -503,7 +501,6 @@ class SucursalesResourceIT {
         sucursales.addPuntoDeExpedicion(puntoDeExpedicion);
         sucursalesRepository.saveAndFlush(sucursales);
         Long puntoDeExpedicionId = puntoDeExpedicion.getId();
-
         // Get all the sucursalesList where puntoDeExpedicion equals to puntoDeExpedicionId
         defaultSucursalesShouldBeFound("puntoDeExpedicionId.equals=" + puntoDeExpedicionId);
 
@@ -526,7 +523,6 @@ class SucursalesResourceIT {
         sucursales.setTimbrados(timbrados);
         sucursalesRepository.saveAndFlush(sucursales);
         Long timbradosId = timbrados.getId();
-
         // Get all the sucursalesList where timbrados equals to timbradosId
         defaultSucursalesShouldBeFound("timbradosId.equals=" + timbradosId);
 
@@ -590,7 +586,7 @@ class SucursalesResourceIT {
         int databaseSizeBeforeUpdate = sucursalesRepository.findAll().size();
 
         // Update the sucursales
-        Sucursales updatedSucursales = sucursalesRepository.findById(sucursales.getId()).get();
+        Sucursales updatedSucursales = sucursalesRepository.findById(sucursales.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedSucursales are not directly saved in db
         em.detach(updatedSucursales);
         updatedSucursales
@@ -683,6 +679,8 @@ class SucursalesResourceIT {
         Sucursales partialUpdatedSucursales = new Sucursales();
         partialUpdatedSucursales.setId(sucursales.getId());
 
+        partialUpdatedSucursales.nombreSucursal(UPDATED_NOMBRE_SUCURSAL).numeroEstablecimiento(UPDATED_NUMERO_ESTABLECIMIENTO);
+
         restSucursalesMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedSucursales.getId())
@@ -695,9 +693,9 @@ class SucursalesResourceIT {
         List<Sucursales> sucursalesList = sucursalesRepository.findAll();
         assertThat(sucursalesList).hasSize(databaseSizeBeforeUpdate);
         Sucursales testSucursales = sucursalesList.get(sucursalesList.size() - 1);
-        assertThat(testSucursales.getNombreSucursal()).isEqualTo(DEFAULT_NOMBRE_SUCURSAL);
+        assertThat(testSucursales.getNombreSucursal()).isEqualTo(UPDATED_NOMBRE_SUCURSAL);
         assertThat(testSucursales.getDireccion()).isEqualTo(DEFAULT_DIRECCION);
-        assertThat(testSucursales.getNumeroEstablecimiento()).isEqualTo(DEFAULT_NUMERO_ESTABLECIMIENTO);
+        assertThat(testSucursales.getNumeroEstablecimiento()).isEqualTo(UPDATED_NUMERO_ESTABLECIMIENTO);
     }
 
     @Test

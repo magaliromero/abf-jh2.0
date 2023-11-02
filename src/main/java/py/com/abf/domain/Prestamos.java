@@ -1,10 +1,10 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import py.com.abf.domain.enumeration.EstadosPrestamos;
@@ -141,7 +141,7 @@ public class Prestamos implements Serializable {
         if (!(o instanceof Prestamos)) {
             return false;
         }
-        return id != null && id.equals(((Prestamos) o).id);
+        return getId() != null && getId().equals(((Prestamos) o).getId());
     }
 
     @Override

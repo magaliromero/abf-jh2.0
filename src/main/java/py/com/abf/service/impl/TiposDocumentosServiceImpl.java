@@ -12,7 +12,7 @@ import py.com.abf.repository.TiposDocumentosRepository;
 import py.com.abf.service.TiposDocumentosService;
 
 /**
- * Service Implementation for managing {@link TiposDocumentos}.
+ * Service Implementation for managing {@link py.com.abf.domain.TiposDocumentos}.
  */
 @Service
 @Transactional

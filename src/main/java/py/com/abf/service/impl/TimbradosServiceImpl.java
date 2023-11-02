@@ -12,7 +12,7 @@ import py.com.abf.repository.TimbradosRepository;
 import py.com.abf.service.TimbradosService;
 
 /**
- * Service Implementation for managing {@link Timbrados}.
+ * Service Implementation for managing {@link py.com.abf.domain.Timbrados}.
  */
 @Service
 @Transactional

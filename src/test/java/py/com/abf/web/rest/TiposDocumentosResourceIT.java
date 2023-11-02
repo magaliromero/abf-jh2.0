@@ -5,10 +5,10 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ import py.com.abf.domain.Alumnos;
 import py.com.abf.domain.Funcionarios;
 import py.com.abf.domain.TiposDocumentos;
 import py.com.abf.repository.TiposDocumentosRepository;
-import py.com.abf.service.criteria.TiposDocumentosCriteria;
 
 /**
  * Integration tests for the {@link TiposDocumentosResource} REST controller.
@@ -354,7 +353,6 @@ class TiposDocumentosResourceIT {
         tiposDocumentos.addAlumnos(alumnos);
         tiposDocumentosRepository.saveAndFlush(tiposDocumentos);
         Long alumnosId = alumnos.getId();
-
         // Get all the tiposDocumentosList where alumnos equals to alumnosId
         defaultTiposDocumentosShouldBeFound("alumnosId.equals=" + alumnosId);
 
@@ -377,7 +375,6 @@ class TiposDocumentosResourceIT {
         tiposDocumentos.addFuncionarios(funcionarios);
         tiposDocumentosRepository.saveAndFlush(tiposDocumentos);
         Long funcionariosId = funcionarios.getId();
-
         // Get all the tiposDocumentosList where funcionarios equals to funcionariosId
         defaultTiposDocumentosShouldBeFound("funcionariosId.equals=" + funcionariosId);
 
@@ -440,7 +437,7 @@ class TiposDocumentosResourceIT {
         int databaseSizeBeforeUpdate = tiposDocumentosRepository.findAll().size();
 
         // Update the tiposDocumentos
-        TiposDocumentos updatedTiposDocumentos = tiposDocumentosRepository.findById(tiposDocumentos.getId()).get();
+        TiposDocumentos updatedTiposDocumentos = tiposDocumentosRepository.findById(tiposDocumentos.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedTiposDocumentos are not directly saved in db
         em.detach(updatedTiposDocumentos);
         updatedTiposDocumentos.codigo(UPDATED_CODIGO).descripcion(UPDATED_DESCRIPCION);

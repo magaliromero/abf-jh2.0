@@ -16,7 +16,10 @@ export type EntityArrayResponseType = HttpResponse<IEvaluacionesDetalle[]>;
 export class EvaluacionesDetalleService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/evaluaciones-detalles');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(evaluacionesDetalle: NewEvaluacionesDetalle): Observable<EntityResponseType> {
     return this.http.post<IEvaluacionesDetalle>(this.resourceUrl, evaluacionesDetalle, { observe: 'response' });
@@ -26,7 +29,7 @@ export class EvaluacionesDetalleService {
     return this.http.put<IEvaluacionesDetalle>(
       `${this.resourceUrl}/${this.getEvaluacionesDetalleIdentifier(evaluacionesDetalle)}`,
       evaluacionesDetalle,
-      { observe: 'response' }
+      { observe: 'response' },
     );
   }
 
@@ -34,7 +37,7 @@ export class EvaluacionesDetalleService {
     return this.http.patch<IEvaluacionesDetalle>(
       `${this.resourceUrl}/${this.getEvaluacionesDetalleIdentifier(evaluacionesDetalle)}`,
       evaluacionesDetalle,
-      { observe: 'response' }
+      { observe: 'response' },
     );
   }
 
@@ -66,7 +69,7 @@ export class EvaluacionesDetalleService {
     const evaluacionesDetalles: Type[] = evaluacionesDetallesToCheck.filter(isPresent);
     if (evaluacionesDetalles.length > 0) {
       const evaluacionesDetalleCollectionIdentifiers = evaluacionesDetalleCollection.map(
-        evaluacionesDetalleItem => this.getEvaluacionesDetalleIdentifier(evaluacionesDetalleItem)!
+        evaluacionesDetalleItem => this.getEvaluacionesDetalleIdentifier(evaluacionesDetalleItem)!,
       );
       const evaluacionesDetallesToAdd = evaluacionesDetalles.filter(evaluacionesDetalleItem => {
         const evaluacionesDetalleIdentifier = this.getEvaluacionesDetalleIdentifier(evaluacionesDetalleItem);

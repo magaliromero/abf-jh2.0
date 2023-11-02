@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133713",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "pagos",
   "fields": [
     {
@@ -21,27 +19,26 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Pagos",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "descripcion",
       "otherEntityName": "productos",
-      "otherEntityRelationshipName": "pagos",
       "relationshipName": "producto",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
     {
       "otherEntityField": "nombreCompleto",
       "otherEntityName": "funcionarios",
-      "otherEntityRelationshipName": "pagos",
       "relationshipName": "funcionario",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

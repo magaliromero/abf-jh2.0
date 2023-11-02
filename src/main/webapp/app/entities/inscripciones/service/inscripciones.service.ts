@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
+
 import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
@@ -29,7 +31,10 @@ export type EntityArrayResponseType = HttpResponse<IInscripciones[]>;
 export class InscripcionesService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/inscripciones');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
   create(inscripciones: NewInscripciones): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(inscripciones);
@@ -84,7 +89,7 @@ export class InscripcionesService {
     const inscripciones: Type[] = inscripcionesToCheck.filter(isPresent);
     if (inscripciones.length > 0) {
       const inscripcionesCollectionIdentifiers = inscripcionesCollection.map(
-        inscripcionesItem => this.getInscripcionesIdentifier(inscripcionesItem)!
+        inscripcionesItem => this.getInscripcionesIdentifier(inscripcionesItem)!,
       );
       const inscripcionesToAdd = inscripciones.filter(inscripcionesItem => {
         const inscripcionesIdentifier = this.getInscripcionesIdentifier(inscripcionesItem);

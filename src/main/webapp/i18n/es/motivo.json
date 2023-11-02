@@ -1,0 +1,11 @@
+{
+  "abfApp": {
+    "Motivo": {
+      "null": "",
+      "ANULACION": "Anulacion",
+      "DEVOLUCION": "Devolucion",
+      "DESCUENTO": "Descuento",
+      "OTRO": "Otro"
+    }
+  }
+}

@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -34,7 +33,6 @@ import py.com.abf.domain.Prestamos;
 import py.com.abf.domain.enumeration.EstadosPrestamos;
 import py.com.abf.repository.PrestamosRepository;
 import py.com.abf.service.PrestamosService;
-import py.com.abf.service.criteria.PrestamosCriteria;
 
 /**
  * Integration tests for the {@link PrestamosResource} REST controller.
@@ -527,7 +525,6 @@ class PrestamosResourceIT {
         prestamos.setMateriales(materiales);
         prestamosRepository.saveAndFlush(prestamos);
         Long materialesId = materiales.getId();
-
         // Get all the prestamosList where materiales equals to materialesId
         defaultPrestamosShouldBeFound("materialesId.equals=" + materialesId);
 
@@ -550,7 +547,6 @@ class PrestamosResourceIT {
         prestamos.setAlumnos(alumnos);
         prestamosRepository.saveAndFlush(prestamos);
         Long alumnosId = alumnos.getId();
-
         // Get all the prestamosList where alumnos equals to alumnosId
         defaultPrestamosShouldBeFound("alumnosId.equals=" + alumnosId);
 
@@ -614,7 +610,7 @@ class PrestamosResourceIT {
         int databaseSizeBeforeUpdate = prestamosRepository.findAll().size();
 
         // Update the prestamos
-        Prestamos updatedPrestamos = prestamosRepository.findById(prestamos.getId()).get();
+        Prestamos updatedPrestamos = prestamosRepository.findById(prestamos.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedPrestamos are not directly saved in db
         em.detach(updatedPrestamos);
         updatedPrestamos.fechaPrestamo(UPDATED_FECHA_PRESTAMO).fechaDevolucion(UPDATED_FECHA_DEVOLUCION).estado(UPDATED_ESTADO);
@@ -704,6 +700,8 @@ class PrestamosResourceIT {
         Prestamos partialUpdatedPrestamos = new Prestamos();
         partialUpdatedPrestamos.setId(prestamos.getId());
 
+        partialUpdatedPrestamos.estado(UPDATED_ESTADO);
+
         restPrestamosMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedPrestamos.getId())
@@ -718,7 +716,7 @@ class PrestamosResourceIT {
         Prestamos testPrestamos = prestamosList.get(prestamosList.size() - 1);
         assertThat(testPrestamos.getFechaPrestamo()).isEqualTo(DEFAULT_FECHA_PRESTAMO);
         assertThat(testPrestamos.getFechaDevolucion()).isEqualTo(DEFAULT_FECHA_DEVOLUCION);
-        assertThat(testPrestamos.getEstado()).isEqualTo(DEFAULT_ESTADO);
+        assertThat(testPrestamos.getEstado()).isEqualTo(UPDATED_ESTADO);
     }
 
     @Test

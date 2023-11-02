@@ -6,7 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import py.com.abf.AbfApp;
 import py.com.abf.config.AsyncSyncConfiguration;
 import py.com.abf.config.EmbeddedSQL;
 

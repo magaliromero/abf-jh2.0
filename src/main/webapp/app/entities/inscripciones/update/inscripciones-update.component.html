@@ -12,12 +12,12 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.inscripciones.fechaInscripcion" for="field_fechaInscripcion"
             >Fecha Inscripcion</label
           >
@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.inscripciones.alumnos" for="field_alumnos">Alumnos</label>
           <select
             class="form-control"
@@ -55,16 +55,12 @@
           </select>
         </div>
         <div *ngIf="editForm.get(['alumnos'])!.invalid && (editForm.get(['alumnos'])!.dirty || editForm.get(['alumnos'])!.touched)">
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get(['alumnos'])?.errors?.required"
-            jhiTranslate="entity.validation.required"
+          <small class="form-text text-danger" *ngIf="editForm.get(['alumnos'])?.errors?.required" jhiTranslate="entity.validation.required"
+            >This field is required.</small
           >
-            This field is required.
-          </small>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.inscripciones.cursos" for="field_cursos">Cursos</label>
           <select
             class="form-control"
@@ -79,9 +75,9 @@
           </select>
         </div>
         <div *ngIf="editForm.get(['cursos'])!.invalid && (editForm.get(['cursos'])!.dirty || editForm.get(['cursos'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['cursos'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
+          <small class="form-text text-danger" *ngIf="editForm.get(['cursos'])?.errors?.required" jhiTranslate="entity.validation.required"
+            >This field is required.</small
+          >
         </div>
       </div>
 

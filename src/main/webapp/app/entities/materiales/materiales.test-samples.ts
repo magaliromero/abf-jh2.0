@@ -1,25 +1,25 @@
 import { IMateriales, NewMateriales } from './materiales.model';
 
 export const sampleWithRequiredData: IMateriales = {
-  id: 51682,
-  descripcion: 'Handcrafted Ameliorated withdrawal',
+  id: 28681,
+  descripcion: 'apud',
 };
 
 export const sampleWithPartialData: IMateriales = {
-  id: 90659,
-  descripcion: 'Orchestrator hack Toys',
-  cantidad: 20460,
+  id: 30428,
+  descripcion: 'um',
+  cantidad: 7147,
 };
 
 export const sampleWithFullData: IMateriales = {
-  id: 59429,
-  descripcion: 'red transmitter Fish',
-  cantidad: 76470,
-  cantidadEnPrestamo: 43346,
+  id: 31081,
+  descripcion: 'whoever',
+  cantidad: 16624,
+  cantidadEnPrestamo: 2987,
 };
 
 export const sampleWithNewData: NewMateriales = {
-  descripcion: 'Chicken',
+  descripcion: 'until fantasise insubstantial',
   id: null,
 };
 

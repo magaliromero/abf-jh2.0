@@ -5,12 +5,12 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Clientes;
 import py.com.abf.repository.ClientesRepository;
-import py.com.abf.service.criteria.ClientesCriteria;
 
 /**
  * Integration tests for the {@link ClientesResource} REST controller.
@@ -969,7 +968,7 @@ class ClientesResourceIT {
         int databaseSizeBeforeUpdate = clientesRepository.findAll().size();
 
         // Update the clientes
-        Clientes updatedClientes = clientesRepository.findById(clientes.getId()).get();
+        Clientes updatedClientes = clientesRepository.findById(clientes.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedClientes are not directly saved in db
         em.detach(updatedClientes);
         updatedClientes
@@ -1074,13 +1073,7 @@ class ClientesResourceIT {
         Clientes partialUpdatedClientes = new Clientes();
         partialUpdatedClientes.setId(clientes.getId());
 
-        partialUpdatedClientes
-            .nombres(UPDATED_NOMBRES)
-            .apellidos(UPDATED_APELLIDOS)
-            .email(UPDATED_EMAIL)
-            .telefono(UPDATED_TELEFONO)
-            .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
-            .direccion(UPDATED_DIRECCION);
+        partialUpdatedClientes.nombres(UPDATED_NOMBRES).razonSocial(UPDATED_RAZON_SOCIAL).email(UPDATED_EMAIL);
 
         restClientesMockMvc
             .perform(
@@ -1096,13 +1089,13 @@ class ClientesResourceIT {
         Clientes testClientes = clientesList.get(clientesList.size() - 1);
         assertThat(testClientes.getRuc()).isEqualTo(DEFAULT_RUC);
         assertThat(testClientes.getNombres()).isEqualTo(UPDATED_NOMBRES);
-        assertThat(testClientes.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
-        assertThat(testClientes.getRazonSocial()).isEqualTo(DEFAULT_RAZON_SOCIAL);
+        assertThat(testClientes.getApellidos()).isEqualTo(DEFAULT_APELLIDOS);
+        assertThat(testClientes.getRazonSocial()).isEqualTo(UPDATED_RAZON_SOCIAL);
         assertThat(testClientes.getDocumento()).isEqualTo(DEFAULT_DOCUMENTO);
         assertThat(testClientes.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testClientes.getTelefono()).isEqualTo(UPDATED_TELEFONO);
-        assertThat(testClientes.getFechaNacimiento()).isEqualTo(UPDATED_FECHA_NACIMIENTO);
-        assertThat(testClientes.getDireccion()).isEqualTo(UPDATED_DIRECCION);
+        assertThat(testClientes.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
+        assertThat(testClientes.getFechaNacimiento()).isEqualTo(DEFAULT_FECHA_NACIMIENTO);
+        assertThat(testClientes.getDireccion()).isEqualTo(DEFAULT_DIRECCION);
     }
 
     @Test

@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133113",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "tipos_documentos",
   "fields": [
     {
@@ -16,24 +14,25 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "TiposDocumentos",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "alumnos",
       "otherEntityRelationshipName": "tipoDocumentos",
       "relationshipName": "alumnos",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "funcionarios",
       "otherEntityRelationshipName": "tipoDocumentos",
       "relationshipName": "funcionarios",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

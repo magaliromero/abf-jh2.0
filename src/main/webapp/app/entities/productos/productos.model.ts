@@ -2,7 +2,7 @@ import { TipoProductos } from 'app/entities/enumerations/tipo-productos.model';
 
 export interface IProductos {
   id: number;
-  tipoProducto?: TipoProductos | null;
+  tipoProducto?: keyof typeof TipoProductos | null;
   precioUnitario?: number | null;
   porcentajeIva?: number | null;
   descripcion?: string | null;

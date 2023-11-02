@@ -40,7 +40,6 @@ describe('Prestamos Service', () => {
     });
 
     it('should create a Prestamos', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const prestamos = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

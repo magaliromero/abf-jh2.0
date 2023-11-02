@@ -6,13 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -34,7 +33,6 @@ import py.com.abf.domain.Temas;
 import py.com.abf.domain.enumeration.Niveles;
 import py.com.abf.repository.CursosRepository;
 import py.com.abf.service.CursosService;
-import py.com.abf.service.criteria.CursosCriteria;
 
 /**
  * Integration tests for the {@link CursosResource} REST controller.
@@ -770,7 +768,6 @@ class CursosResourceIT {
         cursos.addInscripciones(inscripciones);
         cursosRepository.saveAndFlush(cursos);
         Long inscripcionesId = inscripciones.getId();
-
         // Get all the cursosList where inscripciones equals to inscripcionesId
         defaultCursosShouldBeFound("inscripcionesId.equals=" + inscripcionesId);
 
@@ -793,7 +790,6 @@ class CursosResourceIT {
         cursos.setTemas(temas);
         cursosRepository.saveAndFlush(cursos);
         Long temasId = temas.getId();
-
         // Get all the cursosList where temas equals to temasId
         defaultCursosShouldBeFound("temasId.equals=" + temasId);
 
@@ -860,7 +856,7 @@ class CursosResourceIT {
         int databaseSizeBeforeUpdate = cursosRepository.findAll().size();
 
         // Update the cursos
-        Cursos updatedCursos = cursosRepository.findById(cursos.getId()).get();
+        Cursos updatedCursos = cursosRepository.findById(cursos.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedCursos are not directly saved in db
         em.detach(updatedCursos);
         updatedCursos
@@ -959,7 +955,7 @@ class CursosResourceIT {
         Cursos partialUpdatedCursos = new Cursos();
         partialUpdatedCursos.setId(cursos.getId());
 
-        partialUpdatedCursos.fechaFin(UPDATED_FECHA_FIN).cantidadClases(UPDATED_CANTIDAD_CLASES).nivel(UPDATED_NIVEL);
+        partialUpdatedCursos.fechaInicio(UPDATED_FECHA_INICIO).fechaFin(UPDATED_FECHA_FIN).nivel(UPDATED_NIVEL);
 
         restCursosMockMvc
             .perform(
@@ -975,9 +971,9 @@ class CursosResourceIT {
         Cursos testCursos = cursosList.get(cursosList.size() - 1);
         assertThat(testCursos.getNombreCurso()).isEqualTo(DEFAULT_NOMBRE_CURSO);
         assertThat(testCursos.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
-        assertThat(testCursos.getFechaInicio()).isEqualTo(DEFAULT_FECHA_INICIO);
+        assertThat(testCursos.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
         assertThat(testCursos.getFechaFin()).isEqualTo(UPDATED_FECHA_FIN);
-        assertThat(testCursos.getCantidadClases()).isEqualTo(UPDATED_CANTIDAD_CLASES);
+        assertThat(testCursos.getCantidadClases()).isEqualTo(DEFAULT_CANTIDAD_CLASES);
         assertThat(testCursos.getNivel()).isEqualTo(UPDATED_NIVEL);
     }
 

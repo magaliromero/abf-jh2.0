@@ -37,7 +37,6 @@ describe('Temas Service', () => {
     });
 
     it('should create a Temas', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const temas = { ...sampleWithNewData };
       const returnedFromService = { ...requireRestSample };
       const expected = { ...sampleWithRequiredData };

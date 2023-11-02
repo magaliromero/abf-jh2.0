@@ -27,12 +27,12 @@ public interface AlumnosRepository extends JpaRepository<Alumnos, Long>, JpaSpec
     }
 
     @Query(
-        value = "select distinct alumnos from Alumnos alumnos left join fetch alumnos.tipoDocumentos",
-        countQuery = "select count(distinct alumnos) from Alumnos alumnos"
+        value = "select alumnos from Alumnos alumnos left join fetch alumnos.tipoDocumentos",
+        countQuery = "select count(alumnos) from Alumnos alumnos"
     )
     Page<Alumnos> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct alumnos from Alumnos alumnos left join fetch alumnos.tipoDocumentos")
+    @Query("select alumnos from Alumnos alumnos left join fetch alumnos.tipoDocumentos")
     List<Alumnos> findAllWithToOneRelationships();
 
     @Query("select alumnos from Alumnos alumnos left join fetch alumnos.tipoDocumentos where alumnos.id =:id")

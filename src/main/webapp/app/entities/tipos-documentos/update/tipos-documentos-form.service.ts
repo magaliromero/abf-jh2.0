@@ -37,7 +37,7 @@ export class TiposDocumentosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       codigo: new FormControl(tiposDocumentosRawValue.codigo, {
         validators: [Validators.required],
@@ -58,7 +58,7 @@ export class TiposDocumentosFormService {
       {
         ...tiposDocumentosRawValue,
         id: { value: tiposDocumentosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

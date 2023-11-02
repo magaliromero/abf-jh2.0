@@ -4,17 +4,22 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { PagosFormService, PagosFormGroup } from './pagos-form.service';
-import { IPagos } from '../pagos.model';
-import { PagosService } from '../service/pagos.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IProductos } from 'app/entities/productos/productos.model';
 import { ProductosService } from 'app/entities/productos/service/productos.service';
 import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
 import { FuncionariosService } from 'app/entities/funcionarios/service/funcionarios.service';
+import { PagosService } from '../service/pagos.service';
+import { IPagos } from '../pagos.model';
+import { PagosFormService, PagosFormGroup } from './pagos-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-pagos-update',
   templateUrl: './pagos-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class PagosUpdateComponent implements OnInit {
   isSaving = false;
@@ -30,7 +35,7 @@ export class PagosUpdateComponent implements OnInit {
     protected pagosFormService: PagosFormService,
     protected productosService: ProductosService,
     protected funcionariosService: FuncionariosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareProductos = (o1: IProductos | null, o2: IProductos | null): boolean => this.productosService.compareProductos(o1, o2);
@@ -88,11 +93,11 @@ export class PagosUpdateComponent implements OnInit {
 
     this.productosSharedCollection = this.productosService.addProductosToCollectionIfMissing<IProductos>(
       this.productosSharedCollection,
-      pagos.producto
+      pagos.producto,
     );
     this.funcionariosSharedCollection = this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(
       this.funcionariosSharedCollection,
-      pagos.funcionario
+      pagos.funcionario,
     );
   }
 
@@ -102,8 +107,8 @@ export class PagosUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IProductos[]>) => res.body ?? []))
       .pipe(
         map((productos: IProductos[]) =>
-          this.productosService.addProductosToCollectionIfMissing<IProductos>(productos, this.pagos?.producto)
-        )
+          this.productosService.addProductosToCollectionIfMissing<IProductos>(productos, this.pagos?.producto),
+        ),
       )
       .subscribe((productos: IProductos[]) => (this.productosSharedCollection = productos));
 
@@ -112,8 +117,8 @@ export class PagosUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IFuncionarios[]>) => res.body ?? []))
       .pipe(
         map((funcionarios: IFuncionarios[]) =>
-          this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(funcionarios, this.pagos?.funcionario)
-        )
+          this.funcionariosService.addFuncionariosToCollectionIfMissing<IFuncionarios>(funcionarios, this.pagos?.funcionario),
+        ),
       )
       .subscribe((funcionarios: IFuncionarios[]) => (this.funcionariosSharedCollection = funcionarios));
   }

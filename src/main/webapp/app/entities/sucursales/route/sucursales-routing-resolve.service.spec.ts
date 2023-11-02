@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { ISucursales } from '../sucursales.model';
 import { SucursalesService } from '../service/sucursales.service';
 
-import { SucursalesRoutingResolveService } from './sucursales-routing-resolve.service';
+import sucursalesResolve from './sucursales-routing-resolve.service';
 
 describe('Sucursales routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: SucursalesRoutingResolveService;
   let service: SucursalesService;
   let resultSucursales: ISucursales | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Sucursales routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(SucursalesRoutingResolveService);
     service = TestBed.inject(SucursalesService);
     resultSucursales = undefined;
   });
@@ -46,8 +44,12 @@ describe('Sucursales routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultSucursales = result;
+      TestBed.runInInjectionContext(() => {
+        sucursalesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultSucursales = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Sucursales routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultSucursales = result;
+      TestBed.runInInjectionContext(() => {
+        sucursalesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultSucursales = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Sucursales routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultSucursales = result;
+      TestBed.runInInjectionContext(() => {
+        sucursalesResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultSucursales = result;
+          },
+        });
       });
 
       // THEN

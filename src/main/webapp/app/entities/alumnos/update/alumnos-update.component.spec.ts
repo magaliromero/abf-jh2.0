@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { AlumnosFormService } from './alumnos-form.service';
-import { AlumnosService } from '../service/alumnos.service';
-import { IAlumnos } from '../alumnos.model';
 import { ITiposDocumentos } from 'app/entities/tipos-documentos/tipos-documentos.model';
 import { TiposDocumentosService } from 'app/entities/tipos-documentos/service/tipos-documentos.service';
+import { AlumnosService } from '../service/alumnos.service';
+import { IAlumnos } from '../alumnos.model';
+import { AlumnosFormService } from './alumnos-form.service';
 
 import { AlumnosUpdateComponent } from './alumnos-update.component';
 
@@ -24,8 +24,7 @@ describe('Alumnos Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [AlumnosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), AlumnosUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -51,10 +50,10 @@ describe('Alumnos Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call TiposDocumentos query and add missing value', () => {
       const alumnos: IAlumnos = { id: 456 };
-      const tipoDocumentos: ITiposDocumentos = { id: 87820 };
+      const tipoDocumentos: ITiposDocumentos = { id: 5375 };
       alumnos.tipoDocumentos = tipoDocumentos;
 
-      const tiposDocumentosCollection: ITiposDocumentos[] = [{ id: 52994 }];
+      const tiposDocumentosCollection: ITiposDocumentos[] = [{ id: 26841 }];
       jest.spyOn(tiposDocumentosService, 'query').mockReturnValue(of(new HttpResponse({ body: tiposDocumentosCollection })));
       const additionalTiposDocumentos = [tipoDocumentos];
       const expectedCollection: ITiposDocumentos[] = [...additionalTiposDocumentos, ...tiposDocumentosCollection];
@@ -66,14 +65,14 @@ describe('Alumnos Management Update Component', () => {
       expect(tiposDocumentosService.query).toHaveBeenCalled();
       expect(tiposDocumentosService.addTiposDocumentosToCollectionIfMissing).toHaveBeenCalledWith(
         tiposDocumentosCollection,
-        ...additionalTiposDocumentos.map(expect.objectContaining)
+        ...additionalTiposDocumentos.map(expect.objectContaining),
       );
       expect(comp.tiposDocumentosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const alumnos: IAlumnos = { id: 456 };
-      const tipoDocumentos: ITiposDocumentos = { id: 59854 };
+      const tipoDocumentos: ITiposDocumentos = { id: 515 };
       alumnos.tipoDocumentos = tipoDocumentos;
 
       activatedRoute.data = of({ alumnos });

@@ -13,7 +13,7 @@ export interface IAlumnos {
   telefono?: string | null;
   fechaNacimiento?: dayjs.Dayjs | null;
   documento?: string | null;
-  estado?: EstadosPersona | null;
+  estado?: keyof typeof EstadosPersona | null;
   tipoDocumentos?: Pick<ITiposDocumentos, 'id' | 'descripcion'> | null;
 }
 

@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { FuncionariosDetailComponent } from './funcionarios-detail.component';
 
 describe('Funcionarios Management Detail Component', () => {
-  let comp: FuncionariosDetailComponent;
-  let fixture: ComponentFixture<FuncionariosDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [FuncionariosDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FuncionariosDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ funcionarios: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: FuncionariosDetailComponent,
+              resolve: { funcionarios: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(FuncionariosDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(FuncionariosDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load funcionarios on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load funcionarios on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', FuncionariosDetailComponent);
 
       // THEN
-      expect(comp.funcionarios).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.funcionarios).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

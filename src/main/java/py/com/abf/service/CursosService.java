@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Cursos;
 
 /**
- * Service Interface for managing {@link Cursos}.
+ * Service Interface for managing {@link py.com.abf.domain.Cursos}.
  */
 public interface CursosService {
     /**

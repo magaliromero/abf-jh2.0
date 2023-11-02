@@ -18,8 +18,7 @@ describe('Temas Management Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: 'temas', component: TemasComponent }]), HttpClientTestingModule],
-      declarations: [TemasComponent],
+      imports: [RouterTestingModule.withRoutes([{ path: 'temas', component: TemasComponent }]), HttpClientTestingModule, TemasComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -33,7 +32,7 @@ describe('Temas Management Component', () => {
                 size: '1',
                 sort: 'id,desc',
                 'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
-              })
+              }),
             ),
             snapshot: { queryParams: {} },
           },
@@ -54,8 +53,8 @@ describe('Temas Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -108,7 +107,7 @@ describe('Temas Management Component', () => {
         queryParams: expect.objectContaining({
           sort: ['name,asc'],
         }),
-      })
+      }),
     );
   });
 

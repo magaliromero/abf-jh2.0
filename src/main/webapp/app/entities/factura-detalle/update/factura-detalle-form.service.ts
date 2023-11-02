@@ -42,7 +42,7 @@ export class FacturaDetalleFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       cantidad: new FormControl(facturaDetalleRawValue.cantidad),
       precioUnitario: new FormControl(facturaDetalleRawValue.precioUnitario),
@@ -68,7 +68,7 @@ export class FacturaDetalleFormService {
       {
         ...facturaDetalleRawValue,
         id: { value: facturaDetalleRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

@@ -23,7 +23,7 @@ describe('Timbrados Form Service', () => {
             numeroTimbrado: expect.any(Object),
             fechaInicio: expect.any(Object),
             fechaFin: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -36,14 +36,13 @@ describe('Timbrados Form Service', () => {
             numeroTimbrado: expect.any(Object),
             fechaInicio: expect.any(Object),
             fechaFin: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getTimbrados', () => {
       it('should return NewTimbrados for default Timbrados initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createTimbradosFormGroup(sampleWithNewData);
 
         const timbrados = service.getTimbrados(formGroup) as any;

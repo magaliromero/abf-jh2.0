@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.TiposDocumentos;
 
 /**
- * Service Interface for managing {@link TiposDocumentos}.
+ * Service Interface for managing {@link py.com.abf.domain.TiposDocumentos}.
  */
 public interface TiposDocumentosService {
     /**

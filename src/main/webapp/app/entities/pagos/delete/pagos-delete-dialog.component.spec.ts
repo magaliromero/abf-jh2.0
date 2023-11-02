@@ -18,8 +18,7 @@ describe('Pagos Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [PagosDeleteDialogComponent],
+      imports: [HttpClientTestingModule, PagosDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(PagosDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('Pagos Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

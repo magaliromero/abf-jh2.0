@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.RegistroClases;
 
 /**
- * Service Interface for managing {@link RegistroClases}.
+ * Service Interface for managing {@link py.com.abf.domain.RegistroClases}.
  */
 public interface RegistroClasesService {
     /**

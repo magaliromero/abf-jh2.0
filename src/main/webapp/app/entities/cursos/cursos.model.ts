@@ -9,7 +9,7 @@ export interface ICursos {
   fechaInicio?: dayjs.Dayjs | null;
   fechaFin?: dayjs.Dayjs | null;
   cantidadClases?: number | null;
-  nivel?: Niveles | null;
+  nivel?: keyof typeof Niveles | null;
   temas?: Pick<ITemas, 'id' | 'titulo'> | null;
 }
 

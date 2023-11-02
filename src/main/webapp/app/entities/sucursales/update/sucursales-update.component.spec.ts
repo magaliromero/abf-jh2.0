@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { SucursalesFormService } from './sucursales-form.service';
-import { SucursalesService } from '../service/sucursales.service';
-import { ISucursales } from '../sucursales.model';
 import { ITimbrados } from 'app/entities/timbrados/timbrados.model';
 import { TimbradosService } from 'app/entities/timbrados/service/timbrados.service';
+import { SucursalesService } from '../service/sucursales.service';
+import { ISucursales } from '../sucursales.model';
+import { SucursalesFormService } from './sucursales-form.service';
 
 import { SucursalesUpdateComponent } from './sucursales-update.component';
 
@@ -24,8 +24,7 @@ describe('Sucursales Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [SucursalesUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), SucursalesUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -51,10 +50,10 @@ describe('Sucursales Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Timbrados query and add missing value', () => {
       const sucursales: ISucursales = { id: 456 };
-      const timbrados: ITimbrados = { id: 64794 };
+      const timbrados: ITimbrados = { id: 5303 };
       sucursales.timbrados = timbrados;
 
-      const timbradosCollection: ITimbrados[] = [{ id: 93690 }];
+      const timbradosCollection: ITimbrados[] = [{ id: 24156 }];
       jest.spyOn(timbradosService, 'query').mockReturnValue(of(new HttpResponse({ body: timbradosCollection })));
       const additionalTimbrados = [timbrados];
       const expectedCollection: ITimbrados[] = [...additionalTimbrados, ...timbradosCollection];
@@ -66,14 +65,14 @@ describe('Sucursales Management Update Component', () => {
       expect(timbradosService.query).toHaveBeenCalled();
       expect(timbradosService.addTimbradosToCollectionIfMissing).toHaveBeenCalledWith(
         timbradosCollection,
-        ...additionalTimbrados.map(expect.objectContaining)
+        ...additionalTimbrados.map(expect.objectContaining),
       );
       expect(comp.timbradosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const sucursales: ISucursales = { id: 456 };
-      const timbrados: ITimbrados = { id: 6042 };
+      const timbrados: ITimbrados = { id: 25192 };
       sucursales.timbrados = timbrados;
 
       activatedRoute.data = of({ sucursales });

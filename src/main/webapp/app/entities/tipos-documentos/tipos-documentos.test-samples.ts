@@ -1,26 +1,26 @@
 import { ITiposDocumentos, NewTiposDocumentos } from './tipos-documentos.model';
 
 export const sampleWithRequiredData: ITiposDocumentos = {
-  id: 68091,
-  codigo: 'connect deposit Small',
-  descripcion: 'Peso Avon Loan',
+  id: 19795,
+  codigo: 'bewitched gee though',
+  descripcion: 'on exorcize round',
 };
 
 export const sampleWithPartialData: ITiposDocumentos = {
-  id: 41468,
-  codigo: 'Associate leverage applications',
-  descripcion: 'Ville dot-com',
+  id: 19219,
+  codigo: 'musculature apropos',
+  descripcion: 'adventurously acclaimed',
 };
 
 export const sampleWithFullData: ITiposDocumentos = {
-  id: 36840,
-  codigo: 'Analyst Malaysia',
-  descripcion: 'CSS SCSI',
+  id: 25689,
+  codigo: 'anchored',
+  descripcion: 'quieten meteor along',
 };
 
 export const sampleWithNewData: NewTiposDocumentos = {
-  codigo: 'Consultant Outdoors Soft',
-  descripcion: 'RSS index',
+  codigo: 'outstay mortally wrongly',
+  descripcion: 'unnaturally reporting hairy',
   id: null,
 };
 

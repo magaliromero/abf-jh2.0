@@ -31,7 +31,7 @@ describe('Alumnos Form Service', () => {
             documento: expect.any(Object),
             estado: expect.any(Object),
             tipoDocumentos: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -52,14 +52,13 @@ describe('Alumnos Form Service', () => {
             documento: expect.any(Object),
             estado: expect.any(Object),
             tipoDocumentos: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getAlumnos', () => {
       it('should return NewAlumnos for default Alumnos initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createAlumnosFormGroup(sampleWithNewData);
 
         const alumnos = service.getAlumnos(formGroup) as any;

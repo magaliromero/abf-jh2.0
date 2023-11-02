@@ -4,17 +4,22 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { EvaluacionesDetalleFormService, EvaluacionesDetalleFormGroup } from './evaluaciones-detalle-form.service';
-import { IEvaluacionesDetalle } from '../evaluaciones-detalle.model';
-import { EvaluacionesDetalleService } from '../service/evaluaciones-detalle.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IEvaluaciones } from 'app/entities/evaluaciones/evaluaciones.model';
 import { EvaluacionesService } from 'app/entities/evaluaciones/service/evaluaciones.service';
 import { ITemas } from 'app/entities/temas/temas.model';
 import { TemasService } from 'app/entities/temas/service/temas.service';
+import { EvaluacionesDetalleService } from '../service/evaluaciones-detalle.service';
+import { IEvaluacionesDetalle } from '../evaluaciones-detalle.model';
+import { EvaluacionesDetalleFormService, EvaluacionesDetalleFormGroup } from './evaluaciones-detalle-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-evaluaciones-detalle-update',
   templateUrl: './evaluaciones-detalle-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class EvaluacionesDetalleUpdateComponent implements OnInit {
   isSaving = false;
@@ -30,7 +35,7 @@ export class EvaluacionesDetalleUpdateComponent implements OnInit {
     protected evaluacionesDetalleFormService: EvaluacionesDetalleFormService,
     protected evaluacionesService: EvaluacionesService,
     protected temasService: TemasService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
 
   compareEvaluaciones = (o1: IEvaluaciones | null, o2: IEvaluaciones | null): boolean =>
@@ -88,11 +93,11 @@ export class EvaluacionesDetalleUpdateComponent implements OnInit {
 
     this.evaluacionesSharedCollection = this.evaluacionesService.addEvaluacionesToCollectionIfMissing<IEvaluaciones>(
       this.evaluacionesSharedCollection,
-      evaluacionesDetalle.evaluaciones
+      evaluacionesDetalle.evaluaciones,
     );
     this.temasSharedCollection = this.temasService.addTemasToCollectionIfMissing<ITemas>(
       this.temasSharedCollection,
-      evaluacionesDetalle.temas
+      evaluacionesDetalle.temas,
     );
   }
 
@@ -102,8 +107,11 @@ export class EvaluacionesDetalleUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IEvaluaciones[]>) => res.body ?? []))
       .pipe(
         map((evaluaciones: IEvaluaciones[]) =>
-          this.evaluacionesService.addEvaluacionesToCollectionIfMissing<IEvaluaciones>(evaluaciones, this.evaluacionesDetalle?.evaluaciones)
-        )
+          this.evaluacionesService.addEvaluacionesToCollectionIfMissing<IEvaluaciones>(
+            evaluaciones,
+            this.evaluacionesDetalle?.evaluaciones,
+          ),
+        ),
       )
       .subscribe((evaluaciones: IEvaluaciones[]) => (this.evaluacionesSharedCollection = evaluaciones));
 

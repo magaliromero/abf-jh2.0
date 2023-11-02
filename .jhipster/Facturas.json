@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133513",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "factura",
   "fields": [
     {
@@ -52,18 +50,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Facturas",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "facturaDetalle",
       "otherEntityRelationshipName": "factura",
       "relationshipName": "facturaDetalle",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

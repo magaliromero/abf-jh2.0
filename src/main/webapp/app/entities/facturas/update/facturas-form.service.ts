@@ -44,7 +44,7 @@ export class FacturasFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       fecha: new FormControl(facturasRawValue.fecha, {
         validators: [Validators.required],
@@ -86,7 +86,7 @@ export class FacturasFormService {
       {
         ...facturasRawValue,
         id: { value: facturasRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IPuntoDeExpedicion } from '../punto-de-expedicion.model';
 import { PuntoDeExpedicionService } from '../service/punto-de-expedicion.service';
 
-import { PuntoDeExpedicionRoutingResolveService } from './punto-de-expedicion-routing-resolve.service';
+import puntoDeExpedicionResolve from './punto-de-expedicion-routing-resolve.service';
 
 describe('PuntoDeExpedicion routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: PuntoDeExpedicionRoutingResolveService;
   let service: PuntoDeExpedicionService;
   let resultPuntoDeExpedicion: IPuntoDeExpedicion | null | undefined;
 
@@ -34,7 +33,6 @@ describe('PuntoDeExpedicion routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(PuntoDeExpedicionRoutingResolveService);
     service = TestBed.inject(PuntoDeExpedicionService);
     resultPuntoDeExpedicion = undefined;
   });
@@ -46,8 +44,12 @@ describe('PuntoDeExpedicion routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultPuntoDeExpedicion = result;
+      TestBed.runInInjectionContext(() => {
+        puntoDeExpedicionResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultPuntoDeExpedicion = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('PuntoDeExpedicion routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultPuntoDeExpedicion = result;
+      TestBed.runInInjectionContext(() => {
+        puntoDeExpedicionResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultPuntoDeExpedicion = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('PuntoDeExpedicion routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultPuntoDeExpedicion = result;
+      TestBed.runInInjectionContext(() => {
+        puntoDeExpedicionResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultPuntoDeExpedicion = result;
+          },
+        });
       });
 
       // THEN

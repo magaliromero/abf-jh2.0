@@ -12,7 +12,7 @@ import py.com.abf.repository.PrestamosRepository;
 import py.com.abf.service.PrestamosService;
 
 /**
- * Service Implementation for managing {@link Prestamos}.
+ * Service Implementation for managing {@link py.com.abf.domain.Prestamos}.
  */
 @Service
 @Transactional

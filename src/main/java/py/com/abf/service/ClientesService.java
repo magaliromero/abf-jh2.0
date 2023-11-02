@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Clientes;
 
 /**
- * Service Interface for managing {@link Clientes}.
+ * Service Interface for managing {@link py.com.abf.domain.Clientes}.
  */
 public interface ClientesService {
     /**

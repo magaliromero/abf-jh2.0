@@ -8,12 +8,11 @@ import { of } from 'rxjs';
 import { IFuncionarios } from '../funcionarios.model';
 import { FuncionariosService } from '../service/funcionarios.service';
 
-import { FuncionariosRoutingResolveService } from './funcionarios-routing-resolve.service';
+import funcionariosResolve from './funcionarios-routing-resolve.service';
 
 describe('Funcionarios routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: FuncionariosRoutingResolveService;
   let service: FuncionariosService;
   let resultFuncionarios: IFuncionarios | null | undefined;
 
@@ -34,7 +33,6 @@ describe('Funcionarios routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(FuncionariosRoutingResolveService);
     service = TestBed.inject(FuncionariosService);
     resultFuncionarios = undefined;
   });
@@ -46,8 +44,12 @@ describe('Funcionarios routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultFuncionarios = result;
+      TestBed.runInInjectionContext(() => {
+        funcionariosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultFuncionarios = result;
+          },
+        });
       });
 
       // THEN
@@ -61,8 +63,12 @@ describe('Funcionarios routing resolve service', () => {
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultFuncionarios = result;
+      TestBed.runInInjectionContext(() => {
+        funcionariosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultFuncionarios = result;
+          },
+        });
       });
 
       // THEN
@@ -76,8 +82,12 @@ describe('Funcionarios routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultFuncionarios = result;
+      TestBed.runInInjectionContext(() => {
+        funcionariosResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultFuncionarios = result;
+          },
+        });
       });
 
       // THEN

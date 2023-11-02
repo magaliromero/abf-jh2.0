@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Matricula;
 
 /**
- * Service Interface for managing {@link Matricula}.
+ * Service Interface for managing {@link py.com.abf.domain.Matricula}.
  */
 public interface MatriculaService {
     /**

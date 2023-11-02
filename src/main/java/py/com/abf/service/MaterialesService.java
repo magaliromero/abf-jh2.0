@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import py.com.abf.domain.Materiales;
 
 /**
- * Service Interface for managing {@link Materiales}.
+ * Service Interface for managing {@link py.com.abf.domain.Materiales}.
  */
 public interface MaterialesService {
     /**

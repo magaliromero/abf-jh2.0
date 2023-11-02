@@ -10,7 +10,7 @@ export interface IFacturas {
   sucursal?: number | null;
   razonSocial?: string | null;
   ruc?: string | null;
-  condicionVenta?: CondicionVenta | null;
+  condicionVenta?: keyof typeof CondicionVenta | null;
   total?: number | null;
 }
 

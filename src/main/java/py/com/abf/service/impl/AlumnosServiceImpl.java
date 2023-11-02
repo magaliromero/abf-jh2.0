@@ -12,7 +12,7 @@ import py.com.abf.repository.AlumnosRepository;
 import py.com.abf.service.AlumnosService;
 
 /**
- * Service Implementation for managing {@link Alumnos}.
+ * Service Implementation for managing {@link py.com.abf.domain.Alumnos}.
  */
 @Service
 @Transactional

@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133813",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "productos",
   "fields": [
     {
@@ -27,24 +25,32 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Productos",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "pagos",
       "otherEntityRelationshipName": "producto",
       "relationshipName": "pagos",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "facturaDetalle",
       "otherEntityRelationshipName": "producto",
       "relationshipName": "facturaDetalle",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "notaCreditoDetalle",
+      "otherEntityRelationshipName": "producto",
+      "relationshipName": "notaCreditoDetalle",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

@@ -1,0 +1,160 @@
+<div>
+  <h2 id="page-heading" data-cy="NotaCreditoDetalleHeading">
+    <span jhiTranslate="abfApp.notaCreditoDetalle.home.title">Nota Credito Detalles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="abfApp.notaCreditoDetalle.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-nota-credito-detalle"
+        [routerLink]="['/nota-credito-detalle/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="abfApp.notaCreditoDetalle.home.createLabel">Create a new Nota Credito Detalle</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="notaCreditoDetalles?.length === 0">
+    <span jhiTranslate="abfApp.notaCreditoDetalle.home.notFound">No Nota Credito Detalles found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="notaCreditoDetalles && notaCreditoDetalles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cantidad">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.notaCreditoDetalle.cantidad">Cantidad</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="precioUnitario">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.notaCreditoDetalle.precioUnitario">Precio Unitario</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="subtotal">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.notaCreditoDetalle.subtotal">Subtotal</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="porcentajeIva">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.notaCreditoDetalle.porcentajeIva">Porcentaje Iva</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="valorPorcentaje">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.notaCreditoDetalle.valorPorcentaje">Valor Porcentaje</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="notaCredito.notaNro">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.notaCreditoDetalle.notaCredito">Nota Credito</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="producto.descripcion">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.notaCreditoDetalle.producto">Producto</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let notaCreditoDetalle of notaCreditoDetalles; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/nota-credito-detalle', notaCreditoDetalle.id, 'view']">{{ notaCreditoDetalle.id }}</a>
+          </td>
+          <td>{{ notaCreditoDetalle.cantidad }}</td>
+          <td>{{ notaCreditoDetalle.precioUnitario }}</td>
+          <td>{{ notaCreditoDetalle.subtotal }}</td>
+          <td>{{ notaCreditoDetalle.porcentajeIva }}</td>
+          <td>{{ notaCreditoDetalle.valorPorcentaje }}</td>
+          <td>
+            <div *ngIf="notaCreditoDetalle.notaCredito">
+              <a [routerLink]="['/nota-credito', notaCreditoDetalle.notaCredito.id, 'view']">{{
+                notaCreditoDetalle.notaCredito.notaNro
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="notaCreditoDetalle.producto">
+              <a [routerLink]="['/productos', notaCreditoDetalle.producto.id, 'view']">{{ notaCreditoDetalle.producto.descripcion }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/nota-credito-detalle', notaCreditoDetalle.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/nota-credito-detalle', notaCreditoDetalle.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(notaCreditoDetalle)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="notaCreditoDetalles && notaCreditoDetalles.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

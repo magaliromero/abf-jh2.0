@@ -5,10 +5,10 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.FacturaDetalle;
+import py.com.abf.domain.NotaCreditoDetalle;
 import py.com.abf.domain.Pagos;
 import py.com.abf.domain.Productos;
 import py.com.abf.domain.enumeration.TipoProductos;
 import py.com.abf.repository.ProductosRepository;
-import py.com.abf.service.criteria.ProductosCriteria;
 
 /**
  * Integration tests for the {@link ProductosResource} REST controller.
@@ -559,7 +559,6 @@ class ProductosResourceIT {
         productos.addPagos(pagos);
         productosRepository.saveAndFlush(productos);
         Long pagosId = pagos.getId();
-
         // Get all the productosList where pagos equals to pagosId
         defaultProductosShouldBeFound("pagosId.equals=" + pagosId);
 
@@ -582,12 +581,33 @@ class ProductosResourceIT {
         productos.addFacturaDetalle(facturaDetalle);
         productosRepository.saveAndFlush(productos);
         Long facturaDetalleId = facturaDetalle.getId();
-
         // Get all the productosList where facturaDetalle equals to facturaDetalleId
         defaultProductosShouldBeFound("facturaDetalleId.equals=" + facturaDetalleId);
 
         // Get all the productosList where facturaDetalle equals to (facturaDetalleId + 1)
         defaultProductosShouldNotBeFound("facturaDetalleId.equals=" + (facturaDetalleId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllProductosByNotaCreditoDetalleIsEqualToSomething() throws Exception {
+        NotaCreditoDetalle notaCreditoDetalle;
+        if (TestUtil.findAll(em, NotaCreditoDetalle.class).isEmpty()) {
+            productosRepository.saveAndFlush(productos);
+            notaCreditoDetalle = NotaCreditoDetalleResourceIT.createEntity(em);
+        } else {
+            notaCreditoDetalle = TestUtil.findAll(em, NotaCreditoDetalle.class).get(0);
+        }
+        em.persist(notaCreditoDetalle);
+        em.flush();
+        productos.addNotaCreditoDetalle(notaCreditoDetalle);
+        productosRepository.saveAndFlush(productos);
+        Long notaCreditoDetalleId = notaCreditoDetalle.getId();
+        // Get all the productosList where notaCreditoDetalle equals to notaCreditoDetalleId
+        defaultProductosShouldBeFound("notaCreditoDetalleId.equals=" + notaCreditoDetalleId);
+
+        // Get all the productosList where notaCreditoDetalle equals to (notaCreditoDetalleId + 1)
+        defaultProductosShouldNotBeFound("notaCreditoDetalleId.equals=" + (notaCreditoDetalleId + 1));
     }
 
     /**
@@ -647,7 +667,7 @@ class ProductosResourceIT {
         int databaseSizeBeforeUpdate = productosRepository.findAll().size();
 
         // Update the productos
-        Productos updatedProductos = productosRepository.findById(productos.getId()).get();
+        Productos updatedProductos = productosRepository.findById(productos.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedProductos are not directly saved in db
         em.detach(updatedProductos);
         updatedProductos

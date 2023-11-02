@@ -1,8 +1,6 @@
 {
   "applications": ["abf"],
   "changelogDate": "20230601133913",
-  "dto": "no",
-  "embedded": false,
   "entityTableName": "materiales",
   "fields": [
     {
@@ -19,18 +17,18 @@
       "fieldType": "Integer"
     }
   ],
-  "fluentMethods": true,
   "jpaMetamodelFiltering": true,
   "name": "Materiales",
   "pagination": "pagination",
-  "readOnly": false,
   "relationships": [
     {
       "otherEntityName": "prestamos",
       "otherEntityRelationshipName": "materiales",
       "relationshipName": "prestamos",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

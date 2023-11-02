@@ -40,7 +40,7 @@ export class PrestamosFormService {
         {
           nonNullable: true,
           validators: [Validators.required],
-        }
+        },
       ),
       fechaPrestamo: new FormControl(prestamosRawValue.fechaPrestamo, {
         validators: [Validators.required],
@@ -68,7 +68,7 @@ export class PrestamosFormService {
       {
         ...prestamosRawValue,
         id: { value: prestamosRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
+      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */,
     );
   }
 

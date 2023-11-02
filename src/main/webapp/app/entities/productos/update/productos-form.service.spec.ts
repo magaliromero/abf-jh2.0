@@ -24,7 +24,7 @@ describe('Productos Form Service', () => {
             precioUnitario: expect.any(Object),
             porcentajeIva: expect.any(Object),
             descripcion: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -38,14 +38,13 @@ describe('Productos Form Service', () => {
             precioUnitario: expect.any(Object),
             porcentajeIva: expect.any(Object),
             descripcion: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getProductos', () => {
       it('should return NewProductos for default Productos initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createProductosFormGroup(sampleWithNewData);
 
         const productos = service.getProductos(formGroup) as any;

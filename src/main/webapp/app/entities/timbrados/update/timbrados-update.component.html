@@ -8,12 +8,12 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.timbrados.numeroTimbrado" for="field_numeroTimbrado">Numero Timbrado</label>
           <input
             type="number"
@@ -32,20 +32,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('numeroTimbrado')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('numeroTimbrado')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.timbrados.fechaInicio" for="field_fechaInicio">Fecha Inicio</label>
           <div class="input-group">
             <input
@@ -67,13 +65,12 @@
               class="form-text text-danger"
               *ngIf="editForm.get('fechaInicio')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="abfApp.timbrados.fechaFin" for="field_fechaFin">Fecha Fin</label>
           <div class="input-group">
             <input
@@ -93,9 +90,8 @@
               class="form-text text-danger"
               *ngIf="editForm.get('fechaFin')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
           </div>
         </div>
       </div>

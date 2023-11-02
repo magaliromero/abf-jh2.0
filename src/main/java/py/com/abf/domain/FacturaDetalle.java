@@ -1,9 +1,9 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -41,12 +41,12 @@ public class FacturaDetalle implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles", "notaCreditoDetalles" }, allowSetters = true)
     private Productos producto;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "facturaDetalles" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "facturaDetalles", "notaCredito" }, allowSetters = true)
     private Facturas factura;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -165,7 +165,7 @@ public class FacturaDetalle implements Serializable {
         if (!(o instanceof FacturaDetalle)) {
             return false;
         }
-        return id != null && id.equals(((FacturaDetalle) o).id);
+        return getId() != null && getId().equals(((FacturaDetalle) o).getId());
     }
 
     @Override

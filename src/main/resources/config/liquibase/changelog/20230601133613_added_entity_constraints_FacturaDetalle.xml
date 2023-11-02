@@ -12,12 +12,14 @@
                                  baseTableName="factura_detalle"
                                  constraintName="fk_factura_detalle__producto_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="productos"/>
+                                 referencedTableName="productos"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="factura_id"
                                  baseTableName="factura_detalle"
                                  constraintName="fk_factura_detalle__factura_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="factura"/>
+                                 referencedTableName="factura"
+                                 />
     </changeSet>
 </databaseChangeLog>

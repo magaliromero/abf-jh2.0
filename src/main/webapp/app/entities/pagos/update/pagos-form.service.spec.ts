@@ -25,7 +25,7 @@ describe('Pagos Form Service', () => {
             cantidadHoras: expect.any(Object),
             producto: expect.any(Object),
             funcionario: expect.any(Object),
-          })
+          }),
         );
       });
 
@@ -40,14 +40,13 @@ describe('Pagos Form Service', () => {
             cantidadHoras: expect.any(Object),
             producto: expect.any(Object),
             funcionario: expect.any(Object),
-          })
+          }),
         );
       });
     });
 
     describe('getPagos', () => {
       it('should return NewPagos for default Pagos initial value', () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formGroup = service.createPagosFormGroup(sampleWithNewData);
 
         const pagos = service.getPagos(formGroup) as any;

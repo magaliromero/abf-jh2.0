@@ -1,12 +1,12 @@
 package py.com.abf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import py.com.abf.domain.enumeration.EstadosPersona;
@@ -66,27 +66,27 @@ public class Alumnos implements Serializable {
     @Column(name = "estado", nullable = false)
     private EstadosPersona estado;
 
-    @OneToMany(mappedBy = "alumnos")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumnos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "alumnos", "cursos" }, allowSetters = true)
     private Set<Inscripciones> inscripciones = new HashSet<>();
 
-    @OneToMany(mappedBy = "alumnos")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumnos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "evaluacionesDetalles", "alumnos", "funcionarios" }, allowSetters = true)
     private Set<Evaluaciones> evaluaciones = new HashSet<>();
 
-    @OneToMany(mappedBy = "alumno")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumno")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "alumno" }, allowSetters = true)
     private Set<Matricula> matriculas = new HashSet<>();
 
-    @OneToMany(mappedBy = "alumnos")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumnos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "materiales", "alumnos" }, allowSetters = true)
     private Set<Prestamos> prestamos = new HashSet<>();
 
-    @OneToMany(mappedBy = "alumnos")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumnos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
@@ -419,7 +419,7 @@ public class Alumnos implements Serializable {
         if (!(o instanceof Alumnos)) {
             return false;
         }
-        return id != null && id.equals(((Alumnos) o).id);
+        return getId() != null && getId().equals(((Alumnos) o).getId());
     }
 
     @Override

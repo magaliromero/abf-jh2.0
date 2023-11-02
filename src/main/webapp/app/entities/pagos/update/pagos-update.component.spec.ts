@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { PagosFormService } from './pagos-form.service';
-import { PagosService } from '../service/pagos.service';
-import { IPagos } from '../pagos.model';
 import { IProductos } from 'app/entities/productos/productos.model';
 import { ProductosService } from 'app/entities/productos/service/productos.service';
 import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
 import { FuncionariosService } from 'app/entities/funcionarios/service/funcionarios.service';
+import { IPagos } from '../pagos.model';
+import { PagosService } from '../service/pagos.service';
+import { PagosFormService } from './pagos-form.service';
 
 import { PagosUpdateComponent } from './pagos-update.component';
 
@@ -27,8 +27,7 @@ describe('Pagos Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [PagosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), PagosUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -55,10 +54,10 @@ describe('Pagos Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Productos query and add missing value', () => {
       const pagos: IPagos = { id: 456 };
-      const producto: IProductos = { id: 260 };
+      const producto: IProductos = { id: 17823 };
       pagos.producto = producto;
 
-      const productosCollection: IProductos[] = [{ id: 14087 }];
+      const productosCollection: IProductos[] = [{ id: 15086 }];
       jest.spyOn(productosService, 'query').mockReturnValue(of(new HttpResponse({ body: productosCollection })));
       const additionalProductos = [producto];
       const expectedCollection: IProductos[] = [...additionalProductos, ...productosCollection];
@@ -70,17 +69,17 @@ describe('Pagos Management Update Component', () => {
       expect(productosService.query).toHaveBeenCalled();
       expect(productosService.addProductosToCollectionIfMissing).toHaveBeenCalledWith(
         productosCollection,
-        ...additionalProductos.map(expect.objectContaining)
+        ...additionalProductos.map(expect.objectContaining),
       );
       expect(comp.productosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Funcionarios query and add missing value', () => {
       const pagos: IPagos = { id: 456 };
-      const funcionario: IFuncionarios = { id: 62792 };
+      const funcionario: IFuncionarios = { id: 11297 };
       pagos.funcionario = funcionario;
 
-      const funcionariosCollection: IFuncionarios[] = [{ id: 51622 }];
+      const funcionariosCollection: IFuncionarios[] = [{ id: 18808 }];
       jest.spyOn(funcionariosService, 'query').mockReturnValue(of(new HttpResponse({ body: funcionariosCollection })));
       const additionalFuncionarios = [funcionario];
       const expectedCollection: IFuncionarios[] = [...additionalFuncionarios, ...funcionariosCollection];
@@ -92,16 +91,16 @@ describe('Pagos Management Update Component', () => {
       expect(funcionariosService.query).toHaveBeenCalled();
       expect(funcionariosService.addFuncionariosToCollectionIfMissing).toHaveBeenCalledWith(
         funcionariosCollection,
-        ...additionalFuncionarios.map(expect.objectContaining)
+        ...additionalFuncionarios.map(expect.objectContaining),
       );
       expect(comp.funcionariosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const pagos: IPagos = { id: 456 };
-      const producto: IProductos = { id: 45226 };
+      const producto: IProductos = { id: 11257 };
       pagos.producto = producto;
-      const funcionario: IFuncionarios = { id: 34733 };
+      const funcionario: IFuncionarios = { id: 11701 };
       pagos.funcionario = funcionario;
 
       activatedRoute.data = of({ pagos });

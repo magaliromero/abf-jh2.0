@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { PrestamosFormService } from './prestamos-form.service';
-import { PrestamosService } from '../service/prestamos.service';
-import { IPrestamos } from '../prestamos.model';
 import { IMateriales } from 'app/entities/materiales/materiales.model';
 import { MaterialesService } from 'app/entities/materiales/service/materiales.service';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
+import { IPrestamos } from '../prestamos.model';
+import { PrestamosService } from '../service/prestamos.service';
+import { PrestamosFormService } from './prestamos-form.service';
 
 import { PrestamosUpdateComponent } from './prestamos-update.component';
 
@@ -27,8 +27,7 @@ describe('Prestamos Management Update Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [PrestamosUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), PrestamosUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -55,10 +54,10 @@ describe('Prestamos Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Materiales query and add missing value', () => {
       const prestamos: IPrestamos = { id: 456 };
-      const materiales: IMateriales = { id: 38783 };
+      const materiales: IMateriales = { id: 27578 };
       prestamos.materiales = materiales;
 
-      const materialesCollection: IMateriales[] = [{ id: 40409 }];
+      const materialesCollection: IMateriales[] = [{ id: 17666 }];
       jest.spyOn(materialesService, 'query').mockReturnValue(of(new HttpResponse({ body: materialesCollection })));
       const additionalMateriales = [materiales];
       const expectedCollection: IMateriales[] = [...additionalMateriales, ...materialesCollection];
@@ -70,17 +69,17 @@ describe('Prestamos Management Update Component', () => {
       expect(materialesService.query).toHaveBeenCalled();
       expect(materialesService.addMaterialesToCollectionIfMissing).toHaveBeenCalledWith(
         materialesCollection,
-        ...additionalMateriales.map(expect.objectContaining)
+        ...additionalMateriales.map(expect.objectContaining),
       );
       expect(comp.materialesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Alumnos query and add missing value', () => {
       const prestamos: IPrestamos = { id: 456 };
-      const alumnos: IAlumnos = { id: 73984 };
+      const alumnos: IAlumnos = { id: 15529 };
       prestamos.alumnos = alumnos;
 
-      const alumnosCollection: IAlumnos[] = [{ id: 86220 }];
+      const alumnosCollection: IAlumnos[] = [{ id: 8612 }];
       jest.spyOn(alumnosService, 'query').mockReturnValue(of(new HttpResponse({ body: alumnosCollection })));
       const additionalAlumnos = [alumnos];
       const expectedCollection: IAlumnos[] = [...additionalAlumnos, ...alumnosCollection];
@@ -92,16 +91,16 @@ describe('Prestamos Management Update Component', () => {
       expect(alumnosService.query).toHaveBeenCalled();
       expect(alumnosService.addAlumnosToCollectionIfMissing).toHaveBeenCalledWith(
         alumnosCollection,
-        ...additionalAlumnos.map(expect.objectContaining)
+        ...additionalAlumnos.map(expect.objectContaining),
       );
       expect(comp.alumnosSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const prestamos: IPrestamos = { id: 456 };
-      const materiales: IMateriales = { id: 77994 };
+      const materiales: IMateriales = { id: 12242 };
       prestamos.materiales = materiales;
-      const alumnos: IAlumnos = { id: 81930 };
+      const alumnos: IAlumnos = { id: 8819 };
       prestamos.alumnos = alumnos;
 
       activatedRoute.data = of({ prestamos });
