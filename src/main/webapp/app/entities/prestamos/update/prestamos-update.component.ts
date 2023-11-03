@@ -27,6 +27,8 @@ export class PrestamosUpdateComponent implements OnInit {
 
   editForm: PrestamosFormGroup = this.prestamosFormService.createPrestamosFormGroup();
 
+  hayStock = true;
+
   constructor(
     protected prestamosService: PrestamosService,
     protected prestamosFormService: PrestamosFormService,
@@ -48,6 +50,13 @@ export class PrestamosUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+  }
+  verificarStock() {
+    let data = this.materialesSharedCollection.find(item => item.id == this.editForm.controls.materiales.value?.id);
+    console.log(data);
+    if ((data?.cantidad ?? 0) < 1) {
+      this.hayStock = false;
+    }
   }
 
   previousState(): void {

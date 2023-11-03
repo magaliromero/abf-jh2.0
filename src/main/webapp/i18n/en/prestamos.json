@@ -4,7 +4,7 @@
       "home": {
         "title": "Prestamos",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Prestamos",
+        "createLabel": "Crear un nuevo préstamo",
         "createOrEditLabel": "Create or edit a Prestamos",
         "notFound": "No Prestamos found"
       },

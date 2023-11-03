@@ -88,10 +88,11 @@
             name="materiales"
             formControlName="materiales"
             [compareWith]="compareMateriales"
+            (change)="verificarStock()"
           >
             <option *ngIf="editForm.get(['materiales'])!.value == null" [ngValue]="null" selected></option>
             <option [ngValue]="materialesOption" *ngFor="let materialesOption of materialesSharedCollection">
-              {{ materialesOption.descripcion }}
+              {{ materialesOption.descripcion + ' ' + materialesOption.cantidad }}
             </option>
           </select>
         </div>
@@ -143,7 +144,7 @@
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
+          [disabled]="editForm.invalid || isSaving || !hayStock"
           class="btn btn-primary"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

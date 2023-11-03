@@ -1,21 +1,21 @@
 {
   "abfApp": {
-    "préstamo": {
+    "prestamo": {
       "home": {
-        "title": "préstamo",
+        "title": "prestamo",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Préstamo",
-        "createOrEditLabel": "Crear o editar préstamo",
-        "notFound": "Ningún préstamo encontrado"
+        "createLabel": "Crear nuevo prestamo",
+        "createOrEditLabel": "Crear o editar prestamo",
+        "notFound": "Ningún prestamo encontrado"
       },
-      "created": "Un nuevo préstamo ha sido creado con el identificador {{ param }}",
-      "updated": "Un préstamo ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un préstamo ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo prestamo ha sido creado con el identificador {{ param }}",
+      "updated": "Un prestamo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un prestamo ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar préstamo {{ id }}?"
+        "question": "¿Seguro que quiere eliminar prestamo {{ id }}?"
       },
       "detail": {
-        "title": "préstamo"
+        "title": "prestamo"
       },
       "id": "ID",
       "fechaPrestamo": "Fecha Prestamo",
