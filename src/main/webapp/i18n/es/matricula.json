@@ -2,15 +2,15 @@
   "abfApp": {
     "matricula": {
       "home": {
-        "title": "Matrículas",
+        "title": "Matriculas",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Matricula",
         "createOrEditLabel": "Crear o editar Matricula",
-        "notFoUnad": "Ningún Matriculas encontrado"
+        "notFound": "Ningún Matriculas encontrado"
       },
-      "created": "Una nueva Matricula ha sido creada con el identificador {{ param }}",
-      "updated": "Una Matricula ha sido actualizada con el identificador {{ param }}",
-      "deleted": "Una Matricula ha sido eliminada con el identificador {{ param }}",
+      "created": "Un nuevo Matricula ha sido creado con el identificador {{ param }}",
+      "updated": "Un Matricula ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Matricula ha sido eliminado con el identificador {{ param }}",
       "delete": {
         "question": "¿Seguro que quiere eliminar Matricula {{ id }}?"
       },

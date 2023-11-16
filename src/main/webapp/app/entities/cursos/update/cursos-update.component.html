@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-cursos-heading" data-cy="CursosCreateUpdateHeading" jhiTranslate="abfApp.cursos.home.createOrEditLabel">
-        Create or edit a Cursos
+        Crear o editar Cursos
       </h2>
 
       <div>
@@ -29,7 +29,7 @@
               *ngIf="editForm.get('nombreCurso')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -50,7 +50,7 @@
               *ngIf="editForm.get('descripcion')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -111,28 +111,30 @@
           </select>
           <div *ngIf="editForm.get('nivel')!.invalid && (editForm.get('nivel')!.dirty || editForm.get('nivel')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('nivel')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.cursos.temas" for="field_temas">Temas</label>
-          <select class="form-control" id="field_temas" data-cy="temas" name="temas" formControlName="temas" [compareWith]="compareTemas">
-            <option *ngIf="editForm.get(['temas'])!.value == null" [ngValue]="null" selected></option>
+          <label jhiTranslate="abfApp.cursos.temas" for="field_temas">Temas</label>
+          <select
+            class="form-control"
+            id="field_temas"
+            data-cy="temas"
+            multiple
+            name="temas"
+            formControlName="temas"
+            [compareWith]="compareTemas"
+          >
             <option [ngValue]="temasOption" *ngFor="let temasOption of temasSharedCollection">{{ temasOption.titulo }}</option>
           </select>
-        </div>
-        <div *ngIf="editForm.get(['temas'])!.invalid && (editForm.get(['temas'])!.dirty || editForm.get(['temas'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['temas'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
         </button>
 
         <button
@@ -142,7 +144,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
         </button>
       </div>
     </form>

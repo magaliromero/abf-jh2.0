@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601133813",
+  "changelogDate": "20231116011830",
   "dto": "no",
   "embedded": false,
   "entityTableName": "productos",
@@ -43,6 +43,12 @@
       "otherEntityName": "facturaDetalle",
       "otherEntityRelationshipName": "producto",
       "relationshipName": "facturaDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "notaCreditoDetalle",
+      "otherEntityRelationshipName": "producto",
+      "relationshipName": "notaCreditoDetalle",
       "relationshipType": "one-to-many"
     }
   ],

@@ -94,6 +94,9 @@ public class PrestamosQueryService extends QueryService<Prestamos> {
             if (criteria.getEstado() != null) {
                 specification = specification.and(buildSpecification(criteria.getEstado(), Prestamos_.estado));
             }
+            if (criteria.getObservaciones() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getObservaciones(), Prestamos_.observaciones));
+            }
             if (criteria.getMaterialesId() != null) {
                 specification =
                     specification.and(

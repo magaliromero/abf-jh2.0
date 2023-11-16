@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601132913",
+  "changelogDate": "20231116010930",
   "dto": "no",
   "embedded": false,
   "entityTableName": "cursos",
@@ -47,12 +47,18 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityName": "registroClases",
+      "otherEntityRelationshipName": "cursos",
+      "relationshipName": "registroClases",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityField": "titulo",
       "otherEntityName": "temas",
       "otherEntityRelationshipName": "cursos",
+      "ownerSide": true,
       "relationshipName": "temas",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
+      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceImpl"

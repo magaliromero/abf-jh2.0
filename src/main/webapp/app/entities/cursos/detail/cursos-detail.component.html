@@ -40,18 +40,19 @@
         </dd>
         <dt><span jhiTranslate="abfApp.cursos.temas">Temas</span></dt>
         <dd>
-          <div *ngIf="cursos.temas">
-            <a [routerLink]="['/temas', cursos.temas.id, 'view']">{{ cursos.temas.titulo }}</a>
-          </div>
+          <span *ngFor="let temas of cursos.temas; let last = last">
+            <a [routerLink]="['/temas', temas.id, 'view']">{{ temas.titulo }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
         </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
       </button>
 
       <button type="button" [routerLink]="['/cursos', cursos.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
       </button>
     </div>
   </div>

@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-prestamos-heading" data-cy="PrestamosCreateUpdateHeading" jhiTranslate="abfApp.prestamos.home.createOrEditLabel">
-        Create or edit a Prestamos
+        Crear o editar Prestamos
       </h2>
 
       <div>
@@ -40,7 +40,7 @@
               *ngIf="editForm.get('fechaPrestamo')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -74,9 +74,21 @@
           </select>
           <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.prestamos.observaciones" for="field_observaciones">Observaciones</label>
+          <input
+            type="text"
+            class="form-control"
+            name="observaciones"
+            id="field_observaciones"
+            data-cy="observaciones"
+            formControlName="observaciones"
+          />
         </div>
 
         <div class="row mb-3">
@@ -88,11 +100,10 @@
             name="materiales"
             formControlName="materiales"
             [compareWith]="compareMateriales"
-            (change)="verificarStock()"
           >
             <option *ngIf="editForm.get(['materiales'])!.value == null" [ngValue]="null" selected></option>
             <option [ngValue]="materialesOption" *ngFor="let materialesOption of materialesSharedCollection">
-              {{ materialesOption.descripcion + ' ' + materialesOption.cantidad }}
+              {{ materialesOption.descripcion }}
             </option>
           </select>
         </div>
@@ -104,7 +115,7 @@
             *ngIf="editForm.get(['materiales'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
 
@@ -130,24 +141,24 @@
             *ngIf="editForm.get(['alumnos'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
         </button>
 
         <button
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving || !hayStock"
+          [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
         </button>
       </div>
     </form>

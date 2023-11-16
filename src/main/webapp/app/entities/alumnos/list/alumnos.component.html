@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.alumnos.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.alumnos.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/alumnos/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.alumnos.home.createLabel"> Create a new Alumno </span>
+        <span jhiTranslate="abfApp.alumnos.home.createLabel"> Crear nuevo Alumnos </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="alumnos?.length === 0">
-    <span jhiTranslate="abfApp.alumnos.home.notFound">No Alumnos found</span>
+    <span jhiTranslate="abfApp.alumnos.home.notFound">Ningún Alumnos encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="alumnos && alumnos.length > 0">
@@ -37,18 +37,6 @@
           <th scope="col" jhiSortBy="id">
             <div class="d-flex">
               <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="elo">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.alumnos.elo">Elo</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="fideId">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.alumnos.fideId">Fide Id</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -100,6 +88,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="elo">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.alumnos.elo">Elo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fideId">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.alumnos.fideId">Fide Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="tipoDocumentos.descripcion">
             <div class="d-flex">
               <span jhiTranslate="abfApp.alumnos.tipoDocumentos">Tipo Documentos</span>
@@ -114,8 +114,6 @@
           <td>
             <a [routerLink]="['/alumnos', alumnos.id, 'view']">{{ alumnos.id }}</a>
           </td>
-          <td>{{ alumnos.elo }}</td>
-          <td>{{ alumnos.fideId }}</td>
           <td>{{ alumnos.nombres }}</td>
           <td>{{ alumnos.apellidos }}</td>
           <td>{{ alumnos.nombreCompleto }}</td>
@@ -124,6 +122,8 @@
           <td>{{ alumnos.fechaNacimiento | formatMediumDate }}</td>
           <td>{{ alumnos.documento }}</td>
           <td jhiTranslate="{{ 'abfApp.EstadosPersona.' + alumnos.estado }}">{{ alumnos.estado }}</td>
+          <td>{{ alumnos.elo }}</td>
+          <td>{{ alumnos.fideId }}</td>
           <td>
             <div *ngIf="alumnos.tipoDocumentos">
               <a [routerLink]="['/tipos-documentos', alumnos.tipoDocumentos.id, 'view']">{{ alumnos.tipoDocumentos.descripcion }}</a>
@@ -143,7 +143,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.alumnos.inscripciones' | translate) }"
-                  >Ver Inscripciones</span
+                  >Show Inscripciones</span
                 >
               </button>
               <button
@@ -158,7 +158,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.alumnos.evaluaciones' | translate) }"
-                  >Ver Evaluaciones</span
+                  >Show Evaluaciones</span
                 >
               </button>
               <button
@@ -173,7 +173,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.alumnos.matricula' | translate) }"
-                  >Ver Matricula</span
+                  >Show Matricula</span
                 >
               </button>
               <button
@@ -188,7 +188,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.alumnos.prestamos' | translate) }"
-                  >Ver Prestamos</span
+                  >Show Prestamos</span
                 >
               </button>
               <button
@@ -203,7 +203,22 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.alumnos.registroClases' | translate) }"
-                  >Ver Registro Clases</span
+                  >Show Registro Clases</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/facturas']"
+                [queryParams]="{ 'filter[alumnosId.in]': alumnos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.alumnos.facturas' | translate) }"
+                  >Show Facturas</span
                 >
               </button>
               <button
@@ -213,7 +228,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button
@@ -223,12 +238,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(alumnos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

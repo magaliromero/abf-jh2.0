@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Materiales;
 import py.com.abf.domain.Prestamos;
+import py.com.abf.domain.RegistroStockMateriales;
 import py.com.abf.repository.MaterialesRepository;
 import py.com.abf.service.criteria.MaterialesCriteria;
 
@@ -442,6 +443,29 @@ class MaterialesResourceIT {
 
         // Get all the materialesList where cantidadEnPrestamo is greater than SMALLER_CANTIDAD_EN_PRESTAMO
         defaultMaterialesShouldBeFound("cantidadEnPrestamo.greaterThan=" + SMALLER_CANTIDAD_EN_PRESTAMO);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialesByRegistroStockMaterialesIsEqualToSomething() throws Exception {
+        RegistroStockMateriales registroStockMateriales;
+        if (TestUtil.findAll(em, RegistroStockMateriales.class).isEmpty()) {
+            materialesRepository.saveAndFlush(materiales);
+            registroStockMateriales = RegistroStockMaterialesResourceIT.createEntity(em);
+        } else {
+            registroStockMateriales = TestUtil.findAll(em, RegistroStockMateriales.class).get(0);
+        }
+        em.persist(registroStockMateriales);
+        em.flush();
+        materiales.addRegistroStockMateriales(registroStockMateriales);
+        materialesRepository.saveAndFlush(materiales);
+        Long registroStockMaterialesId = registroStockMateriales.getId();
+
+        // Get all the materialesList where registroStockMateriales equals to registroStockMaterialesId
+        defaultMaterialesShouldBeFound("registroStockMaterialesId.equals=" + registroStockMaterialesId);
+
+        // Get all the materialesList where registroStockMateriales equals to (registroStockMaterialesId + 1)
+        defaultMaterialesShouldNotBeFound("registroStockMaterialesId.equals=" + (registroStockMaterialesId + 1));
     }
 
     @Test

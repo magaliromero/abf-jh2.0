@@ -29,6 +29,8 @@ public class MaterialesCriteria implements Serializable, Criteria {
 
     private IntegerFilter cantidadEnPrestamo;
 
+    private LongFilter registroStockMaterialesId;
+
     private LongFilter prestamosId;
 
     private Boolean distinct;
@@ -40,6 +42,7 @@ public class MaterialesCriteria implements Serializable, Criteria {
         this.descripcion = other.descripcion == null ? null : other.descripcion.copy();
         this.cantidad = other.cantidad == null ? null : other.cantidad.copy();
         this.cantidadEnPrestamo = other.cantidadEnPrestamo == null ? null : other.cantidadEnPrestamo.copy();
+        this.registroStockMaterialesId = other.registroStockMaterialesId == null ? null : other.registroStockMaterialesId.copy();
         this.prestamosId = other.prestamosId == null ? null : other.prestamosId.copy();
         this.distinct = other.distinct;
     }
@@ -109,6 +112,21 @@ public class MaterialesCriteria implements Serializable, Criteria {
         this.cantidadEnPrestamo = cantidadEnPrestamo;
     }
 
+    public LongFilter getRegistroStockMaterialesId() {
+        return registroStockMaterialesId;
+    }
+
+    public LongFilter registroStockMaterialesId() {
+        if (registroStockMaterialesId == null) {
+            registroStockMaterialesId = new LongFilter();
+        }
+        return registroStockMaterialesId;
+    }
+
+    public void setRegistroStockMaterialesId(LongFilter registroStockMaterialesId) {
+        this.registroStockMaterialesId = registroStockMaterialesId;
+    }
+
     public LongFilter getPrestamosId() {
         return prestamosId;
     }
@@ -146,6 +164,7 @@ public class MaterialesCriteria implements Serializable, Criteria {
             Objects.equals(descripcion, that.descripcion) &&
             Objects.equals(cantidad, that.cantidad) &&
             Objects.equals(cantidadEnPrestamo, that.cantidadEnPrestamo) &&
+            Objects.equals(registroStockMaterialesId, that.registroStockMaterialesId) &&
             Objects.equals(prestamosId, that.prestamosId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -153,7 +172,7 @@ public class MaterialesCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, descripcion, cantidad, cantidadEnPrestamo, prestamosId, distinct);
+        return Objects.hash(id, descripcion, cantidad, cantidadEnPrestamo, registroStockMaterialesId, prestamosId, distinct);
     }
 
     // prettier-ignore
@@ -164,6 +183,7 @@ public class MaterialesCriteria implements Serializable, Criteria {
             (descripcion != null ? "descripcion=" + descripcion + ", " : "") +
             (cantidad != null ? "cantidad=" + cantidad + ", " : "") +
             (cantidadEnPrestamo != null ? "cantidadEnPrestamo=" + cantidadEnPrestamo + ", " : "") +
+            (registroStockMaterialesId != null ? "registroStockMaterialesId=" + registroStockMaterialesId + ", " : "") +
             (prestamosId != null ? "prestamosId=" + prestamosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

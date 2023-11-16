@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601134013",
+  "changelogDate": "20231116012130",
   "dto": "no",
   "embedded": false,
   "entityTableName": "prestamos",
@@ -19,6 +19,10 @@
       "fieldType": "EstadosPrestamos",
       "fieldValidateRules": ["required"],
       "fieldValues": "DEVUELTO (Devuelto),PRESTADO (En Prestamo),VENCIDO (No devuelto)"
+    },
+    {
+      "fieldName": "observaciones",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

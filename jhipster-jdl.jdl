@@ -1,4 +1,3 @@
-
 application {
   config {
     baseName abf
@@ -11,10 +10,10 @@ application {
     buildTool maven
     clientFramework angular
     languages [es]
+    nativeLanguage es
   }
   entities *
 }
-
 
 enum EstadosPagos{
  	PAGADO(Pagado)
@@ -56,7 +55,15 @@ enum EstadosPrestamos{
     VENCIDO("No devuelto") 
 }
 
-entity Temas(temas){
+
+enum EstadosFacturas {
+ 	ANULADO,
+    ENTREGADO,
+    PENDIENTE,
+    PAGADO
+}
+
+entity Temas(temas){    
 	titulo String required,
     descripcion String required
 }
@@ -65,6 +72,7 @@ entity RegistroClases(registro_clases){
 	fecha LocalDate  required
     cantidadHoras Integer required
     asistenciaAlumno Boolean
+    pagado Boolean
 }
 
 entity Cursos(cursos){
@@ -91,8 +99,6 @@ entity TiposDocumentos(tipos_documentos){
 }
 
 entity Alumnos(alumnos){
-	elo Integer,
-    fideId Integer,
 	nombres String required,
 	apellidos String required,
     nombreCompleto String required,
@@ -100,12 +106,12 @@ entity Alumnos(alumnos){
 	telefono String required,
 	fechaNacimiento LocalDate required,
 	documento String required,
-    estado EstadosPersona required
+    estado EstadosPersona required,
+    elo Integer,
+    fideId Integer,
 }
 
 entity Funcionarios(funcionarios){
-	elo Integer,
-    fideId Integer,
 	nombres String required,
 	apellidos String required,
     nombreCompleto String required,
@@ -114,7 +120,9 @@ entity Funcionarios(funcionarios){
 	fechaNacimiento LocalDate  required,
 	documento String required,
     estado EstadosPersona required,
-    tipoFuncionario TipoFuncionarios
+    tipoFuncionario TipoFuncionarios,
+    elo Integer,
+    fideId Integer,
 }
 
 entity Clientes(clientes){
@@ -138,7 +146,9 @@ entity Facturas(factura){
     razonSocial String required,
     ruc String required,
     condicionVenta CondicionVenta required,
-	total Integer required
+	total Integer required,
+    estado EstadosFacturas,
+    poseeNC Boolean
 }
 
 entity FacturaDetalle(factura_detalle){
@@ -170,11 +180,19 @@ entity Materiales(materiales){
     cantidadEnPrestamo Integer,
 }
 
+entity RegistroStockMateriales(registro_materiales){
+    comentario String,
+    cantidadInicial Integer,
+    cantidadModificada Integer,
+    fecha LocalDate  required
+}
+
 
 entity Prestamos(prestamos){
     fechaPrestamo LocalDate required,
     fechaDevolucion LocalDate,
-	estado EstadosPrestamos required
+	estado EstadosPrestamos required,
+    observaciones String
 }
 
 entity Matricula(matricula){
@@ -217,6 +235,7 @@ relationship OneToMany{
 }
 
 relationship OneToMany {
+    Materiales to RegistroStockMateriales
 	Evaluaciones to EvaluacionesDetalle { Evaluaciones(nroEvaluacion) required }
     Alumnos to Evaluaciones{Alumnos(nombreCompleto) required}
     Funcionarios to Evaluaciones {Funcionarios(nombreCompleto) required}
@@ -257,11 +276,54 @@ relationship OneToMany{
  	Temas to RegistroClases { temas(descripcion) required},
     Funcionarios to RegistroClases { funcionario(nombreCompleto) required},
     Alumnos to RegistroClases {alumnos(nombreCompleto) required}
+    Alumnos to Facturas
 }
 
 
 relationship OneToMany{
- 	Temas to Cursos { temas(titulo) required},
+    Cursos to RegistroClases { cursos(nombreCurso) }
+}
+relationship ManyToMany {
+    Cursos{ temas(titulo) } to Temas { cursos(nombreCurso) },
+}
+
+enum Motivo{
+ 	ANULACION(Anulacion)
+    DEVOLUCION(Devolucion)
+    DESCUENTO(Descuento) 
+	OTRO(Otro)
+}
+
+entity NotaCredito(nota_credito){
+    fecha LocalDate required,
+    timbrado Integer required,
+    notaNro String required,
+    puntoExpedicion Integer required,
+    sucursal Integer required,
+    razonSocial String required,
+    ruc String required,
+	direccion String,
+    motivoEmision Motivo required,
+    estado EstadosFacturas,
+	total Integer required
+}
+
+
+
+entity NotaCreditoDetalle(notaCredito_detalle){
+	cantidad Integer,
+    precioUnitario Integer,
+    subtotal Integer,
+	porcentajeIva Integer,
+	valorPorcentaje Integer,
+	
+}
+relationship OneToMany {
+
+    NotaCredito to NotaCreditoDetalle{ NotaCredito(notaNro) required }
+	Productos to NotaCreditoDetalle { producto(descripcion) required }
+    Facturas to NotaCredito { Facturas(facturaNro) required }  
+
 }
 
 service all with serviceClass

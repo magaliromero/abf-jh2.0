@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.registroClases.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.registroClases.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/registro-clases/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.registroClases.home.createLabel"> Create a new Registro Clases </span>
+        <span jhiTranslate="abfApp.registroClases.home.createLabel"> Crear nuevo Registro Clases </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="registroClases?.length === 0">
-    <span jhiTranslate="abfApp.registroClases.home.notFound">No Registro Clases found</span>
+    <span jhiTranslate="abfApp.registroClases.home.notFound">Ningún Registro Clases encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="registroClases && registroClases.length > 0">
@@ -58,6 +58,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="pagado">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.pagado">Pagado</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="temas.descripcion">
             <div class="d-flex">
               <span jhiTranslate="abfApp.registroClases.temas">Temas</span>
@@ -76,6 +82,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="cursos.nombreCurso">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.registroClases.cursos">Cursos</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -87,6 +99,7 @@
           <td>{{ registroClases.fecha | formatMediumDate }}</td>
           <td>{{ registroClases.cantidadHoras }}</td>
           <td>{{ registroClases.asistenciaAlumno }}</td>
+          <td>{{ registroClases.pagado }}</td>
           <td>
             <div *ngIf="registroClases.temas">
               <a [routerLink]="['/temas', registroClases.temas.id, 'view']">{{ registroClases.temas.descripcion }}</a>
@@ -102,6 +115,11 @@
               <a [routerLink]="['/alumnos', registroClases.alumnos.id, 'view']">{{ registroClases.alumnos.nombreCompleto }}</a>
             </div>
           </td>
+          <td>
+            <div *ngIf="registroClases.cursos">
+              <a [routerLink]="['/cursos', registroClases.cursos.id, 'view']">{{ registroClases.cursos.nombreCurso }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button
@@ -111,7 +129,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button
@@ -121,12 +139,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(registroClases)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

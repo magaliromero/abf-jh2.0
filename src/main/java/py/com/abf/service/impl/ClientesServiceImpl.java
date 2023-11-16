@@ -97,9 +97,4 @@ public class ClientesServiceImpl implements ClientesService {
         log.debug("Request to delete Clientes : {}", id);
         clientesRepository.deleteById(id);
     }
-
-    public Clientes findByDocumento(String documento) {
-        log.debug("Request to get Clientes : {}", documento);
-        return clientesRepository.findByRuc(documento);
-    }
 }

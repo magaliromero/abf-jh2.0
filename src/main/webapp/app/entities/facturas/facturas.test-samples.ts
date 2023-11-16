@@ -1,58 +1,61 @@
 import dayjs from 'dayjs/esm';
 
 import { CondicionVenta } from 'app/entities/enumerations/condicion-venta.model';
+import { EstadosFacturas } from 'app/entities/enumerations/estados-facturas.model';
 
 import { IFacturas, NewFacturas } from './facturas.model';
 
 export const sampleWithRequiredData: IFacturas = {
   id: 29679,
-  fecha: dayjs('2023-06-01'),
-  facturaNro: 'explicit circuit',
+  fecha: dayjs('2023-11-15'),
+  facturaNro: 'a circuit',
   timbrado: 61190,
   puntoExpedicion: 31438,
   sucursal: 69517,
-  razonSocial: 'Turkey Solomon',
-  ruc: 'Home Valley',
+  razonSocial: 'Tobago Solomon',
+  ruc: 'Home Terrenos',
   condicionVenta: CondicionVenta['CONTADO'],
   total: 19828,
 };
 
 export const sampleWithPartialData: IFacturas = {
-  id: 33085,
-  fecha: dayjs('2023-06-01'),
-  facturaNro: 'functionalities Yuan',
-  timbrado: 4130,
-  puntoExpedicion: 94397,
-  sucursal: 6241,
-  razonSocial: 'User-centric connect',
-  ruc: 'Organic Dam',
+  id: 55207,
+  fecha: dayjs('2023-11-15'),
+  facturaNro: 'visualize vertical Salchichas',
+  timbrado: 74568,
+  puntoExpedicion: 45930,
+  sucursal: 39300,
+  razonSocial: 'Opcional Calleja',
+  ruc: 'deposit enterprise transmitting',
   condicionVenta: CondicionVenta['CONTADO'],
-  total: 66134,
+  total: 95856,
 };
 
 export const sampleWithFullData: IFacturas = {
-  id: 13455,
-  fecha: dayjs('2023-05-31'),
-  facturaNro: 'compress bypassing',
-  timbrado: 95856,
-  puntoExpedicion: 85696,
-  sucursal: 76002,
-  razonSocial: 'facilitate Bacon tan',
-  ruc: 'Licensed Hat distributed',
+  id: 85696,
+  fecha: dayjs('2023-11-15'),
+  facturaNro: 'facilitate Bacon Blanco',
+  timbrado: 82815,
+  puntoExpedicion: 5477,
+  sucursal: 78940,
+  razonSocial: 'compuesto Gambia',
+  ruc: 'Siria La',
   condicionVenta: CondicionVenta['CONTADO'],
-  total: 50823,
+  total: 66723,
+  estado: EstadosFacturas['PENDIENTE'],
+  poseeNC: true,
 };
 
 export const sampleWithNewData: NewFacturas = {
-  fecha: dayjs('2023-06-01'),
-  facturaNro: 'Fish Frozen ROI',
-  timbrado: 34930,
-  puntoExpedicion: 38516,
-  sucursal: 12789,
-  razonSocial: 'Terrace',
-  ruc: 'magnetic',
+  fecha: dayjs('2023-11-15'),
+  facturaNro: 'Investment Gris Acero',
+  timbrado: 85377,
+  puntoExpedicion: 71366,
+  sucursal: 1954,
+  razonSocial: 'applications Bricolaje',
+  ruc: 'navigating bypass',
   condicionVenta: CondicionVenta['CONTADO'],
-  total: 2091,
+  total: 37661,
   id: null,
 };
 

@@ -9,7 +9,7 @@ import { UserManagementService } from '../service/user-management.service';
 const userTemplate = {} as IUser;
 
 const newUser: IUser = {
-  langKey: 'en',
+  langKey: 'es',
   activated: true,
 } as IUser;
 

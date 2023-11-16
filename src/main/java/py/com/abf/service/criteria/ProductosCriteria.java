@@ -53,6 +53,8 @@ public class ProductosCriteria implements Serializable, Criteria {
 
     private LongFilter facturaDetalleId;
 
+    private LongFilter notaCreditoDetalleId;
+
     private Boolean distinct;
 
     public ProductosCriteria() {}
@@ -65,6 +67,7 @@ public class ProductosCriteria implements Serializable, Criteria {
         this.descripcion = other.descripcion == null ? null : other.descripcion.copy();
         this.pagosId = other.pagosId == null ? null : other.pagosId.copy();
         this.facturaDetalleId = other.facturaDetalleId == null ? null : other.facturaDetalleId.copy();
+        this.notaCreditoDetalleId = other.notaCreditoDetalleId == null ? null : other.notaCreditoDetalleId.copy();
         this.distinct = other.distinct;
     }
 
@@ -178,6 +181,21 @@ public class ProductosCriteria implements Serializable, Criteria {
         this.facturaDetalleId = facturaDetalleId;
     }
 
+    public LongFilter getNotaCreditoDetalleId() {
+        return notaCreditoDetalleId;
+    }
+
+    public LongFilter notaCreditoDetalleId() {
+        if (notaCreditoDetalleId == null) {
+            notaCreditoDetalleId = new LongFilter();
+        }
+        return notaCreditoDetalleId;
+    }
+
+    public void setNotaCreditoDetalleId(LongFilter notaCreditoDetalleId) {
+        this.notaCreditoDetalleId = notaCreditoDetalleId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -203,13 +221,24 @@ public class ProductosCriteria implements Serializable, Criteria {
             Objects.equals(descripcion, that.descripcion) &&
             Objects.equals(pagosId, that.pagosId) &&
             Objects.equals(facturaDetalleId, that.facturaDetalleId) &&
+            Objects.equals(notaCreditoDetalleId, that.notaCreditoDetalleId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tipoProducto, precioUnitario, porcentajeIva, descripcion, pagosId, facturaDetalleId, distinct);
+        return Objects.hash(
+            id,
+            tipoProducto,
+            precioUnitario,
+            porcentajeIva,
+            descripcion,
+            pagosId,
+            facturaDetalleId,
+            notaCreditoDetalleId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -223,6 +252,7 @@ public class ProductosCriteria implements Serializable, Criteria {
             (descripcion != null ? "descripcion=" + descripcion + ", " : "") +
             (pagosId != null ? "pagosId=" + pagosId + ", " : "") +
             (facturaDetalleId != null ? "facturaDetalleId=" + facturaDetalleId + ", " : "") +
+            (notaCreditoDetalleId != null ? "notaCreditoDetalleId=" + notaCreditoDetalleId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

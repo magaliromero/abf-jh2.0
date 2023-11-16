@@ -1,0 +1,117 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-registro-stock-materiales-heading"
+        data-cy="RegistroStockMaterialesCreateUpdateHeading"
+        jhiTranslate="abfApp.registroStockMateriales.home.createOrEditLabel"
+      >
+        Crear o editar Registro Stock Materiales
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroStockMateriales.comentario" for="field_comentario">Comentario</label>
+          <input
+            type="text"
+            class="form-control"
+            name="comentario"
+            id="field_comentario"
+            data-cy="comentario"
+            formControlName="comentario"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroStockMateriales.cantidadInicial" for="field_cantidadInicial"
+            >Cantidad Inicial</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="cantidadInicial"
+            id="field_cantidadInicial"
+            data-cy="cantidadInicial"
+            formControlName="cantidadInicial"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroStockMateriales.cantidadModificada" for="field_cantidadModificada"
+            >Cantidad Modificada</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="cantidadModificada"
+            id="field_cantidadModificada"
+            data-cy="cantidadModificada"
+            formControlName="cantidadModificada"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroStockMateriales.fecha" for="field_fecha">Fecha</label>
+          <div class="input-group">
+            <input
+              id="field_fecha"
+              data-cy="fecha"
+              type="text"
+              class="form-control"
+              name="fecha"
+              ngbDatepicker
+              #fechaDp="ngbDatepicker"
+              formControlName="fecha"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('fecha')!.invalid && (editForm.get('fecha')!.dirty || editForm.get('fecha')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('fecha')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroStockMateriales.materiales" for="field_materiales">Materiales</label>
+          <select
+            class="form-control"
+            id="field_materiales"
+            data-cy="materiales"
+            name="materiales"
+            formControlName="materiales"
+            [compareWith]="compareMateriales"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="materialesOption" *ngFor="let materialesOption of materialesSharedCollection">
+              {{ materialesOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

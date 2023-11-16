@@ -81,14 +81,17 @@ export class CursosUpdateComponent implements OnInit {
     this.cursos = cursos;
     this.cursosFormService.resetForm(this.editForm, cursos);
 
-    this.temasSharedCollection = this.temasService.addTemasToCollectionIfMissing<ITemas>(this.temasSharedCollection, cursos.temas);
+    this.temasSharedCollection = this.temasService.addTemasToCollectionIfMissing<ITemas>(
+      this.temasSharedCollection,
+      ...(cursos.temas ?? [])
+    );
   }
 
   protected loadRelationshipsOptions(): void {
     this.temasService
       .query()
       .pipe(map((res: HttpResponse<ITemas[]>) => res.body ?? []))
-      .pipe(map((temas: ITemas[]) => this.temasService.addTemasToCollectionIfMissing<ITemas>(temas, this.cursos?.temas)))
+      .pipe(map((temas: ITemas[]) => this.temasService.addTemasToCollectionIfMissing<ITemas>(temas, ...(this.cursos?.temas ?? []))))
       .subscribe((temas: ITemas[]) => (this.temasSharedCollection = temas));
   }
 }

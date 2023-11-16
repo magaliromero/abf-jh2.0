@@ -4,39 +4,39 @@ import { IClientes, NewClientes } from './clientes.model';
 
 export const sampleWithRequiredData: IClientes = {
   id: 88470,
-  nombres: 'Auto Nevada partnerships',
-  apellidos: 'Practical',
-  razonSocial: 'Keyboard',
-  documento: 'Turnpike intangible',
+  nombres: 'Auto Comunidad partnerships',
+  apellidos: 'Práctico',
+  razonSocial: 'Teclado',
+  documento: 'Solar intermedia',
 };
 
 export const sampleWithPartialData: IClientes = {
   id: 38520,
-  nombres: 'synergize explicit disintermediate',
-  apellidos: 'functionalities Sports',
-  razonSocial: 'Electronics',
+  nombres: 'synergize tolerante disintermediate',
+  apellidos: 'functionalities Cine',
+  razonSocial: 'Electrónica',
   documento: 'productize',
-  email: 'Yasmine.Nikolaus71@yahoo.com',
+  email: 'Victoria.Olivas71@yahoo.com',
   direccion: 'online',
 };
 
 export const sampleWithFullData: IClientes = {
   id: 62321,
   ruc: 'payment',
-  nombres: 'Comoro Frozen Unbranded',
-  apellidos: 'leverage Plastic',
-  razonSocial: 'paradigm',
-  documento: 'matrix Personal Michigan',
-  email: 'Presley_Lueilwitz@yahoo.com',
-  telefono: 'Ethiopia Chief',
-  fechaNacimiento: dayjs('2023-06-01'),
-  direccion: 'Customer Open-architected',
+  nombres: 'Comoro Hormigon Refinado',
+  apellidos: 'leverage Plástico',
+  razonSocial: 'paradigma',
+  documento: 'matrix Personal y',
+  email: 'Margarita_Mendoza@yahoo.com',
+  telefono: 'Ecuador Gerente',
+  fechaNacimiento: dayjs('2023-11-15'),
+  direccion: 'Cliente Open-source',
 };
 
 export const sampleWithNewData: NewClientes = {
-  nombres: 'Tuna',
-  apellidos: 'Administrator support Cross-group',
-  razonSocial: 'Division Account Turkey',
+  nombres: 'Atún',
+  apellidos: 'Administrador superestructura Configurable',
+  razonSocial: 'Grupo Account Trinidad',
   documento: 'eyeballs',
   id: null,
 };

@@ -14,16 +14,18 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type RegistroClasesFormGroupInput = IRegistroClases | PartialWithRequiredKeyOf<NewRegistroClases>;
 
-type RegistroClasesFormDefaults = Pick<NewRegistroClases, 'id' | 'asistenciaAlumno'>;
+type RegistroClasesFormDefaults = Pick<NewRegistroClases, 'id' | 'asistenciaAlumno' | 'pagado'>;
 
 type RegistroClasesFormGroupContent = {
   id: FormControl<IRegistroClases['id'] | NewRegistroClases['id']>;
   fecha: FormControl<IRegistroClases['fecha']>;
   cantidadHoras: FormControl<IRegistroClases['cantidadHoras']>;
   asistenciaAlumno: FormControl<IRegistroClases['asistenciaAlumno']>;
+  pagado: FormControl<IRegistroClases['pagado']>;
   temas: FormControl<IRegistroClases['temas']>;
   funcionario: FormControl<IRegistroClases['funcionario']>;
   alumnos: FormControl<IRegistroClases['alumnos']>;
+  cursos: FormControl<IRegistroClases['cursos']>;
 };
 
 export type RegistroClasesFormGroup = FormGroup<RegistroClasesFormGroupContent>;
@@ -50,6 +52,7 @@ export class RegistroClasesFormService {
         validators: [Validators.required],
       }),
       asistenciaAlumno: new FormControl(registroClasesRawValue.asistenciaAlumno),
+      pagado: new FormControl(registroClasesRawValue.pagado),
       temas: new FormControl(registroClasesRawValue.temas, {
         validators: [Validators.required],
       }),
@@ -59,6 +62,7 @@ export class RegistroClasesFormService {
       alumnos: new FormControl(registroClasesRawValue.alumnos, {
         validators: [Validators.required],
       }),
+      cursos: new FormControl(registroClasesRawValue.cursos),
     });
   }
 
@@ -80,6 +84,7 @@ export class RegistroClasesFormService {
     return {
       id: null,
       asistenciaAlumno: false,
+      pagado: false,
     };
   }
 }

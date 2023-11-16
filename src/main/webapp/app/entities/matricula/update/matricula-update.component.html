@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-matricula-heading" data-cy="MatriculaCreateUpdateHeading" jhiTranslate="abfApp.matricula.home.createOrEditLabel">
-        Create or edit a Matricula
+        Crear o editar Matricula
       </h2>
 
       <div>
@@ -22,7 +22,7 @@
               *ngIf="editForm.get('concepto')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -32,10 +32,10 @@
           <input type="number" class="form-control" name="monto" id="field_monto" data-cy="monto" formControlName="monto" />
           <div *ngIf="editForm.get('monto')!.invalid && (editForm.get('monto')!.dirty || editForm.get('monto')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('monto')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
+              Este campo es obligatorio.
             </small>
             <small class="form-text text-danger" [hidden]="!editForm.get('monto')?.errors?.number" jhiTranslate="entity.validation.number">
-              This field should be a number.
+              Este campo debe ser un número.
             </small>
           </div>
         </div>
@@ -68,7 +68,7 @@
               *ngIf="editForm.get('fechaInscripcion')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -96,7 +96,7 @@
               *ngIf="editForm.get('fechaInicio')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -128,7 +128,7 @@
           </select>
           <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -151,14 +151,14 @@
         </div>
         <div *ngIf="editForm.get(['alumno'])!.invalid && (editForm.get(['alumno'])!.dirty || editForm.get(['alumno'])!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get(['alumno'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
         </button>
 
         <button
@@ -168,7 +168,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
         </button>
       </div>
     </form>

@@ -38,14 +38,20 @@ public class Prestamos implements Serializable {
     @Column(name = "estado", nullable = false)
     private EstadosPrestamos estado;
 
+    @Column(name = "observaciones")
+    private String observaciones;
+
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "prestamos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "registroStockMateriales", "prestamos" }, allowSetters = true)
     private Materiales materiales;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "evaluaciones", "matriculas", "prestamos", "tipoDocumentos" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "facturas", "tipoDocumentos" },
+        allowSetters = true
+    )
     private Alumnos alumnos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -102,6 +108,19 @@ public class Prestamos implements Serializable {
         this.estado = estado;
     }
 
+    public String getObservaciones() {
+        return this.observaciones;
+    }
+
+    public Prestamos observaciones(String observaciones) {
+        this.setObservaciones(observaciones);
+        return this;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
     public Materiales getMateriales() {
         return this.materiales;
     }
@@ -155,6 +174,7 @@ public class Prestamos implements Serializable {
             ", fechaPrestamo='" + getFechaPrestamo() + "'" +
             ", fechaDevolucion='" + getFechaDevolucion() + "'" +
             ", estado='" + getEstado() + "'" +
+            ", observaciones='" + getObservaciones() + "'" +
             "}";
     }
 }

@@ -12,7 +12,7 @@ export const sampleWithPartialData: IInscripciones = {
 
 export const sampleWithFullData: IInscripciones = {
   id: 111,
-  fechaInscripcion: dayjs('2023-06-01'),
+  fechaInscripcion: dayjs('2023-11-15'),
 };
 
 export const sampleWithNewData: NewInscripciones = {

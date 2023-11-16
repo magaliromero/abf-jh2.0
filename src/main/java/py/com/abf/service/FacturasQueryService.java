@@ -106,11 +106,17 @@ public class FacturasQueryService extends QueryService<Facturas> {
             if (criteria.getRuc() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getRuc(), Facturas_.ruc));
             }
-            /*       if (criteria.getCondicionVenta() != null) {
+            if (criteria.getCondicionVenta() != null) {
                 specification = specification.and(buildSpecification(criteria.getCondicionVenta(), Facturas_.condicionVenta));
-            } */
+            }
             if (criteria.getTotal() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getTotal(), Facturas_.total));
+            }
+            if (criteria.getEstado() != null) {
+                specification = specification.and(buildSpecification(criteria.getEstado(), Facturas_.estado));
+            }
+            if (criteria.getPoseeNC() != null) {
+                specification = specification.and(buildSpecification(criteria.getPoseeNC(), Facturas_.poseeNC));
             }
             if (criteria.getFacturaDetalleId() != null) {
                 specification =
@@ -119,6 +125,21 @@ public class FacturasQueryService extends QueryService<Facturas> {
                             criteria.getFacturaDetalleId(),
                             root -> root.join(Facturas_.facturaDetalles, JoinType.LEFT).get(FacturaDetalle_.id)
                         )
+                    );
+            }
+            if (criteria.getNotaCreditoId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getNotaCreditoId(),
+                            root -> root.join(Facturas_.notaCreditos, JoinType.LEFT).get(NotaCredito_.id)
+                        )
+                    );
+            }
+            if (criteria.getAlumnosId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getAlumnosId(), root -> root.join(Facturas_.alumnos, JoinType.LEFT).get(Alumnos_.id))
                     );
             }
         }

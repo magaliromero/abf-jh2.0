@@ -36,6 +36,9 @@ public class RegistroClases implements Serializable {
     @Column(name = "asistencia_alumno")
     private Boolean asistenciaAlumno;
 
+    @Column(name = "pagado")
+    private Boolean pagado;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "evaluacionesDetalles", "registroClases", "cursos" }, allowSetters = true)
@@ -49,10 +52,14 @@ public class RegistroClases implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "facturas", "tipoDocumentos" },
         allowSetters = true
     )
     private Alumnos alumnos;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "inscripciones", "registroClases", "temas" }, allowSetters = true)
+    private Cursos cursos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -108,6 +115,19 @@ public class RegistroClases implements Serializable {
         this.asistenciaAlumno = asistenciaAlumno;
     }
 
+    public Boolean getPagado() {
+        return this.pagado;
+    }
+
+    public RegistroClases pagado(Boolean pagado) {
+        this.setPagado(pagado);
+        return this;
+    }
+
+    public void setPagado(Boolean pagado) {
+        this.pagado = pagado;
+    }
+
     public Temas getTemas() {
         return this.temas;
     }
@@ -147,6 +167,19 @@ public class RegistroClases implements Serializable {
         return this;
     }
 
+    public Cursos getCursos() {
+        return this.cursos;
+    }
+
+    public void setCursos(Cursos cursos) {
+        this.cursos = cursos;
+    }
+
+    public RegistroClases cursos(Cursos cursos) {
+        this.setCursos(cursos);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -174,6 +207,7 @@ public class RegistroClases implements Serializable {
             ", fecha='" + getFecha() + "'" +
             ", cantidadHoras=" + getCantidadHoras() +
             ", asistenciaAlumno='" + getAsistenciaAlumno() + "'" +
+            ", pagado='" + getPagado() + "'" +
             "}";
     }
 }

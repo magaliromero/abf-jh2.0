@@ -23,14 +23,14 @@ export const sampleWithFullData: IProductos = {
   tipoProducto: TipoProductos['PRODUCTO'],
   precioUnitario: 553,
   porcentajeIva: 4120,
-  descripcion: 'Minnesota',
+  descripcion: 'Castilla',
 };
 
 export const sampleWithNewData: NewProductos = {
   tipoProducto: TipoProductos['SERVICIO'],
   precioUnitario: 35076,
   porcentajeIva: 31870,
-  descripcion: 'asynchronous Persistent',
+  descripcion: 'asimétrica Perseverando',
   id: null,
 };
 

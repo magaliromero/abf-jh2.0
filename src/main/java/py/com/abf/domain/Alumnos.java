@@ -28,12 +28,6 @@ public class Alumnos implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "elo")
-    private Integer elo;
-
-    @Column(name = "fide_id")
-    private Integer fideId;
-
     @NotNull
     @Column(name = "nombres", nullable = false)
     private String nombres;
@@ -66,6 +60,12 @@ public class Alumnos implements Serializable {
     @Column(name = "estado", nullable = false)
     private EstadosPersona estado;
 
+    @Column(name = "elo")
+    private Integer elo;
+
+    @Column(name = "fide_id")
+    private Integer fideId;
+
     @OneToMany(mappedBy = "alumnos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "alumnos", "cursos" }, allowSetters = true)
@@ -88,8 +88,13 @@ public class Alumnos implements Serializable {
 
     @OneToMany(mappedBy = "alumnos")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos", "cursos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
+
+    @OneToMany(mappedBy = "alumnos")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "facturaDetalles", "notaCreditos", "alumnos" }, allowSetters = true)
+    private Set<Facturas> facturas = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -109,32 +114,6 @@ public class Alumnos implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getElo() {
-        return this.elo;
-    }
-
-    public Alumnos elo(Integer elo) {
-        this.setElo(elo);
-        return this;
-    }
-
-    public void setElo(Integer elo) {
-        this.elo = elo;
-    }
-
-    public Integer getFideId() {
-        return this.fideId;
-    }
-
-    public Alumnos fideId(Integer fideId) {
-        this.setFideId(fideId);
-        return this;
-    }
-
-    public void setFideId(Integer fideId) {
-        this.fideId = fideId;
     }
 
     public String getNombres() {
@@ -239,6 +218,32 @@ public class Alumnos implements Serializable {
 
     public void setEstado(EstadosPersona estado) {
         this.estado = estado;
+    }
+
+    public Integer getElo() {
+        return this.elo;
+    }
+
+    public Alumnos elo(Integer elo) {
+        this.setElo(elo);
+        return this;
+    }
+
+    public void setElo(Integer elo) {
+        this.elo = elo;
+    }
+
+    public Integer getFideId() {
+        return this.fideId;
+    }
+
+    public Alumnos fideId(Integer fideId) {
+        this.setFideId(fideId);
+        return this;
+    }
+
+    public void setFideId(Integer fideId) {
+        this.fideId = fideId;
     }
 
     public Set<Inscripciones> getInscripciones() {
@@ -396,6 +401,37 @@ public class Alumnos implements Serializable {
         return this;
     }
 
+    public Set<Facturas> getFacturas() {
+        return this.facturas;
+    }
+
+    public void setFacturas(Set<Facturas> facturas) {
+        if (this.facturas != null) {
+            this.facturas.forEach(i -> i.setAlumnos(null));
+        }
+        if (facturas != null) {
+            facturas.forEach(i -> i.setAlumnos(this));
+        }
+        this.facturas = facturas;
+    }
+
+    public Alumnos facturas(Set<Facturas> facturas) {
+        this.setFacturas(facturas);
+        return this;
+    }
+
+    public Alumnos addFacturas(Facturas facturas) {
+        this.facturas.add(facturas);
+        facturas.setAlumnos(this);
+        return this;
+    }
+
+    public Alumnos removeFacturas(Facturas facturas) {
+        this.facturas.remove(facturas);
+        facturas.setAlumnos(null);
+        return this;
+    }
+
     public TiposDocumentos getTipoDocumentos() {
         return this.tipoDocumentos;
     }
@@ -433,8 +469,6 @@ public class Alumnos implements Serializable {
     public String toString() {
         return "Alumnos{" +
             "id=" + getId() +
-            ", elo=" + getElo() +
-            ", fideId=" + getFideId() +
             ", nombres='" + getNombres() + "'" +
             ", apellidos='" + getApellidos() + "'" +
             ", nombreCompleto='" + getNombreCompleto() + "'" +
@@ -443,6 +477,8 @@ public class Alumnos implements Serializable {
             ", fechaNacimiento='" + getFechaNacimiento() + "'" +
             ", documento='" + getDocumento() + "'" +
             ", estado='" + getEstado() + "'" +
+            ", elo=" + getElo() +
+            ", fideId=" + getFideId() +
             "}";
     }
 }

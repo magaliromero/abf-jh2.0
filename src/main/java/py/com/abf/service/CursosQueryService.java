@@ -112,6 +112,15 @@ public class CursosQueryService extends QueryService<Cursos> {
                         )
                     );
             }
+            if (criteria.getRegistroClasesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getRegistroClasesId(),
+                            root -> root.join(Cursos_.registroClases, JoinType.LEFT).get(RegistroClases_.id)
+                        )
+                    );
+            }
             if (criteria.getTemasId() != null) {
                 specification =
                     specification.and(

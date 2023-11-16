@@ -53,7 +53,7 @@ public class Matricula implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "tipoDocumentos" },
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "facturas", "tipoDocumentos" },
         allowSetters = true
     )
     private Alumnos alumno;

@@ -45,12 +45,6 @@ public class AlumnosServiceImpl implements AlumnosService {
         return alumnosRepository
             .findById(alumnos.getId())
             .map(existingAlumnos -> {
-                if (alumnos.getElo() != null) {
-                    existingAlumnos.setElo(alumnos.getElo());
-                }
-                if (alumnos.getFideId() != null) {
-                    existingAlumnos.setFideId(alumnos.getFideId());
-                }
                 if (alumnos.getNombres() != null) {
                     existingAlumnos.setNombres(alumnos.getNombres());
                 }
@@ -74,6 +68,12 @@ public class AlumnosServiceImpl implements AlumnosService {
                 }
                 if (alumnos.getEstado() != null) {
                     existingAlumnos.setEstado(alumnos.getEstado());
+                }
+                if (alumnos.getElo() != null) {
+                    existingAlumnos.setElo(alumnos.getElo());
+                }
+                if (alumnos.getFideId() != null) {
+                    existingAlumnos.setFideId(alumnos.getFideId());
                 }
 
                 return existingAlumnos;

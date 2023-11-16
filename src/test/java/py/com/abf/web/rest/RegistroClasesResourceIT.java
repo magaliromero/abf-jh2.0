@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Alumnos;
+import py.com.abf.domain.Cursos;
 import py.com.abf.domain.Funcionarios;
 import py.com.abf.domain.RegistroClases;
 import py.com.abf.domain.Temas;
@@ -55,6 +56,9 @@ class RegistroClasesResourceIT {
 
     private static final Boolean DEFAULT_ASISTENCIA_ALUMNO = false;
     private static final Boolean UPDATED_ASISTENCIA_ALUMNO = true;
+
+    private static final Boolean DEFAULT_PAGADO = false;
+    private static final Boolean UPDATED_PAGADO = true;
 
     private static final String ENTITY_API_URL = "/api/registro-clases";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -89,7 +93,8 @@ class RegistroClasesResourceIT {
         RegistroClases registroClases = new RegistroClases()
             .fecha(DEFAULT_FECHA)
             .cantidadHoras(DEFAULT_CANTIDAD_HORAS)
-            .asistenciaAlumno(DEFAULT_ASISTENCIA_ALUMNO);
+            .asistenciaAlumno(DEFAULT_ASISTENCIA_ALUMNO)
+            .pagado(DEFAULT_PAGADO);
         // Add required entity
         Temas temas;
         if (TestUtil.findAll(em, Temas.class).isEmpty()) {
@@ -133,7 +138,8 @@ class RegistroClasesResourceIT {
         RegistroClases registroClases = new RegistroClases()
             .fecha(UPDATED_FECHA)
             .cantidadHoras(UPDATED_CANTIDAD_HORAS)
-            .asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO);
+            .asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO)
+            .pagado(UPDATED_PAGADO);
         // Add required entity
         Temas temas;
         if (TestUtil.findAll(em, Temas.class).isEmpty()) {
@@ -190,6 +196,7 @@ class RegistroClasesResourceIT {
         assertThat(testRegistroClases.getFecha()).isEqualTo(DEFAULT_FECHA);
         assertThat(testRegistroClases.getCantidadHoras()).isEqualTo(DEFAULT_CANTIDAD_HORAS);
         assertThat(testRegistroClases.getAsistenciaAlumno()).isEqualTo(DEFAULT_ASISTENCIA_ALUMNO);
+        assertThat(testRegistroClases.getPagado()).isEqualTo(DEFAULT_PAGADO);
     }
 
     @Test
@@ -264,7 +271,8 @@ class RegistroClasesResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(registroClases.getId().intValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].cantidadHoras").value(hasItem(DEFAULT_CANTIDAD_HORAS)))
-            .andExpect(jsonPath("$.[*].asistenciaAlumno").value(hasItem(DEFAULT_ASISTENCIA_ALUMNO.booleanValue())));
+            .andExpect(jsonPath("$.[*].asistenciaAlumno").value(hasItem(DEFAULT_ASISTENCIA_ALUMNO.booleanValue())))
+            .andExpect(jsonPath("$.[*].pagado").value(hasItem(DEFAULT_PAGADO.booleanValue())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -298,7 +306,8 @@ class RegistroClasesResourceIT {
             .andExpect(jsonPath("$.id").value(registroClases.getId().intValue()))
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()))
             .andExpect(jsonPath("$.cantidadHoras").value(DEFAULT_CANTIDAD_HORAS))
-            .andExpect(jsonPath("$.asistenciaAlumno").value(DEFAULT_ASISTENCIA_ALUMNO.booleanValue()));
+            .andExpect(jsonPath("$.asistenciaAlumno").value(DEFAULT_ASISTENCIA_ALUMNO.booleanValue()))
+            .andExpect(jsonPath("$.pagado").value(DEFAULT_PAGADO.booleanValue()));
     }
 
     @Test
@@ -542,6 +551,45 @@ class RegistroClasesResourceIT {
 
     @Test
     @Transactional
+    void getAllRegistroClasesByPagadoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        registroClasesRepository.saveAndFlush(registroClases);
+
+        // Get all the registroClasesList where pagado equals to DEFAULT_PAGADO
+        defaultRegistroClasesShouldBeFound("pagado.equals=" + DEFAULT_PAGADO);
+
+        // Get all the registroClasesList where pagado equals to UPDATED_PAGADO
+        defaultRegistroClasesShouldNotBeFound("pagado.equals=" + UPDATED_PAGADO);
+    }
+
+    @Test
+    @Transactional
+    void getAllRegistroClasesByPagadoIsInShouldWork() throws Exception {
+        // Initialize the database
+        registroClasesRepository.saveAndFlush(registroClases);
+
+        // Get all the registroClasesList where pagado in DEFAULT_PAGADO or UPDATED_PAGADO
+        defaultRegistroClasesShouldBeFound("pagado.in=" + DEFAULT_PAGADO + "," + UPDATED_PAGADO);
+
+        // Get all the registroClasesList where pagado equals to UPDATED_PAGADO
+        defaultRegistroClasesShouldNotBeFound("pagado.in=" + UPDATED_PAGADO);
+    }
+
+    @Test
+    @Transactional
+    void getAllRegistroClasesByPagadoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        registroClasesRepository.saveAndFlush(registroClases);
+
+        // Get all the registroClasesList where pagado is not null
+        defaultRegistroClasesShouldBeFound("pagado.specified=true");
+
+        // Get all the registroClasesList where pagado is null
+        defaultRegistroClasesShouldNotBeFound("pagado.specified=false");
+    }
+
+    @Test
+    @Transactional
     void getAllRegistroClasesByTemasIsEqualToSomething() throws Exception {
         Temas temas;
         if (TestUtil.findAll(em, Temas.class).isEmpty()) {
@@ -609,6 +657,29 @@ class RegistroClasesResourceIT {
         defaultRegistroClasesShouldNotBeFound("alumnosId.equals=" + (alumnosId + 1));
     }
 
+    @Test
+    @Transactional
+    void getAllRegistroClasesByCursosIsEqualToSomething() throws Exception {
+        Cursos cursos;
+        if (TestUtil.findAll(em, Cursos.class).isEmpty()) {
+            registroClasesRepository.saveAndFlush(registroClases);
+            cursos = CursosResourceIT.createEntity(em);
+        } else {
+            cursos = TestUtil.findAll(em, Cursos.class).get(0);
+        }
+        em.persist(cursos);
+        em.flush();
+        registroClases.setCursos(cursos);
+        registroClasesRepository.saveAndFlush(registroClases);
+        Long cursosId = cursos.getId();
+
+        // Get all the registroClasesList where cursos equals to cursosId
+        defaultRegistroClasesShouldBeFound("cursosId.equals=" + cursosId);
+
+        // Get all the registroClasesList where cursos equals to (cursosId + 1)
+        defaultRegistroClasesShouldNotBeFound("cursosId.equals=" + (cursosId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -620,7 +691,8 @@ class RegistroClasesResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(registroClases.getId().intValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].cantidadHoras").value(hasItem(DEFAULT_CANTIDAD_HORAS)))
-            .andExpect(jsonPath("$.[*].asistenciaAlumno").value(hasItem(DEFAULT_ASISTENCIA_ALUMNO.booleanValue())));
+            .andExpect(jsonPath("$.[*].asistenciaAlumno").value(hasItem(DEFAULT_ASISTENCIA_ALUMNO.booleanValue())))
+            .andExpect(jsonPath("$.[*].pagado").value(hasItem(DEFAULT_PAGADO.booleanValue())));
 
         // Check, that the count call also returns 1
         restRegistroClasesMockMvc
@@ -668,7 +740,11 @@ class RegistroClasesResourceIT {
         RegistroClases updatedRegistroClases = registroClasesRepository.findById(registroClases.getId()).get();
         // Disconnect from session so that the updates on updatedRegistroClases are not directly saved in db
         em.detach(updatedRegistroClases);
-        updatedRegistroClases.fecha(UPDATED_FECHA).cantidadHoras(UPDATED_CANTIDAD_HORAS).asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO);
+        updatedRegistroClases
+            .fecha(UPDATED_FECHA)
+            .cantidadHoras(UPDATED_CANTIDAD_HORAS)
+            .asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO)
+            .pagado(UPDATED_PAGADO);
 
         restRegistroClasesMockMvc
             .perform(
@@ -685,6 +761,7 @@ class RegistroClasesResourceIT {
         assertThat(testRegistroClases.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testRegistroClases.getCantidadHoras()).isEqualTo(UPDATED_CANTIDAD_HORAS);
         assertThat(testRegistroClases.getAsistenciaAlumno()).isEqualTo(UPDATED_ASISTENCIA_ALUMNO);
+        assertThat(testRegistroClases.getPagado()).isEqualTo(UPDATED_PAGADO);
     }
 
     @Test
@@ -772,6 +849,7 @@ class RegistroClasesResourceIT {
         assertThat(testRegistroClases.getFecha()).isEqualTo(DEFAULT_FECHA);
         assertThat(testRegistroClases.getCantidadHoras()).isEqualTo(UPDATED_CANTIDAD_HORAS);
         assertThat(testRegistroClases.getAsistenciaAlumno()).isEqualTo(DEFAULT_ASISTENCIA_ALUMNO);
+        assertThat(testRegistroClases.getPagado()).isEqualTo(DEFAULT_PAGADO);
     }
 
     @Test
@@ -786,7 +864,11 @@ class RegistroClasesResourceIT {
         RegistroClases partialUpdatedRegistroClases = new RegistroClases();
         partialUpdatedRegistroClases.setId(registroClases.getId());
 
-        partialUpdatedRegistroClases.fecha(UPDATED_FECHA).cantidadHoras(UPDATED_CANTIDAD_HORAS).asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO);
+        partialUpdatedRegistroClases
+            .fecha(UPDATED_FECHA)
+            .cantidadHoras(UPDATED_CANTIDAD_HORAS)
+            .asistenciaAlumno(UPDATED_ASISTENCIA_ALUMNO)
+            .pagado(UPDATED_PAGADO);
 
         restRegistroClasesMockMvc
             .perform(
@@ -803,6 +885,7 @@ class RegistroClasesResourceIT {
         assertThat(testRegistroClases.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testRegistroClases.getCantidadHoras()).isEqualTo(UPDATED_CANTIDAD_HORAS);
         assertThat(testRegistroClases.getAsistenciaAlumno()).isEqualTo(UPDATED_ASISTENCIA_ALUMNO);
+        assertThat(testRegistroClases.getPagado()).isEqualTo(UPDATED_PAGADO);
     }
 
     @Test

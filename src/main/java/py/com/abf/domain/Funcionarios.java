@@ -29,12 +29,6 @@ public class Funcionarios implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "elo")
-    private Integer elo;
-
-    @Column(name = "fide_id")
-    private Integer fideId;
-
     @NotNull
     @Column(name = "nombres", nullable = false)
     private String nombres;
@@ -72,6 +66,12 @@ public class Funcionarios implements Serializable {
     @Column(name = "tipo_funcionario")
     private TipoFuncionarios tipoFuncionario;
 
+    @Column(name = "elo")
+    private Integer elo;
+
+    @Column(name = "fide_id")
+    private Integer fideId;
+
     @OneToMany(mappedBy = "funcionarios")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "evaluacionesDetalles", "alumnos", "funcionarios" }, allowSetters = true)
@@ -84,7 +84,7 @@ public class Funcionarios implements Serializable {
 
     @OneToMany(mappedBy = "funcionario")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos", "cursos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
 
     @ManyToOne(optional = false)
@@ -105,32 +105,6 @@ public class Funcionarios implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getElo() {
-        return this.elo;
-    }
-
-    public Funcionarios elo(Integer elo) {
-        this.setElo(elo);
-        return this;
-    }
-
-    public void setElo(Integer elo) {
-        this.elo = elo;
-    }
-
-    public Integer getFideId() {
-        return this.fideId;
-    }
-
-    public Funcionarios fideId(Integer fideId) {
-        this.setFideId(fideId);
-        return this;
-    }
-
-    public void setFideId(Integer fideId) {
-        this.fideId = fideId;
     }
 
     public String getNombres() {
@@ -248,6 +222,32 @@ public class Funcionarios implements Serializable {
 
     public void setTipoFuncionario(TipoFuncionarios tipoFuncionario) {
         this.tipoFuncionario = tipoFuncionario;
+    }
+
+    public Integer getElo() {
+        return this.elo;
+    }
+
+    public Funcionarios elo(Integer elo) {
+        this.setElo(elo);
+        return this;
+    }
+
+    public void setElo(Integer elo) {
+        this.elo = elo;
+    }
+
+    public Integer getFideId() {
+        return this.fideId;
+    }
+
+    public Funcionarios fideId(Integer fideId) {
+        this.setFideId(fideId);
+        return this;
+    }
+
+    public void setFideId(Integer fideId) {
+        this.fideId = fideId;
     }
 
     public Set<Evaluaciones> getEvaluaciones() {
@@ -380,8 +380,6 @@ public class Funcionarios implements Serializable {
     public String toString() {
         return "Funcionarios{" +
             "id=" + getId() +
-            ", elo=" + getElo() +
-            ", fideId=" + getFideId() +
             ", nombres='" + getNombres() + "'" +
             ", apellidos='" + getApellidos() + "'" +
             ", nombreCompleto='" + getNombreCompleto() + "'" +
@@ -391,6 +389,8 @@ public class Funcionarios implements Serializable {
             ", documento='" + getDocumento() + "'" +
             ", estado='" + getEstado() + "'" +
             ", tipoFuncionario='" + getTipoFuncionario() + "'" +
+            ", elo=" + getElo() +
+            ", fideId=" + getFideId() +
             "}";
     }
 }

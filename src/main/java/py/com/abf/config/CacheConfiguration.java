@@ -55,6 +55,8 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.RegistroClases.class.getName());
             createCache(cm, py.com.abf.domain.Cursos.class.getName());
             createCache(cm, py.com.abf.domain.Cursos.class.getName() + ".inscripciones");
+            createCache(cm, py.com.abf.domain.Cursos.class.getName() + ".registroClases");
+            createCache(cm, py.com.abf.domain.Cursos.class.getName() + ".temas");
             createCache(cm, py.com.abf.domain.Inscripciones.class.getName());
             createCache(cm, py.com.abf.domain.TiposDocumentos.class.getName());
             createCache(cm, py.com.abf.domain.TiposDocumentos.class.getName() + ".alumnos");
@@ -65,6 +67,7 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".matriculas");
             createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".prestamos");
             createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".registroClases");
+            createCache(cm, py.com.abf.domain.Alumnos.class.getName() + ".facturas");
             createCache(cm, py.com.abf.domain.Funcionarios.class.getName());
             createCache(cm, py.com.abf.domain.Funcionarios.class.getName() + ".evaluaciones");
             createCache(cm, py.com.abf.domain.Funcionarios.class.getName() + ".pagos");
@@ -72,13 +75,17 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.Clientes.class.getName());
             createCache(cm, py.com.abf.domain.Facturas.class.getName());
             createCache(cm, py.com.abf.domain.Facturas.class.getName() + ".facturaDetalles");
+            createCache(cm, py.com.abf.domain.Facturas.class.getName() + ".notaCreditos");
             createCache(cm, py.com.abf.domain.FacturaDetalle.class.getName());
             createCache(cm, py.com.abf.domain.Pagos.class.getName());
             createCache(cm, py.com.abf.domain.Productos.class.getName());
             createCache(cm, py.com.abf.domain.Productos.class.getName() + ".pagos");
             createCache(cm, py.com.abf.domain.Productos.class.getName() + ".facturaDetalles");
+            createCache(cm, py.com.abf.domain.Productos.class.getName() + ".notaCreditoDetalles");
             createCache(cm, py.com.abf.domain.Materiales.class.getName());
+            createCache(cm, py.com.abf.domain.Materiales.class.getName() + ".registroStockMateriales");
             createCache(cm, py.com.abf.domain.Materiales.class.getName() + ".prestamos");
+            createCache(cm, py.com.abf.domain.RegistroStockMateriales.class.getName());
             createCache(cm, py.com.abf.domain.Prestamos.class.getName());
             createCache(cm, py.com.abf.domain.Matricula.class.getName());
             createCache(cm, py.com.abf.domain.Evaluaciones.class.getName());
@@ -89,6 +96,9 @@ public class CacheConfiguration {
             createCache(cm, py.com.abf.domain.Sucursales.class.getName());
             createCache(cm, py.com.abf.domain.Sucursales.class.getName() + ".puntoDeExpedicions");
             createCache(cm, py.com.abf.domain.PuntoDeExpedicion.class.getName());
+            createCache(cm, py.com.abf.domain.NotaCredito.class.getName());
+            createCache(cm, py.com.abf.domain.NotaCredito.class.getName() + ".notaCreditoDetalles");
+            createCache(cm, py.com.abf.domain.NotaCreditoDetalle.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

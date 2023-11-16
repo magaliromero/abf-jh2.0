@@ -1,11 +1,11 @@
-id;elo;fide_id;nombres;apellidos;nombre_completo;email;telefono;fecha_nacimiento;documento;estado;tipo_documentos_id
-1;27056;64354;blue Garden Falls;value-added Manager;gold Account online;Flossie.Marks@gmail.com;indexing;2023-06-01;Steel empower;ACTIVO;1
-2;69314;76893;HDD Colon Money;Baby payment payment;calculate open;Elouise.Purdy@hotmail.com;Bike Concrete;2023-06-01;Re-contextualized;INACTIVO;2
-3;19105;77692;high-level Bike upward-trending;Iowa;invoice;Marilyne52@gmail.com;Tactics Architect;2023-05-31;zero Gorgeous Multi-layered;INACTIVO;3
-4;91297;4608;HTTP schemas Locks;whiteboard;Plastic;Kimberly_Bogan@yahoo.com;Nevada Account;2023-06-01;e-services;INACTIVO;4
-5;95569;53039;structure Plastic;Valleys;Greenland;Ambrose.Hackett@hotmail.com;supply-chains Checking;2023-06-01;open-source;ACTIVO;5
-6;90517;10386;protocol Mouse;Cambridgeshire Versatile infomediaries;database;Trey4@gmail.com;Walks;2023-05-31;Borders bluetooth Euro;INACTIVO;6
-7;51722;7162;invoice;Cambridgeshire;Illinois blockchains;Filiberto84@yahoo.com;redundant Investor Fresh;2023-06-01;Baby;ACTIVO;7
-8;87959;65495;Practical;Car;generate deposit grey;Lea.Emard72@yahoo.com;dot-com withdrawal;2023-05-31;transparent Baby;INACTIVO;8
-9;15030;70855;user-facing;Shoals USB hard;Frozen;Okey95@yahoo.com;foreground District;2023-05-31;grow local;INACTIVO;9
-10;39481;35009;Chief Account;Concrete Borders Rubber;COM mission-critical Dakota;Lorna_OHara68@hotmail.com;Chicken Macedonia schemas;2023-06-01;hybrid;ACTIVO;10
+id;nombres;apellidos;nombre_completo;email;telefono;fecha_nacimiento;documento;estado;elo;fide_id;tipo_documentos_id
+1;invoice;Rojo;Colegio empower;Vernica_Castro19@hotmail.com;multi-byte transmit Botswana;2023-11-15;Ladrillo Berkshire;INACTIVO;8708;51283;1
+2;empower neutral;HDD Colon Money;Salud payment payment;Lourdes30@yahoo.com;Plástico Bebes Verde;2023-11-15;system;ACTIVO;24716;72112;2
+3;Oficial;homogénea Bicicleta terciaria;Canarias;Estela.Rivero68@gmail.com;Bebes Tácticas Arquitecto;2023-11-15;tolerancia Inteligente Multi;INACTIVO;91297;4608;3
+4;HTTP schemas Lado;whiteboard;Plástico;Cecilia_Armendriz@yahoo.com;Comunidad Account;2023-11-15;e-services;INACTIVO;95569;53039;4
+5;estrategia Plástico;Terrenos;Gambia;Benito.Delgado@hotmail.com;supply-chains Checking;2023-11-16;open-source;ACTIVO;90517;10386;5
+6;protocol Raton;Cambridgeshire Versatil infomediaries;núcleo;Rosalia4@gmail.com;Vía;2023-11-15;Borders bluetooth Euro;INACTIVO;51722;7162;6
+7;invoice;Cambridgeshire;Canarias blockchains;Octavio84@yahoo.com;redundant Cliente Hormigon;2023-11-15;Salud;ACTIVO;87959;65495;7
+8;Práctico;Coche;generate deposit Gris;Daniela.Casarez72@yahoo.com;dot-com withdrawal;2023-11-15;transparent Salud;INACTIVO;15030;70855;8
+9;uniforme;Rambla USB hard;Hormigon;Luca95@yahoo.com;ábanico Distrito;2023-11-15;grow metódica;INACTIVO;39481;35009;9
+10;Gerente Account;Madera Borders Metal;COM modular de;Elisa_Ornelas68@hotmail.com;Pollo Liberia schemas;2023-11-15;intangible;ACTIVO;68573;40426;10

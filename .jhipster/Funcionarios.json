@@ -1,18 +1,10 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601133313",
+  "changelogDate": "20231116011330",
   "dto": "no",
   "embedded": false,
   "entityTableName": "funcionarios",
   "fields": [
-    {
-      "fieldName": "elo",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fideId",
-      "fieldType": "Integer"
-    },
     {
       "fieldName": "nombres",
       "fieldType": "String",
@@ -58,6 +50,14 @@
       "fieldName": "tipoFuncionario",
       "fieldType": "TipoFuncionarios",
       "fieldValues": "PROFESORES (Profesores),FUNCIONARIOS (Funcionarios),OTRO (Otro)"
+    },
+    {
+      "fieldName": "elo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fideId",
+      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,

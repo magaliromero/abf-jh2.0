@@ -54,6 +54,11 @@ public class Productos implements Serializable {
     @JsonIgnoreProperties(value = { "producto", "factura" }, allowSetters = true)
     private Set<FacturaDetalle> facturaDetalles = new HashSet<>();
 
+    @OneToMany(mappedBy = "producto")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "notaCredito", "producto" }, allowSetters = true)
+    private Set<NotaCreditoDetalle> notaCreditoDetalles = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -180,6 +185,37 @@ public class Productos implements Serializable {
     public Productos removeFacturaDetalle(FacturaDetalle facturaDetalle) {
         this.facturaDetalles.remove(facturaDetalle);
         facturaDetalle.setProducto(null);
+        return this;
+    }
+
+    public Set<NotaCreditoDetalle> getNotaCreditoDetalles() {
+        return this.notaCreditoDetalles;
+    }
+
+    public void setNotaCreditoDetalles(Set<NotaCreditoDetalle> notaCreditoDetalles) {
+        if (this.notaCreditoDetalles != null) {
+            this.notaCreditoDetalles.forEach(i -> i.setProducto(null));
+        }
+        if (notaCreditoDetalles != null) {
+            notaCreditoDetalles.forEach(i -> i.setProducto(this));
+        }
+        this.notaCreditoDetalles = notaCreditoDetalles;
+    }
+
+    public Productos notaCreditoDetalles(Set<NotaCreditoDetalle> notaCreditoDetalles) {
+        this.setNotaCreditoDetalles(notaCreditoDetalles);
+        return this;
+    }
+
+    public Productos addNotaCreditoDetalle(NotaCreditoDetalle notaCreditoDetalle) {
+        this.notaCreditoDetalles.add(notaCreditoDetalle);
+        notaCreditoDetalle.setProducto(this);
+        return this;
+    }
+
+    public Productos removeNotaCreditoDetalle(NotaCreditoDetalle notaCreditoDetalle) {
+        this.notaCreditoDetalles.remove(notaCreditoDetalle);
+        notaCreditoDetalle.setProducto(null);
         return this;
     }
 

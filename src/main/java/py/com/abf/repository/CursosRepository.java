@@ -11,30 +11,22 @@ import py.com.abf.domain.Cursos;
 
 /**
  * Spring Data JPA repository for the Cursos entity.
+ *
+ * When extending this class, extend CursosRepositoryWithBagRelationships too.
+ * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
 @Repository
-public interface CursosRepository extends JpaRepository<Cursos, Long>, JpaSpecificationExecutor<Cursos> {
+public interface CursosRepository
+    extends CursosRepositoryWithBagRelationships, JpaRepository<Cursos, Long>, JpaSpecificationExecutor<Cursos> {
     default Optional<Cursos> findOneWithEagerRelationships(Long id) {
-        return this.findOneWithToOneRelationships(id);
+        return this.fetchBagRelationships(this.findById(id));
     }
 
     default List<Cursos> findAllWithEagerRelationships() {
-        return this.findAllWithToOneRelationships();
+        return this.fetchBagRelationships(this.findAll());
     }
 
     default Page<Cursos> findAllWithEagerRelationships(Pageable pageable) {
-        return this.findAllWithToOneRelationships(pageable);
+        return this.fetchBagRelationships(this.findAll(pageable));
     }
-
-    @Query(
-        value = "select distinct cursos from Cursos cursos left join fetch cursos.temas",
-        countQuery = "select count(distinct cursos) from Cursos cursos"
-    )
-    Page<Cursos> findAllWithToOneRelationships(Pageable pageable);
-
-    @Query("select distinct cursos from Cursos cursos left join fetch cursos.temas")
-    List<Cursos> findAllWithToOneRelationships();
-
-    @Query("select cursos from Cursos cursos left join fetch cursos.temas where cursos.id =:id")
-    Optional<Cursos> findOneWithToOneRelationships(@Param("id") Long id);
 }

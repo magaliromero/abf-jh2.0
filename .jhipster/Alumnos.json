@@ -1,18 +1,10 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601133213",
+  "changelogDate": "20231116011230",
   "dto": "no",
   "embedded": false,
   "entityTableName": "alumnos",
   "fields": [
-    {
-      "fieldName": "elo",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fideId",
-      "fieldType": "Integer"
-    },
     {
       "fieldName": "nombres",
       "fieldType": "String",
@@ -52,6 +44,14 @@
       "fieldType": "EstadosPersona",
       "fieldValidateRules": ["required"],
       "fieldValues": "ACTIVO (Activo),INACTIVO (Inactivo)"
+    },
+    {
+      "fieldName": "elo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fideId",
+      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,
@@ -88,6 +88,12 @@
       "otherEntityName": "registroClases",
       "otherEntityRelationshipName": "alumnos",
       "relationshipName": "registroClases",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "facturas",
+      "otherEntityRelationshipName": "alumnos",
+      "relationshipName": "facturas",
       "relationshipType": "one-to-many"
     },
     {

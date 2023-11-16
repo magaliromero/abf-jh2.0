@@ -85,12 +85,6 @@ public class FuncionariosQueryService extends QueryService<Funcionarios> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Funcionarios_.id));
             }
-            if (criteria.getElo() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getElo(), Funcionarios_.elo));
-            }
-            if (criteria.getFideId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFideId(), Funcionarios_.fideId));
-            }
             if (criteria.getNombres() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNombres(), Funcionarios_.nombres));
             }
@@ -117,6 +111,12 @@ public class FuncionariosQueryService extends QueryService<Funcionarios> {
             }
             if (criteria.getTipoFuncionario() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoFuncionario(), Funcionarios_.tipoFuncionario));
+            }
+            if (criteria.getElo() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getElo(), Funcionarios_.elo));
+            }
+            if (criteria.getFideId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFideId(), Funcionarios_.fideId));
             }
             if (criteria.getEvaluacionesId() != null) {
                 specification =

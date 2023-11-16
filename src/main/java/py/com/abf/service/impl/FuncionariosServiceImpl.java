@@ -45,12 +45,6 @@ public class FuncionariosServiceImpl implements FuncionariosService {
         return funcionariosRepository
             .findById(funcionarios.getId())
             .map(existingFuncionarios -> {
-                if (funcionarios.getElo() != null) {
-                    existingFuncionarios.setElo(funcionarios.getElo());
-                }
-                if (funcionarios.getFideId() != null) {
-                    existingFuncionarios.setFideId(funcionarios.getFideId());
-                }
                 if (funcionarios.getNombres() != null) {
                     existingFuncionarios.setNombres(funcionarios.getNombres());
                 }
@@ -77,6 +71,12 @@ public class FuncionariosServiceImpl implements FuncionariosService {
                 }
                 if (funcionarios.getTipoFuncionario() != null) {
                     existingFuncionarios.setTipoFuncionario(funcionarios.getTipoFuncionario());
+                }
+                if (funcionarios.getElo() != null) {
+                    existingFuncionarios.setElo(funcionarios.getElo());
+                }
+                if (funcionarios.getFideId() != null) {
+                    existingFuncionarios.setFideId(funcionarios.getFideId());
                 }
 
                 return existingFuncionarios;

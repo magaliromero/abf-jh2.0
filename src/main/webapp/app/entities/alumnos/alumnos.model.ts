@@ -4,8 +4,6 @@ import { EstadosPersona } from 'app/entities/enumerations/estados-persona.model'
 
 export interface IAlumnos {
   id: number;
-  elo?: number | null;
-  fideId?: number | null;
   nombres?: string | null;
   apellidos?: string | null;
   nombreCompleto?: string | null;
@@ -14,6 +12,8 @@ export interface IAlumnos {
   fechaNacimiento?: dayjs.Dayjs | null;
   documento?: string | null;
   estado?: EstadosPersona | null;
+  elo?: number | null;
+  fideId?: number | null;
   tipoDocumentos?: Pick<ITiposDocumentos, 'id' | 'descripcion'> | null;
 }
 

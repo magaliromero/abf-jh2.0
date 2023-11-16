@@ -54,6 +54,9 @@ public class RegistroClasesServiceImpl implements RegistroClasesService {
                 if (registroClases.getAsistenciaAlumno() != null) {
                     existingRegistroClases.setAsistenciaAlumno(registroClases.getAsistenciaAlumno());
                 }
+                if (registroClases.getPagado() != null) {
+                    existingRegistroClases.setPagado(registroClases.getPagado());
+                }
 
                 return existingRegistroClases;
             })

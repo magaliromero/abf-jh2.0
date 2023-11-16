@@ -1,28 +1,28 @@
 {
   "abfApp": {
-    "evaluación": {
+    "evaluaciones": {
       "home": {
-        "title": "evaluación",
+        "title": "Evaluaciones",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nueva evaluación",
-        "createOrEditLabel": "Crear o editar evaluación",
-        "notFoUnad": "Ninguna evaluación encontrada"
+        "createLabel": "Crear nuevo Evaluaciones",
+        "createOrEditLabel": "Crear o editar Evaluaciones",
+        "notFound": "Ningún Evaluaciones encontrado"
       },
-      "created": "Una nueva evaluación ha sido creada con el identificador {{ param }}",
-      "updated": "Una evaluación ha sido actualizada con el identificador {{ param }}",
-      "deleted": "Una evaluación ha sido eliminada con el identificador {{ param }}",
+      "created": "Un nuevo Evaluaciones ha sido creado con el identificador {{ param }}",
+      "updated": "Un Evaluaciones ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Evaluaciones ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar la evaluación {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Evaluaciones {{ id }}?"
       },
       "detail": {
-        "title": "evaluación"
+        "title": "Evaluaciones"
       },
       "id": "ID",
       "nroEvaluacion": "Nro Evaluacion",
       "fecha": "Fecha",
-      "evaluaciónDetalle": "evaluación Detalle",
+      "evaluacionesDetalle": "Evaluaciones Detalle",
       "alumnos": "Alumnos",
-      "fUnacionarios": "FUnacionarios"
+      "funcionarios": "Funcionarios"
     }
   }
 }

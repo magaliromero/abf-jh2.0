@@ -51,12 +51,12 @@ describe('Cursos Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Temas query and add missing value', () => {
       const cursos: ICursos = { id: 456 };
-      const temas: ITemas = { id: 22047 };
+      const temas: ITemas[] = [{ id: 22047 }];
       cursos.temas = temas;
 
       const temasCollection: ITemas[] = [{ id: 57250 }];
       jest.spyOn(temasService, 'query').mockReturnValue(of(new HttpResponse({ body: temasCollection })));
-      const additionalTemas = [temas];
+      const additionalTemas = [...temas];
       const expectedCollection: ITemas[] = [...additionalTemas, ...temasCollection];
       jest.spyOn(temasService, 'addTemasToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -74,7 +74,7 @@ describe('Cursos Management Update Component', () => {
     it('Should update editForm', () => {
       const cursos: ICursos = { id: 456 };
       const temas: ITemas = { id: 21253 };
-      cursos.temas = temas;
+      cursos.temas = [temas];
 
       activatedRoute.data = of({ cursos });
       comp.ngOnInit();

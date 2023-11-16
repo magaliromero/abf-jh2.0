@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601133513",
+  "changelogDate": "20231116011530",
   "dto": "no",
   "embedded": false,
   "entityTableName": "factura",
@@ -50,6 +50,15 @@
       "fieldName": "total",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadosFacturas",
+      "fieldValues": "ANULADO,ENTREGADO,PENDIENTE,PAGADO"
+    },
+    {
+      "fieldName": "poseeNC",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,
@@ -63,6 +72,18 @@
       "otherEntityRelationshipName": "factura",
       "relationshipName": "facturaDetalle",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "notaCredito",
+      "otherEntityRelationshipName": "facturas",
+      "relationshipName": "notaCredito",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "alumnos",
+      "otherEntityRelationshipName": "facturas",
+      "relationshipName": "alumnos",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceImpl"

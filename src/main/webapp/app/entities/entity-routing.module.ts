@@ -70,6 +70,12 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./materiales/materiales.module').then(m => m.MaterialesModule),
       },
       {
+        path: 'registro-stock-materiales',
+        data: { pageTitle: 'abfApp.registroStockMateriales.home.title' },
+        loadChildren: () =>
+          import('./registro-stock-materiales/registro-stock-materiales.module').then(m => m.RegistroStockMaterialesModule),
+      },
+      {
         path: 'prestamos',
         data: { pageTitle: 'abfApp.prestamos.home.title' },
         loadChildren: () => import('./prestamos/prestamos.module').then(m => m.PrestamosModule),
@@ -103,6 +109,16 @@ import { RouterModule } from '@angular/router';
         path: 'punto-de-expedicion',
         data: { pageTitle: 'abfApp.puntoDeExpedicion.home.title' },
         loadChildren: () => import('./punto-de-expedicion/punto-de-expedicion.module').then(m => m.PuntoDeExpedicionModule),
+      },
+      {
+        path: 'nota-credito',
+        data: { pageTitle: 'abfApp.notaCredito.home.title' },
+        loadChildren: () => import('./nota-credito/nota-credito.module').then(m => m.NotaCreditoModule),
+      },
+      {
+        path: 'nota-credito-detalle',
+        data: { pageTitle: 'abfApp.notaCreditoDetalle.home.title' },
+        loadChildren: () => import('./nota-credito-detalle/nota-credito-detalle.module').then(m => m.NotaCreditoDetalleModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

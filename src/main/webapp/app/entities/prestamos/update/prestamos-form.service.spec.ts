@@ -23,6 +23,7 @@ describe('Prestamos Form Service', () => {
             fechaPrestamo: expect.any(Object),
             fechaDevolucion: expect.any(Object),
             estado: expect.any(Object),
+            observaciones: expect.any(Object),
             materiales: expect.any(Object),
             alumnos: expect.any(Object),
           })
@@ -38,6 +39,7 @@ describe('Prestamos Form Service', () => {
             fechaPrestamo: expect.any(Object),
             fechaDevolucion: expect.any(Object),
             estado: expect.any(Object),
+            observaciones: expect.any(Object),
             materiales: expect.any(Object),
             alumnos: expect.any(Object),
           })

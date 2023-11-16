@@ -112,6 +112,15 @@ public class ProductosQueryService extends QueryService<Productos> {
                         )
                     );
             }
+            if (criteria.getNotaCreditoDetalleId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getNotaCreditoDetalleId(),
+                            root -> root.join(Productos_.notaCreditoDetalles, JoinType.LEFT).get(NotaCreditoDetalle_.id)
+                        )
+                    );
+            }
         }
         return specification;
     }

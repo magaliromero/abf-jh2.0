@@ -26,6 +26,10 @@
         <dd>
           <span>{{ registroClases.asistenciaAlumno }}</span>
         </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.pagado">Pagado</span></dt>
+        <dd>
+          <span>{{ registroClases.pagado }}</span>
+        </dd>
         <dt><span jhiTranslate="abfApp.registroClases.temas">Temas</span></dt>
         <dd>
           <div *ngIf="registroClases.temas">
@@ -44,14 +48,20 @@
             <a [routerLink]="['/alumnos', registroClases.alumnos.id, 'view']">{{ registroClases.alumnos.nombreCompleto }}</a>
           </div>
         </dd>
+        <dt><span jhiTranslate="abfApp.registroClases.cursos">Cursos</span></dt>
+        <dd>
+          <div *ngIf="registroClases.cursos">
+            <a [routerLink]="['/cursos', registroClases.cursos.id, 'view']">{{ registroClases.cursos.nombreCurso }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
       </button>
 
       <button type="button" [routerLink]="['/registro-clases', registroClases.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
       </button>
     </div>
   </div>

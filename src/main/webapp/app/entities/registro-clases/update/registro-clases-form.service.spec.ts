@@ -23,9 +23,11 @@ describe('RegistroClases Form Service', () => {
             fecha: expect.any(Object),
             cantidadHoras: expect.any(Object),
             asistenciaAlumno: expect.any(Object),
+            pagado: expect.any(Object),
             temas: expect.any(Object),
             funcionario: expect.any(Object),
             alumnos: expect.any(Object),
+            cursos: expect.any(Object),
           })
         );
       });
@@ -39,9 +41,11 @@ describe('RegistroClases Form Service', () => {
             fecha: expect.any(Object),
             cantidadHoras: expect.any(Object),
             asistenciaAlumno: expect.any(Object),
+            pagado: expect.any(Object),
             temas: expect.any(Object),
             funcionario: expect.any(Object),
             alumnos: expect.any(Object),
+            cursos: expect.any(Object),
           })
         );
       });

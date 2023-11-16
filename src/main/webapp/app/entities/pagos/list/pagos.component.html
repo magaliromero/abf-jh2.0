@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.pagos.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.pagos.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/pagos/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.pagos.home.createLabel"> Create a new Pagos </span>
+        <span jhiTranslate="abfApp.pagos.home.createLabel"> Crear nuevo Pagos </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="pagos?.length === 0">
-    <span jhiTranslate="abfApp.pagos.home.notFound">No Pagos found</span>
+    <span jhiTranslate="abfApp.pagos.home.notFound">Ningún Pagos encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="pagos && pagos.length > 0">
@@ -95,17 +95,17 @@
             <div class="btn-group">
               <button type="submit" [routerLink]="['/pagos', pagos.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button type="submit" [routerLink]="['/pagos', pagos.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(pagos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

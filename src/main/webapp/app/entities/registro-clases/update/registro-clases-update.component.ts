@@ -13,6 +13,8 @@ import { IFuncionarios } from 'app/entities/funcionarios/funcionarios.model';
 import { FuncionariosService } from 'app/entities/funcionarios/service/funcionarios.service';
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
+import { ICursos } from 'app/entities/cursos/cursos.model';
+import { CursosService } from 'app/entities/cursos/service/cursos.service';
 
 @Component({
   selector: 'jhi-registro-clases-update',
@@ -25,6 +27,7 @@ export class RegistroClasesUpdateComponent implements OnInit {
   temasSharedCollection: ITemas[] = [];
   funcionariosSharedCollection: IFuncionarios[] = [];
   alumnosSharedCollection: IAlumnos[] = [];
+  cursosSharedCollection: ICursos[] = [];
 
   editForm: RegistroClasesFormGroup = this.registroClasesFormService.createRegistroClasesFormGroup();
 
@@ -34,6 +37,7 @@ export class RegistroClasesUpdateComponent implements OnInit {
     protected temasService: TemasService,
     protected funcionariosService: FuncionariosService,
     protected alumnosService: AlumnosService,
+    protected cursosService: CursosService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
@@ -43,6 +47,8 @@ export class RegistroClasesUpdateComponent implements OnInit {
     this.funcionariosService.compareFuncionarios(o1, o2);
 
   compareAlumnos = (o1: IAlumnos | null, o2: IAlumnos | null): boolean => this.alumnosService.compareAlumnos(o1, o2);
+
+  compareCursos = (o1: ICursos | null, o2: ICursos | null): boolean => this.cursosService.compareCursos(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ registroClases }) => {
@@ -101,6 +107,10 @@ export class RegistroClasesUpdateComponent implements OnInit {
       this.alumnosSharedCollection,
       registroClases.alumnos
     );
+    this.cursosSharedCollection = this.cursosService.addCursosToCollectionIfMissing<ICursos>(
+      this.cursosSharedCollection,
+      registroClases.cursos
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -127,5 +137,11 @@ export class RegistroClasesUpdateComponent implements OnInit {
         map((alumnos: IAlumnos[]) => this.alumnosService.addAlumnosToCollectionIfMissing<IAlumnos>(alumnos, this.registroClases?.alumnos))
       )
       .subscribe((alumnos: IAlumnos[]) => (this.alumnosSharedCollection = alumnos));
+
+    this.cursosService
+      .query()
+      .pipe(map((res: HttpResponse<ICursos[]>) => res.body ?? []))
+      .pipe(map((cursos: ICursos[]) => this.cursosService.addCursosToCollectionIfMissing<ICursos>(cursos, this.registroClases?.cursos)))
+      .subscribe((cursos: ICursos[]) => (this.cursosSharedCollection = cursos));
   }
 }

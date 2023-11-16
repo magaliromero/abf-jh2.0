@@ -1,32 +1,32 @@
 {
   "abfApp": {
-    "cliente": {
+    "clientes": {
       "home": {
-        "title": "cliente",
+        "title": "Clientes",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Cliente",
-        "createOrEditLabel": "Crear o editar cliente",
-        "notFound": "Ningún cliente encontrado"
+        "createLabel": "Crear nuevo Clientes",
+        "createOrEditLabel": "Crear o editar Clientes",
+        "notFound": "Ningún Clientes encontrado"
       },
-      "created": "Un nuevo cliente ha sido creado con el identificador {{ param }}",
-      "updated": "Un cliente ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un cliente ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Clientes ha sido creado con el identificador {{ param }}",
+      "updated": "Un Clientes ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Clientes ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar cliente {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Clientes {{ id }}?"
       },
       "detail": {
-        "title": "cliente"
+        "title": "Clientes"
       },
       "id": "ID",
       "ruc": "Ruc",
-      "nombres": "Nombre(s)",
-      "apellidos": "Apellido(s)",
-      "razonSocial": "Razón Social",
+      "nombres": "Nombres",
+      "apellidos": "Apellidos",
+      "razonSocial": "Razon Social",
       "documento": "Documento",
       "email": "Email",
-      "telefono": "Teléfono",
-      "fechaNacimiento": "Fecha de nacimiento",
-      "direccion": "Dirección"
+      "telefono": "Telefono",
+      "fechaNacimiento": "Fecha Nacimiento",
+      "direccion": "Direccion"
     }
   }
 }

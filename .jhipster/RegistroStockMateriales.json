@@ -1,0 +1,40 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116012030",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "registro_materiales",
+  "fields": [
+    {
+      "fieldName": "comentario",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cantidadInicial",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "cantidadModificada",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "RegistroStockMateriales",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "materiales",
+      "otherEntityRelationshipName": "registroStockMateriales",
+      "relationshipName": "materiales",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

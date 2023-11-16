@@ -22,6 +22,7 @@ describe('Temas Form Service', () => {
             id: expect.any(Object),
             titulo: expect.any(Object),
             descripcion: expect.any(Object),
+            cursos: expect.any(Object),
           })
         );
       });
@@ -34,6 +35,7 @@ describe('Temas Form Service', () => {
             id: expect.any(Object),
             titulo: expect.any(Object),
             descripcion: expect.any(Object),
+            cursos: expect.any(Object),
           })
         );
       });

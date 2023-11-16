@@ -59,10 +59,6 @@ public class FuncionariosCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private IntegerFilter elo;
-
-    private IntegerFilter fideId;
-
     private StringFilter nombres;
 
     private StringFilter apellidos;
@@ -81,6 +77,10 @@ public class FuncionariosCriteria implements Serializable, Criteria {
 
     private TipoFuncionariosFilter tipoFuncionario;
 
+    private IntegerFilter elo;
+
+    private IntegerFilter fideId;
+
     private LongFilter evaluacionesId;
 
     private LongFilter pagosId;
@@ -95,8 +95,6 @@ public class FuncionariosCriteria implements Serializable, Criteria {
 
     public FuncionariosCriteria(FuncionariosCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.elo = other.elo == null ? null : other.elo.copy();
-        this.fideId = other.fideId == null ? null : other.fideId.copy();
         this.nombres = other.nombres == null ? null : other.nombres.copy();
         this.apellidos = other.apellidos == null ? null : other.apellidos.copy();
         this.nombreCompleto = other.nombreCompleto == null ? null : other.nombreCompleto.copy();
@@ -106,6 +104,8 @@ public class FuncionariosCriteria implements Serializable, Criteria {
         this.documento = other.documento == null ? null : other.documento.copy();
         this.estado = other.estado == null ? null : other.estado.copy();
         this.tipoFuncionario = other.tipoFuncionario == null ? null : other.tipoFuncionario.copy();
+        this.elo = other.elo == null ? null : other.elo.copy();
+        this.fideId = other.fideId == null ? null : other.fideId.copy();
         this.evaluacionesId = other.evaluacionesId == null ? null : other.evaluacionesId.copy();
         this.pagosId = other.pagosId == null ? null : other.pagosId.copy();
         this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
@@ -131,36 +131,6 @@ public class FuncionariosCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public IntegerFilter getElo() {
-        return elo;
-    }
-
-    public IntegerFilter elo() {
-        if (elo == null) {
-            elo = new IntegerFilter();
-        }
-        return elo;
-    }
-
-    public void setElo(IntegerFilter elo) {
-        this.elo = elo;
-    }
-
-    public IntegerFilter getFideId() {
-        return fideId;
-    }
-
-    public IntegerFilter fideId() {
-        if (fideId == null) {
-            fideId = new IntegerFilter();
-        }
-        return fideId;
-    }
-
-    public void setFideId(IntegerFilter fideId) {
-        this.fideId = fideId;
     }
 
     public StringFilter getNombres() {
@@ -298,6 +268,36 @@ public class FuncionariosCriteria implements Serializable, Criteria {
         this.tipoFuncionario = tipoFuncionario;
     }
 
+    public IntegerFilter getElo() {
+        return elo;
+    }
+
+    public IntegerFilter elo() {
+        if (elo == null) {
+            elo = new IntegerFilter();
+        }
+        return elo;
+    }
+
+    public void setElo(IntegerFilter elo) {
+        this.elo = elo;
+    }
+
+    public IntegerFilter getFideId() {
+        return fideId;
+    }
+
+    public IntegerFilter fideId() {
+        if (fideId == null) {
+            fideId = new IntegerFilter();
+        }
+        return fideId;
+    }
+
+    public void setFideId(IntegerFilter fideId) {
+        this.fideId = fideId;
+    }
+
     public LongFilter getEvaluacionesId() {
         return evaluacionesId;
     }
@@ -377,8 +377,6 @@ public class FuncionariosCriteria implements Serializable, Criteria {
         final FuncionariosCriteria that = (FuncionariosCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(elo, that.elo) &&
-            Objects.equals(fideId, that.fideId) &&
             Objects.equals(nombres, that.nombres) &&
             Objects.equals(apellidos, that.apellidos) &&
             Objects.equals(nombreCompleto, that.nombreCompleto) &&
@@ -388,6 +386,8 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             Objects.equals(documento, that.documento) &&
             Objects.equals(estado, that.estado) &&
             Objects.equals(tipoFuncionario, that.tipoFuncionario) &&
+            Objects.equals(elo, that.elo) &&
+            Objects.equals(fideId, that.fideId) &&
             Objects.equals(evaluacionesId, that.evaluacionesId) &&
             Objects.equals(pagosId, that.pagosId) &&
             Objects.equals(registroClasesId, that.registroClasesId) &&
@@ -400,8 +400,6 @@ public class FuncionariosCriteria implements Serializable, Criteria {
     public int hashCode() {
         return Objects.hash(
             id,
-            elo,
-            fideId,
             nombres,
             apellidos,
             nombreCompleto,
@@ -411,6 +409,8 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             documento,
             estado,
             tipoFuncionario,
+            elo,
+            fideId,
             evaluacionesId,
             pagosId,
             registroClasesId,
@@ -424,8 +424,6 @@ public class FuncionariosCriteria implements Serializable, Criteria {
     public String toString() {
         return "FuncionariosCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (elo != null ? "elo=" + elo + ", " : "") +
-            (fideId != null ? "fideId=" + fideId + ", " : "") +
             (nombres != null ? "nombres=" + nombres + ", " : "") +
             (apellidos != null ? "apellidos=" + apellidos + ", " : "") +
             (nombreCompleto != null ? "nombreCompleto=" + nombreCompleto + ", " : "") +
@@ -435,6 +433,8 @@ public class FuncionariosCriteria implements Serializable, Criteria {
             (documento != null ? "documento=" + documento + ", " : "") +
             (estado != null ? "estado=" + estado + ", " : "") +
             (tipoFuncionario != null ? "tipoFuncionario=" + tipoFuncionario + ", " : "") +
+            (elo != null ? "elo=" + elo + ", " : "") +
+            (fideId != null ? "fideId=" + fideId + ", " : "") +
             (evaluacionesId != null ? "evaluacionesId=" + evaluacionesId + ", " : "") +
             (pagosId != null ? "pagosId=" + pagosId + ", " : "") +
             (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +

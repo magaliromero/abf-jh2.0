@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Cursos;
 import py.com.abf.domain.Inscripciones;
+import py.com.abf.domain.RegistroClases;
 import py.com.abf.domain.Temas;
 import py.com.abf.domain.enumeration.Niveles;
 import py.com.abf.repository.CursosRepository;
@@ -103,16 +104,6 @@ class CursosResourceIT {
             .fechaFin(DEFAULT_FECHA_FIN)
             .cantidadClases(DEFAULT_CANTIDAD_CLASES)
             .nivel(DEFAULT_NIVEL);
-        // Add required entity
-        Temas temas;
-        if (TestUtil.findAll(em, Temas.class).isEmpty()) {
-            temas = TemasResourceIT.createEntity(em);
-            em.persist(temas);
-            em.flush();
-        } else {
-            temas = TestUtil.findAll(em, Temas.class).get(0);
-        }
-        cursos.setTemas(temas);
         return cursos;
     }
 
@@ -130,16 +121,6 @@ class CursosResourceIT {
             .fechaFin(UPDATED_FECHA_FIN)
             .cantidadClases(UPDATED_CANTIDAD_CLASES)
             .nivel(UPDATED_NIVEL);
-        // Add required entity
-        Temas temas;
-        if (TestUtil.findAll(em, Temas.class).isEmpty()) {
-            temas = TemasResourceIT.createUpdatedEntity(em);
-            em.persist(temas);
-            em.flush();
-        } else {
-            temas = TestUtil.findAll(em, Temas.class).get(0);
-        }
-        cursos.setTemas(temas);
         return cursos;
     }
 
@@ -780,6 +761,29 @@ class CursosResourceIT {
 
     @Test
     @Transactional
+    void getAllCursosByRegistroClasesIsEqualToSomething() throws Exception {
+        RegistroClases registroClases;
+        if (TestUtil.findAll(em, RegistroClases.class).isEmpty()) {
+            cursosRepository.saveAndFlush(cursos);
+            registroClases = RegistroClasesResourceIT.createEntity(em);
+        } else {
+            registroClases = TestUtil.findAll(em, RegistroClases.class).get(0);
+        }
+        em.persist(registroClases);
+        em.flush();
+        cursos.addRegistroClases(registroClases);
+        cursosRepository.saveAndFlush(cursos);
+        Long registroClasesId = registroClases.getId();
+
+        // Get all the cursosList where registroClases equals to registroClasesId
+        defaultCursosShouldBeFound("registroClasesId.equals=" + registroClasesId);
+
+        // Get all the cursosList where registroClases equals to (registroClasesId + 1)
+        defaultCursosShouldNotBeFound("registroClasesId.equals=" + (registroClasesId + 1));
+    }
+
+    @Test
+    @Transactional
     void getAllCursosByTemasIsEqualToSomething() throws Exception {
         Temas temas;
         if (TestUtil.findAll(em, Temas.class).isEmpty()) {
@@ -790,7 +794,7 @@ class CursosResourceIT {
         }
         em.persist(temas);
         em.flush();
-        cursos.setTemas(temas);
+        cursos.addTemas(temas);
         cursosRepository.saveAndFlush(cursos);
         Long temasId = temas.getId();
 

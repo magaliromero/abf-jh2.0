@@ -1,0 +1,30 @@
+{
+  "abfApp": {
+    "notaCreditoDetalle": {
+      "home": {
+        "title": "Nota Credito Detalles",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Nota Credito Detalle",
+        "createOrEditLabel": "Crear o editar Nota Credito Detalle",
+        "notFound": "Ningún Nota Credito Detalles encontrado"
+      },
+      "created": "Un nuevo Nota Credito Detalle ha sido creado con el identificador {{ param }}",
+      "updated": "Un Nota Credito Detalle ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Nota Credito Detalle ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Nota Credito Detalle {{ id }}?"
+      },
+      "detail": {
+        "title": "Nota Credito Detalle"
+      },
+      "id": "ID",
+      "cantidad": "Cantidad",
+      "precioUnitario": "Precio Unitario",
+      "subtotal": "Subtotal",
+      "porcentajeIva": "Porcentaje Iva",
+      "valorPorcentaje": "Valor Porcentaje",
+      "notaCredito": "Nota Credito",
+      "producto": "Producto"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230812134751",
+  "changelogDate": "20231116012530",
   "dto": "no",
   "embedded": false,
   "entityTableName": "timbrado",

@@ -1,0 +1,142 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-nota-credito-detalle-heading"
+        data-cy="NotaCreditoDetalleCreateUpdateHeading"
+        jhiTranslate="abfApp.notaCreditoDetalle.home.createOrEditLabel"
+      >
+        Crear o editar Nota Credito Detalle
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.notaCreditoDetalle.cantidad" for="field_cantidad">Cantidad</label>
+          <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.notaCreditoDetalle.precioUnitario" for="field_precioUnitario"
+            >Precio Unitario</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="precioUnitario"
+            id="field_precioUnitario"
+            data-cy="precioUnitario"
+            formControlName="precioUnitario"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.notaCreditoDetalle.subtotal" for="field_subtotal">Subtotal</label>
+          <input type="number" class="form-control" name="subtotal" id="field_subtotal" data-cy="subtotal" formControlName="subtotal" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.notaCreditoDetalle.porcentajeIva" for="field_porcentajeIva">Porcentaje Iva</label>
+          <input
+            type="number"
+            class="form-control"
+            name="porcentajeIva"
+            id="field_porcentajeIva"
+            data-cy="porcentajeIva"
+            formControlName="porcentajeIva"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.notaCreditoDetalle.valorPorcentaje" for="field_valorPorcentaje"
+            >Valor Porcentaje</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="valorPorcentaje"
+            id="field_valorPorcentaje"
+            data-cy="valorPorcentaje"
+            formControlName="valorPorcentaje"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.notaCreditoDetalle.notaCredito" for="field_notaCredito">Nota Credito</label>
+          <select
+            class="form-control"
+            id="field_notaCredito"
+            data-cy="notaCredito"
+            name="notaCredito"
+            formControlName="notaCredito"
+            [compareWith]="compareNotaCredito"
+          >
+            <option *ngIf="editForm.get(['notaCredito'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="notaCreditoOption" *ngFor="let notaCreditoOption of notaCreditosSharedCollection">
+              {{ notaCreditoOption.notaNro }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['notaCredito'])!.invalid && (editForm.get(['notaCredito'])!.dirty || editForm.get(['notaCredito'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['notaCredito'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            Este campo es obligatorio.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.notaCreditoDetalle.producto" for="field_producto">Producto</label>
+          <select
+            class="form-control"
+            id="field_producto"
+            data-cy="producto"
+            name="producto"
+            formControlName="producto"
+            [compareWith]="compareProductos"
+          >
+            <option *ngIf="editForm.get(['producto'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="productosOption" *ngFor="let productosOption of productosSharedCollection">
+              {{ productosOption.descripcion }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['producto'])!.invalid && (editForm.get(['producto'])!.dirty || editForm.get(['producto'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['producto'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            Este campo es obligatorio.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

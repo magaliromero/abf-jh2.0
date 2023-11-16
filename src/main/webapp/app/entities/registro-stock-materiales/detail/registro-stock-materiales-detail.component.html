@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="registroStockMateriales">
+      <h2 data-cy="registroStockMaterialesDetailsHeading">
+        <span jhiTranslate="abfApp.registroStockMateriales.detail.title">Registro Stock Materiales</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ registroStockMateriales.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroStockMateriales.comentario">Comentario</span></dt>
+        <dd>
+          <span>{{ registroStockMateriales.comentario }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroStockMateriales.cantidadInicial">Cantidad Inicial</span></dt>
+        <dd>
+          <span>{{ registroStockMateriales.cantidadInicial }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroStockMateriales.cantidadModificada">Cantidad Modificada</span></dt>
+        <dd>
+          <span>{{ registroStockMateriales.cantidadModificada }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroStockMateriales.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ registroStockMateriales.fecha | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.registroStockMateriales.materiales">Materiales</span></dt>
+        <dd>
+          <div *ngIf="registroStockMateriales.materiales">
+            <a [routerLink]="['/materiales', registroStockMateriales.materiales.id, 'view']">{{ registroStockMateriales.materiales.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/registro-stock-materiales', registroStockMateriales.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

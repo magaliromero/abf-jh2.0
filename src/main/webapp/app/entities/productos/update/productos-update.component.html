@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-productos-heading" data-cy="ProductosCreateUpdateHeading" jhiTranslate="abfApp.productos.home.createOrEditLabel">
-        Create or edit a Productos
+        Crear o editar Productos
       </h2>
 
       <div>
@@ -29,7 +29,7 @@
               *ngIf="editForm.get('tipoProducto')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -54,14 +54,14 @@
               *ngIf="editForm.get('precioUnitario')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('precioUnitario')?.errors?.number"
               jhiTranslate="entity.validation.number"
             >
-              This field should be a number.
+              Este campo debe ser un número.
             </small>
           </div>
         </div>
@@ -86,14 +86,14 @@
               *ngIf="editForm.get('porcentajeIva')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('porcentajeIva')?.errors?.number"
               jhiTranslate="entity.validation.number"
             >
-              This field should be a number.
+              Este campo debe ser un número.
             </small>
           </div>
         </div>
@@ -114,7 +114,7 @@
               *ngIf="editForm.get('descripcion')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -122,7 +122,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
         </button>
 
         <button
@@ -132,7 +132,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
         </button>
       </div>
     </form>

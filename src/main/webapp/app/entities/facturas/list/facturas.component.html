@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.facturas.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.facturas.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/facturas/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.facturas.home.createLabel"> Create a new Facturas </span>
+        <span jhiTranslate="abfApp.facturas.home.createLabel"> Crear nuevo Facturas </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="facturas?.length === 0">
-    <span jhiTranslate="abfApp.facturas.home.notFound">No Facturas found</span>
+    <span jhiTranslate="abfApp.facturas.home.notFound">Ningún Facturas encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="facturas && facturas.length > 0">
@@ -94,6 +94,24 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="estado">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.facturas.estado">Estado</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="poseeNC">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.facturas.poseeNC">Posee NC</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="alumnos.id">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.facturas.alumnos">Alumnos</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -111,12 +129,15 @@
           <td>{{ facturas.ruc }}</td>
           <td jhiTranslate="{{ 'abfApp.CondicionVenta.' + facturas.condicionVenta }}">{{ facturas.condicionVenta }}</td>
           <td>{{ facturas.total }}</td>
+          <td jhiTranslate="{{ 'abfApp.EstadosFacturas.' + facturas.estado }}">{{ facturas.estado }}</td>
+          <td>{{ facturas.poseeNC }}</td>
+          <td>
+            <div *ngIf="facturas.alumnos">
+              <a [routerLink]="['/alumnos', facturas.alumnos.id, 'view']">{{ facturas.alumnos.id }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
-              <button type="submit" class="btn btn-warning btn-sm" (click)="descargar(facturas.id)">
-                <fa-icon icon="save"></fa-icon>
-                <span class="d-none d-md-inline">Descargar</span>
-              </button>
               <button
                 type="submit"
                 [routerLink]="['/factura-detalle']"
@@ -134,12 +155,27 @@
               </button>
               <button
                 type="submit"
+                [routerLink]="['/nota-credito']"
+                [queryParams]="{ 'filter[facturasId.in]': facturas.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.facturas.notaCredito' | translate) }"
+                  >Show Nota Credito</span
+                >
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/facturas', facturas.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button
@@ -149,12 +185,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(facturas)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

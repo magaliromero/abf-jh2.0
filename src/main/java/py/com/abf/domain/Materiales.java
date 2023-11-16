@@ -38,6 +38,11 @@ public class Materiales implements Serializable {
 
     @OneToMany(mappedBy = "materiales")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "materiales" }, allowSetters = true)
+    private Set<RegistroStockMateriales> registroStockMateriales = new HashSet<>();
+
+    @OneToMany(mappedBy = "materiales")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "materiales", "alumnos" }, allowSetters = true)
     private Set<Prestamos> prestamos = new HashSet<>();
 
@@ -93,6 +98,37 @@ public class Materiales implements Serializable {
 
     public void setCantidadEnPrestamo(Integer cantidadEnPrestamo) {
         this.cantidadEnPrestamo = cantidadEnPrestamo;
+    }
+
+    public Set<RegistroStockMateriales> getRegistroStockMateriales() {
+        return this.registroStockMateriales;
+    }
+
+    public void setRegistroStockMateriales(Set<RegistroStockMateriales> registroStockMateriales) {
+        if (this.registroStockMateriales != null) {
+            this.registroStockMateriales.forEach(i -> i.setMateriales(null));
+        }
+        if (registroStockMateriales != null) {
+            registroStockMateriales.forEach(i -> i.setMateriales(this));
+        }
+        this.registroStockMateriales = registroStockMateriales;
+    }
+
+    public Materiales registroStockMateriales(Set<RegistroStockMateriales> registroStockMateriales) {
+        this.setRegistroStockMateriales(registroStockMateriales);
+        return this;
+    }
+
+    public Materiales addRegistroStockMateriales(RegistroStockMateriales registroStockMateriales) {
+        this.registroStockMateriales.add(registroStockMateriales);
+        registroStockMateriales.setMateriales(this);
+        return this;
+    }
+
+    public Materiales removeRegistroStockMateriales(RegistroStockMateriales registroStockMateriales) {
+        this.registroStockMateriales.remove(registroStockMateriales);
+        registroStockMateriales.setMateriales(null);
+        return this;
     }
 
     public Set<Prestamos> getPrestamos() {

@@ -85,12 +85,6 @@ public class AlumnosQueryService extends QueryService<Alumnos> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Alumnos_.id));
             }
-            if (criteria.getElo() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getElo(), Alumnos_.elo));
-            }
-            if (criteria.getFideId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFideId(), Alumnos_.fideId));
-            }
             if (criteria.getNombres() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNombres(), Alumnos_.nombres));
             }
@@ -114,6 +108,12 @@ public class AlumnosQueryService extends QueryService<Alumnos> {
             }
             if (criteria.getEstado() != null) {
                 specification = specification.and(buildSpecification(criteria.getEstado(), Alumnos_.estado));
+            }
+            if (criteria.getElo() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getElo(), Alumnos_.elo));
+            }
+            if (criteria.getFideId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getFideId(), Alumnos_.fideId));
             }
             if (criteria.getInscripcionesId() != null) {
                 specification =
@@ -158,6 +158,12 @@ public class AlumnosQueryService extends QueryService<Alumnos> {
                             criteria.getRegistroClasesId(),
                             root -> root.join(Alumnos_.registroClases, JoinType.LEFT).get(RegistroClases_.id)
                         )
+                    );
+            }
+            if (criteria.getFacturasId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getFacturasId(), root -> root.join(Alumnos_.facturas, JoinType.LEFT).get(Facturas_.id))
                     );
             }
             if (criteria.getTipoDocumentosId() != null) {

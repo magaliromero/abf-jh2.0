@@ -5,8 +5,6 @@ import { TipoFuncionarios } from 'app/entities/enumerations/tipo-funcionarios.mo
 
 export interface IFuncionarios {
   id: number;
-  elo?: number | null;
-  fideId?: number | null;
   nombres?: string | null;
   apellidos?: string | null;
   nombreCompleto?: string | null;
@@ -16,6 +14,8 @@ export interface IFuncionarios {
   documento?: string | null;
   estado?: EstadosPersona | null;
   tipoFuncionario?: TipoFuncionarios | null;
+  elo?: number | null;
+  fideId?: number | null;
   tipoDocumentos?: Pick<ITiposDocumentos, 'id' | 'descripcion'> | null;
 }
 

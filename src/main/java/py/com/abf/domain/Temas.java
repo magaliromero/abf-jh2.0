@@ -41,12 +41,12 @@ public class Temas implements Serializable {
 
     @OneToMany(mappedBy = "temas")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos", "cursos" }, allowSetters = true)
     private Set<RegistroClases> registroClases = new HashSet<>();
 
-    @OneToMany(mappedBy = "temas")
+    @ManyToMany(mappedBy = "temas")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "inscripciones", "temas" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "inscripciones", "registroClases", "temas" }, allowSetters = true)
     private Set<Cursos> cursos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -158,10 +158,10 @@ public class Temas implements Serializable {
 
     public void setCursos(Set<Cursos> cursos) {
         if (this.cursos != null) {
-            this.cursos.forEach(i -> i.setTemas(null));
+            this.cursos.forEach(i -> i.removeTemas(this));
         }
         if (cursos != null) {
-            cursos.forEach(i -> i.setTemas(this));
+            cursos.forEach(i -> i.addTemas(this));
         }
         this.cursos = cursos;
     }
@@ -173,13 +173,13 @@ public class Temas implements Serializable {
 
     public Temas addCursos(Cursos cursos) {
         this.cursos.add(cursos);
-        cursos.setTemas(this);
+        cursos.getTemas().add(this);
         return this;
     }
 
     public Temas removeCursos(Cursos cursos) {
         this.cursos.remove(cursos);
-        cursos.setTemas(null);
+        cursos.getTemas().remove(this);
         return this;
     }
 

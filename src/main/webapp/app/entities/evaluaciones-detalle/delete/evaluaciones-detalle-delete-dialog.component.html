@@ -1,7 +1,7 @@
 <form *ngIf="evaluacionesDetalle" name="deleteForm" (ngSubmit)="confirmDelete(evaluacionesDetalle.id!)">
   <div class="modal-header">
     <h4 class="modal-title" data-cy="evaluacionesDetalleDeleteDialogHeading" jhiTranslate="entity.delete.title">
-      Confirm delete operation
+      Confirmar operación de borrado
     </h4>
 
     <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
@@ -14,17 +14,17 @@
       jhiTranslate="abfApp.evaluacionesDetalle.delete.question"
       [translateValues]="{ id: evaluacionesDetalle.id }"
     >
-      Are you sure you want to delete Evaluaciones Detalle {{ evaluacionesDetalle.id }}?
+      ¿Seguro que quiere eliminar Evaluaciones Detalle {{ evaluacionesDetalle.id }}?
     </p>
   </div>
 
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
-      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
     </button>
 
     <button id="jhi-confirm-delete-evaluacionesDetalle" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
-      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
+      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
     </button>
   </div>
 </form>

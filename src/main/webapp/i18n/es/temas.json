@@ -4,15 +4,15 @@
       "home": {
         "title": "Temas",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Tema",
+        "createLabel": "Crear nuevo Temas",
         "createOrEditLabel": "Crear o editar Temas",
-        "notFound": "Ningún Tema encontrado"
+        "notFound": "Ningún Temas encontrado"
       },
-      "created": "Un nuevo Tema ha sido creado con el identificador {{ param }}",
-      "updated": "Un Tema ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Tema ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Temas ha sido creado con el identificador {{ param }}",
+      "updated": "Un Temas ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Temas ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Tema {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Temas {{ id }}?"
       },
       "detail": {
         "title": "Temas"
@@ -21,7 +21,7 @@
       "titulo": "Titulo",
       "descripcion": "Descripcion",
       "evaluacionesDetalle": "Evaluaciones Detalle",
-      "registroClases": "Registro de Clases",
+      "registroClases": "Registro Clases",
       "cursos": "Cursos"
     }
   }

@@ -55,6 +55,8 @@ public class CursosCriteria implements Serializable, Criteria {
 
     private LongFilter inscripcionesId;
 
+    private LongFilter registroClasesId;
+
     private LongFilter temasId;
 
     private Boolean distinct;
@@ -70,6 +72,7 @@ public class CursosCriteria implements Serializable, Criteria {
         this.cantidadClases = other.cantidadClases == null ? null : other.cantidadClases.copy();
         this.nivel = other.nivel == null ? null : other.nivel.copy();
         this.inscripcionesId = other.inscripcionesId == null ? null : other.inscripcionesId.copy();
+        this.registroClasesId = other.registroClasesId == null ? null : other.registroClasesId.copy();
         this.temasId = other.temasId == null ? null : other.temasId.copy();
         this.distinct = other.distinct;
     }
@@ -199,6 +202,21 @@ public class CursosCriteria implements Serializable, Criteria {
         this.inscripcionesId = inscripcionesId;
     }
 
+    public LongFilter getRegistroClasesId() {
+        return registroClasesId;
+    }
+
+    public LongFilter registroClasesId() {
+        if (registroClasesId == null) {
+            registroClasesId = new LongFilter();
+        }
+        return registroClasesId;
+    }
+
+    public void setRegistroClasesId(LongFilter registroClasesId) {
+        this.registroClasesId = registroClasesId;
+    }
+
     public LongFilter getTemasId() {
         return temasId;
     }
@@ -240,6 +258,7 @@ public class CursosCriteria implements Serializable, Criteria {
             Objects.equals(cantidadClases, that.cantidadClases) &&
             Objects.equals(nivel, that.nivel) &&
             Objects.equals(inscripcionesId, that.inscripcionesId) &&
+            Objects.equals(registroClasesId, that.registroClasesId) &&
             Objects.equals(temasId, that.temasId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -247,7 +266,19 @@ public class CursosCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombreCurso, descripcion, fechaInicio, fechaFin, cantidadClases, nivel, inscripcionesId, temasId, distinct);
+        return Objects.hash(
+            id,
+            nombreCurso,
+            descripcion,
+            fechaInicio,
+            fechaFin,
+            cantidadClases,
+            nivel,
+            inscripcionesId,
+            registroClasesId,
+            temasId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -262,6 +293,7 @@ public class CursosCriteria implements Serializable, Criteria {
             (cantidadClases != null ? "cantidadClases=" + cantidadClases + ", " : "") +
             (nivel != null ? "nivel=" + nivel + ", " : "") +
             (inscripcionesId != null ? "inscripcionesId=" + inscripcionesId + ", " : "") +
+            (registroClasesId != null ? "registroClasesId=" + registroClasesId + ", " : "") +
             (temasId != null ? "temasId=" + temasId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

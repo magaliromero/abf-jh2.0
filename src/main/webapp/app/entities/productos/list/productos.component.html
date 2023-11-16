@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.productos.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.productos.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/productos/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.productos.home.createLabel"> Create a new Productos </span>
+        <span jhiTranslate="abfApp.productos.home.createLabel"> Crear nuevo Productos </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="productos?.length === 0">
-    <span jhiTranslate="abfApp.productos.home.notFound">No Productos found</span>
+    <span jhiTranslate="abfApp.productos.home.notFound">Ningún Productos encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="productos && productos.length > 0">
@@ -110,12 +110,27 @@
               </button>
               <button
                 type="submit"
+                [routerLink]="['/nota-credito-detalle']"
+                [queryParams]="{ 'filter[productoId.in]': productos.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.productos.notaCreditoDetalle' | translate) }"
+                  >Show Nota Credito Detalle</span
+                >
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/productos', productos.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button
@@ -125,12 +140,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(productos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

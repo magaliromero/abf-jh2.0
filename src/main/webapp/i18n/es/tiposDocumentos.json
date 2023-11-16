@@ -4,22 +4,22 @@
       "home": {
         "title": "Tipos Documentos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Tipo de Documento",
-        "createOrEditLabel": "Crear o editar un Tipo de Documento",
-        "notFound": "Ningún Tipo de Documento encontrado"
+        "createLabel": "Crear nuevo Tipos Documentos",
+        "createOrEditLabel": "Crear o editar Tipos Documentos",
+        "notFound": "Ningún Tipos Documentos encontrado"
       },
-      "created": "Un nuevo Tipo de Documento ha sido creado con el identificador {{ param }}",
-      "updated": "Un Tipo de Documento ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Tipo de Documento ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Tipos Documentos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Tipos Documentos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Tipos Documentos ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar el Tipo de Documento {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Tipos Documentos {{ id }}?"
       },
       "detail": {
-        "title": "Tipos de Documentos"
+        "title": "Tipos Documentos"
       },
       "id": "ID",
-      "codigo": "Código",
-      "descripcion": "Descripción",
+      "codigo": "Codigo",
+      "descripcion": "Descripcion",
       "alumnos": "Alumnos",
       "funcionarios": "Funcionarios"
     }

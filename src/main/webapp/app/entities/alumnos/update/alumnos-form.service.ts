@@ -18,8 +18,6 @@ type AlumnosFormDefaults = Pick<NewAlumnos, 'id'>;
 
 type AlumnosFormGroupContent = {
   id: FormControl<IAlumnos['id'] | NewAlumnos['id']>;
-  elo: FormControl<IAlumnos['elo']>;
-  fideId: FormControl<IAlumnos['fideId']>;
   nombres: FormControl<IAlumnos['nombres']>;
   apellidos: FormControl<IAlumnos['apellidos']>;
   nombreCompleto: FormControl<IAlumnos['nombreCompleto']>;
@@ -28,6 +26,8 @@ type AlumnosFormGroupContent = {
   fechaNacimiento: FormControl<IAlumnos['fechaNacimiento']>;
   documento: FormControl<IAlumnos['documento']>;
   estado: FormControl<IAlumnos['estado']>;
+  elo: FormControl<IAlumnos['elo']>;
+  fideId: FormControl<IAlumnos['fideId']>;
   tipoDocumentos: FormControl<IAlumnos['tipoDocumentos']>;
 };
 
@@ -48,8 +48,6 @@ export class AlumnosFormService {
           validators: [Validators.required],
         }
       ),
-      elo: new FormControl(alumnosRawValue.elo),
-      fideId: new FormControl(alumnosRawValue.fideId),
       nombres: new FormControl(alumnosRawValue.nombres, {
         validators: [Validators.required],
       }),
@@ -72,6 +70,8 @@ export class AlumnosFormService {
       estado: new FormControl(alumnosRawValue.estado, {
         validators: [Validators.required],
       }),
+      elo: new FormControl(alumnosRawValue.elo),
+      fideId: new FormControl(alumnosRawValue.fideId),
       tipoDocumentos: new FormControl(alumnosRawValue.tipoDocumentos, {
         validators: [Validators.required],
       }),

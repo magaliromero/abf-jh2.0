@@ -39,7 +39,7 @@ public class Pagos implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles", "notaCreditoDetalles" }, allowSetters = true)
     private Productos producto;
 
     @ManyToOne

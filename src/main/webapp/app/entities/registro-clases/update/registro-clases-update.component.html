@@ -6,7 +6,7 @@
         data-cy="RegistroClasesCreateUpdateHeading"
         jhiTranslate="abfApp.registroClases.home.createOrEditLabel"
       >
-        Create or edit a Registro Clases
+        Crear o editar Registro Clases
       </h2>
 
       <div>
@@ -34,7 +34,7 @@
           </div>
           <div *ngIf="editForm.get('fecha')!.invalid && (editForm.get('fecha')!.dirty || editForm.get('fecha')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('fecha')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -59,14 +59,14 @@
               *ngIf="editForm.get('cantidadHoras')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('cantidadHoras')?.errors?.number"
               jhiTranslate="entity.validation.number"
             >
-              This field should be a number.
+              Este campo debe ser un número.
             </small>
           </div>
         </div>
@@ -86,6 +86,11 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.pagado" for="field_pagado">Pagado</label>
+          <input type="checkbox" class="form-check" name="pagado" id="field_pagado" data-cy="pagado" formControlName="pagado" />
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.registroClases.temas" for="field_temas">Temas</label>
           <select class="form-control" id="field_temas" data-cy="temas" name="temas" formControlName="temas" [compareWith]="compareTemas">
             <option *ngIf="editForm.get(['temas'])!.value == null" [ngValue]="null" selected></option>
@@ -94,7 +99,7 @@
         </div>
         <div *ngIf="editForm.get(['temas'])!.invalid && (editForm.get(['temas'])!.dirty || editForm.get(['temas'])!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get(['temas'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
 
@@ -122,7 +127,7 @@
             *ngIf="editForm.get(['funcionario'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
 
@@ -148,14 +153,29 @@
             *ngIf="editForm.get(['alumnos'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            This field is required.
+            Este campo es obligatorio.
           </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.registroClases.cursos" for="field_cursos">Cursos</label>
+          <select
+            class="form-control"
+            id="field_cursos"
+            data-cy="cursos"
+            name="cursos"
+            formControlName="cursos"
+            [compareWith]="compareCursos"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="cursosOption" *ngFor="let cursosOption of cursosSharedCollection">{{ cursosOption.nombreCurso }}</option>
+          </select>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
         </button>
 
         <button
@@ -165,7 +185,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
         </button>
       </div>
     </form>

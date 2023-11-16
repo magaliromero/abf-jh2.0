@@ -1,12 +1,19 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-evaluaciones-heading" data-cy="EvaluacionesCreateUpdateHeading">EVALUACION</h2>
+      <h2 id="jhi-evaluaciones-heading" data-cy="EvaluacionesCreateUpdateHeading" jhiTranslate="abfApp.evaluaciones.home.createOrEditLabel">
+        Crear o editar Evaluaciones
+      </h2>
 
-      <div class="row">
+      <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="col-6 mb-3">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.evaluaciones.nroEvaluacion" for="field_nroEvaluacion">Nro Evaluacion</label>
           <input
             type="number"
@@ -26,19 +33,19 @@
               *ngIf="editForm.get('nroEvaluacion')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('nroEvaluacion')?.errors?.number"
               jhiTranslate="entity.validation.number"
             >
-              This field should be a number.
+              Este campo debe ser un número.
             </small>
           </div>
         </div>
 
-        <div class="col-6 mb-3">
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.evaluaciones.fecha" for="field_fecha">Fecha</label>
           <div class="input-group">
             <input
@@ -55,13 +62,13 @@
           </div>
           <div *ngIf="editForm.get('fecha')!.invalid && (editForm.get('fecha')!.dirty || editForm.get('fecha')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('fecha')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
 
-        <div class="col-6 mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.alumnos" for="field_alumnos">Alumno</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.evaluaciones.alumnos" for="field_alumnos">Alumnos</label>
           <select
             class="form-control"
             id="field_alumnos"
@@ -82,12 +89,12 @@
             *ngIf="editForm.get(['alumnos'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
 
-        <div class="col-6 mb-3">
-          <label class="form-label" jhiTranslate="abfApp.evaluaciones.funcionarios" for="field_funcionarios">Profesor</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.evaluaciones.funcionarios" for="field_funcionarios">Funcionarios</label>
           <select
             class="form-control"
             id="field_funcionarios"
@@ -112,70 +119,26 @@
             *ngIf="editForm.get(['funcionarios'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
       </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
     </form>
-
-    <div>
-      <h3>DETALLE EVALUACION</h3>
-    </div>
-
-    <div class="row mb-3">
-      <div class="col-3">
-        <label class="form-label" for="field_condicionVenta">Tema</label>
-        <select class="form-control" name="prod" id="id_detalle_prod" [(ngModel)]="nuevoItem.tema" (click)="selecciona()">
-          <option [ngValue]="null">{{ ' Seleccione un producto' }}</option>
-          <!-- se agrego prod -->
-          <option *ngFor="let item of temas" [value]="item.id">
-            {{ item.descripcion }}
-          </option>
-        </select>
-      </div>
-
-      <div class="col-2">
-        <label class="form-label" placeholder="Puntaje" for="field_total">Puntaje</label>
-        <input type="number" class="form-control" name="total" id="field_total" [(ngModel)]="nuevoItem.puntaje" min="0" max="100" />
-      </div>
-      <div class="col-6">
-        <label class="form-label" placeholder="Comentarios" for="field_total">Comentarios </label>
-        <input type="text" class="form-control" name="comentarios" id="field_total" min="0" [(ngModel)]="nuevoItem.comentarios" />
-      </div>
-      <div class="col-1 d-flex align-items-end">
-        <button id="id_btn" class="btn btn-primary jh-create-entity" (click)="agregarDetalle()">
-          <fa-icon icon="plus"></fa-icon>
-        </button>
-      </div>
-    </div>
-
-    <div class="row mb-3" *ngFor="let items of listaDetalle | keyvalue; let i = index" [attr.data-index]="i">
-      <div class="row mb-3 col-3">
-        <input type="text" class="form-control" id="id" [(ngModel)]="items.value.descripcion" [disabled]="true" />
-      </div>
-
-      <div class="col-2">
-        <input type="number" class="form-control" name="total" id="field_total" [(ngModel)]="items.value.puntaje" [disabled]="true" />
-      </div>
-
-      <div class="col-4">
-        <input type="text" class="form-control" name="total" id="field_total" [(ngModel)]="items.value.comentarios" [disabled]="true" />
-      </div>
-      <div class="col-1 d-flex align-items-start">
-        <button id="id_btn" class="btn btn-danger" (click)="eliminarDetalle(i)">
-          <fa-icon icon="times"></fa-icon>
-        </button>
-      </div>
-    </div>
-
-    <div>
-      <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-      </button>
-
-      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" (click)="save()" class="btn btn-primary">
-        <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-      </button>
-    </div>
   </div>
 </div>

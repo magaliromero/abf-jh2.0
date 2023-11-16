@@ -48,14 +48,6 @@ import py.com.abf.service.criteria.FuncionariosCriteria;
 @WithMockUser
 class FuncionariosResourceIT {
 
-    private static final Integer DEFAULT_ELO = 1;
-    private static final Integer UPDATED_ELO = 2;
-    private static final Integer SMALLER_ELO = 1 - 1;
-
-    private static final Integer DEFAULT_FIDE_ID = 1;
-    private static final Integer UPDATED_FIDE_ID = 2;
-    private static final Integer SMALLER_FIDE_ID = 1 - 1;
-
     private static final String DEFAULT_NOMBRES = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRES = "BBBBBBBBBB";
 
@@ -83,6 +75,14 @@ class FuncionariosResourceIT {
 
     private static final TipoFuncionarios DEFAULT_TIPO_FUNCIONARIO = TipoFuncionarios.PROFESORES;
     private static final TipoFuncionarios UPDATED_TIPO_FUNCIONARIO = TipoFuncionarios.FUNCIONARIOS;
+
+    private static final Integer DEFAULT_ELO = 1;
+    private static final Integer UPDATED_ELO = 2;
+    private static final Integer SMALLER_ELO = 1 - 1;
+
+    private static final Integer DEFAULT_FIDE_ID = 1;
+    private static final Integer UPDATED_FIDE_ID = 2;
+    private static final Integer SMALLER_FIDE_ID = 1 - 1;
 
     private static final String ENTITY_API_URL = "/api/funcionarios";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -115,8 +115,6 @@ class FuncionariosResourceIT {
      */
     public static Funcionarios createEntity(EntityManager em) {
         Funcionarios funcionarios = new Funcionarios()
-            .elo(DEFAULT_ELO)
-            .fideId(DEFAULT_FIDE_ID)
             .nombres(DEFAULT_NOMBRES)
             .apellidos(DEFAULT_APELLIDOS)
             .nombreCompleto(DEFAULT_NOMBRE_COMPLETO)
@@ -125,7 +123,9 @@ class FuncionariosResourceIT {
             .fechaNacimiento(DEFAULT_FECHA_NACIMIENTO)
             .documento(DEFAULT_DOCUMENTO)
             .estado(DEFAULT_ESTADO)
-            .tipoFuncionario(DEFAULT_TIPO_FUNCIONARIO);
+            .tipoFuncionario(DEFAULT_TIPO_FUNCIONARIO)
+            .elo(DEFAULT_ELO)
+            .fideId(DEFAULT_FIDE_ID);
         // Add required entity
         TiposDocumentos tiposDocumentos;
         if (TestUtil.findAll(em, TiposDocumentos.class).isEmpty()) {
@@ -147,8 +147,6 @@ class FuncionariosResourceIT {
      */
     public static Funcionarios createUpdatedEntity(EntityManager em) {
         Funcionarios funcionarios = new Funcionarios()
-            .elo(UPDATED_ELO)
-            .fideId(UPDATED_FIDE_ID)
             .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
@@ -157,7 +155,9 @@ class FuncionariosResourceIT {
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
             .documento(UPDATED_DOCUMENTO)
             .estado(UPDATED_ESTADO)
-            .tipoFuncionario(UPDATED_TIPO_FUNCIONARIO);
+            .tipoFuncionario(UPDATED_TIPO_FUNCIONARIO)
+            .elo(UPDATED_ELO)
+            .fideId(UPDATED_FIDE_ID);
         // Add required entity
         TiposDocumentos tiposDocumentos;
         if (TestUtil.findAll(em, TiposDocumentos.class).isEmpty()) {
@@ -189,8 +189,6 @@ class FuncionariosResourceIT {
         List<Funcionarios> funcionariosList = funcionariosRepository.findAll();
         assertThat(funcionariosList).hasSize(databaseSizeBeforeCreate + 1);
         Funcionarios testFuncionarios = funcionariosList.get(funcionariosList.size() - 1);
-        assertThat(testFuncionarios.getElo()).isEqualTo(DEFAULT_ELO);
-        assertThat(testFuncionarios.getFideId()).isEqualTo(DEFAULT_FIDE_ID);
         assertThat(testFuncionarios.getNombres()).isEqualTo(DEFAULT_NOMBRES);
         assertThat(testFuncionarios.getApellidos()).isEqualTo(DEFAULT_APELLIDOS);
         assertThat(testFuncionarios.getNombreCompleto()).isEqualTo(DEFAULT_NOMBRE_COMPLETO);
@@ -200,6 +198,8 @@ class FuncionariosResourceIT {
         assertThat(testFuncionarios.getDocumento()).isEqualTo(DEFAULT_DOCUMENTO);
         assertThat(testFuncionarios.getEstado()).isEqualTo(DEFAULT_ESTADO);
         assertThat(testFuncionarios.getTipoFuncionario()).isEqualTo(DEFAULT_TIPO_FUNCIONARIO);
+        assertThat(testFuncionarios.getElo()).isEqualTo(DEFAULT_ELO);
+        assertThat(testFuncionarios.getFideId()).isEqualTo(DEFAULT_FIDE_ID);
     }
 
     @Test
@@ -368,8 +368,6 @@ class FuncionariosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(funcionarios.getId().intValue())))
-            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
-            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)))
             .andExpect(jsonPath("$.[*].nombres").value(hasItem(DEFAULT_NOMBRES)))
             .andExpect(jsonPath("$.[*].apellidos").value(hasItem(DEFAULT_APELLIDOS)))
             .andExpect(jsonPath("$.[*].nombreCompleto").value(hasItem(DEFAULT_NOMBRE_COMPLETO)))
@@ -378,7 +376,9 @@ class FuncionariosResourceIT {
             .andExpect(jsonPath("$.[*].fechaNacimiento").value(hasItem(DEFAULT_FECHA_NACIMIENTO.toString())))
             .andExpect(jsonPath("$.[*].documento").value(hasItem(DEFAULT_DOCUMENTO)))
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
-            .andExpect(jsonPath("$.[*].tipoFuncionario").value(hasItem(DEFAULT_TIPO_FUNCIONARIO.toString())));
+            .andExpect(jsonPath("$.[*].tipoFuncionario").value(hasItem(DEFAULT_TIPO_FUNCIONARIO.toString())))
+            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
+            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -410,8 +410,6 @@ class FuncionariosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(funcionarios.getId().intValue()))
-            .andExpect(jsonPath("$.elo").value(DEFAULT_ELO))
-            .andExpect(jsonPath("$.fideId").value(DEFAULT_FIDE_ID))
             .andExpect(jsonPath("$.nombres").value(DEFAULT_NOMBRES))
             .andExpect(jsonPath("$.apellidos").value(DEFAULT_APELLIDOS))
             .andExpect(jsonPath("$.nombreCompleto").value(DEFAULT_NOMBRE_COMPLETO))
@@ -420,7 +418,9 @@ class FuncionariosResourceIT {
             .andExpect(jsonPath("$.fechaNacimiento").value(DEFAULT_FECHA_NACIMIENTO.toString()))
             .andExpect(jsonPath("$.documento").value(DEFAULT_DOCUMENTO))
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()))
-            .andExpect(jsonPath("$.tipoFuncionario").value(DEFAULT_TIPO_FUNCIONARIO.toString()));
+            .andExpect(jsonPath("$.tipoFuncionario").value(DEFAULT_TIPO_FUNCIONARIO.toString()))
+            .andExpect(jsonPath("$.elo").value(DEFAULT_ELO))
+            .andExpect(jsonPath("$.fideId").value(DEFAULT_FIDE_ID));
     }
 
     @Test
@@ -439,188 +439,6 @@ class FuncionariosResourceIT {
 
         defaultFuncionariosShouldBeFound("id.lessThanOrEqual=" + id);
         defaultFuncionariosShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByEloIsEqualToSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where elo equals to DEFAULT_ELO
-        defaultFuncionariosShouldBeFound("elo.equals=" + DEFAULT_ELO);
-
-        // Get all the funcionariosList where elo equals to UPDATED_ELO
-        defaultFuncionariosShouldNotBeFound("elo.equals=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByEloIsInShouldWork() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where elo in DEFAULT_ELO or UPDATED_ELO
-        defaultFuncionariosShouldBeFound("elo.in=" + DEFAULT_ELO + "," + UPDATED_ELO);
-
-        // Get all the funcionariosList where elo equals to UPDATED_ELO
-        defaultFuncionariosShouldNotBeFound("elo.in=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByEloIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where elo is not null
-        defaultFuncionariosShouldBeFound("elo.specified=true");
-
-        // Get all the funcionariosList where elo is null
-        defaultFuncionariosShouldNotBeFound("elo.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByEloIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where elo is greater than or equal to DEFAULT_ELO
-        defaultFuncionariosShouldBeFound("elo.greaterThanOrEqual=" + DEFAULT_ELO);
-
-        // Get all the funcionariosList where elo is greater than or equal to UPDATED_ELO
-        defaultFuncionariosShouldNotBeFound("elo.greaterThanOrEqual=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByEloIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where elo is less than or equal to DEFAULT_ELO
-        defaultFuncionariosShouldBeFound("elo.lessThanOrEqual=" + DEFAULT_ELO);
-
-        // Get all the funcionariosList where elo is less than or equal to SMALLER_ELO
-        defaultFuncionariosShouldNotBeFound("elo.lessThanOrEqual=" + SMALLER_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByEloIsLessThanSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where elo is less than DEFAULT_ELO
-        defaultFuncionariosShouldNotBeFound("elo.lessThan=" + DEFAULT_ELO);
-
-        // Get all the funcionariosList where elo is less than UPDATED_ELO
-        defaultFuncionariosShouldBeFound("elo.lessThan=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByEloIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where elo is greater than DEFAULT_ELO
-        defaultFuncionariosShouldNotBeFound("elo.greaterThan=" + DEFAULT_ELO);
-
-        // Get all the funcionariosList where elo is greater than SMALLER_ELO
-        defaultFuncionariosShouldBeFound("elo.greaterThan=" + SMALLER_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByFideIdIsEqualToSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where fideId equals to DEFAULT_FIDE_ID
-        defaultFuncionariosShouldBeFound("fideId.equals=" + DEFAULT_FIDE_ID);
-
-        // Get all the funcionariosList where fideId equals to UPDATED_FIDE_ID
-        defaultFuncionariosShouldNotBeFound("fideId.equals=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByFideIdIsInShouldWork() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where fideId in DEFAULT_FIDE_ID or UPDATED_FIDE_ID
-        defaultFuncionariosShouldBeFound("fideId.in=" + DEFAULT_FIDE_ID + "," + UPDATED_FIDE_ID);
-
-        // Get all the funcionariosList where fideId equals to UPDATED_FIDE_ID
-        defaultFuncionariosShouldNotBeFound("fideId.in=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByFideIdIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where fideId is not null
-        defaultFuncionariosShouldBeFound("fideId.specified=true");
-
-        // Get all the funcionariosList where fideId is null
-        defaultFuncionariosShouldNotBeFound("fideId.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByFideIdIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where fideId is greater than or equal to DEFAULT_FIDE_ID
-        defaultFuncionariosShouldBeFound("fideId.greaterThanOrEqual=" + DEFAULT_FIDE_ID);
-
-        // Get all the funcionariosList where fideId is greater than or equal to UPDATED_FIDE_ID
-        defaultFuncionariosShouldNotBeFound("fideId.greaterThanOrEqual=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByFideIdIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where fideId is less than or equal to DEFAULT_FIDE_ID
-        defaultFuncionariosShouldBeFound("fideId.lessThanOrEqual=" + DEFAULT_FIDE_ID);
-
-        // Get all the funcionariosList where fideId is less than or equal to SMALLER_FIDE_ID
-        defaultFuncionariosShouldNotBeFound("fideId.lessThanOrEqual=" + SMALLER_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByFideIdIsLessThanSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where fideId is less than DEFAULT_FIDE_ID
-        defaultFuncionariosShouldNotBeFound("fideId.lessThan=" + DEFAULT_FIDE_ID);
-
-        // Get all the funcionariosList where fideId is less than UPDATED_FIDE_ID
-        defaultFuncionariosShouldBeFound("fideId.lessThan=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllFuncionariosByFideIdIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        funcionariosRepository.saveAndFlush(funcionarios);
-
-        // Get all the funcionariosList where fideId is greater than DEFAULT_FIDE_ID
-        defaultFuncionariosShouldNotBeFound("fideId.greaterThan=" + DEFAULT_FIDE_ID);
-
-        // Get all the funcionariosList where fideId is greater than SMALLER_FIDE_ID
-        defaultFuncionariosShouldBeFound("fideId.greaterThan=" + SMALLER_FIDE_ID);
     }
 
     @Test
@@ -1184,6 +1002,188 @@ class FuncionariosResourceIT {
 
     @Test
     @Transactional
+    void getAllFuncionariosByEloIsEqualToSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where elo equals to DEFAULT_ELO
+        defaultFuncionariosShouldBeFound("elo.equals=" + DEFAULT_ELO);
+
+        // Get all the funcionariosList where elo equals to UPDATED_ELO
+        defaultFuncionariosShouldNotBeFound("elo.equals=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByEloIsInShouldWork() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where elo in DEFAULT_ELO or UPDATED_ELO
+        defaultFuncionariosShouldBeFound("elo.in=" + DEFAULT_ELO + "," + UPDATED_ELO);
+
+        // Get all the funcionariosList where elo equals to UPDATED_ELO
+        defaultFuncionariosShouldNotBeFound("elo.in=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByEloIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where elo is not null
+        defaultFuncionariosShouldBeFound("elo.specified=true");
+
+        // Get all the funcionariosList where elo is null
+        defaultFuncionariosShouldNotBeFound("elo.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByEloIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where elo is greater than or equal to DEFAULT_ELO
+        defaultFuncionariosShouldBeFound("elo.greaterThanOrEqual=" + DEFAULT_ELO);
+
+        // Get all the funcionariosList where elo is greater than or equal to UPDATED_ELO
+        defaultFuncionariosShouldNotBeFound("elo.greaterThanOrEqual=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByEloIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where elo is less than or equal to DEFAULT_ELO
+        defaultFuncionariosShouldBeFound("elo.lessThanOrEqual=" + DEFAULT_ELO);
+
+        // Get all the funcionariosList where elo is less than or equal to SMALLER_ELO
+        defaultFuncionariosShouldNotBeFound("elo.lessThanOrEqual=" + SMALLER_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByEloIsLessThanSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where elo is less than DEFAULT_ELO
+        defaultFuncionariosShouldNotBeFound("elo.lessThan=" + DEFAULT_ELO);
+
+        // Get all the funcionariosList where elo is less than UPDATED_ELO
+        defaultFuncionariosShouldBeFound("elo.lessThan=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByEloIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where elo is greater than DEFAULT_ELO
+        defaultFuncionariosShouldNotBeFound("elo.greaterThan=" + DEFAULT_ELO);
+
+        // Get all the funcionariosList where elo is greater than SMALLER_ELO
+        defaultFuncionariosShouldBeFound("elo.greaterThan=" + SMALLER_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByFideIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where fideId equals to DEFAULT_FIDE_ID
+        defaultFuncionariosShouldBeFound("fideId.equals=" + DEFAULT_FIDE_ID);
+
+        // Get all the funcionariosList where fideId equals to UPDATED_FIDE_ID
+        defaultFuncionariosShouldNotBeFound("fideId.equals=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByFideIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where fideId in DEFAULT_FIDE_ID or UPDATED_FIDE_ID
+        defaultFuncionariosShouldBeFound("fideId.in=" + DEFAULT_FIDE_ID + "," + UPDATED_FIDE_ID);
+
+        // Get all the funcionariosList where fideId equals to UPDATED_FIDE_ID
+        defaultFuncionariosShouldNotBeFound("fideId.in=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByFideIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where fideId is not null
+        defaultFuncionariosShouldBeFound("fideId.specified=true");
+
+        // Get all the funcionariosList where fideId is null
+        defaultFuncionariosShouldNotBeFound("fideId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByFideIdIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where fideId is greater than or equal to DEFAULT_FIDE_ID
+        defaultFuncionariosShouldBeFound("fideId.greaterThanOrEqual=" + DEFAULT_FIDE_ID);
+
+        // Get all the funcionariosList where fideId is greater than or equal to UPDATED_FIDE_ID
+        defaultFuncionariosShouldNotBeFound("fideId.greaterThanOrEqual=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByFideIdIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where fideId is less than or equal to DEFAULT_FIDE_ID
+        defaultFuncionariosShouldBeFound("fideId.lessThanOrEqual=" + DEFAULT_FIDE_ID);
+
+        // Get all the funcionariosList where fideId is less than or equal to SMALLER_FIDE_ID
+        defaultFuncionariosShouldNotBeFound("fideId.lessThanOrEqual=" + SMALLER_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByFideIdIsLessThanSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where fideId is less than DEFAULT_FIDE_ID
+        defaultFuncionariosShouldNotBeFound("fideId.lessThan=" + DEFAULT_FIDE_ID);
+
+        // Get all the funcionariosList where fideId is less than UPDATED_FIDE_ID
+        defaultFuncionariosShouldBeFound("fideId.lessThan=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllFuncionariosByFideIdIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        funcionariosRepository.saveAndFlush(funcionarios);
+
+        // Get all the funcionariosList where fideId is greater than DEFAULT_FIDE_ID
+        defaultFuncionariosShouldNotBeFound("fideId.greaterThan=" + DEFAULT_FIDE_ID);
+
+        // Get all the funcionariosList where fideId is greater than SMALLER_FIDE_ID
+        defaultFuncionariosShouldBeFound("fideId.greaterThan=" + SMALLER_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
     void getAllFuncionariosByEvaluacionesIsEqualToSomething() throws Exception {
         Evaluaciones evaluaciones;
         if (TestUtil.findAll(em, Evaluaciones.class).isEmpty()) {
@@ -1283,8 +1283,6 @@ class FuncionariosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(funcionarios.getId().intValue())))
-            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
-            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)))
             .andExpect(jsonPath("$.[*].nombres").value(hasItem(DEFAULT_NOMBRES)))
             .andExpect(jsonPath("$.[*].apellidos").value(hasItem(DEFAULT_APELLIDOS)))
             .andExpect(jsonPath("$.[*].nombreCompleto").value(hasItem(DEFAULT_NOMBRE_COMPLETO)))
@@ -1293,7 +1291,9 @@ class FuncionariosResourceIT {
             .andExpect(jsonPath("$.[*].fechaNacimiento").value(hasItem(DEFAULT_FECHA_NACIMIENTO.toString())))
             .andExpect(jsonPath("$.[*].documento").value(hasItem(DEFAULT_DOCUMENTO)))
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
-            .andExpect(jsonPath("$.[*].tipoFuncionario").value(hasItem(DEFAULT_TIPO_FUNCIONARIO.toString())));
+            .andExpect(jsonPath("$.[*].tipoFuncionario").value(hasItem(DEFAULT_TIPO_FUNCIONARIO.toString())))
+            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
+            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)));
 
         // Check, that the count call also returns 1
         restFuncionariosMockMvc
@@ -1342,8 +1342,6 @@ class FuncionariosResourceIT {
         // Disconnect from session so that the updates on updatedFuncionarios are not directly saved in db
         em.detach(updatedFuncionarios);
         updatedFuncionarios
-            .elo(UPDATED_ELO)
-            .fideId(UPDATED_FIDE_ID)
             .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
@@ -1352,7 +1350,9 @@ class FuncionariosResourceIT {
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
             .documento(UPDATED_DOCUMENTO)
             .estado(UPDATED_ESTADO)
-            .tipoFuncionario(UPDATED_TIPO_FUNCIONARIO);
+            .tipoFuncionario(UPDATED_TIPO_FUNCIONARIO)
+            .elo(UPDATED_ELO)
+            .fideId(UPDATED_FIDE_ID);
 
         restFuncionariosMockMvc
             .perform(
@@ -1366,8 +1366,6 @@ class FuncionariosResourceIT {
         List<Funcionarios> funcionariosList = funcionariosRepository.findAll();
         assertThat(funcionariosList).hasSize(databaseSizeBeforeUpdate);
         Funcionarios testFuncionarios = funcionariosList.get(funcionariosList.size() - 1);
-        assertThat(testFuncionarios.getElo()).isEqualTo(UPDATED_ELO);
-        assertThat(testFuncionarios.getFideId()).isEqualTo(UPDATED_FIDE_ID);
         assertThat(testFuncionarios.getNombres()).isEqualTo(UPDATED_NOMBRES);
         assertThat(testFuncionarios.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
         assertThat(testFuncionarios.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
@@ -1377,6 +1375,8 @@ class FuncionariosResourceIT {
         assertThat(testFuncionarios.getDocumento()).isEqualTo(UPDATED_DOCUMENTO);
         assertThat(testFuncionarios.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testFuncionarios.getTipoFuncionario()).isEqualTo(UPDATED_TIPO_FUNCIONARIO);
+        assertThat(testFuncionarios.getElo()).isEqualTo(UPDATED_ELO);
+        assertThat(testFuncionarios.getFideId()).isEqualTo(UPDATED_FIDE_ID);
     }
 
     @Test
@@ -1448,14 +1448,14 @@ class FuncionariosResourceIT {
         partialUpdatedFuncionarios.setId(funcionarios.getId());
 
         partialUpdatedFuncionarios
-            .fideId(UPDATED_FIDE_ID)
-            .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
+            .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
             .email(UPDATED_EMAIL)
-            .telefono(UPDATED_TELEFONO)
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
             .documento(UPDATED_DOCUMENTO)
-            .estado(UPDATED_ESTADO);
+            .estado(UPDATED_ESTADO)
+            .tipoFuncionario(UPDATED_TIPO_FUNCIONARIO)
+            .elo(UPDATED_ELO);
 
         restFuncionariosMockMvc
             .perform(
@@ -1469,17 +1469,17 @@ class FuncionariosResourceIT {
         List<Funcionarios> funcionariosList = funcionariosRepository.findAll();
         assertThat(funcionariosList).hasSize(databaseSizeBeforeUpdate);
         Funcionarios testFuncionarios = funcionariosList.get(funcionariosList.size() - 1);
-        assertThat(testFuncionarios.getElo()).isEqualTo(DEFAULT_ELO);
-        assertThat(testFuncionarios.getFideId()).isEqualTo(UPDATED_FIDE_ID);
-        assertThat(testFuncionarios.getNombres()).isEqualTo(UPDATED_NOMBRES);
+        assertThat(testFuncionarios.getNombres()).isEqualTo(DEFAULT_NOMBRES);
         assertThat(testFuncionarios.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
-        assertThat(testFuncionarios.getNombreCompleto()).isEqualTo(DEFAULT_NOMBRE_COMPLETO);
+        assertThat(testFuncionarios.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
         assertThat(testFuncionarios.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testFuncionarios.getTelefono()).isEqualTo(UPDATED_TELEFONO);
+        assertThat(testFuncionarios.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
         assertThat(testFuncionarios.getFechaNacimiento()).isEqualTo(UPDATED_FECHA_NACIMIENTO);
         assertThat(testFuncionarios.getDocumento()).isEqualTo(UPDATED_DOCUMENTO);
         assertThat(testFuncionarios.getEstado()).isEqualTo(UPDATED_ESTADO);
-        assertThat(testFuncionarios.getTipoFuncionario()).isEqualTo(DEFAULT_TIPO_FUNCIONARIO);
+        assertThat(testFuncionarios.getTipoFuncionario()).isEqualTo(UPDATED_TIPO_FUNCIONARIO);
+        assertThat(testFuncionarios.getElo()).isEqualTo(UPDATED_ELO);
+        assertThat(testFuncionarios.getFideId()).isEqualTo(DEFAULT_FIDE_ID);
     }
 
     @Test
@@ -1495,8 +1495,6 @@ class FuncionariosResourceIT {
         partialUpdatedFuncionarios.setId(funcionarios.getId());
 
         partialUpdatedFuncionarios
-            .elo(UPDATED_ELO)
-            .fideId(UPDATED_FIDE_ID)
             .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
@@ -1505,7 +1503,9 @@ class FuncionariosResourceIT {
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
             .documento(UPDATED_DOCUMENTO)
             .estado(UPDATED_ESTADO)
-            .tipoFuncionario(UPDATED_TIPO_FUNCIONARIO);
+            .tipoFuncionario(UPDATED_TIPO_FUNCIONARIO)
+            .elo(UPDATED_ELO)
+            .fideId(UPDATED_FIDE_ID);
 
         restFuncionariosMockMvc
             .perform(
@@ -1519,8 +1519,6 @@ class FuncionariosResourceIT {
         List<Funcionarios> funcionariosList = funcionariosRepository.findAll();
         assertThat(funcionariosList).hasSize(databaseSizeBeforeUpdate);
         Funcionarios testFuncionarios = funcionariosList.get(funcionariosList.size() - 1);
-        assertThat(testFuncionarios.getElo()).isEqualTo(UPDATED_ELO);
-        assertThat(testFuncionarios.getFideId()).isEqualTo(UPDATED_FIDE_ID);
         assertThat(testFuncionarios.getNombres()).isEqualTo(UPDATED_NOMBRES);
         assertThat(testFuncionarios.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
         assertThat(testFuncionarios.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
@@ -1530,6 +1528,8 @@ class FuncionariosResourceIT {
         assertThat(testFuncionarios.getDocumento()).isEqualTo(UPDATED_DOCUMENTO);
         assertThat(testFuncionarios.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testFuncionarios.getTipoFuncionario()).isEqualTo(UPDATED_TIPO_FUNCIONARIO);
+        assertThat(testFuncionarios.getElo()).isEqualTo(UPDATED_ELO);
+        assertThat(testFuncionarios.getFideId()).isEqualTo(UPDATED_FIDE_ID);
     }
 
     @Test

@@ -20,9 +20,12 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
+import py.com.abf.domain.Alumnos;
 import py.com.abf.domain.FacturaDetalle;
 import py.com.abf.domain.Facturas;
+import py.com.abf.domain.NotaCredito;
 import py.com.abf.domain.enumeration.CondicionVenta;
+import py.com.abf.domain.enumeration.EstadosFacturas;
 import py.com.abf.repository.FacturasRepository;
 import py.com.abf.service.criteria.FacturasCriteria;
 
@@ -66,6 +69,12 @@ class FacturasResourceIT {
     private static final Integer UPDATED_TOTAL = 2;
     private static final Integer SMALLER_TOTAL = 1 - 1;
 
+    private static final EstadosFacturas DEFAULT_ESTADO = EstadosFacturas.ANULADO;
+    private static final EstadosFacturas UPDATED_ESTADO = EstadosFacturas.ENTREGADO;
+
+    private static final Boolean DEFAULT_POSEE_NC = false;
+    private static final Boolean UPDATED_POSEE_NC = true;
+
     private static final String ENTITY_API_URL = "/api/facturas";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -99,7 +108,9 @@ class FacturasResourceIT {
             .razonSocial(DEFAULT_RAZON_SOCIAL)
             .ruc(DEFAULT_RUC)
             .condicionVenta(DEFAULT_CONDICION_VENTA)
-            .total(DEFAULT_TOTAL);
+            .total(DEFAULT_TOTAL)
+            .estado(DEFAULT_ESTADO)
+            .poseeNC(DEFAULT_POSEE_NC);
         return facturas;
     }
 
@@ -119,7 +130,9 @@ class FacturasResourceIT {
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
-            .total(UPDATED_TOTAL);
+            .total(UPDATED_TOTAL)
+            .estado(UPDATED_ESTADO)
+            .poseeNC(UPDATED_POSEE_NC);
         return facturas;
     }
 
@@ -150,6 +163,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getRuc()).isEqualTo(DEFAULT_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(DEFAULT_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(DEFAULT_TOTAL);
+        assertThat(testFacturas.getEstado()).isEqualTo(DEFAULT_ESTADO);
+        assertThat(testFacturas.getPoseeNC()).isEqualTo(DEFAULT_POSEE_NC);
     }
 
     @Test
@@ -343,7 +358,9 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
             .andExpect(jsonPath("$.[*].ruc").value(hasItem(DEFAULT_RUC)))
             .andExpect(jsonPath("$.[*].condicionVenta").value(hasItem(DEFAULT_CONDICION_VENTA.toString())))
-            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL)));
+            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL)))
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].poseeNC").value(hasItem(DEFAULT_POSEE_NC.booleanValue())));
     }
 
     @Test
@@ -366,7 +383,9 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.razonSocial").value(DEFAULT_RAZON_SOCIAL))
             .andExpect(jsonPath("$.ruc").value(DEFAULT_RUC))
             .andExpect(jsonPath("$.condicionVenta").value(DEFAULT_CONDICION_VENTA.toString()))
-            .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL));
+            .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL))
+            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()))
+            .andExpect(jsonPath("$.poseeNC").value(DEFAULT_POSEE_NC.booleanValue()));
     }
 
     @Test
@@ -1078,6 +1097,84 @@ class FacturasResourceIT {
 
     @Test
     @Transactional
+    void getAllFacturasByEstadoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where estado equals to DEFAULT_ESTADO
+        defaultFacturasShouldBeFound("estado.equals=" + DEFAULT_ESTADO);
+
+        // Get all the facturasList where estado equals to UPDATED_ESTADO
+        defaultFacturasShouldNotBeFound("estado.equals=" + UPDATED_ESTADO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByEstadoIsInShouldWork() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where estado in DEFAULT_ESTADO or UPDATED_ESTADO
+        defaultFacturasShouldBeFound("estado.in=" + DEFAULT_ESTADO + "," + UPDATED_ESTADO);
+
+        // Get all the facturasList where estado equals to UPDATED_ESTADO
+        defaultFacturasShouldNotBeFound("estado.in=" + UPDATED_ESTADO);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByEstadoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where estado is not null
+        defaultFacturasShouldBeFound("estado.specified=true");
+
+        // Get all the facturasList where estado is null
+        defaultFacturasShouldNotBeFound("estado.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPoseeNCIsEqualToSomething() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where poseeNC equals to DEFAULT_POSEE_NC
+        defaultFacturasShouldBeFound("poseeNC.equals=" + DEFAULT_POSEE_NC);
+
+        // Get all the facturasList where poseeNC equals to UPDATED_POSEE_NC
+        defaultFacturasShouldNotBeFound("poseeNC.equals=" + UPDATED_POSEE_NC);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPoseeNCIsInShouldWork() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where poseeNC in DEFAULT_POSEE_NC or UPDATED_POSEE_NC
+        defaultFacturasShouldBeFound("poseeNC.in=" + DEFAULT_POSEE_NC + "," + UPDATED_POSEE_NC);
+
+        // Get all the facturasList where poseeNC equals to UPDATED_POSEE_NC
+        defaultFacturasShouldNotBeFound("poseeNC.in=" + UPDATED_POSEE_NC);
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByPoseeNCIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        facturasRepository.saveAndFlush(facturas);
+
+        // Get all the facturasList where poseeNC is not null
+        defaultFacturasShouldBeFound("poseeNC.specified=true");
+
+        // Get all the facturasList where poseeNC is null
+        defaultFacturasShouldNotBeFound("poseeNC.specified=false");
+    }
+
+    @Test
+    @Transactional
     void getAllFacturasByFacturaDetalleIsEqualToSomething() throws Exception {
         FacturaDetalle facturaDetalle;
         if (TestUtil.findAll(em, FacturaDetalle.class).isEmpty()) {
@@ -1099,6 +1196,52 @@ class FacturasResourceIT {
         defaultFacturasShouldNotBeFound("facturaDetalleId.equals=" + (facturaDetalleId + 1));
     }
 
+    @Test
+    @Transactional
+    void getAllFacturasByNotaCreditoIsEqualToSomething() throws Exception {
+        NotaCredito notaCredito;
+        if (TestUtil.findAll(em, NotaCredito.class).isEmpty()) {
+            facturasRepository.saveAndFlush(facturas);
+            notaCredito = NotaCreditoResourceIT.createEntity(em);
+        } else {
+            notaCredito = TestUtil.findAll(em, NotaCredito.class).get(0);
+        }
+        em.persist(notaCredito);
+        em.flush();
+        facturas.addNotaCredito(notaCredito);
+        facturasRepository.saveAndFlush(facturas);
+        Long notaCreditoId = notaCredito.getId();
+
+        // Get all the facturasList where notaCredito equals to notaCreditoId
+        defaultFacturasShouldBeFound("notaCreditoId.equals=" + notaCreditoId);
+
+        // Get all the facturasList where notaCredito equals to (notaCreditoId + 1)
+        defaultFacturasShouldNotBeFound("notaCreditoId.equals=" + (notaCreditoId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllFacturasByAlumnosIsEqualToSomething() throws Exception {
+        Alumnos alumnos;
+        if (TestUtil.findAll(em, Alumnos.class).isEmpty()) {
+            facturasRepository.saveAndFlush(facturas);
+            alumnos = AlumnosResourceIT.createEntity(em);
+        } else {
+            alumnos = TestUtil.findAll(em, Alumnos.class).get(0);
+        }
+        em.persist(alumnos);
+        em.flush();
+        facturas.setAlumnos(alumnos);
+        facturasRepository.saveAndFlush(facturas);
+        Long alumnosId = alumnos.getId();
+
+        // Get all the facturasList where alumnos equals to alumnosId
+        defaultFacturasShouldBeFound("alumnosId.equals=" + alumnosId);
+
+        // Get all the facturasList where alumnos equals to (alumnosId + 1)
+        defaultFacturasShouldNotBeFound("alumnosId.equals=" + (alumnosId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -1116,7 +1259,9 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
             .andExpect(jsonPath("$.[*].ruc").value(hasItem(DEFAULT_RUC)))
             .andExpect(jsonPath("$.[*].condicionVenta").value(hasItem(DEFAULT_CONDICION_VENTA.toString())))
-            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL)));
+            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL)))
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].poseeNC").value(hasItem(DEFAULT_POSEE_NC.booleanValue())));
 
         // Check, that the count call also returns 1
         restFacturasMockMvc
@@ -1173,7 +1318,9 @@ class FacturasResourceIT {
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
-            .total(UPDATED_TOTAL);
+            .total(UPDATED_TOTAL)
+            .estado(UPDATED_ESTADO)
+            .poseeNC(UPDATED_POSEE_NC);
 
         restFacturasMockMvc
             .perform(
@@ -1196,6 +1343,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getRuc()).isEqualTo(UPDATED_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(UPDATED_TOTAL);
+        assertThat(testFacturas.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
     }
 
     @Test
@@ -1274,7 +1423,9 @@ class FacturasResourceIT {
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
-            .total(UPDATED_TOTAL);
+            .total(UPDATED_TOTAL)
+            .estado(UPDATED_ESTADO)
+            .poseeNC(UPDATED_POSEE_NC);
 
         restFacturasMockMvc
             .perform(
@@ -1297,6 +1448,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getRuc()).isEqualTo(UPDATED_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(UPDATED_TOTAL);
+        assertThat(testFacturas.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
     }
 
     @Test
@@ -1320,7 +1473,9 @@ class FacturasResourceIT {
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
-            .total(UPDATED_TOTAL);
+            .total(UPDATED_TOTAL)
+            .estado(UPDATED_ESTADO)
+            .poseeNC(UPDATED_POSEE_NC);
 
         restFacturasMockMvc
             .perform(
@@ -1343,6 +1498,8 @@ class FacturasResourceIT {
         assertThat(testFacturas.getRuc()).isEqualTo(UPDATED_RUC);
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(UPDATED_TOTAL);
+        assertThat(testFacturas.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
     }
 
     @Test

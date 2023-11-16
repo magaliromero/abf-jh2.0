@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601132713",
+  "changelogDate": "20231116010730",
   "dto": "no",
   "embedded": false,
   "entityTableName": "temas",
@@ -35,10 +35,12 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityField": "nombreCurso",
       "otherEntityName": "cursos",
       "otherEntityRelationshipName": "temas",
+      "ownerSide": false,
       "relationshipName": "cursos",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceImpl"

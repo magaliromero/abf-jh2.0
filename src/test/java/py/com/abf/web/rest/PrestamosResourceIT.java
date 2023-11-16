@@ -56,6 +56,9 @@ class PrestamosResourceIT {
     private static final EstadosPrestamos DEFAULT_ESTADO = EstadosPrestamos.DEVUELTO;
     private static final EstadosPrestamos UPDATED_ESTADO = EstadosPrestamos.PRESTADO;
 
+    private static final String DEFAULT_OBSERVACIONES = "AAAAAAAAAA";
+    private static final String UPDATED_OBSERVACIONES = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/prestamos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -89,7 +92,8 @@ class PrestamosResourceIT {
         Prestamos prestamos = new Prestamos()
             .fechaPrestamo(DEFAULT_FECHA_PRESTAMO)
             .fechaDevolucion(DEFAULT_FECHA_DEVOLUCION)
-            .estado(DEFAULT_ESTADO);
+            .estado(DEFAULT_ESTADO)
+            .observaciones(DEFAULT_OBSERVACIONES);
         // Add required entity
         Materiales materiales;
         if (TestUtil.findAll(em, Materiales.class).isEmpty()) {
@@ -123,7 +127,8 @@ class PrestamosResourceIT {
         Prestamos prestamos = new Prestamos()
             .fechaPrestamo(UPDATED_FECHA_PRESTAMO)
             .fechaDevolucion(UPDATED_FECHA_DEVOLUCION)
-            .estado(UPDATED_ESTADO);
+            .estado(UPDATED_ESTADO)
+            .observaciones(UPDATED_OBSERVACIONES);
         // Add required entity
         Materiales materiales;
         if (TestUtil.findAll(em, Materiales.class).isEmpty()) {
@@ -168,6 +173,7 @@ class PrestamosResourceIT {
         assertThat(testPrestamos.getFechaPrestamo()).isEqualTo(DEFAULT_FECHA_PRESTAMO);
         assertThat(testPrestamos.getFechaDevolucion()).isEqualTo(DEFAULT_FECHA_DEVOLUCION);
         assertThat(testPrestamos.getEstado()).isEqualTo(DEFAULT_ESTADO);
+        assertThat(testPrestamos.getObservaciones()).isEqualTo(DEFAULT_OBSERVACIONES);
     }
 
     @Test
@@ -236,7 +242,8 @@ class PrestamosResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(prestamos.getId().intValue())))
             .andExpect(jsonPath("$.[*].fechaPrestamo").value(hasItem(DEFAULT_FECHA_PRESTAMO.toString())))
             .andExpect(jsonPath("$.[*].fechaDevolucion").value(hasItem(DEFAULT_FECHA_DEVOLUCION.toString())))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())));
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].observaciones").value(hasItem(DEFAULT_OBSERVACIONES)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -270,7 +277,8 @@ class PrestamosResourceIT {
             .andExpect(jsonPath("$.id").value(prestamos.getId().intValue()))
             .andExpect(jsonPath("$.fechaPrestamo").value(DEFAULT_FECHA_PRESTAMO.toString()))
             .andExpect(jsonPath("$.fechaDevolucion").value(DEFAULT_FECHA_DEVOLUCION.toString()))
-            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()));
+            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()))
+            .andExpect(jsonPath("$.observaciones").value(DEFAULT_OBSERVACIONES));
     }
 
     @Test
@@ -514,6 +522,71 @@ class PrestamosResourceIT {
 
     @Test
     @Transactional
+    void getAllPrestamosByObservacionesIsEqualToSomething() throws Exception {
+        // Initialize the database
+        prestamosRepository.saveAndFlush(prestamos);
+
+        // Get all the prestamosList where observaciones equals to DEFAULT_OBSERVACIONES
+        defaultPrestamosShouldBeFound("observaciones.equals=" + DEFAULT_OBSERVACIONES);
+
+        // Get all the prestamosList where observaciones equals to UPDATED_OBSERVACIONES
+        defaultPrestamosShouldNotBeFound("observaciones.equals=" + UPDATED_OBSERVACIONES);
+    }
+
+    @Test
+    @Transactional
+    void getAllPrestamosByObservacionesIsInShouldWork() throws Exception {
+        // Initialize the database
+        prestamosRepository.saveAndFlush(prestamos);
+
+        // Get all the prestamosList where observaciones in DEFAULT_OBSERVACIONES or UPDATED_OBSERVACIONES
+        defaultPrestamosShouldBeFound("observaciones.in=" + DEFAULT_OBSERVACIONES + "," + UPDATED_OBSERVACIONES);
+
+        // Get all the prestamosList where observaciones equals to UPDATED_OBSERVACIONES
+        defaultPrestamosShouldNotBeFound("observaciones.in=" + UPDATED_OBSERVACIONES);
+    }
+
+    @Test
+    @Transactional
+    void getAllPrestamosByObservacionesIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        prestamosRepository.saveAndFlush(prestamos);
+
+        // Get all the prestamosList where observaciones is not null
+        defaultPrestamosShouldBeFound("observaciones.specified=true");
+
+        // Get all the prestamosList where observaciones is null
+        defaultPrestamosShouldNotBeFound("observaciones.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllPrestamosByObservacionesContainsSomething() throws Exception {
+        // Initialize the database
+        prestamosRepository.saveAndFlush(prestamos);
+
+        // Get all the prestamosList where observaciones contains DEFAULT_OBSERVACIONES
+        defaultPrestamosShouldBeFound("observaciones.contains=" + DEFAULT_OBSERVACIONES);
+
+        // Get all the prestamosList where observaciones contains UPDATED_OBSERVACIONES
+        defaultPrestamosShouldNotBeFound("observaciones.contains=" + UPDATED_OBSERVACIONES);
+    }
+
+    @Test
+    @Transactional
+    void getAllPrestamosByObservacionesNotContainsSomething() throws Exception {
+        // Initialize the database
+        prestamosRepository.saveAndFlush(prestamos);
+
+        // Get all the prestamosList where observaciones does not contain DEFAULT_OBSERVACIONES
+        defaultPrestamosShouldNotBeFound("observaciones.doesNotContain=" + DEFAULT_OBSERVACIONES);
+
+        // Get all the prestamosList where observaciones does not contain UPDATED_OBSERVACIONES
+        defaultPrestamosShouldBeFound("observaciones.doesNotContain=" + UPDATED_OBSERVACIONES);
+    }
+
+    @Test
+    @Transactional
     void getAllPrestamosByMaterialesIsEqualToSomething() throws Exception {
         Materiales materiales;
         if (TestUtil.findAll(em, Materiales.class).isEmpty()) {
@@ -569,7 +642,8 @@ class PrestamosResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(prestamos.getId().intValue())))
             .andExpect(jsonPath("$.[*].fechaPrestamo").value(hasItem(DEFAULT_FECHA_PRESTAMO.toString())))
             .andExpect(jsonPath("$.[*].fechaDevolucion").value(hasItem(DEFAULT_FECHA_DEVOLUCION.toString())))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())));
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].observaciones").value(hasItem(DEFAULT_OBSERVACIONES)));
 
         // Check, that the count call also returns 1
         restPrestamosMockMvc
@@ -617,7 +691,11 @@ class PrestamosResourceIT {
         Prestamos updatedPrestamos = prestamosRepository.findById(prestamos.getId()).get();
         // Disconnect from session so that the updates on updatedPrestamos are not directly saved in db
         em.detach(updatedPrestamos);
-        updatedPrestamos.fechaPrestamo(UPDATED_FECHA_PRESTAMO).fechaDevolucion(UPDATED_FECHA_DEVOLUCION).estado(UPDATED_ESTADO);
+        updatedPrestamos
+            .fechaPrestamo(UPDATED_FECHA_PRESTAMO)
+            .fechaDevolucion(UPDATED_FECHA_DEVOLUCION)
+            .estado(UPDATED_ESTADO)
+            .observaciones(UPDATED_OBSERVACIONES);
 
         restPrestamosMockMvc
             .perform(
@@ -634,6 +712,7 @@ class PrestamosResourceIT {
         assertThat(testPrestamos.getFechaPrestamo()).isEqualTo(UPDATED_FECHA_PRESTAMO);
         assertThat(testPrestamos.getFechaDevolucion()).isEqualTo(UPDATED_FECHA_DEVOLUCION);
         assertThat(testPrestamos.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testPrestamos.getObservaciones()).isEqualTo(UPDATED_OBSERVACIONES);
     }
 
     @Test
@@ -704,6 +783,8 @@ class PrestamosResourceIT {
         Prestamos partialUpdatedPrestamos = new Prestamos();
         partialUpdatedPrestamos.setId(prestamos.getId());
 
+        partialUpdatedPrestamos.observaciones(UPDATED_OBSERVACIONES);
+
         restPrestamosMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedPrestamos.getId())
@@ -719,6 +800,7 @@ class PrestamosResourceIT {
         assertThat(testPrestamos.getFechaPrestamo()).isEqualTo(DEFAULT_FECHA_PRESTAMO);
         assertThat(testPrestamos.getFechaDevolucion()).isEqualTo(DEFAULT_FECHA_DEVOLUCION);
         assertThat(testPrestamos.getEstado()).isEqualTo(DEFAULT_ESTADO);
+        assertThat(testPrestamos.getObservaciones()).isEqualTo(UPDATED_OBSERVACIONES);
     }
 
     @Test
@@ -733,7 +815,11 @@ class PrestamosResourceIT {
         Prestamos partialUpdatedPrestamos = new Prestamos();
         partialUpdatedPrestamos.setId(prestamos.getId());
 
-        partialUpdatedPrestamos.fechaPrestamo(UPDATED_FECHA_PRESTAMO).fechaDevolucion(UPDATED_FECHA_DEVOLUCION).estado(UPDATED_ESTADO);
+        partialUpdatedPrestamos
+            .fechaPrestamo(UPDATED_FECHA_PRESTAMO)
+            .fechaDevolucion(UPDATED_FECHA_DEVOLUCION)
+            .estado(UPDATED_ESTADO)
+            .observaciones(UPDATED_OBSERVACIONES);
 
         restPrestamosMockMvc
             .perform(
@@ -750,6 +836,7 @@ class PrestamosResourceIT {
         assertThat(testPrestamos.getFechaPrestamo()).isEqualTo(UPDATED_FECHA_PRESTAMO);
         assertThat(testPrestamos.getFechaDevolucion()).isEqualTo(UPDATED_FECHA_DEVOLUCION);
         assertThat(testPrestamos.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testPrestamos.getObservaciones()).isEqualTo(UPDATED_OBSERVACIONES);
     }
 
     @Test

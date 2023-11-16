@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.Alumnos;
 import py.com.abf.domain.Evaluaciones;
+import py.com.abf.domain.Facturas;
 import py.com.abf.domain.Inscripciones;
 import py.com.abf.domain.Matricula;
 import py.com.abf.domain.Prestamos;
@@ -48,14 +49,6 @@ import py.com.abf.service.criteria.AlumnosCriteria;
 @AutoConfigureMockMvc
 @WithMockUser
 class AlumnosResourceIT {
-
-    private static final Integer DEFAULT_ELO = 1;
-    private static final Integer UPDATED_ELO = 2;
-    private static final Integer SMALLER_ELO = 1 - 1;
-
-    private static final Integer DEFAULT_FIDE_ID = 1;
-    private static final Integer UPDATED_FIDE_ID = 2;
-    private static final Integer SMALLER_FIDE_ID = 1 - 1;
 
     private static final String DEFAULT_NOMBRES = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRES = "BBBBBBBBBB";
@@ -81,6 +74,14 @@ class AlumnosResourceIT {
 
     private static final EstadosPersona DEFAULT_ESTADO = EstadosPersona.ACTIVO;
     private static final EstadosPersona UPDATED_ESTADO = EstadosPersona.INACTIVO;
+
+    private static final Integer DEFAULT_ELO = 1;
+    private static final Integer UPDATED_ELO = 2;
+    private static final Integer SMALLER_ELO = 1 - 1;
+
+    private static final Integer DEFAULT_FIDE_ID = 1;
+    private static final Integer UPDATED_FIDE_ID = 2;
+    private static final Integer SMALLER_FIDE_ID = 1 - 1;
 
     private static final String ENTITY_API_URL = "/api/alumnos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -113,8 +114,6 @@ class AlumnosResourceIT {
      */
     public static Alumnos createEntity(EntityManager em) {
         Alumnos alumnos = new Alumnos()
-            .elo(DEFAULT_ELO)
-            .fideId(DEFAULT_FIDE_ID)
             .nombres(DEFAULT_NOMBRES)
             .apellidos(DEFAULT_APELLIDOS)
             .nombreCompleto(DEFAULT_NOMBRE_COMPLETO)
@@ -122,7 +121,9 @@ class AlumnosResourceIT {
             .telefono(DEFAULT_TELEFONO)
             .fechaNacimiento(DEFAULT_FECHA_NACIMIENTO)
             .documento(DEFAULT_DOCUMENTO)
-            .estado(DEFAULT_ESTADO);
+            .estado(DEFAULT_ESTADO)
+            .elo(DEFAULT_ELO)
+            .fideId(DEFAULT_FIDE_ID);
         // Add required entity
         TiposDocumentos tiposDocumentos;
         if (TestUtil.findAll(em, TiposDocumentos.class).isEmpty()) {
@@ -144,8 +145,6 @@ class AlumnosResourceIT {
      */
     public static Alumnos createUpdatedEntity(EntityManager em) {
         Alumnos alumnos = new Alumnos()
-            .elo(UPDATED_ELO)
-            .fideId(UPDATED_FIDE_ID)
             .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
@@ -153,7 +152,9 @@ class AlumnosResourceIT {
             .telefono(UPDATED_TELEFONO)
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
             .documento(UPDATED_DOCUMENTO)
-            .estado(UPDATED_ESTADO);
+            .estado(UPDATED_ESTADO)
+            .elo(UPDATED_ELO)
+            .fideId(UPDATED_FIDE_ID);
         // Add required entity
         TiposDocumentos tiposDocumentos;
         if (TestUtil.findAll(em, TiposDocumentos.class).isEmpty()) {
@@ -185,8 +186,6 @@ class AlumnosResourceIT {
         List<Alumnos> alumnosList = alumnosRepository.findAll();
         assertThat(alumnosList).hasSize(databaseSizeBeforeCreate + 1);
         Alumnos testAlumnos = alumnosList.get(alumnosList.size() - 1);
-        assertThat(testAlumnos.getElo()).isEqualTo(DEFAULT_ELO);
-        assertThat(testAlumnos.getFideId()).isEqualTo(DEFAULT_FIDE_ID);
         assertThat(testAlumnos.getNombres()).isEqualTo(DEFAULT_NOMBRES);
         assertThat(testAlumnos.getApellidos()).isEqualTo(DEFAULT_APELLIDOS);
         assertThat(testAlumnos.getNombreCompleto()).isEqualTo(DEFAULT_NOMBRE_COMPLETO);
@@ -195,6 +194,8 @@ class AlumnosResourceIT {
         assertThat(testAlumnos.getFechaNacimiento()).isEqualTo(DEFAULT_FECHA_NACIMIENTO);
         assertThat(testAlumnos.getDocumento()).isEqualTo(DEFAULT_DOCUMENTO);
         assertThat(testAlumnos.getEstado()).isEqualTo(DEFAULT_ESTADO);
+        assertThat(testAlumnos.getElo()).isEqualTo(DEFAULT_ELO);
+        assertThat(testAlumnos.getFideId()).isEqualTo(DEFAULT_FIDE_ID);
     }
 
     @Test
@@ -346,8 +347,6 @@ class AlumnosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(alumnos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
-            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)))
             .andExpect(jsonPath("$.[*].nombres").value(hasItem(DEFAULT_NOMBRES)))
             .andExpect(jsonPath("$.[*].apellidos").value(hasItem(DEFAULT_APELLIDOS)))
             .andExpect(jsonPath("$.[*].nombreCompleto").value(hasItem(DEFAULT_NOMBRE_COMPLETO)))
@@ -355,7 +354,9 @@ class AlumnosResourceIT {
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
             .andExpect(jsonPath("$.[*].fechaNacimiento").value(hasItem(DEFAULT_FECHA_NACIMIENTO.toString())))
             .andExpect(jsonPath("$.[*].documento").value(hasItem(DEFAULT_DOCUMENTO)))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())));
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
+            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -387,8 +388,6 @@ class AlumnosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(alumnos.getId().intValue()))
-            .andExpect(jsonPath("$.elo").value(DEFAULT_ELO))
-            .andExpect(jsonPath("$.fideId").value(DEFAULT_FIDE_ID))
             .andExpect(jsonPath("$.nombres").value(DEFAULT_NOMBRES))
             .andExpect(jsonPath("$.apellidos").value(DEFAULT_APELLIDOS))
             .andExpect(jsonPath("$.nombreCompleto").value(DEFAULT_NOMBRE_COMPLETO))
@@ -396,7 +395,9 @@ class AlumnosResourceIT {
             .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO))
             .andExpect(jsonPath("$.fechaNacimiento").value(DEFAULT_FECHA_NACIMIENTO.toString()))
             .andExpect(jsonPath("$.documento").value(DEFAULT_DOCUMENTO))
-            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()));
+            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()))
+            .andExpect(jsonPath("$.elo").value(DEFAULT_ELO))
+            .andExpect(jsonPath("$.fideId").value(DEFAULT_FIDE_ID));
     }
 
     @Test
@@ -415,188 +416,6 @@ class AlumnosResourceIT {
 
         defaultAlumnosShouldBeFound("id.lessThanOrEqual=" + id);
         defaultAlumnosShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByEloIsEqualToSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where elo equals to DEFAULT_ELO
-        defaultAlumnosShouldBeFound("elo.equals=" + DEFAULT_ELO);
-
-        // Get all the alumnosList where elo equals to UPDATED_ELO
-        defaultAlumnosShouldNotBeFound("elo.equals=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByEloIsInShouldWork() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where elo in DEFAULT_ELO or UPDATED_ELO
-        defaultAlumnosShouldBeFound("elo.in=" + DEFAULT_ELO + "," + UPDATED_ELO);
-
-        // Get all the alumnosList where elo equals to UPDATED_ELO
-        defaultAlumnosShouldNotBeFound("elo.in=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByEloIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where elo is not null
-        defaultAlumnosShouldBeFound("elo.specified=true");
-
-        // Get all the alumnosList where elo is null
-        defaultAlumnosShouldNotBeFound("elo.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByEloIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where elo is greater than or equal to DEFAULT_ELO
-        defaultAlumnosShouldBeFound("elo.greaterThanOrEqual=" + DEFAULT_ELO);
-
-        // Get all the alumnosList where elo is greater than or equal to UPDATED_ELO
-        defaultAlumnosShouldNotBeFound("elo.greaterThanOrEqual=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByEloIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where elo is less than or equal to DEFAULT_ELO
-        defaultAlumnosShouldBeFound("elo.lessThanOrEqual=" + DEFAULT_ELO);
-
-        // Get all the alumnosList where elo is less than or equal to SMALLER_ELO
-        defaultAlumnosShouldNotBeFound("elo.lessThanOrEqual=" + SMALLER_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByEloIsLessThanSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where elo is less than DEFAULT_ELO
-        defaultAlumnosShouldNotBeFound("elo.lessThan=" + DEFAULT_ELO);
-
-        // Get all the alumnosList where elo is less than UPDATED_ELO
-        defaultAlumnosShouldBeFound("elo.lessThan=" + UPDATED_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByEloIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where elo is greater than DEFAULT_ELO
-        defaultAlumnosShouldNotBeFound("elo.greaterThan=" + DEFAULT_ELO);
-
-        // Get all the alumnosList where elo is greater than SMALLER_ELO
-        defaultAlumnosShouldBeFound("elo.greaterThan=" + SMALLER_ELO);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByFideIdIsEqualToSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where fideId equals to DEFAULT_FIDE_ID
-        defaultAlumnosShouldBeFound("fideId.equals=" + DEFAULT_FIDE_ID);
-
-        // Get all the alumnosList where fideId equals to UPDATED_FIDE_ID
-        defaultAlumnosShouldNotBeFound("fideId.equals=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByFideIdIsInShouldWork() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where fideId in DEFAULT_FIDE_ID or UPDATED_FIDE_ID
-        defaultAlumnosShouldBeFound("fideId.in=" + DEFAULT_FIDE_ID + "," + UPDATED_FIDE_ID);
-
-        // Get all the alumnosList where fideId equals to UPDATED_FIDE_ID
-        defaultAlumnosShouldNotBeFound("fideId.in=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByFideIdIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where fideId is not null
-        defaultAlumnosShouldBeFound("fideId.specified=true");
-
-        // Get all the alumnosList where fideId is null
-        defaultAlumnosShouldNotBeFound("fideId.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByFideIdIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where fideId is greater than or equal to DEFAULT_FIDE_ID
-        defaultAlumnosShouldBeFound("fideId.greaterThanOrEqual=" + DEFAULT_FIDE_ID);
-
-        // Get all the alumnosList where fideId is greater than or equal to UPDATED_FIDE_ID
-        defaultAlumnosShouldNotBeFound("fideId.greaterThanOrEqual=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByFideIdIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where fideId is less than or equal to DEFAULT_FIDE_ID
-        defaultAlumnosShouldBeFound("fideId.lessThanOrEqual=" + DEFAULT_FIDE_ID);
-
-        // Get all the alumnosList where fideId is less than or equal to SMALLER_FIDE_ID
-        defaultAlumnosShouldNotBeFound("fideId.lessThanOrEqual=" + SMALLER_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByFideIdIsLessThanSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where fideId is less than DEFAULT_FIDE_ID
-        defaultAlumnosShouldNotBeFound("fideId.lessThan=" + DEFAULT_FIDE_ID);
-
-        // Get all the alumnosList where fideId is less than UPDATED_FIDE_ID
-        defaultAlumnosShouldBeFound("fideId.lessThan=" + UPDATED_FIDE_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllAlumnosByFideIdIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        alumnosRepository.saveAndFlush(alumnos);
-
-        // Get all the alumnosList where fideId is greater than DEFAULT_FIDE_ID
-        defaultAlumnosShouldNotBeFound("fideId.greaterThan=" + DEFAULT_FIDE_ID);
-
-        // Get all the alumnosList where fideId is greater than SMALLER_FIDE_ID
-        defaultAlumnosShouldBeFound("fideId.greaterThan=" + SMALLER_FIDE_ID);
     }
 
     @Test
@@ -1121,6 +940,188 @@ class AlumnosResourceIT {
 
     @Test
     @Transactional
+    void getAllAlumnosByEloIsEqualToSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where elo equals to DEFAULT_ELO
+        defaultAlumnosShouldBeFound("elo.equals=" + DEFAULT_ELO);
+
+        // Get all the alumnosList where elo equals to UPDATED_ELO
+        defaultAlumnosShouldNotBeFound("elo.equals=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByEloIsInShouldWork() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where elo in DEFAULT_ELO or UPDATED_ELO
+        defaultAlumnosShouldBeFound("elo.in=" + DEFAULT_ELO + "," + UPDATED_ELO);
+
+        // Get all the alumnosList where elo equals to UPDATED_ELO
+        defaultAlumnosShouldNotBeFound("elo.in=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByEloIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where elo is not null
+        defaultAlumnosShouldBeFound("elo.specified=true");
+
+        // Get all the alumnosList where elo is null
+        defaultAlumnosShouldNotBeFound("elo.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByEloIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where elo is greater than or equal to DEFAULT_ELO
+        defaultAlumnosShouldBeFound("elo.greaterThanOrEqual=" + DEFAULT_ELO);
+
+        // Get all the alumnosList where elo is greater than or equal to UPDATED_ELO
+        defaultAlumnosShouldNotBeFound("elo.greaterThanOrEqual=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByEloIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where elo is less than or equal to DEFAULT_ELO
+        defaultAlumnosShouldBeFound("elo.lessThanOrEqual=" + DEFAULT_ELO);
+
+        // Get all the alumnosList where elo is less than or equal to SMALLER_ELO
+        defaultAlumnosShouldNotBeFound("elo.lessThanOrEqual=" + SMALLER_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByEloIsLessThanSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where elo is less than DEFAULT_ELO
+        defaultAlumnosShouldNotBeFound("elo.lessThan=" + DEFAULT_ELO);
+
+        // Get all the alumnosList where elo is less than UPDATED_ELO
+        defaultAlumnosShouldBeFound("elo.lessThan=" + UPDATED_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByEloIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where elo is greater than DEFAULT_ELO
+        defaultAlumnosShouldNotBeFound("elo.greaterThan=" + DEFAULT_ELO);
+
+        // Get all the alumnosList where elo is greater than SMALLER_ELO
+        defaultAlumnosShouldBeFound("elo.greaterThan=" + SMALLER_ELO);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByFideIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where fideId equals to DEFAULT_FIDE_ID
+        defaultAlumnosShouldBeFound("fideId.equals=" + DEFAULT_FIDE_ID);
+
+        // Get all the alumnosList where fideId equals to UPDATED_FIDE_ID
+        defaultAlumnosShouldNotBeFound("fideId.equals=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByFideIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where fideId in DEFAULT_FIDE_ID or UPDATED_FIDE_ID
+        defaultAlumnosShouldBeFound("fideId.in=" + DEFAULT_FIDE_ID + "," + UPDATED_FIDE_ID);
+
+        // Get all the alumnosList where fideId equals to UPDATED_FIDE_ID
+        defaultAlumnosShouldNotBeFound("fideId.in=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByFideIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where fideId is not null
+        defaultAlumnosShouldBeFound("fideId.specified=true");
+
+        // Get all the alumnosList where fideId is null
+        defaultAlumnosShouldNotBeFound("fideId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByFideIdIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where fideId is greater than or equal to DEFAULT_FIDE_ID
+        defaultAlumnosShouldBeFound("fideId.greaterThanOrEqual=" + DEFAULT_FIDE_ID);
+
+        // Get all the alumnosList where fideId is greater than or equal to UPDATED_FIDE_ID
+        defaultAlumnosShouldNotBeFound("fideId.greaterThanOrEqual=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByFideIdIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where fideId is less than or equal to DEFAULT_FIDE_ID
+        defaultAlumnosShouldBeFound("fideId.lessThanOrEqual=" + DEFAULT_FIDE_ID);
+
+        // Get all the alumnosList where fideId is less than or equal to SMALLER_FIDE_ID
+        defaultAlumnosShouldNotBeFound("fideId.lessThanOrEqual=" + SMALLER_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByFideIdIsLessThanSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where fideId is less than DEFAULT_FIDE_ID
+        defaultAlumnosShouldNotBeFound("fideId.lessThan=" + DEFAULT_FIDE_ID);
+
+        // Get all the alumnosList where fideId is less than UPDATED_FIDE_ID
+        defaultAlumnosShouldBeFound("fideId.lessThan=" + UPDATED_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
+    void getAllAlumnosByFideIdIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        alumnosRepository.saveAndFlush(alumnos);
+
+        // Get all the alumnosList where fideId is greater than DEFAULT_FIDE_ID
+        defaultAlumnosShouldNotBeFound("fideId.greaterThan=" + DEFAULT_FIDE_ID);
+
+        // Get all the alumnosList where fideId is greater than SMALLER_FIDE_ID
+        defaultAlumnosShouldBeFound("fideId.greaterThan=" + SMALLER_FIDE_ID);
+    }
+
+    @Test
+    @Transactional
     void getAllAlumnosByInscripcionesIsEqualToSomething() throws Exception {
         Inscripciones inscripciones;
         if (TestUtil.findAll(em, Inscripciones.class).isEmpty()) {
@@ -1236,6 +1237,29 @@ class AlumnosResourceIT {
 
     @Test
     @Transactional
+    void getAllAlumnosByFacturasIsEqualToSomething() throws Exception {
+        Facturas facturas;
+        if (TestUtil.findAll(em, Facturas.class).isEmpty()) {
+            alumnosRepository.saveAndFlush(alumnos);
+            facturas = FacturasResourceIT.createEntity(em);
+        } else {
+            facturas = TestUtil.findAll(em, Facturas.class).get(0);
+        }
+        em.persist(facturas);
+        em.flush();
+        alumnos.addFacturas(facturas);
+        alumnosRepository.saveAndFlush(alumnos);
+        Long facturasId = facturas.getId();
+
+        // Get all the alumnosList where facturas equals to facturasId
+        defaultAlumnosShouldBeFound("facturasId.equals=" + facturasId);
+
+        // Get all the alumnosList where facturas equals to (facturasId + 1)
+        defaultAlumnosShouldNotBeFound("facturasId.equals=" + (facturasId + 1));
+    }
+
+    @Test
+    @Transactional
     void getAllAlumnosByTipoDocumentosIsEqualToSomething() throws Exception {
         TiposDocumentos tipoDocumentos;
         if (TestUtil.findAll(em, TiposDocumentos.class).isEmpty()) {
@@ -1266,8 +1290,6 @@ class AlumnosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(alumnos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
-            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)))
             .andExpect(jsonPath("$.[*].nombres").value(hasItem(DEFAULT_NOMBRES)))
             .andExpect(jsonPath("$.[*].apellidos").value(hasItem(DEFAULT_APELLIDOS)))
             .andExpect(jsonPath("$.[*].nombreCompleto").value(hasItem(DEFAULT_NOMBRE_COMPLETO)))
@@ -1275,7 +1297,9 @@ class AlumnosResourceIT {
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
             .andExpect(jsonPath("$.[*].fechaNacimiento").value(hasItem(DEFAULT_FECHA_NACIMIENTO.toString())))
             .andExpect(jsonPath("$.[*].documento").value(hasItem(DEFAULT_DOCUMENTO)))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())));
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].elo").value(hasItem(DEFAULT_ELO)))
+            .andExpect(jsonPath("$.[*].fideId").value(hasItem(DEFAULT_FIDE_ID)));
 
         // Check, that the count call also returns 1
         restAlumnosMockMvc
@@ -1324,8 +1348,6 @@ class AlumnosResourceIT {
         // Disconnect from session so that the updates on updatedAlumnos are not directly saved in db
         em.detach(updatedAlumnos);
         updatedAlumnos
-            .elo(UPDATED_ELO)
-            .fideId(UPDATED_FIDE_ID)
             .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
@@ -1333,7 +1355,9 @@ class AlumnosResourceIT {
             .telefono(UPDATED_TELEFONO)
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
             .documento(UPDATED_DOCUMENTO)
-            .estado(UPDATED_ESTADO);
+            .estado(UPDATED_ESTADO)
+            .elo(UPDATED_ELO)
+            .fideId(UPDATED_FIDE_ID);
 
         restAlumnosMockMvc
             .perform(
@@ -1347,8 +1371,6 @@ class AlumnosResourceIT {
         List<Alumnos> alumnosList = alumnosRepository.findAll();
         assertThat(alumnosList).hasSize(databaseSizeBeforeUpdate);
         Alumnos testAlumnos = alumnosList.get(alumnosList.size() - 1);
-        assertThat(testAlumnos.getElo()).isEqualTo(UPDATED_ELO);
-        assertThat(testAlumnos.getFideId()).isEqualTo(UPDATED_FIDE_ID);
         assertThat(testAlumnos.getNombres()).isEqualTo(UPDATED_NOMBRES);
         assertThat(testAlumnos.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
         assertThat(testAlumnos.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
@@ -1357,6 +1379,8 @@ class AlumnosResourceIT {
         assertThat(testAlumnos.getFechaNacimiento()).isEqualTo(UPDATED_FECHA_NACIMIENTO);
         assertThat(testAlumnos.getDocumento()).isEqualTo(UPDATED_DOCUMENTO);
         assertThat(testAlumnos.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testAlumnos.getElo()).isEqualTo(UPDATED_ELO);
+        assertThat(testAlumnos.getFideId()).isEqualTo(UPDATED_FIDE_ID);
     }
 
     @Test
@@ -1428,11 +1452,11 @@ class AlumnosResourceIT {
         partialUpdatedAlumnos.setId(alumnos.getId());
 
         partialUpdatedAlumnos
-            .fideId(UPDATED_FIDE_ID)
-            .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
-            .email(UPDATED_EMAIL)
+            .apellidos(UPDATED_APELLIDOS)
+            .telefono(UPDATED_TELEFONO)
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
-            .estado(UPDATED_ESTADO);
+            .estado(UPDATED_ESTADO)
+            .fideId(UPDATED_FIDE_ID);
 
         restAlumnosMockMvc
             .perform(
@@ -1446,16 +1470,16 @@ class AlumnosResourceIT {
         List<Alumnos> alumnosList = alumnosRepository.findAll();
         assertThat(alumnosList).hasSize(databaseSizeBeforeUpdate);
         Alumnos testAlumnos = alumnosList.get(alumnosList.size() - 1);
-        assertThat(testAlumnos.getElo()).isEqualTo(DEFAULT_ELO);
-        assertThat(testAlumnos.getFideId()).isEqualTo(UPDATED_FIDE_ID);
         assertThat(testAlumnos.getNombres()).isEqualTo(DEFAULT_NOMBRES);
-        assertThat(testAlumnos.getApellidos()).isEqualTo(DEFAULT_APELLIDOS);
-        assertThat(testAlumnos.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
-        assertThat(testAlumnos.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testAlumnos.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
+        assertThat(testAlumnos.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
+        assertThat(testAlumnos.getNombreCompleto()).isEqualTo(DEFAULT_NOMBRE_COMPLETO);
+        assertThat(testAlumnos.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testAlumnos.getTelefono()).isEqualTo(UPDATED_TELEFONO);
         assertThat(testAlumnos.getFechaNacimiento()).isEqualTo(UPDATED_FECHA_NACIMIENTO);
         assertThat(testAlumnos.getDocumento()).isEqualTo(DEFAULT_DOCUMENTO);
         assertThat(testAlumnos.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testAlumnos.getElo()).isEqualTo(DEFAULT_ELO);
+        assertThat(testAlumnos.getFideId()).isEqualTo(UPDATED_FIDE_ID);
     }
 
     @Test
@@ -1471,8 +1495,6 @@ class AlumnosResourceIT {
         partialUpdatedAlumnos.setId(alumnos.getId());
 
         partialUpdatedAlumnos
-            .elo(UPDATED_ELO)
-            .fideId(UPDATED_FIDE_ID)
             .nombres(UPDATED_NOMBRES)
             .apellidos(UPDATED_APELLIDOS)
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
@@ -1480,7 +1502,9 @@ class AlumnosResourceIT {
             .telefono(UPDATED_TELEFONO)
             .fechaNacimiento(UPDATED_FECHA_NACIMIENTO)
             .documento(UPDATED_DOCUMENTO)
-            .estado(UPDATED_ESTADO);
+            .estado(UPDATED_ESTADO)
+            .elo(UPDATED_ELO)
+            .fideId(UPDATED_FIDE_ID);
 
         restAlumnosMockMvc
             .perform(
@@ -1494,8 +1518,6 @@ class AlumnosResourceIT {
         List<Alumnos> alumnosList = alumnosRepository.findAll();
         assertThat(alumnosList).hasSize(databaseSizeBeforeUpdate);
         Alumnos testAlumnos = alumnosList.get(alumnosList.size() - 1);
-        assertThat(testAlumnos.getElo()).isEqualTo(UPDATED_ELO);
-        assertThat(testAlumnos.getFideId()).isEqualTo(UPDATED_FIDE_ID);
         assertThat(testAlumnos.getNombres()).isEqualTo(UPDATED_NOMBRES);
         assertThat(testAlumnos.getApellidos()).isEqualTo(UPDATED_APELLIDOS);
         assertThat(testAlumnos.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
@@ -1504,6 +1526,8 @@ class AlumnosResourceIT {
         assertThat(testAlumnos.getFechaNacimiento()).isEqualTo(UPDATED_FECHA_NACIMIENTO);
         assertThat(testAlumnos.getDocumento()).isEqualTo(UPDATED_DOCUMENTO);
         assertThat(testAlumnos.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testAlumnos.getElo()).isEqualTo(UPDATED_ELO);
+        assertThat(testAlumnos.getFideId()).isEqualTo(UPDATED_FIDE_ID);
     }
 
     @Test

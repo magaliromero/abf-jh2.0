@@ -10,7 +10,7 @@ export interface ICursos {
   fechaFin?: dayjs.Dayjs | null;
   cantidadClases?: number | null;
   nivel?: Niveles | null;
-  temas?: Pick<ITemas, 'id' | 'titulo'> | null;
+  temas?: Pick<ITemas, 'id' | 'titulo'>[] | null;
 }
 
 export type NewCursos = Omit<ICursos, 'id'> & { id: null };

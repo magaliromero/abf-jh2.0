@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.funcionarios.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.funcionarios.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/funcionarios/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.funcionarios.home.createLabel"> Create a new Funcionarios </span>
+        <span jhiTranslate="abfApp.funcionarios.home.createLabel"> Crear nuevo Funcionarios </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="funcionarios?.length === 0">
-    <span jhiTranslate="abfApp.funcionarios.home.notFound">No Funcionarios found</span>
+    <span jhiTranslate="abfApp.funcionarios.home.notFound">Ningún Funcionarios encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="funcionarios && funcionarios.length > 0">
@@ -37,18 +37,6 @@
           <th scope="col" jhiSortBy="id">
             <div class="d-flex">
               <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="elo">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.funcionarios.elo">Elo</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="fideId">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.funcionarios.fideId">Fide Id</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -106,6 +94,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="elo">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.funcionarios.elo">Elo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fideId">
+            <div class="d-flex">
+              <span jhiTranslate="abfApp.funcionarios.fideId">Fide Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="tipoDocumentos.descripcion">
             <div class="d-flex">
               <span jhiTranslate="abfApp.funcionarios.tipoDocumentos">Tipo Documentos</span>
@@ -120,8 +120,6 @@
           <td>
             <a [routerLink]="['/funcionarios', funcionarios.id, 'view']">{{ funcionarios.id }}</a>
           </td>
-          <td>{{ funcionarios.elo }}</td>
-          <td>{{ funcionarios.fideId }}</td>
           <td>{{ funcionarios.nombres }}</td>
           <td>{{ funcionarios.apellidos }}</td>
           <td>{{ funcionarios.nombreCompleto }}</td>
@@ -131,6 +129,8 @@
           <td>{{ funcionarios.documento }}</td>
           <td jhiTranslate="{{ 'abfApp.EstadosPersona.' + funcionarios.estado }}">{{ funcionarios.estado }}</td>
           <td jhiTranslate="{{ 'abfApp.TipoFuncionarios.' + funcionarios.tipoFuncionario }}">{{ funcionarios.tipoFuncionario }}</td>
+          <td>{{ funcionarios.elo }}</td>
+          <td>{{ funcionarios.fideId }}</td>
           <td>
             <div *ngIf="funcionarios.tipoDocumentos">
               <a [routerLink]="['/tipos-documentos', funcionarios.tipoDocumentos.id, 'view']">{{
@@ -192,7 +192,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button
@@ -202,12 +202,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(funcionarios)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

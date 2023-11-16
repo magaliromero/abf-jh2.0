@@ -18,8 +18,6 @@ type FuncionariosFormDefaults = Pick<NewFuncionarios, 'id'>;
 
 type FuncionariosFormGroupContent = {
   id: FormControl<IFuncionarios['id'] | NewFuncionarios['id']>;
-  elo: FormControl<IFuncionarios['elo']>;
-  fideId: FormControl<IFuncionarios['fideId']>;
   nombres: FormControl<IFuncionarios['nombres']>;
   apellidos: FormControl<IFuncionarios['apellidos']>;
   nombreCompleto: FormControl<IFuncionarios['nombreCompleto']>;
@@ -29,6 +27,8 @@ type FuncionariosFormGroupContent = {
   documento: FormControl<IFuncionarios['documento']>;
   estado: FormControl<IFuncionarios['estado']>;
   tipoFuncionario: FormControl<IFuncionarios['tipoFuncionario']>;
+  elo: FormControl<IFuncionarios['elo']>;
+  fideId: FormControl<IFuncionarios['fideId']>;
   tipoDocumentos: FormControl<IFuncionarios['tipoDocumentos']>;
 };
 
@@ -49,8 +49,6 @@ export class FuncionariosFormService {
           validators: [Validators.required],
         }
       ),
-      elo: new FormControl(funcionariosRawValue.elo),
-      fideId: new FormControl(funcionariosRawValue.fideId),
       nombres: new FormControl(funcionariosRawValue.nombres, {
         validators: [Validators.required],
       }),
@@ -76,6 +74,8 @@ export class FuncionariosFormService {
         validators: [Validators.required],
       }),
       tipoFuncionario: new FormControl(funcionariosRawValue.tipoFuncionario),
+      elo: new FormControl(funcionariosRawValue.elo),
+      fideId: new FormControl(funcionariosRawValue.fideId),
       tipoDocumentos: new FormControl(funcionariosRawValue.tipoDocumentos, {
         validators: [Validators.required],
       }),

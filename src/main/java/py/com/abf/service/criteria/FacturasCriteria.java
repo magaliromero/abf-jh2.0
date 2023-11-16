@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import org.springdoc.api.annotations.ParameterObject;
 import py.com.abf.domain.enumeration.CondicionVenta;
+import py.com.abf.domain.enumeration.EstadosFacturas;
 import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.*;
 
@@ -37,6 +38,23 @@ public class FacturasCriteria implements Serializable, Criteria {
         }
     }
 
+    /**
+     * Class for filtering EstadosFacturas
+     */
+    public static class EstadosFacturasFilter extends Filter<EstadosFacturas> {
+
+        public EstadosFacturasFilter() {}
+
+        public EstadosFacturasFilter(EstadosFacturasFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public EstadosFacturasFilter copy() {
+            return new EstadosFacturasFilter(this);
+        }
+    }
+
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
@@ -59,7 +77,15 @@ public class FacturasCriteria implements Serializable, Criteria {
 
     private IntegerFilter total;
 
+    private EstadosFacturasFilter estado;
+
+    private BooleanFilter poseeNC;
+
     private LongFilter facturaDetalleId;
+
+    private LongFilter notaCreditoId;
+
+    private LongFilter alumnosId;
 
     private Boolean distinct;
 
@@ -76,7 +102,11 @@ public class FacturasCriteria implements Serializable, Criteria {
         this.ruc = other.ruc == null ? null : other.ruc.copy();
         this.condicionVenta = other.condicionVenta == null ? null : other.condicionVenta.copy();
         this.total = other.total == null ? null : other.total.copy();
+        this.estado = other.estado == null ? null : other.estado.copy();
+        this.poseeNC = other.poseeNC == null ? null : other.poseeNC.copy();
         this.facturaDetalleId = other.facturaDetalleId == null ? null : other.facturaDetalleId.copy();
+        this.notaCreditoId = other.notaCreditoId == null ? null : other.notaCreditoId.copy();
+        this.alumnosId = other.alumnosId == null ? null : other.alumnosId.copy();
         this.distinct = other.distinct;
     }
 
@@ -235,6 +265,36 @@ public class FacturasCriteria implements Serializable, Criteria {
         this.total = total;
     }
 
+    public EstadosFacturasFilter getEstado() {
+        return estado;
+    }
+
+    public EstadosFacturasFilter estado() {
+        if (estado == null) {
+            estado = new EstadosFacturasFilter();
+        }
+        return estado;
+    }
+
+    public void setEstado(EstadosFacturasFilter estado) {
+        this.estado = estado;
+    }
+
+    public BooleanFilter getPoseeNC() {
+        return poseeNC;
+    }
+
+    public BooleanFilter poseeNC() {
+        if (poseeNC == null) {
+            poseeNC = new BooleanFilter();
+        }
+        return poseeNC;
+    }
+
+    public void setPoseeNC(BooleanFilter poseeNC) {
+        this.poseeNC = poseeNC;
+    }
+
     public LongFilter getFacturaDetalleId() {
         return facturaDetalleId;
     }
@@ -248,6 +308,36 @@ public class FacturasCriteria implements Serializable, Criteria {
 
     public void setFacturaDetalleId(LongFilter facturaDetalleId) {
         this.facturaDetalleId = facturaDetalleId;
+    }
+
+    public LongFilter getNotaCreditoId() {
+        return notaCreditoId;
+    }
+
+    public LongFilter notaCreditoId() {
+        if (notaCreditoId == null) {
+            notaCreditoId = new LongFilter();
+        }
+        return notaCreditoId;
+    }
+
+    public void setNotaCreditoId(LongFilter notaCreditoId) {
+        this.notaCreditoId = notaCreditoId;
+    }
+
+    public LongFilter getAlumnosId() {
+        return alumnosId;
+    }
+
+    public LongFilter alumnosId() {
+        if (alumnosId == null) {
+            alumnosId = new LongFilter();
+        }
+        return alumnosId;
+    }
+
+    public void setAlumnosId(LongFilter alumnosId) {
+        this.alumnosId = alumnosId;
     }
 
     public Boolean getDistinct() {
@@ -278,7 +368,11 @@ public class FacturasCriteria implements Serializable, Criteria {
             Objects.equals(ruc, that.ruc) &&
             Objects.equals(condicionVenta, that.condicionVenta) &&
             Objects.equals(total, that.total) &&
+            Objects.equals(estado, that.estado) &&
+            Objects.equals(poseeNC, that.poseeNC) &&
             Objects.equals(facturaDetalleId, that.facturaDetalleId) &&
+            Objects.equals(notaCreditoId, that.notaCreditoId) &&
+            Objects.equals(alumnosId, that.alumnosId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -296,7 +390,11 @@ public class FacturasCriteria implements Serializable, Criteria {
             ruc,
             condicionVenta,
             total,
+            estado,
+            poseeNC,
             facturaDetalleId,
+            notaCreditoId,
+            alumnosId,
             distinct
         );
     }
@@ -315,7 +413,11 @@ public class FacturasCriteria implements Serializable, Criteria {
             (ruc != null ? "ruc=" + ruc + ", " : "") +
             (condicionVenta != null ? "condicionVenta=" + condicionVenta + ", " : "") +
             (total != null ? "total=" + total + ", " : "") +
+            (estado != null ? "estado=" + estado + ", " : "") +
+            (poseeNC != null ? "poseeNC=" + poseeNC + ", " : "") +
             (facturaDetalleId != null ? "facturaDetalleId=" + facturaDetalleId + ", " : "") +
+            (notaCreditoId != null ? "notaCreditoId=" + notaCreditoId + ", " : "") +
+            (alumnosId != null ? "alumnosId=" + alumnosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

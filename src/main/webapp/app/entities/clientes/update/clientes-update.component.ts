@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,8 +7,6 @@ import { finalize } from 'rxjs/operators';
 import { ClientesFormService, ClientesFormGroup } from './clientes-form.service';
 import { IClientes } from '../clientes.model';
 import { ClientesService } from '../service/clientes.service';
-import { CodigoVerificadorService } from 'app/util-services/codigo-verificador.service';
-import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-clientes-update',
@@ -23,30 +21,8 @@ export class ClientesUpdateComponent implements OnInit {
   constructor(
     protected clientesService: ClientesService,
     protected clientesFormService: ClientesFormService,
-    protected activatedRoute: ActivatedRoute,
-    protected codigoVerificadorService: CodigoVerificadorService
+    protected activatedRoute: ActivatedRoute
   ) {}
-
-  calcularCodigo() {
-    const documento = this.editForm.controls.documento.value;
-    this.codigoVerificadorService.obtenerRuc(documento || ' ').subscribe({
-      next: (response: any) => {
-        this.editForm.controls.ruc.setValue(documento + '-' + response.body);
-        console.log(response);
-      },
-      error: response => {
-        console.log(response + 'ERROR');
-      },
-    });
-  }
-
-  autocomplete() {
-    console.log('-->');
-
-    const nombre = this.editForm.controls.nombres.value;
-    const apellido = this.editForm.controls.apellidos.value;
-    this.editForm.controls.razonSocial.setValue((nombre || '') + ' ' + (apellido || ''));
-  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ clientes }) => {

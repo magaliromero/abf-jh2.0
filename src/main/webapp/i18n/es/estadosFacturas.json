@@ -1,0 +1,11 @@
+{
+  "abfApp": {
+    "EstadosFacturas": {
+      "null": "",
+      "ANULADO": "ANULADO",
+      "ENTREGADO": "ENTREGADO",
+      "PENDIENTE": "PENDIENTE",
+      "PAGADO": "PAGADO"
+    }
+  }
+}

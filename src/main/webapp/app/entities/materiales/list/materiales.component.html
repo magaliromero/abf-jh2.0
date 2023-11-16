@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.materiales.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.materiales.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/materiales/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.materiales.home.createLabel"> Create a new Materiales </span>
+        <span jhiTranslate="abfApp.materiales.home.createLabel"> Crear nuevo Materiales </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="materiales?.length === 0">
-    <span jhiTranslate="abfApp.materiales.home.notFound">No Materiales found</span>
+    <span jhiTranslate="abfApp.materiales.home.notFound">Ningún Materiales encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="materiales && materiales.length > 0">
@@ -73,6 +73,21 @@
             <div class="btn-group">
               <button
                 type="submit"
+                [routerLink]="['/registro-stock-materiales']"
+                [queryParams]="{ 'filter[materialesId.in]': materiales.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('abfApp.materiales.registroStockMateriales' | translate) }"
+                  >Show Registro Stock Materiales</span
+                >
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/prestamos']"
                 [queryParams]="{ 'filter[materialesId.in]': materiales.id }"
                 class="btn btn-info btn-sm"
@@ -93,7 +108,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button
@@ -103,12 +118,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(materiales)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

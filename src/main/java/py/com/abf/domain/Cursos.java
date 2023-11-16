@@ -55,10 +55,20 @@ public class Cursos implements Serializable {
     @JsonIgnoreProperties(value = { "alumnos", "cursos" }, allowSetters = true)
     private Set<Inscripciones> inscripciones = new HashSet<>();
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToMany(mappedBy = "cursos")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "temas", "funcionario", "alumnos", "cursos" }, allowSetters = true)
+    private Set<RegistroClases> registroClases = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "rel_cursos__temas",
+        joinColumns = @JoinColumn(name = "cursos_id"),
+        inverseJoinColumns = @JoinColumn(name = "temas_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "evaluacionesDetalles", "registroClases", "cursos" }, allowSetters = true)
-    private Temas temas;
+    private Set<Temas> temas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -184,16 +194,59 @@ public class Cursos implements Serializable {
         return this;
     }
 
-    public Temas getTemas() {
+    public Set<RegistroClases> getRegistroClases() {
+        return this.registroClases;
+    }
+
+    public void setRegistroClases(Set<RegistroClases> registroClases) {
+        if (this.registroClases != null) {
+            this.registroClases.forEach(i -> i.setCursos(null));
+        }
+        if (registroClases != null) {
+            registroClases.forEach(i -> i.setCursos(this));
+        }
+        this.registroClases = registroClases;
+    }
+
+    public Cursos registroClases(Set<RegistroClases> registroClases) {
+        this.setRegistroClases(registroClases);
+        return this;
+    }
+
+    public Cursos addRegistroClases(RegistroClases registroClases) {
+        this.registroClases.add(registroClases);
+        registroClases.setCursos(this);
+        return this;
+    }
+
+    public Cursos removeRegistroClases(RegistroClases registroClases) {
+        this.registroClases.remove(registroClases);
+        registroClases.setCursos(null);
+        return this;
+    }
+
+    public Set<Temas> getTemas() {
         return this.temas;
     }
 
-    public void setTemas(Temas temas) {
+    public void setTemas(Set<Temas> temas) {
         this.temas = temas;
     }
 
-    public Cursos temas(Temas temas) {
+    public Cursos temas(Set<Temas> temas) {
         this.setTemas(temas);
+        return this;
+    }
+
+    public Cursos addTemas(Temas temas) {
+        this.temas.add(temas);
+        temas.getCursos().add(this);
+        return this;
+    }
+
+    public Cursos removeTemas(Temas temas) {
+        this.temas.remove(temas);
+        temas.getCursos().remove(this);
         return this;
     }
 

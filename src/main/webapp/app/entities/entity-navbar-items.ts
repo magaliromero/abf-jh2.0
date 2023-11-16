@@ -65,6 +65,11 @@ export const EntityNavbarItems = [
     translationKey: 'global.menu.entities.materiales',
   },
   {
+    name: 'RegistroStockMateriales',
+    route: 'registro-stock-materiales',
+    translationKey: 'global.menu.entities.registroStockMateriales',
+  },
+  {
     name: 'Prestamos',
     route: 'prestamos',
     translationKey: 'global.menu.entities.prestamos',
@@ -98,5 +103,15 @@ export const EntityNavbarItems = [
     name: 'PuntoDeExpedicion',
     route: 'punto-de-expedicion',
     translationKey: 'global.menu.entities.puntoDeExpedicion',
+  },
+  {
+    name: 'NotaCredito',
+    route: 'nota-credito',
+    translationKey: 'global.menu.entities.notaCredito',
+  },
+  {
+    name: 'NotaCreditoDetalle',
+    route: 'nota-credito-detalle',
+    translationKey: 'global.menu.entities.notaCreditoDetalle',
   },
 ];

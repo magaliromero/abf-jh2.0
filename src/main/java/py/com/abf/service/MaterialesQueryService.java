@@ -95,6 +95,15 @@ public class MaterialesQueryService extends QueryService<Materiales> {
                 specification =
                     specification.and(buildRangeSpecification(criteria.getCantidadEnPrestamo(), Materiales_.cantidadEnPrestamo));
             }
+            if (criteria.getRegistroStockMaterialesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getRegistroStockMaterialesId(),
+                            root -> root.join(Materiales_.registroStockMateriales, JoinType.LEFT).get(RegistroStockMateriales_.id)
+                        )
+                    );
+            }
             if (criteria.getPrestamosId() != null) {
                 specification =
                     specification.and(

@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601133613",
+  "changelogDate": "20231116011630",
   "dto": "no",
   "embedded": false,
   "entityTableName": "factura_detalle",

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.IntegrationTest;
 import py.com.abf.domain.FacturaDetalle;
+import py.com.abf.domain.NotaCreditoDetalle;
 import py.com.abf.domain.Pagos;
 import py.com.abf.domain.Productos;
 import py.com.abf.domain.enumeration.TipoProductos;
@@ -588,6 +589,29 @@ class ProductosResourceIT {
 
         // Get all the productosList where facturaDetalle equals to (facturaDetalleId + 1)
         defaultProductosShouldNotBeFound("facturaDetalleId.equals=" + (facturaDetalleId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllProductosByNotaCreditoDetalleIsEqualToSomething() throws Exception {
+        NotaCreditoDetalle notaCreditoDetalle;
+        if (TestUtil.findAll(em, NotaCreditoDetalle.class).isEmpty()) {
+            productosRepository.saveAndFlush(productos);
+            notaCreditoDetalle = NotaCreditoDetalleResourceIT.createEntity(em);
+        } else {
+            notaCreditoDetalle = TestUtil.findAll(em, NotaCreditoDetalle.class).get(0);
+        }
+        em.persist(notaCreditoDetalle);
+        em.flush();
+        productos.addNotaCreditoDetalle(notaCreditoDetalle);
+        productosRepository.saveAndFlush(productos);
+        Long notaCreditoDetalleId = notaCreditoDetalle.getId();
+
+        // Get all the productosList where notaCreditoDetalle equals to notaCreditoDetalleId
+        defaultProductosShouldBeFound("notaCreditoDetalleId.equals=" + notaCreditoDetalleId);
+
+        // Get all the productosList where notaCreditoDetalle equals to (notaCreditoDetalleId + 1)
+        defaultProductosShouldNotBeFound("notaCreditoDetalleId.equals=" + (notaCreditoDetalleId + 1));
     }
 
     /**

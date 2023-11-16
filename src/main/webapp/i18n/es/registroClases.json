@@ -21,9 +21,11 @@
       "fecha": "Fecha",
       "cantidadHoras": "Cantidad Horas",
       "asistenciaAlumno": "Asistencia Alumno",
+      "pagado": "Pagado",
       "temas": "Temas",
       "funcionario": "Funcionario",
-      "alumnos": "Alumnos"
+      "alumnos": "Alumnos",
+      "cursos": "Cursos"
     }
   }
 }

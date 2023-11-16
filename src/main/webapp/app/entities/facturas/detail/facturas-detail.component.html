@@ -50,14 +50,28 @@
         <dd>
           <span>{{ facturas.total }}</span>
         </dd>
+        <dt><span jhiTranslate="abfApp.facturas.estado">Estado</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'abfApp.EstadosFacturas.' + facturas.estado }}">{{ facturas.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.facturas.poseeNC">Posee NC</span></dt>
+        <dd>
+          <span>{{ facturas.poseeNC }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.facturas.alumnos">Alumnos</span></dt>
+        <dd>
+          <div *ngIf="facturas.alumnos">
+            <a [routerLink]="['/alumnos', facturas.alumnos.id, 'view']">{{ facturas.alumnos.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
       </button>
 
       <button type="button" [routerLink]="['/facturas', facturas.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
       </button>
     </div>
   </div>

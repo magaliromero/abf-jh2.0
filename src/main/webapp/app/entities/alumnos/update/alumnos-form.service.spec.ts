@@ -20,8 +20,6 @@ describe('Alumnos Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            elo: expect.any(Object),
-            fideId: expect.any(Object),
             nombres: expect.any(Object),
             apellidos: expect.any(Object),
             nombreCompleto: expect.any(Object),
@@ -30,6 +28,8 @@ describe('Alumnos Form Service', () => {
             fechaNacimiento: expect.any(Object),
             documento: expect.any(Object),
             estado: expect.any(Object),
+            elo: expect.any(Object),
+            fideId: expect.any(Object),
             tipoDocumentos: expect.any(Object),
           })
         );
@@ -41,8 +41,6 @@ describe('Alumnos Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            elo: expect.any(Object),
-            fideId: expect.any(Object),
             nombres: expect.any(Object),
             apellidos: expect.any(Object),
             nombreCompleto: expect.any(Object),
@@ -51,6 +49,8 @@ describe('Alumnos Form Service', () => {
             fechaNacimiento: expect.any(Object),
             documento: expect.any(Object),
             estado: expect.any(Object),
+            elo: expect.any(Object),
+            fideId: expect.any(Object),
             tipoDocumentos: expect.any(Object),
           })
         );

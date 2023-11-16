@@ -4,36 +4,37 @@
       "home": {
         "title": "Alumnos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Alumno",
-        "createOrEditLabel": "Crear o editar Alumno(s)",
-        "notFound": "Ningún Alumno(s) encontrado"
+        "createLabel": "Crear nuevo Alumnos",
+        "createOrEditLabel": "Crear o editar Alumnos",
+        "notFound": "Ningún Alumnos encontrado"
       },
-      "created": "Un nuevo Alumno ha sido creado con el identificador {{ param }}",
-      "updated": "Un Alumno ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Alumno ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Alumnos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Alumnos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Alumnos ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Alumno {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Alumnos {{ id }}?"
       },
       "detail": {
         "title": "Alumnos"
       },
       "id": "ID",
-      "nombres": "Nombre(s)",
-      "apellidos": "Apellido(s)",
+      "nombres": "Nombres",
+      "apellidos": "Apellidos",
       "nombreCompleto": "Nombre Completo",
       "email": "Email",
       "telefono": "Telefono",
       "fechaNacimiento": "Fecha Nacimiento",
       "documento": "Documento",
       "estado": "Estado",
+      "elo": "Elo",
+      "fideId": "Fide Id",
       "inscripciones": "Inscripciones",
       "evaluaciones": "Evaluaciones",
-      "matricula": "Matrícula",
-      "prestamos": "Préstamos",
-      "registroClases": "Registro de Clases",
-      "tipoDocumentos": "Tipo Documento",
-      "elo": "Elo",
-      "fideId": "Fide Id"
+      "matricula": "Matricula",
+      "prestamos": "Prestamos",
+      "registroClases": "Registro Clases",
+      "facturas": "Facturas",
+      "tipoDocumentos": "Tipo Documentos"
     }
   }
 }

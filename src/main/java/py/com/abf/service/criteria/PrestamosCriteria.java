@@ -47,6 +47,8 @@ public class PrestamosCriteria implements Serializable, Criteria {
 
     private EstadosPrestamosFilter estado;
 
+    private StringFilter observaciones;
+
     private LongFilter materialesId;
 
     private LongFilter alumnosId;
@@ -60,6 +62,7 @@ public class PrestamosCriteria implements Serializable, Criteria {
         this.fechaPrestamo = other.fechaPrestamo == null ? null : other.fechaPrestamo.copy();
         this.fechaDevolucion = other.fechaDevolucion == null ? null : other.fechaDevolucion.copy();
         this.estado = other.estado == null ? null : other.estado.copy();
+        this.observaciones = other.observaciones == null ? null : other.observaciones.copy();
         this.materialesId = other.materialesId == null ? null : other.materialesId.copy();
         this.alumnosId = other.alumnosId == null ? null : other.alumnosId.copy();
         this.distinct = other.distinct;
@@ -130,6 +133,21 @@ public class PrestamosCriteria implements Serializable, Criteria {
         this.estado = estado;
     }
 
+    public StringFilter getObservaciones() {
+        return observaciones;
+    }
+
+    public StringFilter observaciones() {
+        if (observaciones == null) {
+            observaciones = new StringFilter();
+        }
+        return observaciones;
+    }
+
+    public void setObservaciones(StringFilter observaciones) {
+        this.observaciones = observaciones;
+    }
+
     public LongFilter getMaterialesId() {
         return materialesId;
     }
@@ -182,6 +200,7 @@ public class PrestamosCriteria implements Serializable, Criteria {
             Objects.equals(fechaPrestamo, that.fechaPrestamo) &&
             Objects.equals(fechaDevolucion, that.fechaDevolucion) &&
             Objects.equals(estado, that.estado) &&
+            Objects.equals(observaciones, that.observaciones) &&
             Objects.equals(materialesId, that.materialesId) &&
             Objects.equals(alumnosId, that.alumnosId) &&
             Objects.equals(distinct, that.distinct)
@@ -190,7 +209,7 @@ public class PrestamosCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fechaPrestamo, fechaDevolucion, estado, materialesId, alumnosId, distinct);
+        return Objects.hash(id, fechaPrestamo, fechaDevolucion, estado, observaciones, materialesId, alumnosId, distinct);
     }
 
     // prettier-ignore
@@ -201,6 +220,7 @@ public class PrestamosCriteria implements Serializable, Criteria {
             (fechaPrestamo != null ? "fechaPrestamo=" + fechaPrestamo + ", " : "") +
             (fechaDevolucion != null ? "fechaDevolucion=" + fechaDevolucion + ", " : "") +
             (estado != null ? "estado=" + estado + ", " : "") +
+            (observaciones != null ? "observaciones=" + observaciones + ", " : "") +
             (materialesId != null ? "materialesId=" + materialesId + ", " : "") +
             (alumnosId != null ? "alumnosId=" + alumnosId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +

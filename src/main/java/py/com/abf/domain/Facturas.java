@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import py.com.abf.domain.enumeration.CondicionVenta;
+import py.com.abf.domain.enumeration.EstadosFacturas;
 
 /**
  * A Facturas.
@@ -65,10 +66,29 @@ public class Facturas implements Serializable {
     @Column(name = "total", nullable = false)
     private Integer total;
 
-    @OneToMany(mappedBy = "factura", fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private EstadosFacturas estado;
+
+    @Column(name = "posee_nc")
+    private Boolean poseeNC;
+
+    @OneToMany(mappedBy = "factura")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "producto", "factura" }, allowSetters = true)
     private Set<FacturaDetalle> facturaDetalles = new HashSet<>();
+
+    @OneToMany(mappedBy = "facturas")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "notaCreditoDetalles", "facturas" }, allowSetters = true)
+    private Set<NotaCredito> notaCreditos = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(
+        value = { "inscripciones", "evaluaciones", "matriculas", "prestamos", "registroClases", "facturas", "tipoDocumentos" },
+        allowSetters = true
+    )
+    private Alumnos alumnos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -202,6 +222,32 @@ public class Facturas implements Serializable {
         this.total = total;
     }
 
+    public EstadosFacturas getEstado() {
+        return this.estado;
+    }
+
+    public Facturas estado(EstadosFacturas estado) {
+        this.setEstado(estado);
+        return this;
+    }
+
+    public void setEstado(EstadosFacturas estado) {
+        this.estado = estado;
+    }
+
+    public Boolean getPoseeNC() {
+        return this.poseeNC;
+    }
+
+    public Facturas poseeNC(Boolean poseeNC) {
+        this.setPoseeNC(poseeNC);
+        return this;
+    }
+
+    public void setPoseeNC(Boolean poseeNC) {
+        this.poseeNC = poseeNC;
+    }
+
     public Set<FacturaDetalle> getFacturaDetalles() {
         return this.facturaDetalles;
     }
@@ -230,6 +276,50 @@ public class Facturas implements Serializable {
     public Facturas removeFacturaDetalle(FacturaDetalle facturaDetalle) {
         this.facturaDetalles.remove(facturaDetalle);
         facturaDetalle.setFactura(null);
+        return this;
+    }
+
+    public Set<NotaCredito> getNotaCreditos() {
+        return this.notaCreditos;
+    }
+
+    public void setNotaCreditos(Set<NotaCredito> notaCreditos) {
+        if (this.notaCreditos != null) {
+            this.notaCreditos.forEach(i -> i.setFacturas(null));
+        }
+        if (notaCreditos != null) {
+            notaCreditos.forEach(i -> i.setFacturas(this));
+        }
+        this.notaCreditos = notaCreditos;
+    }
+
+    public Facturas notaCreditos(Set<NotaCredito> notaCreditos) {
+        this.setNotaCreditos(notaCreditos);
+        return this;
+    }
+
+    public Facturas addNotaCredito(NotaCredito notaCredito) {
+        this.notaCreditos.add(notaCredito);
+        notaCredito.setFacturas(this);
+        return this;
+    }
+
+    public Facturas removeNotaCredito(NotaCredito notaCredito) {
+        this.notaCreditos.remove(notaCredito);
+        notaCredito.setFacturas(null);
+        return this;
+    }
+
+    public Alumnos getAlumnos() {
+        return this.alumnos;
+    }
+
+    public void setAlumnos(Alumnos alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public Facturas alumnos(Alumnos alumnos) {
+        this.setAlumnos(alumnos);
         return this;
     }
 
@@ -266,6 +356,8 @@ public class Facturas implements Serializable {
             ", ruc='" + getRuc() + "'" +
             ", condicionVenta='" + getCondicionVenta() + "'" +
             ", total=" + getTotal() +
+            ", estado='" + getEstado() + "'" +
+            ", poseeNC='" + getPoseeNC() + "'" +
             "}";
     }
 }

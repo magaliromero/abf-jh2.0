@@ -14,14 +14,6 @@
         <dd>
           <span>{{ alumnos.id }}</span>
         </dd>
-        <dt><span jhiTranslate="abfApp.alumnos.elo">Elo</span></dt>
-        <dd>
-          <span>{{ alumnos.elo }}</span>
-        </dd>
-        <dt><span jhiTranslate="abfApp.alumnos.fideId">Fide Id</span></dt>
-        <dd>
-          <span>{{ alumnos.fideId }}</span>
-        </dd>
         <dt><span jhiTranslate="abfApp.alumnos.nombres">Nombres</span></dt>
         <dd>
           <span>{{ alumnos.nombres }}</span>
@@ -54,6 +46,14 @@
         <dd>
           <span jhiTranslate="{{ 'abfApp.EstadosPersona.' + alumnos.estado }}">{{ alumnos.estado }}</span>
         </dd>
+        <dt><span jhiTranslate="abfApp.alumnos.elo">Elo</span></dt>
+        <dd>
+          <span>{{ alumnos.elo }}</span>
+        </dd>
+        <dt><span jhiTranslate="abfApp.alumnos.fideId">Fide Id</span></dt>
+        <dd>
+          <span>{{ alumnos.fideId }}</span>
+        </dd>
         <dt><span jhiTranslate="abfApp.alumnos.tipoDocumentos">Tipo Documentos</span></dt>
         <dd>
           <div *ngIf="alumnos.tipoDocumentos">
@@ -63,11 +63,11 @@
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
       </button>
 
       <button type="button" [routerLink]="['/alumnos', alumnos.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
       </button>
     </div>
   </div>

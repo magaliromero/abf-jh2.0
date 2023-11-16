@@ -2,7 +2,7 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-alumnos-heading" data-cy="AlumnosCreateUpdateHeading" jhiTranslate="abfApp.alumnos.home.createOrEditLabel">
-        Create or edit a Alumnos
+        Crear o editar Alumnos
       </h2>
 
       <div>
@@ -14,16 +14,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.alumnos.elo" for="field_elo">Elo</label>
-          <input type="number" class="form-control" name="elo" id="field_elo" data-cy="elo" formControlName="elo" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.alumnos.fideId" for="field_fideId">Fide Id</label>
-          <input type="number" class="form-control" name="fideId" id="field_fideId" data-cy="fideId" formControlName="fideId" />
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.alumnos.nombres" for="field_nombres">Nombres</label>
           <input type="text" class="form-control" name="nombres" id="field_nombres" data-cy="nombres" formControlName="nombres" />
           <div *ngIf="editForm.get('nombres')!.invalid && (editForm.get('nombres')!.dirty || editForm.get('nombres')!.touched)">
@@ -32,7 +22,7 @@
               *ngIf="editForm.get('nombres')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -46,7 +36,7 @@
               *ngIf="editForm.get('apellidos')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -71,7 +61,7 @@
               *ngIf="editForm.get('nombreCompleto')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -90,7 +80,7 @@
               *ngIf="editForm.get('telefono')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -123,7 +113,7 @@
               *ngIf="editForm.get('fechaNacimiento')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -137,7 +127,7 @@
               *ngIf="editForm.get('documento')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
         </div>
@@ -152,9 +142,19 @@
           </select>
           <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
+              Este campo es obligatorio.
             </small>
           </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.alumnos.elo" for="field_elo">Elo</label>
+          <input type="number" class="form-control" name="elo" id="field_elo" data-cy="elo" formControlName="elo" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="abfApp.alumnos.fideId" for="field_fideId">Fide Id</label>
+          <input type="number" class="form-control" name="fideId" id="field_fideId" data-cy="fideId" formControlName="fideId" />
         </div>
 
         <div class="row mb-3">
@@ -184,14 +184,14 @@
             *ngIf="editForm.get(['tipoDocumentos'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            This field is required.
+            Este campo es obligatorio.
           </small>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
         </button>
 
         <button
@@ -201,7 +201,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
         </button>
       </div>
     </form>

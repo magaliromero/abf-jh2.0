@@ -1,26 +1,27 @@
 {
   "abfApp": {
-    "prestamo": {
+    "prestamos": {
       "home": {
-        "title": "prestamo",
+        "title": "Prestamos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo prestamo",
-        "createOrEditLabel": "Crear o editar prestamo",
-        "notFound": "Ningún prestamo encontrado"
+        "createLabel": "Crear nuevo Prestamos",
+        "createOrEditLabel": "Crear o editar Prestamos",
+        "notFound": "Ningún Prestamos encontrado"
       },
-      "created": "Un nuevo prestamo ha sido creado con el identificador {{ param }}",
-      "updated": "Un prestamo ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un prestamo ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Prestamos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Prestamos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Prestamos ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar prestamo {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Prestamos {{ id }}?"
       },
       "detail": {
-        "title": "prestamo"
+        "title": "Prestamos"
       },
       "id": "ID",
       "fechaPrestamo": "Fecha Prestamo",
       "fechaDevolucion": "Fecha Devolucion",
       "estado": "Estado",
+      "observaciones": "Observaciones",
       "materiales": "Materiales",
       "alumnos": "Alumnos"
     }

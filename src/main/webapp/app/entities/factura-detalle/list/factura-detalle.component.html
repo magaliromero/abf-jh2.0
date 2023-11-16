@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.facturaDetalle.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="abfApp.facturaDetalle.home.refreshListLabel">Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/factura-detalle/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.facturaDetalle.home.createLabel"> Create a new Factura Detalle </span>
+        <span jhiTranslate="abfApp.facturaDetalle.home.createLabel"> Crear nuevo Factura Detalle </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="facturaDetalles?.length === 0">
-    <span jhiTranslate="abfApp.facturaDetalle.home.notFound">No Factura Detalles found</span>
+    <span jhiTranslate="abfApp.facturaDetalle.home.notFound">Ningún Factura Detalles encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="facturaDetalles && facturaDetalles.length > 0">
@@ -114,7 +114,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
               </button>
 
               <button
@@ -124,12 +124,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(facturaDetalle)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
               </button>
             </div>
           </td>

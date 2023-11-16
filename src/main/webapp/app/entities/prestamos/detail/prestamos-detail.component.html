@@ -26,6 +26,10 @@
         <dd>
           <span jhiTranslate="{{ 'abfApp.EstadosPrestamos.' + prestamos.estado }}">{{ prestamos.estado }}</span>
         </dd>
+        <dt><span jhiTranslate="abfApp.prestamos.observaciones">Observaciones</span></dt>
+        <dd>
+          <span>{{ prestamos.observaciones }}</span>
+        </dd>
         <dt><span jhiTranslate="abfApp.prestamos.materiales">Materiales</span></dt>
         <dd>
           <div *ngIf="prestamos.materiales">
@@ -41,11 +45,11 @@
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
       </button>
 
       <button type="button" [routerLink]="['/prestamos', prestamos.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
       </button>
     </div>
   </div>

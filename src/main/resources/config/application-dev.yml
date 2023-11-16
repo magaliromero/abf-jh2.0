@@ -32,7 +32,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/abf
+    url: jdbc:postgresql://localhost:5432/ABF_NC
     username: postgres
     password: abf
     hikari:
@@ -82,7 +82,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: OTFkZDA2M2E0NjlmMTY5YzU2OWIyZDhiYzNkOGViZmNiZGFmNGYyYjkwMGJjYjY2YjNiNmMyNjZjMjMxYTNhYjgzZDI0NzgzMTExNzI0N2ZmNmQ5M2EwYWRhM2M2ZDYyNzA5MGZhNmEwNGExNjk5ZDk4YTQ2ZWMzYTQ3OTE3Mjk=
+        base64-secret: YjA1NjI0OGQ3MWU2ZTQ5YWRhODk2ODliZGNlYzFkYzc0YjNkZWVkOTYwYzczYWYxMTMyOGY5YmE1ZmYxNWVjOTkzZTc4N2QxYTgyZTZkZWNmNTAxMDVmYWY3OGQyMDI0NWU4OTVmM2U4NGM3YWY5MGEyY2JmNzYzMzIzYTAzMDg=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

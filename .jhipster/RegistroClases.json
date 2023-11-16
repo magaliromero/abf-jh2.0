@@ -1,6 +1,6 @@
 {
   "applications": ["abf"],
-  "changelogDate": "20230601132813",
+  "changelogDate": "20231116010830",
   "dto": "no",
   "embedded": false,
   "entityTableName": "registro_clases",
@@ -17,6 +17,10 @@
     },
     {
       "fieldName": "asistenciaAlumno",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "pagado",
       "fieldType": "Boolean"
     }
   ],
@@ -49,6 +53,13 @@
       "relationshipName": "alumnos",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombreCurso",
+      "otherEntityName": "cursos",
+      "otherEntityRelationshipName": "registroClases",
+      "relationshipName": "cursos",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceImpl"

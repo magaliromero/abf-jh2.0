@@ -41,12 +41,12 @@ public class FacturaDetalle implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "pagos", "facturaDetalles", "notaCreditoDetalles" }, allowSetters = true)
     private Productos producto;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "facturaDetalles" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "facturaDetalles", "notaCreditos", "alumnos" }, allowSetters = true)
     private Facturas factura;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -1,0 +1,28 @@
+{
+  "abfApp": {
+    "registroStockMateriales": {
+      "home": {
+        "title": "Registro Stock Materiales",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Registro Stock Materiales",
+        "createOrEditLabel": "Crear o editar Registro Stock Materiales",
+        "notFound": "Ningún Registro Stock Materiales encontrado"
+      },
+      "created": "Un nuevo Registro Stock Materiales ha sido creado con el identificador {{ param }}",
+      "updated": "Un Registro Stock Materiales ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Registro Stock Materiales ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Registro Stock Materiales {{ id }}?"
+      },
+      "detail": {
+        "title": "Registro Stock Materiales"
+      },
+      "id": "ID",
+      "comentario": "Comentario",
+      "cantidadInicial": "Cantidad Inicial",
+      "cantidadModificada": "Cantidad Modificada",
+      "fecha": "Fecha",
+      "materiales": "Materiales"
+    }
+  }
+}

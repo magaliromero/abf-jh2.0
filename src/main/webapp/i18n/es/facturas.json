@@ -4,30 +4,34 @@
       "home": {
         "title": "Facturas",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nueva Factura",
-        "createOrEditLabel": "Crear o editar Factura",
-        "notFound": "Ninguna Factura encontrada"
+        "createLabel": "Crear nuevo Facturas",
+        "createOrEditLabel": "Crear o editar Facturas",
+        "notFound": "Ningún Facturas encontrado"
       },
-      "created": "Una nueva Factura ha sido creada con el identificador {{ param }}",
-      "updated": "Una Factura ha sido actualizada con el identificador {{ param }}",
-      "deleted": "Una Factura ha sido eliminada con el identificador {{ param }}",
+      "created": "Un nuevo Facturas ha sido creado con el identificador {{ param }}",
+      "updated": "Un Facturas ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Facturas ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar la factura {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Facturas {{ id }}?"
       },
       "detail": {
         "title": "Facturas"
       },
       "id": "ID",
       "fecha": "Fecha",
-      "facturaNro": "Número de factura",
+      "facturaNro": "Factura Nro",
       "timbrado": "Timbrado",
-      "puntoExpedicion": "Punto de Expedición",
+      "puntoExpedicion": "Punto Expedicion",
       "sucursal": "Sucursal",
-      "razonSocial": "Razón Social",
-      "ruc": "RUC",
-      "condicionVenta": "Condición de Venta",
+      "razonSocial": "Razon Social",
+      "ruc": "Ruc",
+      "condicionVenta": "Condicion Venta",
       "total": "Total",
-      "facturaDetalle": "Detalle de Factura"
+      "estado": "Estado",
+      "poseeNC": "Posee NC",
+      "facturaDetalle": "Factura Detalle",
+      "notaCredito": "Nota Credito",
+      "alumnos": "Alumnos"
     }
   }
 }

@@ -8,13 +8,13 @@ export const sampleWithRequiredData: IEvaluacionesDetalle = {
 
 export const sampleWithPartialData: IEvaluacionesDetalle = {
   id: 95549,
-  comentarios: 'parsing Thailand',
+  comentarios: 'parsing Tanzania',
   puntaje: 91838,
 };
 
 export const sampleWithFullData: IEvaluacionesDetalle = {
   id: 14654,
-  comentarios: 'policy Verde Data',
+  comentarios: 'política Camerún Datos',
   puntaje: 71748,
 };
 
