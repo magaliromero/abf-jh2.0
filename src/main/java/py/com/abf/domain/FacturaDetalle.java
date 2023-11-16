@@ -39,7 +39,7 @@ public class FacturaDetalle implements Serializable {
     @Column(name = "valor_porcentaje")
     private Integer valorPorcentaje;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     @JsonIgnoreProperties(value = { "pagos", "facturaDetalles", "notaCreditoDetalles" }, allowSetters = true)
     private Productos producto;

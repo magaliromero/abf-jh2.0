@@ -21,6 +21,7 @@ type MaterialesFormGroupContent = {
   descripcion: FormControl<IMateriales['descripcion']>;
   cantidad: FormControl<IMateriales['cantidad']>;
   cantidadEnPrestamo: FormControl<IMateriales['cantidadEnPrestamo']>;
+  comentario: FormControl;
 };
 
 export type MaterialesFormGroup = FormGroup<MaterialesFormGroupContent>;
@@ -45,6 +46,7 @@ export class MaterialesFormService {
       }),
       cantidad: new FormControl(materialesRawValue.cantidad),
       cantidadEnPrestamo: new FormControl(materialesRawValue.cantidadEnPrestamo),
+      comentario: new FormControl(null),
     });
   }
 

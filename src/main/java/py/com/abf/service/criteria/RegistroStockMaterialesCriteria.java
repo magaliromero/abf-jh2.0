@@ -29,8 +29,6 @@ public class RegistroStockMaterialesCriteria implements Serializable, Criteria {
 
     private IntegerFilter cantidadModificada;
 
-    private LocalDateFilter fecha;
-
     private LongFilter materialesId;
 
     private Boolean distinct;
@@ -42,7 +40,6 @@ public class RegistroStockMaterialesCriteria implements Serializable, Criteria {
         this.comentario = other.comentario == null ? null : other.comentario.copy();
         this.cantidadInicial = other.cantidadInicial == null ? null : other.cantidadInicial.copy();
         this.cantidadModificada = other.cantidadModificada == null ? null : other.cantidadModificada.copy();
-        this.fecha = other.fecha == null ? null : other.fecha.copy();
         this.materialesId = other.materialesId == null ? null : other.materialesId.copy();
         this.distinct = other.distinct;
     }
@@ -112,21 +109,6 @@ public class RegistroStockMaterialesCriteria implements Serializable, Criteria {
         this.cantidadModificada = cantidadModificada;
     }
 
-    public LocalDateFilter getFecha() {
-        return fecha;
-    }
-
-    public LocalDateFilter fecha() {
-        if (fecha == null) {
-            fecha = new LocalDateFilter();
-        }
-        return fecha;
-    }
-
-    public void setFecha(LocalDateFilter fecha) {
-        this.fecha = fecha;
-    }
-
     public LongFilter getMaterialesId() {
         return materialesId;
     }
@@ -164,7 +146,6 @@ public class RegistroStockMaterialesCriteria implements Serializable, Criteria {
             Objects.equals(comentario, that.comentario) &&
             Objects.equals(cantidadInicial, that.cantidadInicial) &&
             Objects.equals(cantidadModificada, that.cantidadModificada) &&
-            Objects.equals(fecha, that.fecha) &&
             Objects.equals(materialesId, that.materialesId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -172,7 +153,7 @@ public class RegistroStockMaterialesCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, comentario, cantidadInicial, cantidadModificada, fecha, materialesId, distinct);
+        return Objects.hash(id, comentario, cantidadInicial, cantidadModificada, materialesId, distinct);
     }
 
     // prettier-ignore
@@ -183,7 +164,6 @@ public class RegistroStockMaterialesCriteria implements Serializable, Criteria {
             (comentario != null ? "comentario=" + comentario + ", " : "") +
             (cantidadInicial != null ? "cantidadInicial=" + cantidadInicial + ", " : "") +
             (cantidadModificada != null ? "cantidadModificada=" + cantidadModificada + ", " : "") +
-            (fecha != null ? "fecha=" + fecha + ", " : "") +
             (materialesId != null ? "materialesId=" + materialesId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

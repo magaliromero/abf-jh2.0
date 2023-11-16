@@ -17,10 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import py.com.abf.domain.Materiales;
+import py.com.abf.domain.RegistrarModificacionStockParam;
 import py.com.abf.repository.MaterialesRepository;
 import py.com.abf.service.MaterialesQueryService;
 import py.com.abf.service.MaterialesService;
 import py.com.abf.service.criteria.MaterialesCriteria;
+import py.com.abf.service.impl.MaterialesServiceImpl;
 import py.com.abf.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -45,15 +47,18 @@ public class MaterialesResource {
     private final MaterialesRepository materialesRepository;
 
     private final MaterialesQueryService materialesQueryService;
+    private final MaterialesServiceImpl materialesServiceImpl;
 
     public MaterialesResource(
         MaterialesService materialesService,
         MaterialesRepository materialesRepository,
-        MaterialesQueryService materialesQueryService
+        MaterialesQueryService materialesQueryService,
+        MaterialesServiceImpl materialesServiceImpl
     ) {
         this.materialesService = materialesService;
         this.materialesRepository = materialesRepository;
         this.materialesQueryService = materialesQueryService;
+        this.materialesServiceImpl = materialesServiceImpl;
     }
 
     /**
@@ -107,6 +112,16 @@ public class MaterialesResource {
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, materiales.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/materiales/stock/")
+    public ResponseEntity<Materiales> updateMateriales(@Valid @RequestBody RegistrarModificacionStockParam param)
+        throws URISyntaxException {
+        Materiales result = this.materialesServiceImpl.actualizarStockMateriales(param);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 

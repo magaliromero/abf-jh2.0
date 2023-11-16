@@ -2,12 +2,12 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-prestamos-heading" data-cy="PrestamosCreateUpdateHeading" jhiTranslate="abfApp.prestamos.home.createOrEditLabel">
-        Crear o editar Prestamos
+        Create or edit a Prestamos
       </h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
-
+        <jhi-alert></jhi-alert>
         <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
@@ -40,7 +40,7 @@
               *ngIf="editForm.get('fechaPrestamo')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
-              Este campo es obligatorio.
+              This field is required.
             </small>
           </div>
         </div>
@@ -67,28 +67,16 @@
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.prestamos.estado" for="field_estado">Estado</label>
           <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
-            <option [ngValue]="null">{{ 'abfApp.EstadosPrestamos.null' | translate }}</option>
-            <option *ngFor="let estadosPrestamos of estadosPrestamosValues" [value]="estadosPrestamos">
-              {{ 'abfApp.EstadosPrestamos.' + estadosPrestamos | translate }}
+            <option disabled>{{ 'Seleccionar opción' }}</option>
+            <option *ngFor="let estado of estadosPrestamosValues" [value]="estado">
+              {{ estado }}
             </option>
           </select>
           <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
-              Este campo es obligatorio.
+              This field is required.
             </small>
           </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.prestamos.observaciones" for="field_observaciones">Observaciones</label>
-          <input
-            type="text"
-            class="form-control"
-            name="observaciones"
-            id="field_observaciones"
-            data-cy="observaciones"
-            formControlName="observaciones"
-          />
         </div>
 
         <div class="row mb-3">
@@ -100,10 +88,10 @@
             name="materiales"
             formControlName="materiales"
             [compareWith]="compareMateriales"
+            (change)="verificarStock()"
           >
-            <option *ngIf="editForm.get(['materiales'])!.value == null" [ngValue]="null" selected></option>
             <option [ngValue]="materialesOption" *ngFor="let materialesOption of materialesSharedCollection">
-              {{ materialesOption.descripcion }}
+              {{ materialesOption.descripcion + '  - Cant: ' + materialesOption.cantidad }}
             </option>
           </select>
         </div>
@@ -115,12 +103,12 @@
             *ngIf="editForm.get(['materiales'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            Este campo es obligatorio.
+            This field is required.
           </small>
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.prestamos.alumnos" for="field_alumnos">Alumnos</label>
+          <label class="form-label" for="field_alumnos">Alumnos a Prestar</label>
           <select
             class="form-control"
             id="field_alumnos"
@@ -141,24 +129,24 @@
             *ngIf="editForm.get(['alumnos'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
-            Este campo es obligatorio.
+            This field is required.
           </small>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
+          [disabled]="editForm.invalid || isSaving || !hayStock"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

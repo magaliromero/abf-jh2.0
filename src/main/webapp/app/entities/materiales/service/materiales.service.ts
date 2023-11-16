@@ -27,6 +27,11 @@ export class MaterialesService {
       observe: 'response',
     });
   }
+  updateStock(materiales: any): Observable<EntityResponseType> {
+    return this.http.put<IMateriales>(`${this.resourceUrl}/stock/`, materiales, {
+      observe: 'response',
+    });
+  }
 
   partialUpdate(materiales: PartialUpdateMateriales): Observable<EntityResponseType> {
     return this.http.patch<IMateriales>(`${this.resourceUrl}/${this.getMaterialesIdentifier(materiales)}`, materiales, {

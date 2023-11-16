@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +63,7 @@ public class RegistroStockMaterialesResource {
      */
     @PostMapping("/registro-stock-materiales")
     public ResponseEntity<RegistroStockMateriales> createRegistroStockMateriales(
-        @Valid @RequestBody RegistroStockMateriales registroStockMateriales
+        @RequestBody RegistroStockMateriales registroStockMateriales
     ) throws URISyntaxException {
         log.debug("REST request to save RegistroStockMateriales : {}", registroStockMateriales);
         if (registroStockMateriales.getId() != null) {
@@ -91,7 +89,7 @@ public class RegistroStockMaterialesResource {
     @PutMapping("/registro-stock-materiales/{id}")
     public ResponseEntity<RegistroStockMateriales> updateRegistroStockMateriales(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody RegistroStockMateriales registroStockMateriales
+        @RequestBody RegistroStockMateriales registroStockMateriales
     ) throws URISyntaxException {
         log.debug("REST request to update RegistroStockMateriales : {}, {}", id, registroStockMateriales);
         if (registroStockMateriales.getId() == null) {
@@ -126,7 +124,7 @@ public class RegistroStockMaterialesResource {
     @PatchMapping(value = "/registro-stock-materiales/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<RegistroStockMateriales> partialUpdateRegistroStockMateriales(
         @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody RegistroStockMateriales registroStockMateriales
+        @RequestBody RegistroStockMateriales registroStockMateriales
     ) throws URISyntaxException {
         log.debug("REST request to partial update RegistroStockMateriales partially : {}, {}", id, registroStockMateriales);
         if (registroStockMateriales.getId() == null) {

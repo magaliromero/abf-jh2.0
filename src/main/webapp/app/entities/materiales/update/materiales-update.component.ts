@@ -7,6 +7,7 @@ import { finalize } from 'rxjs/operators';
 import { MaterialesFormService, MaterialesFormGroup } from './materiales-form.service';
 import { IMateriales } from '../materiales.model';
 import { MaterialesService } from '../service/materiales.service';
+import { AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-materiales-update',
@@ -14,6 +15,10 @@ import { MaterialesService } from '../service/materiales.service';
 })
 export class MaterialesUpdateComponent implements OnInit {
   isSaving = false;
+  comentario = '';
+  diferencia = 0;
+  cantInicial = 0;
+
   materiales: IMateriales | null = null;
 
   editForm: MaterialesFormGroup = this.materialesFormService.createMaterialesFormGroup();
@@ -21,7 +26,8 @@ export class MaterialesUpdateComponent implements OnInit {
   constructor(
     protected materialesService: MaterialesService,
     protected materialesFormService: MaterialesFormService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +35,8 @@ export class MaterialesUpdateComponent implements OnInit {
       this.materiales = materiales;
       if (materiales) {
         this.updateForm(materiales);
+        this.editForm.controls.cantidadEnPrestamo.disable();
+        this.cantInicial = this.editForm.controls.cantidad.value ?? 0;
       }
     });
   }
@@ -36,15 +44,40 @@ export class MaterialesUpdateComponent implements OnInit {
   previousState(): void {
     window.history.back();
   }
+  changeCantidad(): void {
+    const newCant = this.editForm.controls.cantidad.value;
+    this.diferencia = this.cantInicial - (newCant ?? 0);
+  }
 
   save(): void {
     this.isSaving = true;
-    const materiales = this.materialesFormService.getMateriales(this.editForm);
-    if (materiales.id !== null) {
-      this.subscribeToSaveResponse(this.materialesService.update(materiales));
-    } else {
-      this.subscribeToSaveResponse(this.materialesService.create(materiales));
+    this.editForm.controls.cantidadEnPrestamo.enable();
+    const com = this.editForm.controls.comentario.value || '';
+    if (this.diferencia !== 0 && com?.length < 10) {
+      this.editForm.controls.cantidadEnPrestamo.disable();
+      this.isSaving = false;
+
+      this.alertService.addAlert(
+        {
+          type: 'danger',
+          message: 'Se debe agregar un comentario de al menos 10 carácteres.',
+          timeout: 5000,
+          toast: false,
+        },
+        this.alertService.get()
+      );
+      return;
     }
+    this.editForm.controls.id.enable();
+
+    const formData = this.editForm.value;
+    const comentario = formData.comentario;
+    delete formData.comentario;
+    const data = {
+      material: formData,
+      observacion: comentario,
+    };
+    this.subscribeToSaveResponse(this.materialesService.updateStock(data));
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IMateriales>>): void {

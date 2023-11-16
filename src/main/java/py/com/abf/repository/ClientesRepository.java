@@ -9,4 +9,7 @@ import py.com.abf.domain.Clientes;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ClientesRepository extends JpaRepository<Clientes, Long>, JpaSpecificationExecutor<Clientes> {}
+public interface ClientesRepository extends JpaRepository<Clientes, Long>, JpaSpecificationExecutor<Clientes> {
+    Clientes findByRuc(String ruc);
+    Clientes findByDocumento(String documento);
+}

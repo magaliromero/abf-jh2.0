@@ -100,12 +100,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="poseeNC">
-            <div class="d-flex">
-              <span jhiTranslate="abfApp.facturas.poseeNC">Posee NC</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="alumnos.id">
             <div class="d-flex">
               <span jhiTranslate="abfApp.facturas.alumnos">Alumnos</span>
@@ -130,7 +124,6 @@
           <td jhiTranslate="{{ 'abfApp.CondicionVenta.' + facturas.condicionVenta }}">{{ facturas.condicionVenta }}</td>
           <td>{{ facturas.total }}</td>
           <td jhiTranslate="{{ 'abfApp.EstadosFacturas.' + facturas.estado }}">{{ facturas.estado }}</td>
-          <td>{{ facturas.poseeNC }}</td>
           <td>
             <div *ngIf="facturas.alumnos">
               <a [routerLink]="['/alumnos', facturas.alumnos.id, 'view']">{{ facturas.alumnos.id }}</a>
@@ -138,6 +131,11 @@
           </td>
           <td class="text-end">
             <div class="btn-group">
+              <button type="submit" class="btn btn-warning btn-sm" (click)="descargar(facturas.id)">
+                <fa-icon icon="save"></fa-icon>
+                <span class="d-none d-md-inline">Descargar</span>
+              </button>
+
               <button
                 type="submit"
                 [routerLink]="['/factura-detalle']"
@@ -150,7 +148,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.facturas.facturaDetalle' | translate) }"
-                  >Show Factura Detalle</span
+                  >Mostrar Factura Detalle</span
                 >
               </button>
               <button
@@ -165,7 +163,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.facturas.notaCredito' | translate) }"
-                  >Show Nota Credito</span
+                  >Mostrar Nota Credito</span
                 >
               </button>
               <button

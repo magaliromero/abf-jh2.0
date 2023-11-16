@@ -79,8 +79,6 @@ public class FacturasCriteria implements Serializable, Criteria {
 
     private EstadosFacturasFilter estado;
 
-    private BooleanFilter poseeNC;
-
     private LongFilter facturaDetalleId;
 
     private LongFilter notaCreditoId;
@@ -103,7 +101,6 @@ public class FacturasCriteria implements Serializable, Criteria {
         this.condicionVenta = other.condicionVenta == null ? null : other.condicionVenta.copy();
         this.total = other.total == null ? null : other.total.copy();
         this.estado = other.estado == null ? null : other.estado.copy();
-        this.poseeNC = other.poseeNC == null ? null : other.poseeNC.copy();
         this.facturaDetalleId = other.facturaDetalleId == null ? null : other.facturaDetalleId.copy();
         this.notaCreditoId = other.notaCreditoId == null ? null : other.notaCreditoId.copy();
         this.alumnosId = other.alumnosId == null ? null : other.alumnosId.copy();
@@ -280,21 +277,6 @@ public class FacturasCriteria implements Serializable, Criteria {
         this.estado = estado;
     }
 
-    public BooleanFilter getPoseeNC() {
-        return poseeNC;
-    }
-
-    public BooleanFilter poseeNC() {
-        if (poseeNC == null) {
-            poseeNC = new BooleanFilter();
-        }
-        return poseeNC;
-    }
-
-    public void setPoseeNC(BooleanFilter poseeNC) {
-        this.poseeNC = poseeNC;
-    }
-
     public LongFilter getFacturaDetalleId() {
         return facturaDetalleId;
     }
@@ -369,7 +351,6 @@ public class FacturasCriteria implements Serializable, Criteria {
             Objects.equals(condicionVenta, that.condicionVenta) &&
             Objects.equals(total, that.total) &&
             Objects.equals(estado, that.estado) &&
-            Objects.equals(poseeNC, that.poseeNC) &&
             Objects.equals(facturaDetalleId, that.facturaDetalleId) &&
             Objects.equals(notaCreditoId, that.notaCreditoId) &&
             Objects.equals(alumnosId, that.alumnosId) &&
@@ -391,7 +372,6 @@ public class FacturasCriteria implements Serializable, Criteria {
             condicionVenta,
             total,
             estado,
-            poseeNC,
             facturaDetalleId,
             notaCreditoId,
             alumnosId,
@@ -414,7 +394,6 @@ public class FacturasCriteria implements Serializable, Criteria {
             (condicionVenta != null ? "condicionVenta=" + condicionVenta + ", " : "") +
             (total != null ? "total=" + total + ", " : "") +
             (estado != null ? "estado=" + estado + ", " : "") +
-            (poseeNC != null ? "poseeNC=" + poseeNC + ", " : "") +
             (facturaDetalleId != null ? "facturaDetalleId=" + facturaDetalleId + ", " : "") +
             (notaCreditoId != null ? "notaCreditoId=" + notaCreditoId + ", " : "") +
             (alumnosId != null ? "alumnosId=" + alumnosId + ", " : "") +

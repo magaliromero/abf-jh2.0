@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="02a9ad4c-2003-4012-bbce-b74a9ce4b5f1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="param1" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="data4SubReporte1" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="data4SubReporteDataSource1" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="93" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="0" width="149" height="13" uuid="48aa39e8-13ee-4595-8d37-728f10928ad5"/>
+				<text><![CDATA[REPORTE 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="100" height="20" uuid="60e406b5-46b1-4671-bc07-0d5eb08ecb3a"/>
+				<text><![CDATA[PARAM1:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="50" width="100" height="20" uuid="86748bcb-46df-4fbf-9708-b0e4c992d1eb"/>
+				<textFieldExpression><![CDATA[$P{param1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="250" splitType="Stretch">
+			<subreport>
+				<reportElement x="170" y="30" width="200" height="105" uuid="3384484f-b81e-433b-b950-8f41063c6336"/>
+				<dataSourceExpression><![CDATA[$P{data4SubReporteDataSource1}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{data4SubReporte1}]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

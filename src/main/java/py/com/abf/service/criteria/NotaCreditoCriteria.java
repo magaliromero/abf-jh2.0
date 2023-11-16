@@ -61,8 +61,6 @@ public class NotaCreditoCriteria implements Serializable, Criteria {
 
     private LocalDateFilter fecha;
 
-    private IntegerFilter timbrado;
-
     private StringFilter notaNro;
 
     private IntegerFilter puntoExpedicion;
@@ -92,7 +90,6 @@ public class NotaCreditoCriteria implements Serializable, Criteria {
     public NotaCreditoCriteria(NotaCreditoCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.fecha = other.fecha == null ? null : other.fecha.copy();
-        this.timbrado = other.timbrado == null ? null : other.timbrado.copy();
         this.notaNro = other.notaNro == null ? null : other.notaNro.copy();
         this.puntoExpedicion = other.puntoExpedicion == null ? null : other.puntoExpedicion.copy();
         this.sucursal = other.sucursal == null ? null : other.sucursal.copy();
@@ -140,21 +137,6 @@ public class NotaCreditoCriteria implements Serializable, Criteria {
 
     public void setFecha(LocalDateFilter fecha) {
         this.fecha = fecha;
-    }
-
-    public IntegerFilter getTimbrado() {
-        return timbrado;
-    }
-
-    public IntegerFilter timbrado() {
-        if (timbrado == null) {
-            timbrado = new IntegerFilter();
-        }
-        return timbrado;
-    }
-
-    public void setTimbrado(IntegerFilter timbrado) {
-        this.timbrado = timbrado;
     }
 
     public StringFilter getNotaNro() {
@@ -342,7 +324,6 @@ public class NotaCreditoCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(fecha, that.fecha) &&
-            Objects.equals(timbrado, that.timbrado) &&
             Objects.equals(notaNro, that.notaNro) &&
             Objects.equals(puntoExpedicion, that.puntoExpedicion) &&
             Objects.equals(sucursal, that.sucursal) &&
@@ -363,7 +344,6 @@ public class NotaCreditoCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             fecha,
-            timbrado,
             notaNro,
             puntoExpedicion,
             sucursal,
@@ -385,7 +365,6 @@ public class NotaCreditoCriteria implements Serializable, Criteria {
         return "NotaCreditoCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (fecha != null ? "fecha=" + fecha + ", " : "") +
-            (timbrado != null ? "timbrado=" + timbrado + ", " : "") +
             (notaNro != null ? "notaNro=" + notaNro + ", " : "") +
             (puntoExpedicion != null ? "puntoExpedicion=" + puntoExpedicion + ", " : "") +
             (sucursal != null ? "sucursal=" + sucursal + ", " : "") +

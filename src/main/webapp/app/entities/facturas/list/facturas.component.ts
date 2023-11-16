@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
@@ -11,6 +13,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, FacturasService } from '../service/facturas.service';
 import { FacturasDeleteDialogComponent } from '../delete/facturas-delete-dialog.component';
 import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/filter.model';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
 
 @Component({
   selector: 'jhi-facturas',
@@ -31,6 +34,7 @@ export class FacturasComponent implements OnInit {
   constructor(
     protected facturasService: FacturasService,
     protected activatedRoute: ActivatedRoute,
+    protected applicationConfigService: ApplicationConfigService,
     public router: Router,
     protected modalService: NgbModal
   ) {}
@@ -42,7 +46,12 @@ export class FacturasComponent implements OnInit {
 
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.predicate, this.ascending, filterOptions));
   }
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  descargar(id: number) {
+    let reporteUrl = this.applicationConfigService.getEndpointFor('reportes/');
 
+    window.open(reporteUrl + id, '_blank');
+  }
   delete(facturas: IFacturas): void {
     const modalRef = this.modalService.open(FacturasDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.facturas = facturas;

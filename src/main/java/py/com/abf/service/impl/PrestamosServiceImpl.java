@@ -7,7 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import py.com.abf.domain.Materiales;
 import py.com.abf.domain.Prestamos;
+import py.com.abf.domain.enumeration.EstadosPrestamos;
+import py.com.abf.repository.MaterialesRepository;
 import py.com.abf.repository.PrestamosRepository;
 import py.com.abf.service.PrestamosService;
 
@@ -21,20 +24,34 @@ public class PrestamosServiceImpl implements PrestamosService {
     private final Logger log = LoggerFactory.getLogger(PrestamosServiceImpl.class);
 
     private final PrestamosRepository prestamosRepository;
+    private final MaterialesRepository materialesRepository;
 
-    public PrestamosServiceImpl(PrestamosRepository prestamosRepository) {
+    public PrestamosServiceImpl(PrestamosRepository prestamosRepository, MaterialesRepository materialesRepository) {
         this.prestamosRepository = prestamosRepository;
+        this.materialesRepository = materialesRepository;
     }
 
     @Override
     public Prestamos save(Prestamos prestamos) {
         log.debug("Request to save Prestamos : {}", prestamos);
+
+        Materiales mat = prestamos.getMateriales();
+        mat.setCantidad(mat.getCantidad() - 1);
+        mat.setCantidadEnPrestamo(mat.getCantidadEnPrestamo() + 1);
+        this.materialesRepository.save(mat);
+
         return prestamosRepository.save(prestamos);
     }
 
     @Override
     public Prestamos update(Prestamos prestamos) {
         log.debug("Request to update Prestamos : {}", prestamos);
+        if (prestamos.getEstado().equals(EstadosPrestamos.DEVUELTO)) {
+            Materiales mat = prestamos.getMateriales();
+            mat.setCantidad(mat.getCantidad() + 1);
+            mat.setCantidadEnPrestamo(mat.getCantidadEnPrestamo() - 1);
+            this.materialesRepository.save(mat);
+        }
         return prestamosRepository.save(prestamos);
     }
 
@@ -53,6 +70,12 @@ public class PrestamosServiceImpl implements PrestamosService {
                 }
                 if (prestamos.getEstado() != null) {
                     existingPrestamos.setEstado(prestamos.getEstado());
+                    if (prestamos.getEstado().equals(EstadosPrestamos.DEVUELTO)) {
+                        Materiales mat = prestamos.getMateriales();
+                        mat.setCantidad(mat.getCantidad() + 1);
+                        mat.setCantidadEnPrestamo(mat.getCantidadEnPrestamo() - 1);
+                        this.materialesRepository.save(mat);
+                    }
                 }
                 if (prestamos.getObservaciones() != null) {
                     existingPrestamos.setObservaciones(prestamos.getObservaciones());

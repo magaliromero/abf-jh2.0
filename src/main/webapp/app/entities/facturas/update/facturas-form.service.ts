@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type FacturasFormGroupInput = IFacturas | PartialWithRequiredKeyOf<NewFacturas>;
 
-type FacturasFormDefaults = Pick<NewFacturas, 'id' | 'poseeNC'>;
+type FacturasFormDefaults = Pick<NewFacturas, 'id'>;
 
 type FacturasFormGroupContent = {
   id: FormControl<IFacturas['id'] | NewFacturas['id']>;
@@ -25,11 +25,9 @@ type FacturasFormGroupContent = {
   sucursal: FormControl<IFacturas['sucursal']>;
   razonSocial: FormControl<IFacturas['razonSocial']>;
   ruc: FormControl<IFacturas['ruc']>;
+  estado: FormControl<IFacturas['estado']>;
   condicionVenta: FormControl<IFacturas['condicionVenta']>;
   total: FormControl<IFacturas['total']>;
-  estado: FormControl<IFacturas['estado']>;
-  poseeNC: FormControl<IFacturas['poseeNC']>;
-  alumnos: FormControl<IFacturas['alumnos']>;
 };
 
 export type FacturasFormGroup = FormGroup<FacturasFormGroupContent>;
@@ -76,9 +74,9 @@ export class FacturasFormService {
       total: new FormControl(facturasRawValue.total, {
         validators: [Validators.required],
       }),
-      estado: new FormControl(facturasRawValue.estado),
-      poseeNC: new FormControl(facturasRawValue.poseeNC),
-      alumnos: new FormControl(facturasRawValue.alumnos),
+      estado: new FormControl(facturasRawValue.estado, {
+        validators: [Validators.required],
+      }),
     });
   }
 
@@ -99,7 +97,6 @@ export class FacturasFormService {
   private getFormDefaults(): FacturasFormDefaults {
     return {
       id: null,
-      poseeNC: false,
     };
   }
 }

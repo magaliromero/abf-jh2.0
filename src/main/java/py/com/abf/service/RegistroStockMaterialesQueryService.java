@@ -98,9 +98,6 @@ public class RegistroStockMaterialesQueryService extends QueryService<RegistroSt
                         buildRangeSpecification(criteria.getCantidadModificada(), RegistroStockMateriales_.cantidadModificada)
                     );
             }
-            if (criteria.getFecha() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFecha(), RegistroStockMateriales_.fecha));
-            }
             if (criteria.getMaterialesId() != null) {
                 specification =
                     specification.and(

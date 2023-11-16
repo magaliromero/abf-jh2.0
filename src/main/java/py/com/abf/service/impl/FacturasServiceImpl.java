@@ -1,5 +1,6 @@
 package py.com.abf.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import py.com.abf.domain.FacturaConDetalle;
+import py.com.abf.domain.FacturaDetalle;
+import py.com.abf.domain.FacturaDetalleItem;
 import py.com.abf.domain.Facturas;
+import py.com.abf.domain.Productos;
+import py.com.abf.domain.enumeration.EstadosFacturas;
 import py.com.abf.repository.FacturasRepository;
 import py.com.abf.service.FacturasService;
 
@@ -21,9 +27,17 @@ public class FacturasServiceImpl implements FacturasService {
     private final Logger log = LoggerFactory.getLogger(FacturasServiceImpl.class);
 
     private final FacturasRepository facturasRepository;
+    private final FacturaDetalleServiceImpl facturaDetalleServiceImpl;
+    private final ProductosServiceImpl productoServiceImpl;
 
-    public FacturasServiceImpl(FacturasRepository facturasRepository) {
+    public FacturasServiceImpl(
+        FacturasRepository facturasRepository,
+        FacturaDetalleServiceImpl facturaDetalleServiceImpl,
+        ProductosServiceImpl productoServiceImpl
+    ) {
         this.facturasRepository = facturasRepository;
+        this.facturaDetalleServiceImpl = facturaDetalleServiceImpl;
+        this.productoServiceImpl = productoServiceImpl;
     }
 
     @Override
@@ -75,9 +89,6 @@ public class FacturasServiceImpl implements FacturasService {
                 if (facturas.getEstado() != null) {
                     existingFacturas.setEstado(facturas.getEstado());
                 }
-                if (facturas.getPoseeNC() != null) {
-                    existingFacturas.setPoseeNC(facturas.getPoseeNC());
-                }
 
                 return existingFacturas;
             })
@@ -102,5 +113,32 @@ public class FacturasServiceImpl implements FacturasService {
     public void delete(Long id) {
         log.debug("Request to delete Facturas : {}", id);
         facturasRepository.deleteById(id);
+    }
+
+    public Facturas saveWithDetails(FacturaConDetalle data) {
+        log.debug("Request to save data : {}", data);
+        data.getFactura().setEstado(EstadosFacturas.PAGADO);
+
+        Facturas f = facturasRepository.save(data.getFactura());
+        log.debug("Factura guardada : {}", f);
+
+        List<FacturaDetalleItem> items = data.getDetalle();
+        for (FacturaDetalleItem temp : items) {
+            Productos p = this.productoServiceImpl.findOne(temp.getProducto().longValue()).orElse(null);
+            if (p != null) {
+                FacturaDetalle fd = new FacturaDetalle();
+                fd.setCantidad(temp.getCantidad());
+                fd.setFactura(f);
+                fd.setPorcentajeIva(p.getPorcentajeIva());
+                fd.setSubtotal(temp.getSubtotal());
+                fd.setValorPorcentaje((temp.getSubtotal() * p.getPorcentajeIva()) / 100);
+                fd.setPrecioUnitario(temp.getPrecioUnitario());
+                fd.setProducto(p);
+                log.debug("Request to save data-detalle : {}", fd);
+
+                facturaDetalleServiceImpl.save(fd);
+            }
+        }
+        return f;
     }
 }

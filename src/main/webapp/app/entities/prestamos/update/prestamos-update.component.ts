@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +14,8 @@ import { MaterialesService } from 'app/entities/materiales/service/materiales.se
 import { IAlumnos } from 'app/entities/alumnos/alumnos.model';
 import { AlumnosService } from 'app/entities/alumnos/service/alumnos.service';
 import { EstadosPrestamos } from 'app/entities/enumerations/estados-prestamos.model';
+import dayjs from 'dayjs/esm';
+import { AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-prestamos-update',
@@ -27,12 +31,15 @@ export class PrestamosUpdateComponent implements OnInit {
 
   editForm: PrestamosFormGroup = this.prestamosFormService.createPrestamosFormGroup();
 
+  hayStock = true;
+
   constructor(
     protected prestamosService: PrestamosService,
     protected prestamosFormService: PrestamosFormService,
     protected materialesService: MaterialesService,
     protected alumnosService: AlumnosService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    private alertService: AlertService
   ) {}
 
   compareMateriales = (o1: IMateriales | null, o2: IMateriales | null): boolean => this.materialesService.compareMateriales(o1, o2);
@@ -44,10 +51,34 @@ export class PrestamosUpdateComponent implements OnInit {
       this.prestamos = prestamos;
       if (prestamos) {
         this.updateForm(prestamos);
+      } else {
+        const now = new Date();
+        const date = dayjs(now);
+        this.editForm.controls.fechaPrestamo.setValue(date);
+
+        this.editForm.controls.estado.setValue(EstadosPrestamos.VENCIDO);
       }
 
       this.loadRelationshipsOptions();
     });
+  }
+  verificarStock() {
+    const data = this.materialesSharedCollection.find(item => item.id == this.editForm.controls.materiales.value?.id);
+    if ((data?.cantidad ?? 0) < 1) {
+      const mensaje = `El material solicitado no se encuentra disponible para préstamo.`;
+      this.alertService.addAlert(
+        {
+          type: 'danger',
+          message: mensaje,
+          timeout: 5000,
+          toast: false,
+        },
+        this.alertService.get()
+      );
+      this.hayStock = false;
+    } else {
+      this.hayStock = true;
+    }
   }
 
   previousState(): void {

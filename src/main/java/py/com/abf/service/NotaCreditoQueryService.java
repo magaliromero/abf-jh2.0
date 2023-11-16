@@ -88,9 +88,6 @@ public class NotaCreditoQueryService extends QueryService<NotaCredito> {
             if (criteria.getFecha() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getFecha(), NotaCredito_.fecha));
             }
-            if (criteria.getTimbrado() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getTimbrado(), NotaCredito_.timbrado));
-            }
             if (criteria.getNotaNro() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNotaNro(), NotaCredito_.notaNro));
             }

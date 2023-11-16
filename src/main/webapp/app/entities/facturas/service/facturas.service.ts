@@ -28,8 +28,23 @@ export type EntityArrayResponseType = HttpResponse<IFacturas[]>;
 @Injectable({ providedIn: 'root' })
 export class FacturasService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/facturas');
+  protected reporteUrl = this.applicationConfigService.getEndpointFor('reportes/');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+
+  createNew(data: any): Observable<any> {
+    return this.http
+      .post<RestFacturas>(this.resourceUrl + '/detalle', data, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+  obtenerReporte(idFactura: any): Observable<any> {
+    return (
+      this.http
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        .get<RestFacturas>(this.reporteUrl + idFactura, { observe: 'response' })
+        .pipe(map(res => this.convertResponseFromServer(res)))
+    );
+  }
 
   create(facturas: NewFacturas): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(facturas);

@@ -7,6 +7,7 @@
 
       <div>
         <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
 
         <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
@@ -36,7 +37,15 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="abfApp.materiales.cantidad" for="field_cantidad">Cantidad</label>
-          <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
+          <input
+            (change)="changeCantidad()"
+            type="number"
+            class="form-control"
+            name="cantidad"
+            id="field_cantidad"
+            data-cy="cantidad"
+            formControlName="cantidad"
+          />
         </div>
 
         <div class="row mb-3">
@@ -50,6 +59,18 @@
             id="field_cantidadEnPrestamo"
             data-cy="cantidadEnPrestamo"
             formControlName="cantidadEnPrestamo"
+          />
+        </div>
+
+        <div class="row mb-3" *ngIf="!(diferencia === 0)">
+          <label class="form-label" for="field_cantidadEnPrestamo">Comentario de modificación de Stock</label>
+          <input
+            type="text"
+            class="form-control"
+            name="comentario"
+            id="field_comentario"
+            data-cy="comentario"
+            formControlName="comentario"
           />
         </div>
       </div>

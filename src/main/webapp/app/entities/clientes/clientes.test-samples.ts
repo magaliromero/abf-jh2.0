@@ -29,7 +29,7 @@ export const sampleWithFullData: IClientes = {
   documento: 'matrix Personal y',
   email: 'Margarita_Mendoza@yahoo.com',
   telefono: 'Ecuador Gerente',
-  fechaNacimiento: dayjs('2023-11-15'),
+  fechaNacimiento: dayjs('2023-11-07'),
   direccion: 'Cliente Open-source',
 };
 

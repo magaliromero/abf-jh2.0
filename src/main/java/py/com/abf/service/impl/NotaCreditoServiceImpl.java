@@ -48,9 +48,6 @@ public class NotaCreditoServiceImpl implements NotaCreditoService {
                 if (notaCredito.getFecha() != null) {
                     existingNotaCredito.setFecha(notaCredito.getFecha());
                 }
-                if (notaCredito.getTimbrado() != null) {
-                    existingNotaCredito.setTimbrado(notaCredito.getTimbrado());
-                }
                 if (notaCredito.getNotaNro() != null) {
                     existingNotaCredito.setNotaNro(notaCredito.getNotaNro());
                 }

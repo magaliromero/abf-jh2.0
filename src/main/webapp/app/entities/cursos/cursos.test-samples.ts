@@ -15,7 +15,7 @@ export const sampleWithPartialData: ICursos = {
   id: 96032,
   nombreCurso: 'dot-com Operaciones',
   descripcion: 'Castilla',
-  fechaInicio: dayjs('2023-11-15'),
+  fechaInicio: dayjs('2023-11-07'),
   nivel: Niveles['INICIAL'],
 };
 
@@ -23,8 +23,8 @@ export const sampleWithFullData: ICursos = {
   id: 78666,
   nombreCurso: 'microchip',
   descripcion: 'solid Pescado',
-  fechaInicio: dayjs('2023-11-15'),
-  fechaFin: dayjs('2023-11-15'),
+  fechaInicio: dayjs('2023-11-07'),
+  fechaFin: dayjs('2023-11-07'),
   cantidadClases: 82546,
   nivel: Niveles['INICIAL'],
 };

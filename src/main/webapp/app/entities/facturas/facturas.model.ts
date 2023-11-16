@@ -15,7 +15,6 @@ export interface IFacturas {
   condicionVenta?: CondicionVenta | null;
   total?: number | null;
   estado?: EstadosFacturas | null;
-  poseeNC?: boolean | null;
   alumnos?: Pick<IAlumnos, 'id'> | null;
 }
 

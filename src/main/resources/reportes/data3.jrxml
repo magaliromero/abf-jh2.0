@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4cb66beb-6007-446b-b424-38feffefc219">
+	<parameter name="SubReportLocation1" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SubReportDatasource1" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="SubReportLocation2" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SubReportDatasource2" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="SubReportLocation3" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SubReportDatasource3" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="nombreProyecto" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="razonSocial" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="telefono" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="totalOTPosibles" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="enCurso" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="finalizado" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="porcentajeTotalProyecto" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="porIniciar" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="fechaFin" class="java.sql.Timestamp" isForPrompting="false"/>
+	<parameter name="fechaInicio" class="java.sql.Timestamp" isForPrompting="false"/>
+	<parameter name="producto" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fechaFacturacion" class="java.sql.Timestamp" isForPrompting="false"/>
+	<parameter name="productoFacturado" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="4" y="0" width="550" height="20" uuid="6f771a51-207d-4548-a4f2-ac25cd2df18b"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PROGRESO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="24" width="70" height="16" uuid="d362181d-d318-40d4-a002-5776a81b0727"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROYECTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="70" height="14" uuid="3f47c7f9-ebea-4ea0-bc05-84305a442a0b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="24" width="190" height="16" uuid="aaa72a0e-6654-43c2-b23e-eeb77438c7f4"/>
+				<textFieldExpression><![CDATA[$P{nombreProyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="49" width="190" height="16" uuid="f7603258-8c74-4be4-886b-751713205ec1"/>
+				<textFieldExpression><![CDATA[$P{razonSocial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="50" width="120" height="14" uuid="d5d4308a-2e5e-4695-a0e3-eb217af856da"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO CONTACTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="49" width="114" height="16" uuid="8be8ba47-02e4-458c-bf90-fa157b45e801"/>
+				<textFieldExpression><![CDATA[$P{telefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="24" width="79" height="16" uuid="3439505e-82c4-4672-857e-4a087243e898"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCENTAJE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="390" y="24" width="40" height="15" uuid="3accdf6b-fd9b-404a-bf41-c25de5270fea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{porcentajeTotalProyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="430" y="24" width="58" height="16" uuid="bf8f9b5a-d767-4942-b4dd-18a344e94a98"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="490" splitType="Stretch">
+			<subreport isUsingCache="true" runToBottom="false">
+				<reportElement x="5" y="70" width="275" height="140" isRemoveLineWhenBlank="true" uuid="227ded14-eddd-431f-8969-367f6b7a28be"/>
+				<dataSourceExpression><![CDATA[$P{SubReportDatasource1}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SubReportLocation1}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="10" width="130" height="19" uuid="5e8e7210-2770-4306-9384-9c26ddd9029b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDENES DE TRABAJO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="10" width="79" height="19" uuid="68ecad5d-c463-4246-970d-1082ba8150bd"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[POSIBLES:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="239" y="10" width="100" height="18" uuid="78e38a08-dc32-4903-a268-799ac68ee5d8"/>
+				<textFieldExpression><![CDATA[$P{totalOTPosibles}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="30" width="79" height="19" uuid="f1cd33d8-7305-4c06-b9cc-b5b9953050b2"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EN CURSO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="240" y="28" width="100" height="18" uuid="ee92cef2-64c3-4fbf-a8c8-281a870aa677"/>
+				<textFieldExpression><![CDATA[$P{enCurso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="10" width="79" height="19" uuid="ae53d86e-56f3-4f7d-b31b-2f9dd7ed1090"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[POR INICIAR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="30" width="79" height="15" uuid="01be3543-60b3-4214-9849-f67c9563527d"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FINALIZADO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="431" y="28" width="100" height="18" uuid="87648726-57fb-4b73-8978-43b54b660670"/>
+				<textFieldExpression><![CDATA[$P{finalizado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="10" width="100" height="18" uuid="8e883f50-8b7a-4350-b165-6c1eb855aa15"/>
+				<textFieldExpression><![CDATA[$P{porIniciar}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="291" y="87" width="255" height="140" uuid="703ebf6f-2119-4cf9-9f6d-d69effe14d6e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="296" y="90" width="131" height="19" uuid="c89d7b6e-2264-4114-89e1-a17db6a69e89"/>
+				<text><![CDATA[ULTIMA OT FINALIZADA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="178" width="84" height="14" uuid="55eeeff1-d58d-4fe5-9af2-4599520306e6"/>
+				<text><![CDATA[FECHA INICIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="117" width="84" height="14" uuid="dc73a973-d00d-49ef-8776-5dbe83074c3d"/>
+				<text><![CDATA[ACTIVIDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="198" width="84" height="14" uuid="7b013708-8081-487c-9465-befccd627df0"/>
+				<text><![CDATA[FECHA FIN:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="198" width="136" height="14" uuid="8bac29b9-8839-4540-9dd8-cb5d472c385e"/>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="178" width="136" height="14" uuid="c1938000-86ba-4b53-ac61-fc33f1f1b36b"/>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="117" width="136" height="50" uuid="d52563bc-4084-44ea-a933-69da361baeac"/>
+				<textFieldExpression><![CDATA[$P{producto}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="5" y="260" width="275" height="189" uuid="63f49b6b-15e0-423a-b6f8-e3adc4930022"/>
+				<dataSourceExpression><![CDATA[$P{SubReportDatasource3}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SubReportLocation3}]]></subreportExpression>
+			</subreport>
+			<rectangle>
+				<reportElement x="295" y="300" width="255" height="140" uuid="02aaaf5b-1d78-4261-ac0f-1ed772fb1204"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="300" y="303" width="131" height="19" uuid="8ef13fba-c45b-4e56-9f1c-2448a48c54df"/>
+				<text><![CDATA[ULTIMA OT FACTURADA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="391" width="84" height="14" uuid="8a42366b-3880-482e-8c00-d400c28b6d7e"/>
+				<text><![CDATA[FECHA FAC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="330" width="84" height="14" uuid="0db826ea-663e-49b3-8507-eb21b39ff18a"/>
+				<text><![CDATA[ACTIVIDAD:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="406" y="391" width="136" height="14" uuid="7c8a3bac-91b5-4ce1-ac32-194f9f5793d8"/>
+				<textFieldExpression><![CDATA[$P{fechaFacturacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="330" width="136" height="50" uuid="3b863481-cea9-4e72-b90c-6df965137aa2"/>
+				<textFieldExpression><![CDATA[$P{productoFacturado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

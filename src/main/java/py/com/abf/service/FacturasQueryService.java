@@ -115,9 +115,6 @@ public class FacturasQueryService extends QueryService<Facturas> {
             if (criteria.getEstado() != null) {
                 specification = specification.and(buildSpecification(criteria.getEstado(), Facturas_.estado));
             }
-            if (criteria.getPoseeNC() != null) {
-                specification = specification.and(buildSpecification(criteria.getPoseeNC(), Facturas_.poseeNC));
-            }
             if (criteria.getFacturaDetalleId() != null) {
                 specification =
                     specification.and(
