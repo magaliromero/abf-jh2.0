@@ -21,15 +21,15 @@
         "productos": "Productos",
         "materiales": "Materiales",
         "registroStockMateriales": "Registro Stock Materiales",
-        "prestamos": "Prestamos",
-        "matricula": "Matricula",
+        "prestamos": "Préstamos",
+        "matricula": "Matrícula",
         "evaluaciones": "Evaluaciones",
         "evaluacionesDetalle": "Evaluaciones Detalle",
         "timbrados": "Timbrados",
         "sucursales": "Sucursales",
-        "puntoDeExpedicion": "Punto De Expedicion",
-        "notaCredito": "Nota Credito",
-        "notaCreditoDetalle": "Nota Credito Detalle",
+        "puntoDeExpedicion": "Punto De Expedición",
+        "notaCredito": "Nota Crédito",
+        "notaCreditoDetalle": "Nota Crédito Detalle",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -121,7 +121,7 @@
       "open": "Abrir",
       "save": "Guardar",
       "view": "Vista",
-      "show": "Show {{otherEntity}}"
+      "show": "Ver {{otherEntity}}"
     },
     "detail": {
       "field": "Campo",

@@ -4,21 +4,21 @@
       "home": {
         "title": "Inscripciones",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Inscripciones",
+        "createLabel": "Crear nueva Inscripción",
         "createOrEditLabel": "Crear o editar Inscripciones",
-        "notFound": "Ningún Inscripciones encontrado"
+        "notFound": "Ninguna Inscripción encontrada"
       },
-      "created": "Un nuevo Inscripciones ha sido creado con el identificador {{ param }}",
-      "updated": "Un Inscripciones ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Inscripciones ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva inscripción ha sido creada con el identificador {{ param }}",
+      "updated": "Una inscripción ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una inscripción ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Inscripciones {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Inscripción {{ id }}?"
       },
       "detail": {
         "title": "Inscripciones"
       },
       "id": "ID",
-      "fechaInscripcion": "Fecha Inscripcion",
+      "fechaInscripcion": "Fecha Inscripción",
       "alumnos": "Alumnos",
       "cursos": "Cursos"
     }

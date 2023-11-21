@@ -4,15 +4,15 @@
       "home": {
         "title": "Facturas",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Facturas",
-        "createOrEditLabel": "Crear o editar Facturas",
-        "notFound": "Ningún Facturas encontrado"
+        "createLabel": "Crear nueva Factura",
+        "createOrEditLabel": "Crear o editar Factura",
+        "notFound": "Ninguna Factura encontrada"
       },
-      "created": "Un nuevo Facturas ha sido creado con el identificador {{ param }}",
-      "updated": "Un Facturas ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Facturas ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Factura ha sido creada con el identificador {{ param }}",
+      "updated": "Una Factura ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Factura ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Facturas {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Factura {{ id }}?"
       },
       "detail": {
         "title": "Facturas"
@@ -21,16 +21,16 @@
       "fecha": "Fecha",
       "facturaNro": "Factura Nro",
       "timbrado": "Timbrado",
-      "puntoExpedicion": "Punto Expedicion",
+      "puntoExpedicion": "Punto de Expedición",
       "sucursal": "Sucursal",
-      "razonSocial": "Razon Social",
-      "ruc": "Ruc",
-      "condicionVenta": "Condicion Venta",
+      "razonSocial": "Razón Social",
+      "ruc": "RUC",
+      "condicionVenta": "Condición de Venta",
       "total": "Total",
       "estado": "Estado",
-      "poseeNC": "Posee NC",
+      "poseeNC": "Posee Nota de crédito",
       "facturaDetalle": "Factura Detalle",
-      "notaCredito": "Nota Credito",
+      "notaCredito": "Nota crédito",
       "alumnos": "Alumnos"
     }
   }

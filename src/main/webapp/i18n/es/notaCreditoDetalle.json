@@ -4,7 +4,7 @@
       "home": {
         "title": "Nota Credito Detalles",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Nota Credito Detalle",
+        "createLabel": "Crear nuevo detalle de nota de crédito",
         "createOrEditLabel": "Crear o editar Nota Credito Detalle",
         "notFound": "Ningún Nota Credito Detalles encontrado"
       },

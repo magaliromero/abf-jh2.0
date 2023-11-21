@@ -136,6 +136,11 @@
                 <span class="d-none d-md-inline">Descargar</span>
               </button>
 
+              <button type="submit" [routerLink]="['/nota-credito', facturas.id, 'factura']" class="btn btn-primary btn-sm">
+                <fa-icon icon="book"></fa-icon>
+                <span class="d-none d-md-inline">Nueva Nota crédito</span>
+              </button>
+
               <button
                 type="submit"
                 [routerLink]="['/factura-detalle']"
@@ -144,12 +149,7 @@
                 data-cy="filterOtherEntityButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span
-                  class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('abfApp.facturas.facturaDetalle' | translate) }"
-                  >Mostrar Factura Detalle</span
-                >
+                <span class="d-none d-md-inline">Mostrar Factura Detalle</span>
               </button>
               <button
                 type="submit"
@@ -159,12 +159,7 @@
                 data-cy="filterOtherEntityButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span
-                  class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('abfApp.facturas.notaCredito' | translate) }"
-                  >Mostrar Nota Credito</span
-                >
+                <span class="d-none d-md-inline">Mostrar Nota Credito</span>
               </button>
               <button
                 type="submit"

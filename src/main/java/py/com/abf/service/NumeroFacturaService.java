@@ -21,6 +21,6 @@ public class NumeroFacturaService {
         Integer fac = this.facturasRepository.findMaxFacturaNroByPuntoExpedicionAndTimbradoAndSucursal(pe, timbrado, sucursal);
         LOG.info("data {}", fac);
 
-        return fac + 1;
+        return (fac == null ? 0 : fac) + 1;
     }
 }

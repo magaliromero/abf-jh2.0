@@ -41,6 +41,14 @@ const facturasRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+  {
+    path: ':id/nc',
+    component: FacturasUpdateComponent,
+    resolve: {
+      facturas: FacturasRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
 ];
 
 @NgModule({

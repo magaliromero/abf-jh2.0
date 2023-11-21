@@ -35,7 +35,7 @@ describe('HasAnyAuthorityDirective tests', () => {
   });
 
   describe('set jhiHasAnyAuthority', () => {
-    it('should show restricted content to user if user has required role', () => {
+    it('should Mostrar restricted content to user if user has required role', () => {
       // GIVEN
       mockAccountService.hasAnyAuthority = jest.fn(() => true);
       const fixture = TestBed.createComponent(TestHasAnyAuthorityDirectiveComponent);
@@ -48,7 +48,7 @@ describe('HasAnyAuthorityDirective tests', () => {
       expect(comp.content).toBeDefined();
     });
 
-    it('should not show restricted content to user if user has not required role', () => {
+    it('should not Mostrar restricted content to user if user has not required role', () => {
       // GIVEN
       mockAccountService.hasAnyAuthority = jest.fn(() => false);
       const fixture = TestBed.createComponent(TestHasAnyAuthorityDirectiveComponent);
@@ -63,7 +63,7 @@ describe('HasAnyAuthorityDirective tests', () => {
   });
 
   describe('change authorities', () => {
-    it('should show or not show restricted content correctly if user authorities are changing', () => {
+    it('should Mostrar or not Mostrar restricted content correctly if user authorities are changing', () => {
       // GIVEN
       mockAccountService.hasAnyAuthority = jest.fn(() => true);
       const fixture = TestBed.createComponent(TestHasAnyAuthorityDirectiveComponent);

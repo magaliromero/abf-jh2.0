@@ -2,23 +2,23 @@
   "abfApp": {
     "puntoDeExpedicion": {
       "home": {
-        "title": "Punto De Expedicions",
+        "title": "Punto De Expedición",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Punto De Expedicion",
-        "createOrEditLabel": "Crear o editar Punto De Expedicion",
-        "notFound": "Ningún Punto De Expedicions encontrado"
+        "createLabel": "Crear nuevo Punto De Expedición",
+        "createOrEditLabel": "Crear o editar Punto De Expedición",
+        "notFound": "Ningún Punto De Expedición encontrado"
       },
-      "created": "Un nuevo Punto De Expedicion ha sido creado con el identificador {{ param }}",
-      "updated": "Un Punto De Expedicion ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Punto De Expedicion ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Punto De Expedición ha sido creado con el identificador {{ param }}",
+      "updated": "Un Punto De Expedición ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Punto De Expedición ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Punto De Expedicion {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Punto De Expedición {{ id }}?"
       },
       "detail": {
-        "title": "Punto De Expedicion"
+        "title": "Punto De Expedición"
       },
       "id": "ID",
-      "numeroPuntoDeExpedicion": "Numero Punto De Expedicion",
+      "numeroPuntoDeExpedicion": "Número Punto De Expedición",
       "sucursales": "Sucursales"
     }
   }

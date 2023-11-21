@@ -15,7 +15,7 @@
         [routerLink]="['/timbrados/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.timbrados.home.createLabel"> Crear nuevo Timbrados </span>
+        <span jhiTranslate="abfApp.timbrados.home.createLabel"> Crear nuevo timbrado </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="timbrados?.length === 0">
-    <span jhiTranslate="abfApp.timbrados.home.notFound">Ningún Timbrados encontrado</span>
+    <span jhiTranslate="abfApp.timbrados.home.notFound">Ningún timbrado encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="timbrados && timbrados.length > 0">
@@ -42,19 +42,19 @@
           </th>
           <th scope="col" jhiSortBy="numeroTimbrado">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.timbrados.numeroTimbrado">Numero Timbrado</span>
+              <span jhiTranslate="abfApp.timbrados.numeroTimbrado">Número de timbrado</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="fechaInicio">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.timbrados.fechaInicio">Fecha Inicio</span>
+              <span jhiTranslate="abfApp.timbrados.fechaInicio">Fecha de inicio</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="fechaFin">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.timbrados.fechaFin">Fecha Fin</span>
+              <span jhiTranslate="abfApp.timbrados.fechaFin">Fecha fin</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>

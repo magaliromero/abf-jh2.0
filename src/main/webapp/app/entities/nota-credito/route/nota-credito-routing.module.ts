@@ -7,6 +7,8 @@ import { NotaCreditoDetailComponent } from '../detail/nota-credito-detail.compon
 import { NotaCreditoUpdateComponent } from '../update/nota-credito-update.component';
 import { NotaCreditoRoutingResolveService } from './nota-credito-routing-resolve.service';
 import { ASC } from 'app/config/navigation.constants';
+import { FacturasService } from 'app/entities/facturas/service/facturas.service';
+import { FacturasRoutingResolveService } from 'app/entities/facturas/route/facturas-routing-resolve.service';
 
 const notaCreditoRoute: Routes = [
   {
@@ -38,6 +40,14 @@ const notaCreditoRoute: Routes = [
     component: NotaCreditoUpdateComponent,
     resolve: {
       notaCredito: NotaCreditoRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/factura',
+    component: NotaCreditoUpdateComponent,
+    resolve: {
+      facturas: FacturasRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },

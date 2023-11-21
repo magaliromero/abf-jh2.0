@@ -6,8 +6,8 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
   providedIn: 'root',
 })
 export class ConsultaClienteService {
-  private resourceUrl = this.applicationConfigService.getEndpointFor('/consulta-ruc/');
-  private resourceObtenerNroFactura = this.applicationConfigService.getEndpointFor('/numero-factura/');
+  private resourceUrl = this.applicationConfigService.getEndpointFor('api/consulta-ruc/');
+  private resourceObtenerNroFactura = this.applicationConfigService.getEndpointFor('api/numero-factura/');
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 

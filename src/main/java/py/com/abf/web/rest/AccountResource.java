@@ -99,6 +99,8 @@ public class AccountResource {
      */
     @GetMapping("/account")
     public AdminUserDTO getAccount() {
+        log.debug("ACCOUNT" + this.userService.getAuthorities().toString());
+
         return userService
             .getUserWithAuthorities()
             .map(AdminUserDTO::new)

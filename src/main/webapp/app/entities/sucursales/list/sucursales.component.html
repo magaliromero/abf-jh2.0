@@ -15,7 +15,7 @@
         [routerLink]="['/sucursales/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.sucursales.home.createLabel"> Crear nuevo Sucursales </span>
+        <span jhiTranslate="abfApp.sucursales.home.createLabel"> Crear nueva sucursal </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="sucursales?.length === 0">
-    <span jhiTranslate="abfApp.sucursales.home.notFound">Ningún Sucursales encontrado</span>
+    <span jhiTranslate="abfApp.sucursales.home.notFound">Ninguna sucursal encontrada</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="sucursales && sucursales.length > 0">
@@ -48,13 +48,13 @@
           </th>
           <th scope="col" jhiSortBy="direccion">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.sucursales.direccion">Direccion</span>
+              <span jhiTranslate="abfApp.sucursales.direccion">Dirección</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="numeroEstablecimiento">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.sucursales.numeroEstablecimiento">Numero Establecimiento</span>
+              <span jhiTranslate="abfApp.sucursales.numeroEstablecimiento">Número de establecimiento</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -94,7 +94,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.sucursales.puntoDeExpedicion' | translate) }"
-                  >Mostrar Punto De Expedicion</span
+                  >Mostrar Punto De Expedición</span
                 >
               </button>
               <button
@@ -104,7 +104,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Ver</span>
               </button>
 
               <button

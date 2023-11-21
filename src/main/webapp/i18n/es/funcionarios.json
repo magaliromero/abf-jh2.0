@@ -4,15 +4,15 @@
       "home": {
         "title": "Funcionarios",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Funcionarios",
-        "createOrEditLabel": "Crear o editar Funcionarios",
-        "notFound": "Ningún Funcionarios encontrado"
+        "createLabel": "Crear nuevo Funcionario",
+        "createOrEditLabel": "Crear o editar Funcionario",
+        "notFound": "Ningún Funcionario encontrado"
       },
-      "created": "Un nuevo Funcionarios ha sido creado con el identificador {{ param }}",
-      "updated": "Un Funcionarios ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Funcionarios ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Funcionario ha sido creado con el identificador {{ param }}",
+      "updated": "Un Funcionario ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Funcionario ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Funcionarios {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Funcionario {{ id }}?"
       },
       "detail": {
         "title": "Funcionarios"
@@ -22,7 +22,7 @@
       "apellidos": "Apellidos",
       "nombreCompleto": "Nombre Completo",
       "email": "Email",
-      "telefono": "Telefono",
+      "telefono": "Teléfono",
       "fechaNacimiento": "Fecha Nacimiento",
       "documento": "Documento",
       "estado": "Estado",
@@ -31,8 +31,8 @@
       "fideId": "Fide Id",
       "evaluaciones": "Evaluaciones",
       "pagos": "Pagos",
-      "registroClases": "Registro Clases",
-      "tipoDocumentos": "Tipo Documentos"
+      "registroClases": "Registro de clases",
+      "tipoDocumentos": "Tipo de documentos"
     }
   }
 }

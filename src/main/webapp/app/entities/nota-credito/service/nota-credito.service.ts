@@ -31,6 +31,11 @@ export class NotaCreditoService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
+  createNew(data: any): Observable<any> {
+    return this.http
+      .post<RestNotaCredito>(this.resourceUrl + '/detalle', data, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
   create(notaCredito: NewNotaCredito): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(notaCredito);
     return this.http

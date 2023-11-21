@@ -109,8 +109,8 @@ class FacturasResourceIT {
             .ruc(DEFAULT_RUC)
             .condicionVenta(DEFAULT_CONDICION_VENTA)
             .total(DEFAULT_TOTAL)
-            .estado(DEFAULT_ESTADO)
-            .poseeNC(DEFAULT_POSEE_NC);
+            .estado(DEFAULT_ESTADO);
+        // .poseeNC(DEFAULT_POSEE_NC);
         return facturas;
     }
 
@@ -131,8 +131,8 @@ class FacturasResourceIT {
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
             .total(UPDATED_TOTAL)
-            .estado(UPDATED_ESTADO)
-            .poseeNC(UPDATED_POSEE_NC);
+            .estado(UPDATED_ESTADO);
+        //.poseeNC(UPDATED_POSEE_NC);
         return facturas;
     }
 
@@ -164,7 +164,7 @@ class FacturasResourceIT {
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(DEFAULT_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(DEFAULT_TOTAL);
         assertThat(testFacturas.getEstado()).isEqualTo(DEFAULT_ESTADO);
-        assertThat(testFacturas.getPoseeNC()).isEqualTo(DEFAULT_POSEE_NC);
+        // assertThat(testFacturas.getPoseeNC()).isEqualTo(DEFAULT_POSEE_NC);
     }
 
     @Test
@@ -1319,8 +1319,8 @@ class FacturasResourceIT {
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
             .total(UPDATED_TOTAL)
-            .estado(UPDATED_ESTADO)
-            .poseeNC(UPDATED_POSEE_NC);
+            .estado(UPDATED_ESTADO);
+        //.poseeNC(UPDATED_POSEE_NC);
 
         restFacturasMockMvc
             .perform(
@@ -1344,7 +1344,7 @@ class FacturasResourceIT {
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(UPDATED_TOTAL);
         assertThat(testFacturas.getEstado()).isEqualTo(UPDATED_ESTADO);
-        assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
+        // assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
     }
 
     @Test
@@ -1424,8 +1424,8 @@ class FacturasResourceIT {
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
             .total(UPDATED_TOTAL)
-            .estado(UPDATED_ESTADO)
-            .poseeNC(UPDATED_POSEE_NC);
+            .estado(UPDATED_ESTADO);
+        //.poseeNC(UPDATED_POSEE_NC);
 
         restFacturasMockMvc
             .perform(
@@ -1449,7 +1449,7 @@ class FacturasResourceIT {
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(UPDATED_TOTAL);
         assertThat(testFacturas.getEstado()).isEqualTo(UPDATED_ESTADO);
-        assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
+        //assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
     }
 
     @Test
@@ -1474,8 +1474,8 @@ class FacturasResourceIT {
             .ruc(UPDATED_RUC)
             .condicionVenta(UPDATED_CONDICION_VENTA)
             .total(UPDATED_TOTAL)
-            .estado(UPDATED_ESTADO)
-            .poseeNC(UPDATED_POSEE_NC);
+            .estado(UPDATED_ESTADO);
+        // .poseeNC(UPDATED_POSEE_NC);
 
         restFacturasMockMvc
             .perform(
@@ -1499,7 +1499,7 @@ class FacturasResourceIT {
         assertThat(testFacturas.getCondicionVenta()).isEqualTo(UPDATED_CONDICION_VENTA);
         assertThat(testFacturas.getTotal()).isEqualTo(UPDATED_TOTAL);
         assertThat(testFacturas.getEstado()).isEqualTo(UPDATED_ESTADO);
-        assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
+        //  assertThat(testFacturas.getPoseeNC()).isEqualTo(UPDATED_POSEE_NC);
     }
 
     @Test

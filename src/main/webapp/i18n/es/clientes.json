@@ -4,15 +4,15 @@
       "home": {
         "title": "Clientes",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Clientes",
-        "createOrEditLabel": "Crear o editar Clientes",
-        "notFound": "Ningún Clientes encontrado"
+        "createLabel": "Crear nuevo Cliente",
+        "createOrEditLabel": "Crear o editar Cliente",
+        "notFound": "Ningún Cliente encontrado"
       },
-      "created": "Un nuevo Clientes ha sido creado con el identificador {{ param }}",
-      "updated": "Un Clientes ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Clientes ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Cliente ha sido creado con el identificador {{ param }}",
+      "updated": "Un Cliente ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Cliente ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Clientes {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Cliente {{ id }}?"
       },
       "detail": {
         "title": "Clientes"
@@ -21,12 +21,12 @@
       "ruc": "Ruc",
       "nombres": "Nombres",
       "apellidos": "Apellidos",
-      "razonSocial": "Razon Social",
+      "razonSocial": "Razón social",
       "documento": "Documento",
       "email": "Email",
-      "telefono": "Telefono",
-      "fechaNacimiento": "Fecha Nacimiento",
-      "direccion": "Direccion"
+      "telefono": "Teléfono",
+      "fechaNacimiento": "Fecha de nacimiento",
+      "direccion": "Dirección"
     }
   }
 }

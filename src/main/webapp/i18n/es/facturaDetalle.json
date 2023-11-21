@@ -4,9 +4,9 @@
       "home": {
         "title": "Factura Detalles",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Factura Detalle",
-        "createOrEditLabel": "Crear o editar Factura Detalle",
-        "notFound": "Ningún Factura Detalles encontrado"
+        "createLabel": "Crear nuevo detalle de factura",
+        "createOrEditLabel": "Crear o editar detalle de factura",
+        "notFound": "Ningún detalle de factura encontrado"
       },
       "created": "Un nuevo Factura Detalle ha sido creado con el identificador {{ param }}",
       "updated": "Un Factura Detalle ha sido actualizado con el identificador {{ param }}",

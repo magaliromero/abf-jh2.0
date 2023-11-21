@@ -4,25 +4,25 @@
       "home": {
         "title": "Sucursales",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Sucursales",
-        "createOrEditLabel": "Crear o editar Sucursales",
-        "notFound": "Ningún Sucursales encontrado"
+        "createLabel": "Crear nueva Sucursal",
+        "createOrEditLabel": "Crear o editar Sucursal",
+        "notFound": "Ninguna Sucursal encontrada"
       },
-      "created": "Un nuevo Sucursales ha sido creado con el identificador {{ param }}",
-      "updated": "Un Sucursales ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Sucursales ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Sucursal ha sido creada con el identificador {{ param }}",
+      "updated": "Una Sucursal ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Sucursal ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Sucursales {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Sucursal {{ id }}?"
       },
       "detail": {
         "title": "Sucursales"
       },
       "id": "ID",
-      "nombreSucursal": "Nombre Sucursal",
-      "direccion": "Direccion",
-      "numeroEstablecimiento": "Numero Establecimiento",
-      "puntoDeExpedicion": "Punto De Expedicion",
-      "timbrados": "Timbrados"
+      "nombreSucursal": "Nombre de sucursal",
+      "direccion": "Dirección",
+      "numeroEstablecimiento": "Número de establecimiento",
+      "puntoDeExpedicion": "Punto de expedición",
+      "timbrados": "Timbrado"
     }
   }
 }

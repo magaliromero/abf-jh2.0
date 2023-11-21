@@ -4,27 +4,27 @@
       "home": {
         "title": "Productos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Productos",
-        "createOrEditLabel": "Crear o editar Productos",
-        "notFound": "Ningún Productos encontrado"
+        "createLabel": "Crear nuevo Producto",
+        "createOrEditLabel": "Crear o editar Producto",
+        "notFound": "Ningún Producto encontrado"
       },
-      "created": "Un nuevo Productos ha sido creado con el identificador {{ param }}",
-      "updated": "Un Productos ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Productos ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Producto ha sido creado con el identificador {{ param }}",
+      "updated": "Un Producto ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Producto ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Productos {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Producto {{ id }}?"
       },
       "detail": {
         "title": "Productos"
       },
       "id": "ID",
-      "tipoProducto": "Tipo Producto",
+      "tipoProducto": "Tipo de producto",
       "precioUnitario": "Precio Unitario",
       "porcentajeIva": "Porcentaje Iva",
-      "descripcion": "Descripcion",
+      "descripcion": "Descripción",
       "pagos": "Pagos",
       "facturaDetalle": "Factura Detalle",
-      "notaCreditoDetalle": "Nota Credito Detalle"
+      "notaCreditoDetalle": "Nota Crédito Detalle"
     }
   }
 }

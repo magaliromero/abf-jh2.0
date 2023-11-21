@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="PuntoDeExpedicionHeading">
-    <span jhiTranslate="abfApp.puntoDeExpedicion.home.title">Punto De Expedicions</span>
+    <span jhiTranslate="abfApp.puntoDeExpedicion.home.title">Punto De Expedición</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -15,7 +15,7 @@
         [routerLink]="['/punto-de-expedicion/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.puntoDeExpedicion.home.createLabel"> Crear nuevo Punto De Expedicion </span>
+        <span jhiTranslate="abfApp.puntoDeExpedicion.home.createLabel"> Crear nuevo Punto De Expedición </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="puntoDeExpedicions?.length === 0">
-    <span jhiTranslate="abfApp.puntoDeExpedicion.home.notFound">Ningún Punto De Expedicions encontrado</span>
+    <span jhiTranslate="abfApp.puntoDeExpedicion.home.notFound">Ningún Punto De Expedición encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="puntoDeExpedicions && puntoDeExpedicions.length > 0">
@@ -42,7 +42,7 @@
           </th>
           <th scope="col" jhiSortBy="numeroPuntoDeExpedicion">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.puntoDeExpedicion.numeroPuntoDeExpedicion">Numero Punto De Expedicion</span>
+              <span jhiTranslate="abfApp.puntoDeExpedicion.numeroPuntoDeExpedicion">Número Punto De Expedición</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>

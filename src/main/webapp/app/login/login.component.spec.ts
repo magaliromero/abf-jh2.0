@@ -138,7 +138,7 @@ describe('LoginComponent', () => {
       expect(mockRouter.navigate).not.toHaveBeenCalled();
     });
 
-    it('should stay on login form and show error message on login error', () => {
+    it('should stay on login form and Mostrar error message on login error', () => {
       // GIVEN
       mockLoginService.login = jest.fn(() => throwError({}));
 

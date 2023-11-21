@@ -1,5 +1,6 @@
 package py.com.abf.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import py.com.abf.domain.FacturaDetalle;
+import py.com.abf.domain.NCDetalle;
+import py.com.abf.domain.NCDetalleItem;
 import py.com.abf.domain.NotaCredito;
+import py.com.abf.domain.NotaCreditoDetalle;
+import py.com.abf.domain.Productos;
+import py.com.abf.domain.enumeration.EstadosFacturas;
+import py.com.abf.repository.NotaCreditoDetalleRepository;
 import py.com.abf.repository.NotaCreditoRepository;
 import py.com.abf.service.NotaCreditoService;
 
@@ -21,9 +29,17 @@ public class NotaCreditoServiceImpl implements NotaCreditoService {
     private final Logger log = LoggerFactory.getLogger(NotaCreditoServiceImpl.class);
 
     private final NotaCreditoRepository notaCreditoRepository;
+    private final NotaCreditoDetalleRepository notaCreditoDetalleRepository;
+    private final ProductosServiceImpl productoServiceImpl;
 
-    public NotaCreditoServiceImpl(NotaCreditoRepository notaCreditoRepository) {
+    public NotaCreditoServiceImpl(
+        NotaCreditoRepository notaCreditoRepository,
+        NotaCreditoDetalleRepository notaCreditoDetalleRepository,
+        ProductosServiceImpl productosServiceImpl
+    ) {
         this.notaCreditoRepository = notaCreditoRepository;
+        this.notaCreditoDetalleRepository = notaCreditoDetalleRepository;
+        this.productoServiceImpl = productosServiceImpl;
     }
 
     @Override
@@ -103,5 +119,32 @@ public class NotaCreditoServiceImpl implements NotaCreditoService {
     public void delete(Long id) {
         log.debug("Request to delete NotaCredito : {}", id);
         notaCreditoRepository.deleteById(id);
+    }
+
+    public NotaCredito saveWithDetails(NCDetalle data) {
+        log.debug("Request to save data : {}", data);
+        data.getCabecera().setEstado(EstadosFacturas.PAGADO);
+
+        NotaCredito f = notaCreditoRepository.save(data.getCabecera());
+        log.debug("NC guardada : {}", f);
+
+        List<NCDetalleItem> items = data.getDetalle();
+        for (NCDetalleItem temp : items) {
+            Productos p = this.productoServiceImpl.findOne(temp.getProducto().longValue()).orElse(null);
+            if (p != null) {
+                NotaCreditoDetalle fd = new NotaCreditoDetalle();
+                fd.setCantidad(temp.getCantidad());
+                fd.setNotaCredito(f);
+                fd.setPorcentajeIva(p.getPorcentajeIva());
+                fd.setSubtotal(temp.getSubtotal());
+                fd.setValorPorcentaje((temp.getSubtotal() * p.getPorcentajeIva()) / 100);
+                fd.setPrecioUnitario(temp.getPrecioUnitario());
+                fd.setProducto(p);
+                log.debug("Request to save data-detalle : {}", fd);
+
+                notaCreditoDetalleRepository.save(fd);
+            }
+        }
+        return f;
     }
 }

@@ -32,7 +32,7 @@ describe('PasswordComponent', () => {
     service = TestBed.inject(PasswordService);
   });
 
-  it('should show error if passwords do not match', () => {
+  it('should Mostrar error if passwords do not match', () => {
     // GIVEN
     comp.passwordForm.patchValue({
       newPassword: 'password1',

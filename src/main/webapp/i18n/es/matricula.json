@@ -2,27 +2,27 @@
   "abfApp": {
     "matricula": {
       "home": {
-        "title": "Matriculas",
+        "title": "Matrículas",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Matricula",
-        "createOrEditLabel": "Crear o editar Matricula",
-        "notFound": "Ningún Matriculas encontrado"
+        "createLabel": "Crear nueva matrícula",
+        "createOrEditLabel": "Crear o editar matrícula",
+        "notFound": "Ninguna matrícula encontrada"
       },
-      "created": "Un nuevo Matricula ha sido creado con el identificador {{ param }}",
-      "updated": "Un Matricula ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Matricula ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva matrícula ha sido creada con el identificador {{ param }}",
+      "updated": "Una matrícula ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una matrícula ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Matricula {{ id }}?"
+        "question": "¿Seguro que quiere eliminar matrícula {{ id }}?"
       },
       "detail": {
-        "title": "Matricula"
+        "title": "Matrícula"
       },
       "id": "ID",
       "concepto": "Concepto",
       "monto": "Monto",
-      "fechaInscripcion": "Fecha Inscripcion",
-      "fechaInicio": "Fecha Inicio",
-      "fechaPago": "Fecha Pago",
+      "fechaInscripcion": "Fecha de inscripción",
+      "fechaInicio": "Fecha de inicio",
+      "fechaPago": "Fecha de pago",
       "estado": "Estado",
       "alumno": "Alumno"
     }

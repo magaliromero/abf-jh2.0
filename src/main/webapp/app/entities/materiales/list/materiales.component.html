@@ -15,7 +15,7 @@
         [routerLink]="['/materiales/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.materiales.home.createLabel"> Crear nuevo Materiales </span>
+        <span jhiTranslate="abfApp.materiales.home.createLabel"> Crear nuevo material </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="materiales?.length === 0">
-    <span jhiTranslate="abfApp.materiales.home.notFound">Ningún Materiales encontrado</span>
+    <span jhiTranslate="abfApp.materiales.home.notFound">Ningún Material encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="materiales && materiales.length > 0">
@@ -54,7 +54,7 @@
           </th>
           <th scope="col" jhiSortBy="cantidadEnPrestamo">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.materiales.cantidadEnPrestamo">Cantidad En Prestamo</span>
+              <span jhiTranslate="abfApp.materiales.cantidadEnPrestamo">Cantidad En Préstamo</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -98,7 +98,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.materiales.prestamos' | translate) }"
-                  >Mostrar Prestamos</span
+                  >Mostrar Préstamos</span
                 >
               </button>
               <button

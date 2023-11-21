@@ -15,7 +15,7 @@
         [routerLink]="['/nota-credito/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.notaCredito.home.createLabel"> Crear nuevo Nota Credito </span>
+        <span jhiTranslate="abfApp.notaCredito.home.createLabel"> Crear nueva Nota de Crédito </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="notaCreditos?.length === 0">
-    <span jhiTranslate="abfApp.notaCredito.home.notFound">Ningún Nota Creditos encontrado</span>
+    <span jhiTranslate="abfApp.notaCredito.home.notFound">Ninguna Nota de crédito encontrada</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="notaCreditos && notaCreditos.length > 0">
@@ -150,7 +150,7 @@
                   class="d-none d-md-inline"
                   jhiTranslate="entity.action.show"
                   [translateValues]="{ otherEntity: ('abfApp.notaCredito.notaCreditoDetalle' | translate) }"
-                  >Show Nota Credito Detalle</span
+                  >Mostrar Nota Credito Detalle</span
                 >
               </button>
               <button

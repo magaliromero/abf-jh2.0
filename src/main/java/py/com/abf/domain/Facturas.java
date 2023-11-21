@@ -70,12 +70,15 @@ public class Facturas implements Serializable {
     @Column(name = "estado")
     private EstadosFacturas estado;
 
+    @Column(name = "posee_nc")
+    private Boolean poseeNC;
+
     @OneToMany(mappedBy = "factura", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "producto", "factura" }, allowSetters = true)
     private Set<FacturaDetalle> facturaDetalles = new HashSet<>();
 
-    @OneToMany(mappedBy = "facturas")
+    @OneToMany(mappedBy = "facturas", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "notaCreditoDetalles", "facturas" }, allowSetters = true)
     private Set<NotaCredito> notaCreditos = new HashSet<>();
@@ -232,6 +235,19 @@ public class Facturas implements Serializable {
         this.estado = estado;
     }
 
+    public Boolean getPoseeNC() {
+        return this.poseeNC;
+    }
+
+    public Facturas poseeNC(Boolean poseeNC) {
+        this.setPoseeNC(poseeNC);
+        return this;
+    }
+
+    public void setPoseeNC(Boolean poseeNC) {
+        this.poseeNC = poseeNC;
+    }
+
     public Set<FacturaDetalle> getFacturaDetalles() {
         return this.facturaDetalles;
     }
@@ -341,6 +357,7 @@ public class Facturas implements Serializable {
             ", condicionVenta='" + getCondicionVenta() + "'" +
             ", total=" + getTotal() +
             ", estado='" + getEstado() + "'" +
+            ", poseeNC='" + getPoseeNC() + "'" +
             "}";
     }
 }

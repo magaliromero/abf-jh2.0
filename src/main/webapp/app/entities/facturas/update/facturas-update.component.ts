@@ -29,9 +29,6 @@ import { EstadosFacturas } from 'app/entities/enumerations/estados-facturas.mode
 export class FacturasUpdateComponent implements OnInit {
   isSaving = false;
   facturas: IFacturas | null = null;
-  productos: any[] = [];
-  timbrados: any[] = [];
-  sucursales: any[] = [];
 
   condicionVentaValues = Object.keys(CondicionVenta);
   estadosFacturas = Object.keys(EstadosFacturas);
@@ -39,7 +36,9 @@ export class FacturasUpdateComponent implements OnInit {
   editForm: FacturasFormGroup = this.facturasFormService.createFacturasFormGroup();
 
   nuevoItem: any = {};
-
+  productos: any[] = [];
+  timbrados: any[] = [];
+  sucursales: any[] = [];
   listaDetalle: any[] = [];
   puntosExpedicion: any[] = [];
   constructor(

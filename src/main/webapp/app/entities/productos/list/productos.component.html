@@ -15,7 +15,7 @@
         [routerLink]="['/productos/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.productos.home.createLabel"> Crear nuevo Productos </span>
+        <span jhiTranslate="abfApp.productos.home.createLabel">Crear nuevo producto </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="productos?.length === 0">
-    <span jhiTranslate="abfApp.productos.home.notFound">Ningún Productos encontrado</span>
+    <span jhiTranslate="abfApp.productos.home.notFound">Ningún producto encontrado</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="productos && productos.length > 0">
@@ -42,25 +42,25 @@
           </th>
           <th scope="col" jhiSortBy="tipoProducto">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.productos.tipoProducto">Tipo Producto</span>
+              <span jhiTranslate="abfApp.productos.tipoProducto">Tipo producto</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="precioUnitario">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.productos.precioUnitario">Precio Unitario</span>
+              <span jhiTranslate="abfApp.productos.precioUnitario">Precio unitario</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="porcentajeIva">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.productos.porcentajeIva">Porcentaje Iva</span>
+              <span jhiTranslate="abfApp.productos.porcentajeIva">Porcentaje de IVA</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="descripcion">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.productos.descripcion">Descripcion</span>
+              <span jhiTranslate="abfApp.productos.descripcion">Descripción</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>

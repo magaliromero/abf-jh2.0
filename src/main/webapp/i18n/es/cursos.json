@@ -4,13 +4,13 @@
       "home": {
         "title": "Cursos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Cursos",
-        "createOrEditLabel": "Crear o editar Cursos",
-        "notFound": "Ningún Cursos encontrado"
+        "createLabel": "Crear nuevo Curso",
+        "createOrEditLabel": "Crear o editar Curso",
+        "notFound": "Ningún Curso encontrado"
       },
-      "created": "Un nuevo Cursos ha sido creado con el identificador {{ param }}",
-      "updated": "Un Cursos ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Cursos ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Curso ha sido creado con el identificador {{ param }}",
+      "updated": "Un Curso ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Curso ha sido eliminado con el identificador {{ param }}",
       "delete": {
         "question": "¿Seguro que quiere eliminar Cursos {{ id }}?"
       },
@@ -18,14 +18,14 @@
         "title": "Cursos"
       },
       "id": "ID",
-      "nombreCurso": "Nombre Curso",
-      "descripcion": "Descripcion",
-      "fechaInicio": "Fecha Inicio",
-      "fechaFin": "Fecha Fin",
-      "cantidadClases": "Cantidad Clases",
+      "nombreCurso": "Nombre del curso",
+      "descripcion": "Descripción",
+      "fechaInicio": "Fecha de inicio",
+      "fechaFin": "Fecha fin",
+      "cantidadClases": "Cantidad de clases",
       "nivel": "Nivel",
       "inscripciones": "Inscripciones",
-      "registroClases": "Registro Clases",
+      "registroClases": "Registro de clases",
       "temas": "Temas"
     }
   }

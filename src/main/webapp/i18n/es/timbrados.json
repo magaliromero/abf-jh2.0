@@ -4,23 +4,23 @@
       "home": {
         "title": "Timbrados",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Timbrados",
-        "createOrEditLabel": "Crear o editar Timbrados",
-        "notFound": "Ningún Timbrados encontrado"
+        "createLabel": "Crear nuevo timbrado",
+        "createOrEditLabel": "Crear o editar timbrado",
+        "notFound": "Ningún timbrado encontrado"
       },
-      "created": "Un nuevo Timbrados ha sido creado con el identificador {{ param }}",
-      "updated": "Un Timbrados ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Timbrados ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo timbrado ha sido creado con el identificador {{ param }}",
+      "updated": "Un timbrado ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un timbrado ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Timbrados {{ id }}?"
+        "question": "¿Seguro que quiere eliminar timbrado {{ id }}?"
       },
       "detail": {
         "title": "Timbrados"
       },
       "id": "ID",
-      "numeroTimbrado": "Numero Timbrado",
-      "fechaInicio": "Fecha Inicio",
-      "fechaFin": "Fecha Fin",
+      "numeroTimbrado": "Número de timbrado",
+      "fechaInicio": "Fecha de inicio",
+      "fechaFin": "Fecha fin",
       "sucursales": "Sucursales"
     }
   }
