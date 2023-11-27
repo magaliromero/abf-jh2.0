@@ -58,20 +58,29 @@ export class FacturasUpdateComponent implements OnInit {
     //this.editForm.controls.condicionVenta.setValue(CondicionVenta.CONTADO);
 
     this.activatedRoute.data.subscribe(({ facturas }) => {
+      console.log(facturas);
+
       this.facturas = facturas;
       if (facturas) {
         this.updateForm(facturas);
 
-        this.obtenerSucursales();
-        this.editForm.controls.sucursal.setValue(facturas.sucursal);
         // this.timbrados.find();
         this.editForm.controls.timbrado.setValue(facturas.timbrado);
+
+        this.obtenerSucursales();
+        this.editForm.controls.sucursal.setValue(facturas.sucursal);
+
         this.obtenerPE();
         this.editForm.controls.puntoExpedicion.setValue(facturas.puntoExpedicion);
 
         // this.editForm.controls.estado(this.estadosFacturas.find(item => item === facturas.estado))
         this.listaDetalle = facturas.facturaDetalles;
         this.editForm.controls.total.disable();
+        if (facturas.poseeNC) {
+          this.editForm.controls.estado.disable();
+          this.editForm.controls.ruc.disable();
+          this.editForm.controls.razonSocial.disable();
+        }
       } else {
         const now = new Date();
         const date = dayjs(now);

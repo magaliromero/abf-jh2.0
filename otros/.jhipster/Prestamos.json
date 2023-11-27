@@ -1,0 +1,52 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116012130",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "prestamos",
+  "fields": [
+    {
+      "fieldName": "fechaPrestamo",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaDevolucion",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadosPrestamos",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "DEVUELTO (Devuelto),PRESTADO (En Prestamo),VENCIDO (No devuelto)"
+    },
+    {
+      "fieldName": "observaciones",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Prestamos",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "materiales",
+      "otherEntityRelationshipName": "prestamos",
+      "relationshipName": "materiales",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombreCompleto",
+      "otherEntityName": "alumnos",
+      "otherEntityRelationshipName": "prestamos",
+      "relationshipName": "alumnos",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -11,6 +11,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, NotaCreditoService } from '../service/nota-credito.service';
 import { NotaCreditoDeleteDialogComponent } from '../delete/nota-credito-delete-dialog.component';
 import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/filter.model';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
 
 @Component({
   selector: 'jhi-nota-credito',
@@ -32,7 +33,8 @@ export class NotaCreditoComponent implements OnInit {
     protected notaCreditoService: NotaCreditoService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected applicationConfigService: ApplicationConfigService
   ) {}
 
   trackId = (_index: number, item: INotaCredito): number => this.notaCreditoService.getNotaCreditoIdentifier(item);
@@ -65,6 +67,11 @@ export class NotaCreditoComponent implements OnInit {
         this.onResponseSuccess(res);
       },
     });
+  }
+  descargar(id: number) {
+    let reporteUrl = this.applicationConfigService.getEndpointFor('reportes/nc/');
+
+    window.open(reporteUrl + id, '_blank');
   }
 
   navigateToWithComponentValues(): void {

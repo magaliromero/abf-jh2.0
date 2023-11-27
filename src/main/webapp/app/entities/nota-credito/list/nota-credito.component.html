@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="NotaCreditoHeading">
-    <span jhiTranslate="abfApp.notaCredito.home.title">Nota Creditos</span>
+    <span>Nota Creditos</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="abfApp.notaCredito.home.refreshListLabel">Refrescar lista</span>
+        <span>Refrescar lista</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/nota-credito/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="abfApp.notaCredito.home.createLabel"> Crear nueva Nota de Crédito </span>
+        <span> Crear nueva Nota de Crédito </span>
       </button>
     </div>
   </h2>
@@ -27,7 +27,7 @@
   <jhi-filter [filters]="filters"></jhi-filter>
 
   <div class="alert alert-warning" id="no-result" *ngIf="notaCreditos?.length === 0">
-    <span jhiTranslate="abfApp.notaCredito.home.notFound">Ninguna Nota de crédito encontrada</span>
+    <span>Ninguna Nota de crédito encontrada</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="notaCreditos && notaCreditos.length > 0">
@@ -128,8 +128,8 @@
           <td>{{ notaCredito.razonSocial }}</td>
           <td>{{ notaCredito.ruc }}</td>
           <td>{{ notaCredito.direccion }}</td>
-          <td jhiTranslate="{{ 'abfApp.Motivo.' + notaCredito.motivoEmision }}">{{ notaCredito.motivoEmision }}</td>
-          <td jhiTranslate="{{ 'abfApp.EstadosFacturas.' + notaCredito.estado }}">{{ notaCredito.estado }}</td>
+          <td>{{ notaCredito.motivoEmision }}</td>
+          <td>{{ notaCredito.estado }}</td>
           <td>{{ notaCredito.total }}</td>
           <td>
             <div *ngIf="notaCredito.facturas">
@@ -138,6 +138,10 @@
           </td>
           <td class="text-end">
             <div class="btn-group">
+              <button type="submit" class="btn btn-warning btn-sm" (click)="descargar(notaCredito.id)">
+                <fa-icon icon="save"></fa-icon>
+                <span class="d-none d-md-inline">Descargar</span>
+              </button>
               <button
                 type="submit"
                 [routerLink]="['/nota-credito-detalle']"
@@ -146,12 +150,7 @@
                 data-cy="filterOtherEntityButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span
-                  class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('abfApp.notaCredito.notaCreditoDetalle' | translate) }"
-                  >Mostrar Nota Credito Detalle</span
-                >
+                <span class="d-none d-md-inline">Mostrar Nota Crédito Detalle</span>
               </button>
               <button
                 type="submit"
@@ -160,7 +159,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline">Vista</span>
               </button>
 
               <button

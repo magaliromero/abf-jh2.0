@@ -1,0 +1,86 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116012830",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "nota_credito",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "timbrado",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notaNro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "puntoExpedicion",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sucursal",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "razonSocial",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ruc",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "direccion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "motivoEmision",
+      "fieldType": "Motivo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ANULACION (Anulacion),DEVOLUCION (Devolucion),DESCUENTO (Descuento),OTRO (Otro)"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadosFacturas",
+      "fieldValues": "ANULADO,ENTREGADO,PENDIENTE,PAGADO"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "NotaCredito",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "notaCreditoDetalle",
+      "otherEntityRelationshipName": "notaCredito",
+      "relationshipName": "notaCreditoDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "facturaNro",
+      "otherEntityName": "facturas",
+      "otherEntityRelationshipName": "notaCredito",
+      "relationshipName": "facturas",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

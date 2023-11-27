@@ -1,0 +1,97 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116011330",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "funcionarios",
+  "fields": [
+    {
+      "fieldName": "nombres",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "apellidos",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nombreCompleto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "documento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadosPersona",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ACTIVO (Activo),INACTIVO (Inactivo)"
+    },
+    {
+      "fieldName": "tipoFuncionario",
+      "fieldType": "TipoFuncionarios",
+      "fieldValues": "PROFESORES (Profesores),FUNCIONARIOS (Funcionarios),OTRO (Otro)"
+    },
+    {
+      "fieldName": "elo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fideId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Funcionarios",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "evaluaciones",
+      "otherEntityRelationshipName": "funcionarios",
+      "relationshipName": "evaluaciones",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "pagos",
+      "otherEntityRelationshipName": "funcionario",
+      "relationshipName": "pagos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "registroClases",
+      "otherEntityRelationshipName": "funcionario",
+      "relationshipName": "registroClases",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "tiposDocumentos",
+      "otherEntityRelationshipName": "funcionarios",
+      "relationshipName": "tipoDocumentos",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

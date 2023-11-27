@@ -1,0 +1,47 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116011730",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "pagos",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cantidadHoras",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Pagos",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "descripcion",
+      "otherEntityName": "productos",
+      "otherEntityRelationshipName": "pagos",
+      "relationshipName": "producto",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nombreCompleto",
+      "otherEntityName": "funcionarios",
+      "otherEntityRelationshipName": "pagos",
+      "relationshipName": "funcionario",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

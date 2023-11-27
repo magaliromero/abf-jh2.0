@@ -73,7 +73,7 @@ public class NotaCredito implements Serializable {
     @Column(name = "total", nullable = false)
     private Integer total;
 
-    @OneToMany(mappedBy = "notaCredito")
+    @OneToMany(mappedBy = "notaCredito", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "notaCredito", "producto" }, allowSetters = true)
     private Set<NotaCreditoDetalle> notaCreditoDetalles = new HashSet<>();

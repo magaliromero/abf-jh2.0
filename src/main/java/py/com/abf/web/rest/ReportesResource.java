@@ -52,4 +52,23 @@ public class ReportesResource {
             // TODO: handle exception
         }
     }
+
+    @GetMapping("nc/{ncId}")
+    public void ncReporte(HttpServletResponse response, @PathVariable("ncId") Long ncId) {
+        try {
+            System.out.println("DATA ");
+            response.setContentType("application/x-download");
+            response.setHeader("Content-Disposition", "attachment; filename=notaCredito.pdf");
+
+            OutputStream out = response.getOutputStream();
+
+            HashMap<String, Object> param = new HashMap<>();
+            // param.put("clienteId", 1L);
+            param.put("notaCreditoId", ncId);
+
+            report.exportReport(out, "notaCredito", "pdf", param);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 }

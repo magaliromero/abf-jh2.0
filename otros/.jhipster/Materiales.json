@@ -1,0 +1,42 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116011930",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "materiales",
+  "fields": [
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cantidad",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "cantidadEnPrestamo",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Materiales",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "registroStockMateriales",
+      "otherEntityRelationshipName": "materiales",
+      "relationshipName": "registroStockMateriales",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "prestamos",
+      "otherEntityRelationshipName": "materiales",
+      "relationshipName": "prestamos",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

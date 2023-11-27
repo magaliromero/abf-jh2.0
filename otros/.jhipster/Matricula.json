@@ -1,0 +1,55 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116012230",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "matricula",
+  "fields": [
+    {
+      "fieldName": "concepto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "monto",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaInscripcion",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaPago",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadosPagos",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PAGADO (Pagado),PENDIENTE (Pendiente),ANULADO (Anulado)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Matricula",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nombreCompleto",
+      "otherEntityName": "alumnos",
+      "otherEntityRelationshipName": "matricula",
+      "relationshipName": "alumno",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

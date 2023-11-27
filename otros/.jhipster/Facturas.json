@@ -1,0 +1,90 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116011530",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "factura",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "facturaNro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "timbrado",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "puntoExpedicion",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sucursal",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "razonSocial",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ruc",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "condicionVenta",
+      "fieldType": "CondicionVenta",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CONTADO (Contado)"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadosFacturas",
+      "fieldValues": "ANULADO,ENTREGADO,PENDIENTE,PAGADO"
+    },
+    {
+      "fieldName": "poseeNC",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Facturas",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "facturaDetalle",
+      "otherEntityRelationshipName": "factura",
+      "relationshipName": "facturaDetalle",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "notaCredito",
+      "otherEntityRelationshipName": "facturas",
+      "relationshipName": "notaCredito",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "alumnos",
+      "otherEntityRelationshipName": "facturas",
+      "relationshipName": "alumnos",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

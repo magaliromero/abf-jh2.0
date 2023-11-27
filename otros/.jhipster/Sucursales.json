@@ -1,0 +1,45 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116012630",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sucursales",
+  "fields": [
+    {
+      "fieldName": "nombreSucursal",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "direccion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroEstablecimiento",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Sucursales",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "puntoDeExpedicion",
+      "otherEntityRelationshipName": "sucursales",
+      "relationshipName": "puntoDeExpedicion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "numeroTimbrado",
+      "otherEntityName": "timbrados",
+      "otherEntityRelationshipName": "sucursales",
+      "relationshipName": "timbrados",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

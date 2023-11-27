@@ -33,6 +33,8 @@ import org.springframework.web.servlet.ModelAndView;
 import py.com.abf.domain.Clientes;
 import py.com.abf.domain.FacturaDetalle;
 import py.com.abf.domain.Facturas;
+import py.com.abf.domain.NotaCredito;
+import py.com.abf.domain.NotaCreditoDetalle;
 import py.com.abf.report.SimpleReportExporter;
 import py.com.abf.report.SimpleReportFiller;
 import py.com.abf.service.impl.ClientesServiceImpl;
@@ -43,12 +45,19 @@ public class ReporteService {
     public ClientesServiceImpl clienteService;
     public FacturasService facturasService;
     public FacturaDetalleService facturasDetalleService;
+    public NotaCreditoService notaCreditoService;
     private ConsultaClienteService consultaRucService;
 
-    public ReporteService(ClientesServiceImpl clienteService, FacturasService facturasService, ConsultaClienteService consultaRucService) {
+    public ReporteService(
+        NotaCreditoService notaCreditoService,
+        ClientesServiceImpl clienteService,
+        FacturasService facturasService,
+        ConsultaClienteService consultaRucService
+    ) {
         this.clienteService = clienteService;
         this.facturasService = facturasService;
         this.consultaRucService = consultaRucService;
+        this.notaCreditoService = notaCreditoService;
     }
 
     public void exportReport(OutputStream out, String reporte, String tipoReporte, HashMap<String, Object> parametrosPeticion) {
@@ -68,7 +77,7 @@ public class ReporteService {
                     //HashMap<String, Object> facParams = objectMapper.convertValue(cliente, HashMap.class);
                     parameters.put("timbrado", fact.getTimbrado().toString());
                     parameters.put("fechaFactura", fact.getFecha().toString());
-                    parameters.put("facturaNumero", fact.getTimbrado() + "-" + fact.getPuntoExpedicion() + "-" + fact.getFacturaNro());
+                    parameters.put("facturaNumero", fact.getSucursal() + "-" + fact.getPuntoExpedicion() + "-" + fact.getFacturaNro());
                     parameters.put("rucJogapo", "1231231-1");
                     parameters.put("telefonoJogapo", "0999 312 132");
                     parameters.put("direccionJogapo", "Academia de Ajedrez Bobby Fischer.");
@@ -76,11 +85,48 @@ public class ReporteService {
                     parameters.put("documento", cliente.getDocumento());
                     parameters.put("importeTotal", fact.getTotal());
                     parameters.put("direccion", cliente.getDireccion());
+                    if (!fact.getPoseeNC()) {
+                        fact.poseeNC(true);
+                        this.facturasService.save(fact);
+                    }
                     ///lista = mapperReporte.preciosPromedioTop5(new Date(), new Date());
                     //facturasDetalleService.
 
                     Set<FacturaDetalle> listaDetalle = fact.getFacturaDetalles();
                     for (FacturaDetalle itemDet : listaDetalle) {
+                        HashMap<String, Object> item = new HashMap<>();
+
+                        item.put("cantidad", itemDet.getCantidad());
+                        item.put("precio", itemDet.getPrecioUnitario());
+                        item.put("exenta", 0L);
+                        item.put("ivacinco", 0L);
+                        item.put("ivadiez", 0L);
+                        item.put("descripcion", itemDet.getProducto().getDescripcion());
+                        item.put("subtotal", itemDet.getSubtotal());
+                        lista.add(item);
+                    }
+                case "notaCredito":
+                    Long ncId = (Long) parametrosPeticion.get("notaCreditoId");
+                    NotaCredito nc = this.notaCreditoService.findOne(ncId).orElse(null);
+                    System.out.println("DATA RUC" + (nc.getRuc() == "5159789-6"));
+                    Clientes clienteNC = this.consultaRucService.findOne(nc.getRuc());
+
+                    //HashMap<String, Object> facParams = objectMapper.convertValue(cliente, HashMap.class);
+                    parameters.put("timbrado", nc.getTimbrado().toString());
+                    parameters.put("fechaFactura", nc.getFecha().toString());
+                    parameters.put("facturaNumero", nc.getSucursal() + "-" + nc.getPuntoExpedicion() + "-" + nc.getNotaNro());
+                    parameters.put("rucJogapo", "1231231-1");
+                    parameters.put("telefonoJogapo", "0999 312 132");
+                    parameters.put("direccionJogapo", "Academia de Ajedrez Bobby Fischer.");
+                    parameters.put("razonSocial", clienteNC.getRazonSocial());
+                    parameters.put("documento", clienteNC.getDocumento());
+                    parameters.put("importeTotal", nc.getTotal());
+                    parameters.put("direccion", clienteNC.getDireccion());
+                    ///lista = mapperReporte.preciosPromedioTop5(new Date(), new Date());
+                    //facturasDetalleService.
+
+                    Set<NotaCreditoDetalle> listaDetalNC = nc.getNotaCreditoDetalles();
+                    for (NotaCreditoDetalle itemDet : listaDetalNC) {
                         HashMap<String, Object> item = new HashMap<>();
 
                         item.put("cantidad", itemDet.getCantidad());

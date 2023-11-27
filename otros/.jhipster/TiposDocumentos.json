@@ -1,0 +1,39 @@
+{
+  "applications": ["abf"],
+  "changelogDate": "20231116011130",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "tipos_documentos",
+  "fields": [
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "TiposDocumentos",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "alumnos",
+      "otherEntityRelationshipName": "tipoDocumentos",
+      "relationshipName": "alumnos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "funcionarios",
+      "otherEntityRelationshipName": "tipoDocumentos",
+      "relationshipName": "funcionarios",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}
