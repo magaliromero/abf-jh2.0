@@ -27,6 +27,103 @@
             </span>
           </a>
         </li>
+
+        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+        <li
+          *ngSwitchCase="true"
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+            <span>
+              <fa-icon icon="cogs"></fa-icon>
+              <span>Procesos</span>
+            </span>
+          </a>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="tipos-documentos"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.tiposDocumentos">Tipos Documentos</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="clientes"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.clientes">Clientes</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="timbrados"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.timbrados">Timbrados</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="facturas"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.facturas">Facturas</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="nota-credito"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.notaCredito">Nota de crédito</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="pagos"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.pagos">Pagos</span>
+              </a>
+            </li>
+
+            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+          </ul>
+        </li>
+
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
           *ngSwitchCase="true"
@@ -39,7 +136,7 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
             <span>
               <fa-icon icon="th-list"></fa-icon>
-              <span jhiTranslate="global.menu.entities.main">Entidades</span>
+              <span> Académico </span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
@@ -91,18 +188,7 @@
                 <span jhiTranslate="global.menu.entities.inscripciones">Inscripciones</span>
               </a>
             </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="tipos-documentos"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.tiposDocumentos">Tipos Documentos</span>
-              </a>
-            </li>
+
             <li>
               <a
                 class="dropdown-item"
@@ -139,7 +225,7 @@
                 <span jhiTranslate="global.menu.entities.clientes">Clientes</span>
               </a>
             </li>
-            <li>
+            <!--   <li>
               <a
                 class="dropdown-item"
                 routerLink="facturas"
@@ -150,8 +236,8 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.facturas">Facturas</span>
               </a>
-            </li>
-            <li>
+            </li> -->
+            <!--   <li>
               <a
                 class="dropdown-item"
                 routerLink="factura-detalle"
@@ -162,8 +248,8 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.facturaDetalle">Factura Detalle</span>
               </a>
-            </li>
-            <li>
+            </li> -->
+            <!--            <li>
               <a
                 class="dropdown-item"
                 routerLink="pagos"
@@ -174,7 +260,7 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.pagos">Pagos</span>
               </a>
-            </li>
+            </li> -->
             <li>
               <a
                 class="dropdown-item"
@@ -259,7 +345,7 @@
                 <span jhiTranslate="global.menu.entities.evaluacionesDetalle">Evaluaciones Detalle</span>
               </a>
             </li>
-            <li>
+            <!--             <li>
               <a
                 class="dropdown-item"
                 routerLink="timbrados"
@@ -270,7 +356,7 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.timbrados">Timbrados</span>
               </a>
-            </li>
+            </li> -->
             <li>
               <a
                 class="dropdown-item"
@@ -295,7 +381,7 @@
                 <span jhiTranslate="global.menu.entities.puntoDeExpedicion">Punto De Expedición</span>
               </a>
             </li>
-            <li>
+            <!--      <li>
               <a
                 class="dropdown-item"
                 routerLink="nota-credito"
@@ -306,8 +392,8 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.notaCredito">Nota de crédito</span>
               </a>
-            </li>
-            <li>
+            </li> -->
+            <!--      <li>
               <a
                 class="dropdown-item"
                 routerLink="nota-credito-detalle"
@@ -318,10 +404,11 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.notaCreditoDetalle">Nota de crédito detalle</span>
               </a>
-            </li>
+            </li> -->
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>
+
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown

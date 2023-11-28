@@ -1,5 +1,7 @@
 package py.com.abf.repository;
 
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -20,4 +22,6 @@ public interface FacturasRepository extends JpaRepository<Facturas, Long>, JpaSp
         @Param("timbrado") Integer timbrado,
         @Param("sucursal") Integer sucursal
     );
+
+    List<Facturas> findByFechaBetween(LocalDate p1, LocalDate p2);
 }

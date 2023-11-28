@@ -22,7 +22,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(account => (this.account = account));
+      .subscribe(account => {
+        this.account = account;
+      });
+    if (this.account == null) {
+      console.log(this.account);
+      this.router.navigate(['/login']);
+    }
   }
 
   login(): void {

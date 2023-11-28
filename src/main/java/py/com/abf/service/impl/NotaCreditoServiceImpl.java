@@ -1,5 +1,6 @@
 package py.com.abf.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import py.com.abf.domain.FacturaDetalle;
+import py.com.abf.domain.Facturas;
 import py.com.abf.domain.NCDetalle;
 import py.com.abf.domain.NCDetalleItem;
 import py.com.abf.domain.NotaCredito;
@@ -146,5 +148,10 @@ public class NotaCreditoServiceImpl implements NotaCreditoService {
             }
         }
         return f;
+    }
+
+    public List<NotaCredito> obtenerNotasPorFecha(LocalDate p1, LocalDate p2) {
+        List<NotaCredito> lista = this.notaCreditoRepository.findByFechaBetween(p1, p2);
+        return lista;
     }
 }

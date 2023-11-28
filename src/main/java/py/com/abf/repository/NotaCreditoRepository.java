@@ -1,5 +1,6 @@
 package py.com.abf.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import py.com.abf.domain.Facturas;
 import py.com.abf.domain.NotaCredito;
 
 /**
@@ -37,4 +39,6 @@ public interface NotaCreditoRepository extends JpaRepository<NotaCredito, Long>,
 
     @Query("select notaCredito from NotaCredito notaCredito left join fetch notaCredito.facturas where notaCredito.id =:id")
     Optional<NotaCredito> findOneWithToOneRelationships(@Param("id") Long id);
+
+    List<NotaCredito> findByFechaBetween(LocalDate p1, LocalDate p2);
 }

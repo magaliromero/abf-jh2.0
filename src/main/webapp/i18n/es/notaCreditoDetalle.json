@@ -8,9 +8,9 @@
         "createOrEditLabel": "Crear o editar Nota Credito Detalle",
         "notFound": "Ningún Nota Credito Detalles encontrado"
       },
-      "created": "Un nuevo Nota Credito Detalle ha sido creado con el identificador {{ param }}",
-      "updated": "Un Nota Credito Detalle ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Nota Credito Detalle ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Nota Credito Detalle ha sido creada con el identificador {{ param }}",
+      "updated": "Una Nota Credito Detalle ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Nota Credito Detalle ha sido eliminada con el identificador {{ param }}",
       "delete": {
         "question": "¿Seguro que quiere eliminar Nota Credito Detalle {{ id }}?"
       },

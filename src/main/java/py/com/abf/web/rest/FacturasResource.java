@@ -2,6 +2,9 @@ package py.com.abf.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,10 +21,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import py.com.abf.domain.FacturaConDetalle;
 import py.com.abf.domain.Facturas;
+import py.com.abf.domain.param.BalanceParam;
+import py.com.abf.domain.param.BalanceResult;
 import py.com.abf.repository.FacturasRepository;
 import py.com.abf.service.FacturasQueryService;
 import py.com.abf.service.FacturasService;
 import py.com.abf.service.criteria.FacturasCriteria;
+import py.com.abf.service.impl.BalanceGeneral;
 import py.com.abf.service.impl.FacturasServiceImpl;
 import py.com.abf.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
@@ -50,16 +56,20 @@ public class FacturasResource {
 
     private final FacturasServiceImpl facturasServiceImpl;
 
+    private final BalanceGeneral balanceGeneral;
+
     public FacturasResource(
         FacturasService facturasService,
         FacturasRepository facturasRepository,
         FacturasQueryService facturasQueryService,
-        FacturasServiceImpl facturasServiceImpl
+        FacturasServiceImpl facturasServiceImpl,
+        BalanceGeneral balanceGeneral
     ) {
         this.facturasService = facturasService;
         this.facturasRepository = facturasRepository;
         this.facturasQueryService = facturasQueryService;
         this.facturasServiceImpl = facturasServiceImpl;
+        this.balanceGeneral = balanceGeneral;
     }
 
     /**
@@ -164,6 +174,14 @@ public class FacturasResource {
         FacturasCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
+        /*  BalanceParam test = new BalanceParam();
+        test.setFechaFin( new Date());
+        test.setFechaInicio( new Date());
+        
+        BalanceResult b = this.balanceGeneral.obtenerBalanceGeneral( test );
+        log.debug("Test factura: {}", b.getListaFactura());
+        log.debug("Test NC: {}", b.getListaNC()); */
+
         log.debug("REST request to get Facturas by criteria: {}", criteria);
         Page<Facturas> page = facturasQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
@@ -180,6 +198,12 @@ public class FacturasResource {
     public ResponseEntity<Long> countFacturas(FacturasCriteria criteria) {
         log.debug("REST request to count Facturas by criteria: {}", criteria);
         return ResponseEntity.ok().body(facturasQueryService.countByCriteria(criteria));
+    }
+
+    @GetMapping("/balance")
+    public ResponseEntity<BalanceResult> reporte(BalanceParam param) {
+        log.debug("REST request to count Facturas by criteria: {}", param);
+        return ResponseEntity.ok().body(balanceGeneral.obtenerBalanceGeneral(param));
     }
 
     /**

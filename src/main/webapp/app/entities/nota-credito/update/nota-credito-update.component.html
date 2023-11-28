@@ -1,16 +1,14 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-nota-credito-heading" data-cy="NotaCreditoCreateUpdateHeading" jhiTranslate="abfApp.notaCredito.home.createOrEditLabel">
-        Crear o editar Nota Credito
-      </h2>
+      <h2 id="jhi-nota-credito-heading" data-cy="NotaCreditoCreateUpdateHeading">Crear o editar Nota Credito</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
         <jhi-alert></jhi-alert>
         <div class="row">
           <div class="col-1 mb-3" *ngIf="editForm.controls.id.value !== null">
-            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <label class="form-label">ID</label>
             <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
 
@@ -173,7 +171,7 @@
             </div>
           </div>
           <div class="col-3">
-            <label class="form-label" jhiTranslate="abfApp.facturas.fecha" for="field_fecha">Fecha</label>
+            <label class="form-label">Fecha</label>
             <div class="input-group">
               <input
                 id="field_fecha"
@@ -199,7 +197,7 @@
           </div>
 
           <div class="col-2">
-            <label class="form-label" jhiTranslate="abfApp.facturas.ruc" for="field_ruc">Ruc</label>
+            <label class="form-label">RUC</label>
             <input
               (change)="updateRazonSocial()"
               type="text"
@@ -216,7 +214,7 @@
             </div>
           </div>
           <div class="col-6 mb-3">
-            <label class="form-label" jhiTranslate="abfApp.facturas.razonSocial" for="field_razonSocial">Razon Social</label>
+            <label class="form-label">Razón Social</label>
             <input
               type="text"
               class="form-control"
@@ -239,7 +237,8 @@
           </div>
 
           <div class="col-4 mb-3">
-            <label class="form-label" jhiTranslate="abfApp.notaCredito.direccion" for="field_direccion">Direccion</label>
+            <!--<label class="form-label" jhiTranslate="abfApp.notaCredito.direccion" for="field_direccion">Direccion</label>-->
+            <label class="form-label">Dirección</label>
             <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
           </div>
 
@@ -253,7 +252,7 @@
             </small>
           </div>
           <div class="col-3 mb-3">
-            <label class="form-label" jhiTranslate="abfApp.notaCredito.motivoEmision" for="field_motivoEmision">Motivo Emision</label>
+            <label class="form-label">Motivo de emisión</label>
             <select
               class="form-control"
               name="motivoEmision"
@@ -280,7 +279,7 @@
           </div>
 
           <div class="col-3 mb-3">
-            <label class="form-label" jhiTranslate="abfApp.notaCredito.estado" for="field_estado">Estado</label>
+            <label class="form-label">Estado</label>
             <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
               <option [ngValue]="null">{{ 'abfApp.EstadosFacturas.null' | translate }}</option>
               <option *ngFor="let estadosFacturas of estadosFacturasValues" [value]="estadosFacturas">
@@ -290,7 +289,7 @@
           </div>
 
           <div class="col-3 mb-3">
-            <label class="form-label" jhiTranslate="abfApp.notaCredito.total" for="field_total">Total</label>
+            <label class="form-label">Total</label>
             <input type="number" class="form-control" name="total" id="field_total" data-cy="total" formControlName="total" />
             <div *ngIf="editForm.get('total')!.invalid && (editForm.get('total')!.dirty || editForm.get('total')!.touched)">
               <small
@@ -311,7 +310,7 @@
           </div>
 
           <div class="col-3 mb-3">
-            <label class="form-label" jhiTranslate="abfApp.notaCredito.facturas" for="field_facturas">Facturas</label>
+            <label class="form-label">Facturas</label>
             <select
               class="form-control"
               id="field_facturas"
@@ -413,7 +412,7 @@
     </div>
     <div>
       <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
       </button>
 
       <button
@@ -424,7 +423,7 @@
         [disabled]="editForm.invalid || isSaving"
         class="btn btn-primary"
       >
-        <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
       </button>
     </div>
   </div>

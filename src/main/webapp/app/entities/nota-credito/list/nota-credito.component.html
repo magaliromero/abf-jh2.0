@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="NotaCreditoHeading">
-    <span>Nota Creditos</span>
+    <span>Notas de Créditos</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -36,79 +36,80 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id">
             <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
+              <span>ID</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="fecha">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.fecha">Fecha</span>
+              <!--<span jhiTranslate="abfApp.notaCredito.fecha">Fecha</span>-->
+              <span>Fecha</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="timbrado">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.timbrado">Timbrado</span>
+              <span>Timbrado</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="notaNro">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.notaNro">Nota Nro</span>
+              <span>Nota Nro</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="puntoExpedicion">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.puntoExpedicion">Punto Expedicion</span>
+              <span>Punto de Expedición</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="sucursal">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.sucursal">Sucursal</span>
+              <span>Sucursal</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="razonSocial">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.razonSocial">Razon Social</span>
+              <span>Razón Social</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="ruc">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.ruc">Ruc</span>
+              <span>RUC</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="direccion">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.direccion">Direccion</span>
+              <span>Dirección</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="motivoEmision">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.motivoEmision">Motivo Emision</span>
+              <span>Motivo de emisión</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="estado">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.estado">Estado</span>
+              <span>Estado</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="total">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.total">Total</span>
+              <span>Total</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="facturas.facturaNro">
             <div class="d-flex">
-              <span jhiTranslate="abfApp.notaCredito.facturas">Facturas</span>
+              <span>Facturas</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -150,7 +151,7 @@
                 data-cy="filterOtherEntityButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">Mostrar Nota Crédito Detalle</span>
+                <span class="d-none d-md-inline">Mostrar Detalle de nota de crédito</span>
               </button>
               <button
                 type="submit"
@@ -159,7 +160,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">Vista</span>
+                <span class="d-none d-md-inline">Ver</span>
               </button>
 
               <button
@@ -169,12 +170,13 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline">Editar</span>
               </button>
 
               <button type="submit" (click)="delete(notaCredito)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <!--<span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>-->
+                <span class="d-none d-md-inline">Eliminar</span>
               </button>
             </div>
           </td>

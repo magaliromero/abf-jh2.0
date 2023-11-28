@@ -1,5 +1,6 @@
 package py.com.abf.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -140,5 +141,10 @@ public class FacturasServiceImpl implements FacturasService {
             }
         }
         return f;
+    }
+
+    public List<Facturas> obtenerFacturasPorFecha(LocalDate p1, LocalDate p2) {
+        List<Facturas> lista = this.facturasRepository.findByFechaBetween(p1, p2);
+        return lista;
     }
 }
