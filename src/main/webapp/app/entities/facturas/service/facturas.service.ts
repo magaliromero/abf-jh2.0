@@ -79,6 +79,14 @@ export class FacturasService {
       .get<RestFacturas[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
+  balance(data?: any): Observable<any> {
+    /*  return this.http
+      .post<any>(this.resourceUrl+"/balance",param, { observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res))); */
+    return this.http
+      .post<any>(this.resourceUrl + '/balance', data, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });

@@ -7,6 +7,7 @@ import { FacturasDetailComponent } from '../detail/facturas-detail.component';
 import { FacturasUpdateComponent } from '../update/facturas-update.component';
 import { FacturasRoutingResolveService } from './facturas-routing-resolve.service';
 import { ASC } from 'app/config/navigation.constants';
+import { BalanceComponent } from '../balance/balance.component';
 
 const facturasRoute: Routes = [
   {
@@ -47,6 +48,12 @@ const facturasRoute: Routes = [
     resolve: {
       facturas: FacturasRoutingResolveService,
     },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'balance',
+    component: BalanceComponent,
+    resolve: {},
     canActivate: [UserRouteAccessService],
   },
 ];

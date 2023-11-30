@@ -1,0 +1,124 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Balance de Facturas y Notas de Crédito</h1>
+  <jhi-alert></jhi-alert>
+  <div class="row">
+    <div class="col-5">
+      <div class="form-inline">
+        <label class="form-label" for="field_fecha">Fecha Inicio</label>
+        <div class="input-group">
+          <input
+            (ngModelChange)="verificarFecha()"
+            id="field_fecha"
+            data-cy="fecha"
+            type="text"
+            class="form-control"
+            name="fecha"
+            ngbDatepicker
+            [(ngModel)]="startDate"
+            #fechaDp="ngbDatepicker"
+          />
+          <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-5">
+      <div class="form-inline ml-4">
+        <label class="form-label" for="field_fecha">Fecha Fin</label>
+        <div class="input-group">
+          <input
+            (ngModelChange)="verificarFecha()"
+            [(ngModel)]="endDate"
+            id="field_fecha_fin"
+            data-cy="fecha_fin"
+            type="text"
+            class="form-control"
+            name="fecha"
+            ngbDatepicker
+            #fechaDpFin="ngbDatepicker"
+          />
+          <button type="button" class="btn btn-secondary" (click)="fechaDpFin.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2 d-flex align-items-end">
+      <button class="btn btn-info" [disabled]="isLoading" (click)="actualizar()">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Actualizar</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="mt-4">
+      <div class="d-flex justify-content-end">
+        <h4 class="text-right mt-3" [ngClass]="{ 'text-danger': diferencia < 0, 'text-success': diferencia >= 0 }">
+          Total Balance: Gs <span id="balanceAmount">{{ diferencia }}</span>
+        </h4>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">Facturas</div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Número Factura</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listaFactura">
+                <td>
+                  <!-- Utiliza routerLink para hacer que el número de factura sea un enlace -->
+                  <a [routerLink]="['/facturas', item.id, 'edit']">{{
+                    formatSPE(item.sucursal) + '-' + formatSPE(item.puntoExpedicion) + '-' + item.facturaNro
+                  }}</a>
+                </td>
+                <td>{{ item.fecha }}</td>
+                <td>{{ 'Gs ' + item.total }}</td>
+                <td>{{ item.estado }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-success text-white">Notas de Crédito</div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Número Nota</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listaNC">
+                <td>
+                  <!-- Utiliza routerLink para hacer que el número de factura sea un enlace -->
+                  <a [routerLink]="['/nota-credito', item.id, 'edit']">{{
+                    item.sucursal + '-' + item.puntoExpedicion + '-' + item.notaNro
+                  }}</a>
+                </td>
+                <td>{{ item.fecha }}</td>
+                <td>{{ 'Gs ' + item.total }}</td>
+                <td>{{ item.estado }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

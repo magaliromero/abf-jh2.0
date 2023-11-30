@@ -1,25 +1,30 @@
 package py.com.abf.domain.param;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class BalanceParam {
 
-    Date fechaInicio;
-    Date fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    @Override
+    public String toString() {
+        return "BalanceParam{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + '}';
     }
 }

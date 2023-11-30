@@ -41,6 +41,7 @@ export class FacturasUpdateComponent implements OnInit {
   sucursales: any[] = [];
   listaDetalle: any[] = [];
   puntosExpedicion: any[] = [];
+  impreso = false;
   constructor(
     protected facturasService: FacturasService,
     protected facturasFormService: FacturasFormService,
@@ -56,31 +57,25 @@ export class FacturasUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     //this.editForm.controls.condicionVenta.setValue(CondicionVenta.CONTADO);
+    /*  this.queryBackendProductos().subscribe(data => {
+      const { body } = data;
+      this.productos = body;
+      this.queryBackendTimbrados().subscribe(dataT => {
+        this.timbrados = dataT.body;
+      });
+    }); */
 
     this.activatedRoute.data.subscribe(({ facturas }) => {
-      console.log(facturas);
-
       this.facturas = facturas;
       if (facturas) {
-        this.updateForm(facturas);
-
-        // this.timbrados.find();
-        this.editForm.controls.timbrado.setValue(facturas.timbrado);
-
-        this.obtenerSucursales();
-        this.editForm.controls.sucursal.setValue(facturas.sucursal);
-
-        this.obtenerPE();
-        this.editForm.controls.puntoExpedicion.setValue(facturas.puntoExpedicion);
-
-        // this.editForm.controls.estado(this.estadosFacturas.find(item => item === facturas.estado))
-        this.listaDetalle = facturas.facturaDetalles;
-        this.editForm.controls.total.disable();
-        if (facturas.poseeNC) {
-          this.editForm.controls.estado.disable();
-          this.editForm.controls.ruc.disable();
-          this.editForm.controls.razonSocial.disable();
-        }
+        this.queryBackendProductos().subscribe(data => {
+          const { body } = data;
+          this.productos = body;
+          this.queryBackendTimbrados().subscribe(dataT => {
+            this.timbrados = dataT.body;
+            this.setInitData(facturas);
+          });
+        });
       } else {
         const now = new Date();
         const date = dayjs(now);
@@ -89,16 +84,56 @@ export class FacturasUpdateComponent implements OnInit {
 
         this.editForm.controls.estado.setValue(EstadosFacturas.PAGADO);
         this.editForm.controls.condicionVenta.setValue(CondicionVenta.CONTADO);
+
+        this.queryBackendProductos().subscribe(data => {
+          const { body } = data;
+          this.productos = body;
+          this.queryBackendTimbrados().subscribe(dataT => {
+            this.timbrados = dataT.body;
+
+            this.setInitData(facturas);
+          });
+        });
       }
     });
-    this.queryBackendProductos().subscribe(data => {
-      const { body } = data;
-      this.productos = body;
-    });
-    this.queryBackendTimbrados().subscribe(data => {
-      const { body } = data;
-      this.timbrados = body;
-    });
+  }
+  setInitData(facturas: any) {
+    this.updateForm(facturas);
+
+    // this.timbrados.find();
+    this.editForm.controls.timbrado.setValue(facturas.timbrado);
+
+    this.obtenerSucursales(facturas.timbrado);
+    this.editForm.controls.sucursal.setValue(facturas.sucursal);
+
+    this.obtenerPE(facturas.sucursal);
+    this.editForm.controls.puntoExpedicion.setValue(facturas.puntoExpedicion);
+
+    // this.editForm.controls.estado(this.estadosFacturas.find(item => item === facturas.estado))
+    console.log('====================================');
+    console.log(facturas.facturaDetalles);
+    console.log('====================================');
+    this.listaDetalle = facturas.facturaDetalles.map((item: any) => ({
+      cantidad: item.cantidad,
+      precio: item.precioUnitario,
+      iva: item.porcentajeIva,
+      // eslint-disable-next-line radix
+      producto: item.producto.id,
+      descripcionProducto: item.producto.descripcion,
+      subtotal: item.subtotal,
+    }));
+    this.editForm.controls.total.disable();
+    if (facturas.poseeNC) {
+      this.impreso = true;
+      this.editForm.controls.condicionVenta.disable();
+      this.editForm.controls.ruc.disable();
+      this.editForm.controls.razonSocial.disable();
+      this.editForm.controls.facturaNro.disable();
+      this.editForm.controls.fecha.disable();
+      this.editForm.controls.timbrado.disable();
+      this.editForm.controls.sucursal.disable();
+      this.editForm.controls.puntoExpedicion.disable();
+    }
   }
 
   previousState(): void {
@@ -171,22 +206,22 @@ export class FacturasUpdateComponent implements OnInit {
     this.editForm.controls.total.setValue(total);
   }
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  obtenerSucursales() {
+  obtenerSucursales(timbrado?: any) {
     this.validarTimbrado();
     this.editForm.controls.puntoExpedicion.setValue(null);
     this.editForm.controls.sucursal.setValue(null);
     this.puntosExpedicion = [];
     this.sucursales = [];
-    this.queryBackenSucursales().subscribe(data => {
+    this.queryBackenSucursales(timbrado).subscribe(data => {
       const { body } = data;
       this.sucursales = body;
     });
   }
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  obtenerPE() {
+  obtenerPE(sucursal: any = null) {
     this.editForm.controls.puntoExpedicion.setValue(null);
     this.puntosExpedicion = [];
-    this.queryBackendPE().subscribe(data => {
+    this.queryBackendPE(sucursal).subscribe(data => {
       const { body } = data;
       this.puntosExpedicion = body;
     });
@@ -276,7 +311,7 @@ export class FacturasUpdateComponent implements OnInit {
     };
     return this.timbradoService.query(queryObject);
   }
-  protected queryBackenSucursales(): Observable<any> {
+  protected queryBackenSucursales(timbrado: any = null): Observable<any> {
     const data = this.timbrados.find(item => item.numeroTimbrado == this.editForm.controls.timbrado.value);
     const pageToLoad = 1;
     const queryObject: any = {
@@ -288,7 +323,7 @@ export class FacturasUpdateComponent implements OnInit {
     };
     return this.sucursalesService.query(queryObject);
   }
-  protected queryBackendPE(): Observable<any> {
+  protected queryBackendPE(sucursal: any = null): Observable<any> {
     const data = this.sucursales.find(item => item.numeroEstablecimiento == this.editForm.controls.sucursal.value);
 
     const pageToLoad = 1;
@@ -296,7 +331,7 @@ export class FacturasUpdateComponent implements OnInit {
       page: pageToLoad - 1,
       size: 100,
       sort: '',
-      'sucursalesId.in': data.id,
+      'sucursalesId.in': sucursal ? sucursal : data.id,
     };
     return this.puntosExpedicionSerice.query(queryObject);
   }

@@ -75,7 +75,6 @@ public class Facturas implements Serializable {
 
     @OneToMany(mappedBy = "factura", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "producto", "factura" }, allowSetters = true)
     private Set<FacturaDetalle> facturaDetalles = new HashSet<>();
 
     @OneToMany(mappedBy = "facturas", fetch = FetchType.EAGER)

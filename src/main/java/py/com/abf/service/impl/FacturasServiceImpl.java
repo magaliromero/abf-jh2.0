@@ -118,7 +118,6 @@ public class FacturasServiceImpl implements FacturasService {
 
     public Facturas saveWithDetails(FacturaConDetalle data) {
         log.debug("Request to save data : {}", data);
-        data.getFactura().setEstado(EstadosFacturas.PAGADO);
 
         Facturas f = facturasRepository.save(data.getFactura());
         log.debug("Factura guardada : {}", f);

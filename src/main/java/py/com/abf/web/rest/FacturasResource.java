@@ -200,9 +200,9 @@ public class FacturasResource {
         return ResponseEntity.ok().body(facturasQueryService.countByCriteria(criteria));
     }
 
-    @GetMapping("/balance")
-    public ResponseEntity<BalanceResult> reporte(BalanceParam param) {
-        log.debug("REST request to count Facturas by criteria: {}", param);
+    @PostMapping("/facturas/balance")
+    public ResponseEntity<BalanceResult> reporte(@RequestBody BalanceParam param) {
+        log.debug("REST request to get the balance: {}", param);
         return ResponseEntity.ok().body(balanceGeneral.obtenerBalanceGeneral(param));
     }
 

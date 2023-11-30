@@ -23,9 +23,8 @@ public class BalanceGeneral {
     }
 
     public BalanceResult obtenerBalanceGeneral(BalanceParam param) {
-        LocalDate p1 = param.getFechaInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate p2 = param.getFechaFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
+        LocalDate p1 = param.getFechaInicio();
+        LocalDate p2 = param.getFechaFin();
         List<Facturas> listaFactura = this.facturaService.obtenerFacturasPorFecha(p1, p2);
         List<NotaCredito> listaNotaCredito = this.notaCreditoService.obtenerNotasPorFecha(p1, p2);
 

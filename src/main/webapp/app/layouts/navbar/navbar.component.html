@@ -119,6 +119,55 @@
                 <span jhiTranslate="global.menu.entities.pagos">Pagos</span>
               </a>
             </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="productos"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.productos">Productos</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="sucursales"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.sucursales">Sucursales</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="punto-de-expedicion"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.puntoDeExpedicion">Punto De Expedición</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/facturas/balance"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                <span>Balance</span>
+              </a>
+            </li>
 
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
@@ -213,7 +262,7 @@
                 <span jhiTranslate="global.menu.entities.funcionarios">Funcionarios</span>
               </a>
             </li>
-            <li>
+            <!--  <li>
               <a
                 class="dropdown-item"
                 routerLink="clientes"
@@ -224,7 +273,7 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.clientes">Clientes</span>
               </a>
-            </li>
+            </li> -->
             <!--   <li>
               <a
                 class="dropdown-item"
@@ -261,7 +310,7 @@
                 <span jhiTranslate="global.menu.entities.pagos">Pagos</span>
               </a>
             </li> -->
-            <li>
+            <!--  <li>
               <a
                 class="dropdown-item"
                 routerLink="productos"
@@ -272,7 +321,7 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.productos">Productos</span>
               </a>
-            </li>
+            </li> -->
             <li>
               <a
                 class="dropdown-item"
@@ -357,7 +406,7 @@
                 <span jhiTranslate="global.menu.entities.timbrados">Timbrados</span>
               </a>
             </li> -->
-            <li>
+            <!--  <li>
               <a
                 class="dropdown-item"
                 routerLink="sucursales"
@@ -380,7 +429,7 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.puntoDeExpedicion">Punto De Expedición</span>
               </a>
-            </li>
+            </li> -->
             <!--      <li>
               <a
                 class="dropdown-item"
