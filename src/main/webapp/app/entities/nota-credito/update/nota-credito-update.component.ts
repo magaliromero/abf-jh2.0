@@ -168,6 +168,14 @@ export class NotaCreditoUpdateComponent implements OnInit {
     }
   }
 
+  changeFactura() {
+    console.log(this.editForm.controls.facturas.value);
+    const factura: any = this.editForm.controls.facturas.value;
+    this.editForm.controls.ruc.setValue(factura.ruc);
+    this.editForm.controls.razonSocial.setValue(factura.razonSocial);
+    this.editForm.controls.direccion.setValue(factura.direccion);
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<INotaCredito>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -214,6 +222,7 @@ export class NotaCreditoUpdateComponent implements OnInit {
       next: (response: any) => {
         this.editForm.controls.razonSocial.setValue(response.body.razonSocial);
         this.editForm.controls.direccion.setValue(response.body.direccion);
+        this.editForm.controls.facturas.setValue(null);
       },
       error(error: any) {
         //this.modalService.open(ClientesUpdateComponent);
