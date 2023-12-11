@@ -38,6 +38,11 @@ public class TimbradosServiceImpl implements TimbradosService {
         return timbradosRepository.save(timbrados);
     }
 
+    public Timbrados obtenerPorNroTimbrado(Integer nroTimbrado) {
+        log.debug("Request to find Timbrados by nroTimbrado : {}", nroTimbrado);
+        return this.timbradosRepository.findByNumeroTimbrado(nroTimbrado);
+    }
+
     @Override
     public Optional<Timbrados> partialUpdate(Timbrados timbrados) {
         log.debug("Request to partially update Timbrados : {}", timbrados);

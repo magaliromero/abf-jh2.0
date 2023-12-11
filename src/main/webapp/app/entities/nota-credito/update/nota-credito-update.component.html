@@ -317,7 +317,6 @@
               data-cy="facturas"
               name="facturas"
               formControlName="facturas"
-              (change)="changeFactura()"
               [compareWith]="compareFacturas"
             >
               <option *ngIf="editForm.get(['facturas'])!.value == null" [ngValue]="null" selected></option>

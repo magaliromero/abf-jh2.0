@@ -63,10 +63,12 @@
 	<parameter name="direccion" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="apellido" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="fechaFactura" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="rucJogapo" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="telefonoJogapo" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="direccionJogapo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="rucAbf" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="telefonoAbf" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="direccionAbf" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="timbrado" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fechaInicio" class="java.lang.String"/>
+	<parameter name="fechaFin" class="java.lang.String"/>
 	<field name="cantidad" class="java.lang.Integer"/>
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="precio" class="java.lang.Integer"/>
@@ -192,7 +194,7 @@
 			</staticText>
 			<image>
 				<reportElement x="10" y="2" width="100" height="64" uuid="ea1c026e-bd59-4860-911c-cc6898f8f11b"/>
-				<imageExpression><![CDATA["img/jogapo-logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["img/Abf-logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="2" y="90" width="50" height="17" forecolor="#050505" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
@@ -203,7 +205,7 @@
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="42" width="90" height="16" forecolor="#050505" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<reportElement x="380" y="42" width="80" height="24" forecolor="#050505" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
 				<textElement textAlignment="Left">
 					<font size="8" isBold="true"/>
@@ -273,7 +275,7 @@
 				<text><![CDATA[CONDICIÓN DE VENTA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="16" width="80" height="14" forecolor="#050505" uuid="51a5a486-e144-4d49-b2ff-9ea94d4926c0"/>
+				<reportElement x="380" y="16" width="64" height="14" forecolor="#050505" uuid="51a5a486-e144-4d49-b2ff-9ea94d4926c0"/>
 				<box rightPadding="4"/>
 				<textElement textAlignment="Left">
 					<font size="8" isBold="true"/>
@@ -281,7 +283,7 @@
 				<text><![CDATA[FECHA INICIO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="30" width="80" height="14" forecolor="#050505" uuid="935f494e-9ddb-49b6-bef3-c583146314ec"/>
+				<reportElement x="380" y="30" width="64" height="14" forecolor="#050505" uuid="935f494e-9ddb-49b6-bef3-c583146314ec"/>
 				<box rightPadding="4"/>
 				<textElement textAlignment="Left">
 					<font size="8" isBold="true"/>
@@ -298,23 +300,31 @@
 			</staticText>
 			<textField>
 				<reportElement x="120" y="10" width="200" height="14" uuid="852db508-22cf-434d-a746-ad22ddf76458"/>
-				<textFieldExpression><![CDATA[$P{direccionJogapo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{direccionAbf}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="120" y="30" width="100" height="14" uuid="16ae1b2f-43d5-42c0-a231-be9f3e92998f"/>
-				<textFieldExpression><![CDATA[$P{rucJogapo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rucAbf}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="120" y="52" width="100" height="14" uuid="37b9541a-32f7-4ef0-a6fe-545df10de959"/>
-				<textFieldExpression><![CDATA[$P{telefonoJogapo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{telefonoAbf}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="2" width="100" height="14" uuid="21ce7d1d-28de-496d-b952-65043c5ec41c"/>
+				<reportElement x="445" y="2" width="104" height="14" uuid="21ce7d1d-28de-496d-b952-65043c5ec41c"/>
 				<textFieldExpression><![CDATA[$P{timbrado}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="450" y="108" width="100" height="14" uuid="ac86af9c-580e-495b-8e1a-297828ce93f9"/>
 				<textFieldExpression><![CDATA[$P{facturaNumero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="16" width="104" height="14" uuid="1d490696-98a4-449e-a17a-4a468bdf2fcf"/>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="30" width="104" height="14" uuid="5da302d0-1426-48cd-b101-465a854b275f"/>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
