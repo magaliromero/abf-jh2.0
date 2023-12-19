@@ -2,7 +2,7 @@
   <div class="col-8">
     <div *ngIf="notaCreditoDetalle">
       <h2 data-cy="notaCreditoDetalleDetailsHeading">
-        <span jhiTranslate="abfApp.notaCreditoDetalle.detail.title">Nota Credito Detalle</span>
+        <span jhiTranslate="abfApp.notaCreditoDetalle.detail.title">Nota Crédito Detalle</span>
       </h2>
 
       <hr />
@@ -36,7 +36,7 @@
         <dd>
           <span>{{ notaCreditoDetalle.valorPorcentaje }}</span>
         </dd>
-        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.notaCredito">Nota Credito</span></dt>
+        <dt><span jhiTranslate="abfApp.notaCreditoDetalle.notaCredito">Nota Crédito</span></dt>
         <dd>
           <div *ngIf="notaCreditoDetalle.notaCredito">
             <a [routerLink]="['/nota-credito', notaCreditoDetalle.notaCredito.id, 'view']">{{ notaCreditoDetalle.notaCredito.notaNro }}</a>

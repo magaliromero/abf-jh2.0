@@ -18,7 +18,7 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="abfApp.tiposDocumentos.codigo" for="field_codigo">Codigo</label>
+          <label class="form-label" jhiTranslate="abfApp.tiposDocumentos.codigo" for="field_codigo">Código</label>
           <input type="text" class="form-control" name="codigo" id="field_codigo" data-cy="codigo" formControlName="codigo" />
           <div *ngIf="editForm.get('codigo')!.invalid && (editForm.get('codigo')!.dirty || editForm.get('codigo')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('codigo')?.errors?.required" jhiTranslate="entity.validation.required">

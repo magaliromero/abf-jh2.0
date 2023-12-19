@@ -48,7 +48,11 @@ export class AlumnosUpdateComponent implements OnInit {
   previousState(): void {
     window.history.back();
   }
-
+  actualizarNombreCompleto(): void {
+    this.editForm.controls.nombreCompleto.setValue(
+      (this.editForm.controls.nombres.value ?? '') + ' ' + (this.editForm.controls.apellidos.value ?? '')
+    );
+  }
   save(): void {
     this.isSaving = true;
     const alumnos = this.alumnosFormService.getAlumnos(this.editForm);

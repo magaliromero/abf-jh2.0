@@ -2,20 +2,20 @@
   "abfApp": {
     "notaCreditoDetalle": {
       "home": {
-        "title": "Nota Credito Detalles",
+        "title": "Nota Crédito Detalles",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo detalle de nota de crédito",
-        "createOrEditLabel": "Crear o editar Nota Credito Detalle",
-        "notFound": "Ningún Nota Credito Detalles encontrado"
+        "createOrEditLabel": "Crear o editar Nota Crédito Detalle",
+        "notFound": "Ningún Nota Crédito Detalles encontrado"
       },
-      "created": "Una nueva Nota Credito Detalle ha sido creada con el identificador {{ param }}",
-      "updated": "Una Nota Credito Detalle ha sido actualizada con el identificador {{ param }}",
-      "deleted": "Una Nota Credito Detalle ha sido eliminada con el identificador {{ param }}",
+      "created": "Una nueva Nota Crédito Detalle ha sido creada con el identificador {{ param }}",
+      "updated": "Una Nota Crédito Detalle ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Nota Crédito Detalle ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Nota Credito Detalle {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Nota Crédito Detalle {{ id }}?"
       },
       "detail": {
-        "title": "Nota Credito Detalle"
+        "title": "Nota Crédito Detalle"
       },
       "id": "ID",
       "cantidad": "Cantidad",
@@ -23,7 +23,7 @@
       "subtotal": "Subtotal",
       "porcentajeIva": "Porcentaje Iva",
       "valorPorcentaje": "Valor Porcentaje",
-      "notaCredito": "Nota Credito",
+      "notaCredito": "Nota Crédito",
       "producto": "Producto"
     }
   }

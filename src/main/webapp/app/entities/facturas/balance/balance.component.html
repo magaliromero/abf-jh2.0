@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <h1 class="mb-4">Balance de Facturas y Notas de Crédito</h1>
+  <h1 class="mb-4">Registro de Facturas y Notas de Crédito</h1>
   <jhi-alert></jhi-alert>
   <div class="row">
     <div class="col-5">
@@ -52,11 +52,14 @@
 
   <div class="row mt-3">
     <div class="mt-4">
-      <div class="d-flex justify-content-end">
-        <h4 class="text-right mt-3" [ngClass]="{ 'text-danger': diferencia < 0, 'text-success': diferencia >= 0 }">
-          Total Balance: Gs <span id="balanceAmount">{{ diferencia }}</span>
+      <div class="d-flex justify-content-start">
+        <h4 class="text-right mt-3" [ngClass]="{ 'text-danger': totalFactura < 0, 'text-success': totalFactura >= 0 }">
+          Total Facturas: Gs <span id="balanceAmount">{{ totalFactura }}</span>
         </h4>
       </div>
+      <h4 class="text-left mt-3" [ngClass]="{ 'text-danger': totalNota < 0, 'text-success': totalNota >= 0 }">
+        Total Notas de crédito: Gs <span id="balanceAmount">{{ totalNota }}</span>
+      </h4>
     </div>
 
     <div class="col-md-6">

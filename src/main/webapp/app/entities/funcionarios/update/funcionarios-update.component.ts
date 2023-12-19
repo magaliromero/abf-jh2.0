@@ -60,7 +60,11 @@ export class FuncionariosUpdateComponent implements OnInit {
       this.subscribeToSaveResponse(this.funcionariosService.create(funcionarios));
     }
   }
-
+  actualizarNombreCompleto(): void {
+    this.editForm.controls.nombreCompleto.setValue(
+      (this.editForm.controls.nombres.value ?? '') + ' ' + (this.editForm.controls.apellidos.value ?? '')
+    );
+  }
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFuncionarios>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),

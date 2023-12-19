@@ -17,6 +17,8 @@ export class BalanceComponent implements OnInit {
   listaFactura: any[] = [];
   listaNC: any[] = [];
   diferencia = 0;
+  totalNota = 0;
+  totalFactura = 0;
 
   constructor(private facturaService: FacturasService, private alertService: AlertService) {}
 
@@ -69,15 +71,13 @@ export class BalanceComponent implements OnInit {
       },
       error: data => {
         this.isLoading = false;
-
-        console.log(data);
       },
     });
   }
   calcularDiferencia(): void {
-    const totalFactura = this.listaFactura.reduce((acc, item) => acc + item.total, 0);
-    const totalNota = this.listaNC.reduce((acc, item) => acc + item.total, 0);
-    this.diferencia = totalFactura - totalNota;
+    this.totalFactura = this.listaFactura.reduce((acc, item) => acc + item.total, 0);
+    this.totalNota = this.listaNC.reduce((acc, item) => acc + item.total, 0);
+    this.diferencia = this.totalFactura - this.totalNota;
   }
   formatSPE(i: any): string {
     return String(i).padStart(3, '0');

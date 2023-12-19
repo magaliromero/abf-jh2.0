@@ -148,7 +148,7 @@ export class NotaCreditoUpdateComponent implements OnInit {
       this.alertService.addAlert(
         {
           type: 'danger',
-          message: `El monto total de Notas de Credito para la factura seleccionada ya ha alcanzado el limite disponible`,
+          message: `El monto total de Notas de Crédito para la factura seleccionada ya ha alcanzado el limite disponible`,
           timeout: 5000,
           toast: false,
         },
